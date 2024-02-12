@@ -1,0 +1,29 @@
+{
+  "name": "erbilnas-com",
+  "version": "5.0.0",
+  "dependencies": {
+    "@nuxt/content": "^2.12.0",
+    "@pinia/nuxt": "^0.5.1",
+    "howlongtobeat": "^1.8.0",
+    "nuxt": "^3.10.1",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.48.1",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
+  },
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "type": "module",
+  "devDependencies": {
+    "dayjs-nuxt": "^2.1.9",
+    "nuxt-primevue": "^0.3.0",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0"
+  }
+}
