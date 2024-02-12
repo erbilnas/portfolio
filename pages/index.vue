@@ -20,7 +20,7 @@
       </div>
 
       <div class="flex-column">
-        <RecentArticleCard />
+        <!-- <RecentArticleCard /> -->
 
         <PlacesBeenCard />
       </div>
