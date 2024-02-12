@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(config.placesBeenMapUrl)">
+  <Card @click="useOpenUrl(config.public.placesBeenMapUrl)">
     <template #header>
       <div class="card-header">
         <i class="pi pi-compass icon" />
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-const config = useAppConfig()
+const config = useRuntimeConfig()
 </script>
 
 <style lang="scss" scoped>

@@ -19,10 +19,10 @@
 <script lang="ts" setup>
 const dayjs = useDayjs()
 
-const config = useAppConfig()
+const config = useRuntimeConfig()
 
-const age = dayjs().diff(dayjs(config.birthday), 'year')
-const experience = dayjs().diff(dayjs(config.firstExperienceDate), 'year')
+const age = dayjs().diff(dayjs(config.public.birthday), 'year')
+const experience = dayjs().diff(dayjs(config.public.firstExperienceDate), 'year')
 </script>
 
 <style lang="scss" scoped>

@@ -10,7 +10,7 @@
           <Button label="Read Now" />
         </NuxtLink>
 
-        <NuxtLink :to="config.mediumProfileUrl" target="_blank" rel="noopener">
+        <NuxtLink :to="config.public.mediumProfileUrl" target="_blank" rel="noopener">
           <Button label="More" outlined />
         </NuxtLink>
       </div>
@@ -26,9 +26,9 @@ type MediumResponse = {
   }[];
 }
 
-const config = useAppConfig()
+const config = useRuntimeConfig()
 
-const { data } = await useFetch(config.mediumRssFeed)
+const { data } = await useFetch(config.public.mediumRssFeed)
 
 const { title, link } = (data.value as MediumResponse)?.items[0]
 </script>

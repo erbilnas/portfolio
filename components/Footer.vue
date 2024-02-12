@@ -8,9 +8,10 @@
       </template>
 
       <template #end>
-        <Button icon="pi pi-twitter" aria-label="Twitter" text @click="useOpenUrl(config.twitterProfileUrl)" />
-        <Button icon="pi pi-instagram" aria-label="Instagram" text @click="useOpenUrl(config.instagramProfileUrl)" />
-        <Button icon="pi pi-linkedin" aria-label="LinkedIn" text @click="useOpenUrl(config.linkedinProfileUrl)" />
+        <Button icon="pi pi-twitter" aria-label="Twitter" text @click="useOpenUrl(config.public.twitterProfileUrl)" />
+        <Button icon="pi pi-instagram" aria-label="Instagram" text
+          @click="useOpenUrl(config.public.instagramProfileUrl)" />
+        <Button icon="pi pi-linkedin" aria-label="LinkedIn" text @click="useOpenUrl(config.public.linkedinProfileUrl)" />
       </template>
     </Toolbar>
   </footer>
@@ -20,7 +21,7 @@
 import { version } from '@@/package.json';
 
 const dayjs = useDayjs()
-const config = useAppConfig()
+const config = useRuntimeConfig()
 
 const versionMessage = computed(() => `Version ${version}`);
 </script>

@@ -19,10 +19,10 @@
 <script lang="ts" setup>
 const store = useDefaultStore()
 
-const config = useAppConfig()
+const config = useRuntimeConfig()
 
 const profileImageUrl = computed(() => {
-  return config.profilePicture
+  return config.public.profilePicture
 })
 
 const openSidebar = () => {

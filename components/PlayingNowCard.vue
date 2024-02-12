@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(config.hltbProfileUrl)">
+  <Card @click="useOpenUrl(config.public.hltbProfileUrl)">
     <template #header>
       <div class="image">
         <div class="image--blurred" />
@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 const { data: hltb } = await useFetch('/api/hltb?status=playing')
 
-const config = useAppConfig()
+const config = useRuntimeConfig()
 
 onMounted(() => {
   if (!hltb.value) return

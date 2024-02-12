@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(config.githubProfileUrl)">
+  <Card @click="useOpenUrl(config.public.githubProfileUrl)">
     <template #content>
       <i v-badge="99" class="pi pi-github p-overlay-badge" style="font-size: 8rem" />
     </template>
@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-const config = useAppConfig();
+const config = useRuntimeConfig()
 </script>
 
 <style lang="scss" scoped>
