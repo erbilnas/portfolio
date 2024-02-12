@@ -51,8 +51,8 @@ onMounted(() => {
 
 
   &--blurred {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 95%;
     background-size: cover;
     position: absolute;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));

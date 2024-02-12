@@ -1,5 +1,5 @@
 <template>
-  <Card @click="openSidebar">
+  <Card v-if="!isLoading" @click="openSidebar">
     <template #header>
       <div class="profile-image">
         <img :src="profileImageUrl" />
@@ -14,12 +14,23 @@
       An always-learner software engineer
     </template>
   </Card>
+
+  <Card v-else>
+    <template #content>
+      <div class="flex-row">
+        <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
+        <Skeleton width="10rem" height="4rem"></Skeleton>
+      </div>
+    </template>
+  </Card>
 </template>
 
 <script lang="ts" setup>
 const store = useDefaultStore()
 
 const config = useRuntimeConfig()
+
+const isLoading = ref(true)
 
 const profileImageUrl = computed(() => {
   return config.public.profilePicture
@@ -28,6 +39,10 @@ const profileImageUrl = computed(() => {
 const openSidebar = () => {
   store.sidebarVisible = true
 }
+
+onMounted(() => {
+  isLoading.value = false
+})
 </script>
 
 <style lang="scss" scoped>
@@ -55,5 +70,11 @@ const openSidebar = () => {
 
 .profile-image:hover img {
   transform: scale(1.1);
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(config.public.spotifyProfileUrl)">
+  <Card v-if="!isLoading" @click="useOpenUrl(config.public.spotifyProfileUrl)">
     <template #subtitle>
       Listening
     </template>
@@ -12,10 +12,25 @@
       </div>
     </template>
   </Card>
+
+  <Card v-else>
+    <template #content>
+      <div class="flex-column">
+        <Skeleton width="5rem"></Skeleton>
+        <Skeleton height="4rem"></Skeleton>
+      </div>
+    </template>
+  </Card>
 </template>
 
 <script lang="ts" setup>
 const config = useRuntimeConfig()
+
+const isLoading = ref(true)
+
+onMounted(() => {
+  isLoading.value = false
+})
 </script>
 
 <style lang="scss" scoped>
@@ -78,5 +93,11 @@ const config = useRuntimeConfig()
     transform: scaleY(0.6);
     /* scale down to 60% */
   }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>
