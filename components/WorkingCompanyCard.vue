@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <Card @click="useOpenUrl(config.public.trendyolProfileUrl)">
     <template #title>
       Trendyol
     </template>
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-
+const config = useRuntimeConfig()
 </script>
 
 <style></style>

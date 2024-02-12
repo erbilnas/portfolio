@@ -1,7 +1,7 @@
 <template>
   <Card @click="useOpenUrl(config.public.githubProfileUrl)">
     <template #content>
-      <i v-badge="99" class="pi pi-github p-overlay-badge" style="font-size: 8rem" />
+      <i v-badge="'GO'" class="pi pi-github p-overlay-badge" style="font-size: 8rem" />
     </template>
   </Card>
 </template>

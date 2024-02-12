@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <Card @click="useOpenUrl(config.public.spotifyProfileUrl)">
     <template #subtitle>
       Listening
     </template>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-
+const config = useRuntimeConfig()
 </script>
 
 <style lang="scss" scoped>

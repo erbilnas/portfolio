@@ -1,6 +1,6 @@
 <template>
-  <Sidebar :visible="store.sidebarVisible" position="right" :pt="{ root: { style: { 'width': '35vw' } } }"
-    :draggable="false">
+  <Sidebar :visible="store.sidebarVisible" :position="isMobile ? 'full' : 'right'"
+    :pt="{ root: { style: { 'width': '35vw' } } }" :draggable="false">
     <template #header>
       <div />
     </template>
@@ -45,6 +45,14 @@
 
 <script lang="ts" setup>
 const store = useDefaultStore()
+
+const isMobile = ref(false)
+
+onMounted(() => {
+  if (window.innerWidth <= 768) {
+    isMobile.value = true
+  }
+})
 </script>
 
 <style></style>
