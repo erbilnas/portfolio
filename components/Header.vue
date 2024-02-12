@@ -25,8 +25,9 @@ const isLoading = ref(true)
 onMounted(() => {
   if (window.innerWidth <= 768) {
     isMobile.value = true
-    isLoading.value = false
   }
+
+  isLoading.value = false
 })
 </script>
 
