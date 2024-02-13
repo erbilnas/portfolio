@@ -4,6 +4,7 @@
   "dependencies": {
     "@nuxt/content": "^2.12.0",
     "@pinia/nuxt": "^0.5.1",
+    "@vercel/speed-insights": "^1.0.9",
     "howlongtobeat": "^1.8.0",
     "nuxt": "^3.10.1",
     "primeicons": "^6.0.1",
