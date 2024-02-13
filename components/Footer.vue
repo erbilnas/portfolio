@@ -1,7 +1,13 @@
 <template>
   <footer>
     <Toolbar v-if="!isLoading">
-      <template #start>{{ dayjs().year() }} © Made with 🤍</template>
+      <template #start>
+        <div>
+          {{ dayjs().year() }} © Made with <NuxtLink :to="config.public.luvProfileUrl" rel="noopener" target="__blank">
+            🤍
+          </NuxtLink>
+        </div>
+      </template>
 
       <template #center>
         <Button v-tooltip.top="versionMessage" label="Changelog" link @click="store.changelogVisible = true" />
@@ -55,6 +61,10 @@ footer {
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    a {
+      text-decoration: none;
     }
   }
 }

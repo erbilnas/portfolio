@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     public: {
       twitterProfileUrl: process.env.TWITTER_PROFILE_URL,
       instagramProfileUrl: process.env.INSTAGRAM_PROFILE_URL,
+      luvProfileUrl: process.env.LUV_PROFILE_URL,
       linkedinProfileUrl: process.env.LINKEDIN_PROFILE_URL,
       placesBeenMapUrl: process.env.PLACES_BEEN_MAP_URL,
       githubProfileUrl: process.env.GITHUB_PROFILE_URL,
