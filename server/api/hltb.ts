@@ -38,12 +38,15 @@ export default defineEventHandler(async (event) => {
     const id = data.gamesList[0].game_id as HowLongToBeatEntry;
     const title = data.gamesList[0].custom_title as HowLongToBeatEntry;
     const platform = data.gamesList[0].platform as HowLongToBeatEntry;
+    const progress =
+      (data.gamesList[0].invested_pro as HowLongToBeatEntry) / 3600;
 
     const { imageUrl } = await hltb.detail(id.toString());
 
     return {
       title,
       platform,
+      progress,
       image: imageUrl,
     };
   }

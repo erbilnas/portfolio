@@ -4,7 +4,7 @@
       <div class="flex-column">
         <ProfileCard />
 
-        <SpotifyCard />
+        <ListeningNowCard />
 
         <div class="flex-row">
           <KnobCollection />
@@ -20,13 +20,13 @@
       </div>
 
       <div class="flex-column">
-        <RecentArticleCard />
+        <RecentPostCard />
 
         <PlacesBeenCard />
       </div>
     </div>
 
-    <AboutSidebar />
+    <AboutMeSidebar />
   </main>
 </template>
 

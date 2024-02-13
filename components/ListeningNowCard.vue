@@ -14,9 +14,12 @@
   </Card>
 
   <Card v-else>
+    <template #subtitle>
+      <Skeleton width="8rem"></Skeleton>
+    </template>
+
     <template #content>
-      <div class="flex-column">
-        <Skeleton width="5rem"></Skeleton>
+      <div class="card-content">
         <Skeleton height="4rem"></Skeleton>
       </div>
     </template>
@@ -93,11 +96,5 @@ onMounted(() => {
     transform: scaleY(0.6);
     /* scale down to 60% */
   }
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 </style>

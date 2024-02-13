@@ -14,6 +14,8 @@ export default defineNuxtConfig({
   appConfig: {},
   runtimeConfig: {
     hltbApi: process.env.HLTB_API,
+    spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
+    spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     public: {
       twitterProfileUrl: process.env.TWITTER_PROFILE_URL,
       instagramProfileUrl: process.env.INSTAGRAM_PROFILE_URL,
@@ -32,7 +34,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "It's me, Erbil",
+      title: "Welcome | It's me, Erbil!",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
     },

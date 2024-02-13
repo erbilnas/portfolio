@@ -7,7 +7,7 @@
 
   <Card v-else>
     <template #content>
-      <Skeleton shape="circle" size="8rem" class="mr-2"></Skeleton>
+      <Skeleton shape="circle" size="8rem"></Skeleton>
     </template>
   </Card>
 </template>

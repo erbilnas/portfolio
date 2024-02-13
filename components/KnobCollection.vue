@@ -17,15 +17,13 @@
 
   <Card v-else>
     <template #content>
-      <div class="flex-centered-column gap-1">
-        <div class="flex-centered-row">
-          <Skeleton shape="circle" size="5rem"></Skeleton>
-          <Skeleton shape="circle" size="5rem"></Skeleton>
+      <div class="flex-centered-row">
+        <div class="flex-centered-column">
+          <Skeleton shape="circle" size="8rem"></Skeleton>
         </div>
 
-        <div class="flex-centered-row">
-          <Skeleton width="5rem" height="1rem"></Skeleton>
-          <Skeleton width="5rem" height="1rem"></Skeleton>
+        <div class="flex-centered-column">
+          <Skeleton shape="circle" size="8rem"></Skeleton>
         </div>
       </div>
     </template>
@@ -64,10 +62,6 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
-}
-
-.gap-1 {
   gap: 1rem;
 }
 </style>

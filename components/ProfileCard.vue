@@ -16,11 +16,22 @@
   </Card>
 
   <Card v-else>
-    <template #content>
-      <div class="flex-row">
-        <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
-        <Skeleton width="10rem" height="4rem"></Skeleton>
+    <template #header>
+      <div class="skeleton__header">
+        <Skeleton shape="circle" size="8rem" />
       </div>
+    </template>
+
+    <template #title>
+      <Skeleton height="1.5rem" width="6rem" />
+    </template>
+
+    <template #subtitle>
+      <Skeleton height="1rem" width="10rem" />
+    </template>
+
+    <template #content>
+      <Skeleton height="1rem" width="18rem" />
     </template>
   </Card>
 </template>
@@ -72,9 +83,12 @@ onMounted(() => {
   transform: scale(1.1);
 }
 
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+.skeleton {
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5vh;
+  }
 }
 </style>

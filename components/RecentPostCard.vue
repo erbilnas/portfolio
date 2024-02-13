@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <Card v-if="!isLoading">
     <template #title>Recent Post</template>
 
     <template #subtitle>{{ title }}</template>
@@ -13,6 +13,24 @@
         <NuxtLink :to="config.public.mediumProfileUrl" target="_blank" rel="noopener">
           <Button label="More" outlined />
         </NuxtLink>
+      </div>
+    </template>
+  </Card>
+
+  <Card v-else>
+    <template #title>
+      <Skeleton width="8rem"></Skeleton>
+    </template>
+
+    <template #subtitle>
+      <Skeleton width="16rem"></Skeleton>
+    </template>
+
+    <template #footer>
+      <div class="button-container">
+        <Skeleton width="8rem" height="2rem"></Skeleton>
+
+        <Skeleton width="8rem" height="2rem"></Skeleton>
       </div>
     </template>
   </Card>
@@ -31,6 +49,12 @@ const config = useRuntimeConfig()
 const { data } = await useFetch(config.public.mediumRssFeed)
 
 const { title, link } = (data.value as MediumResponse)?.items[0]
+
+const isLoading = ref(true)
+
+onMounted(() => {
+  isLoading.value = false
+})
 </script>
 
 <style lang="scss" scoped>

@@ -4,19 +4,38 @@
       <div class="image">
         <div class="image--blurred" />
 
-        <img alt="playing-now" :src="hltb?.image" />
+        <img alt="playing-now" v-if="!isLoading" :src="hltb?.image" />
+
+        <Skeleton v-else width="8rem" height="10rem" />
       </div>
     </template>
 
-    <template #title>Playing Now</template>
+    <template #title v-if="!isLoading">Playing Now</template>
 
-    <template #subtitle>
-      <div class="flex-centered-row">
-        {{ hltb?.title }}
+    <template #title v-else>
+      <Skeleton height="1rem" width="12rem" />
+    </template>
 
-        <Divider :layout="'vertical'" />
+    <template #subtitle v-if="!isLoading">
+      {{ hltb?.title }}
+    </template>
 
-        <Tag :value="hltb?.platform" />
+    <template #subtitle v-else>
+      <Skeleton height="1rem" width="8rem" />
+    </template>
+
+    <template #content v-if="!isLoading">
+      <div class="flex-centered-column">
+        <Tag :value="hltb?.platform" severity="contrast" />
+
+        <Tag :value="progressionMessage" severity="secondary" />
+      </div>
+    </template>
+
+    <template #content v-else>
+      <div class="flex-centered-column">
+        <Skeleton height="2rem" />
+        <Skeleton height="2rem" />
       </div>
     </template>
   </Card>
@@ -27,12 +46,23 @@ const { data: hltb } = await useFetch('/api/hltb?status=playing')
 
 const config = useRuntimeConfig()
 
+
+const progressionMessage = computed(() => {
+  if (!hltb.value) return
+
+  return "Playing for " + hltb.value.progress + " hours."
+})
+
+const isLoading = ref(true)
+
 onMounted(() => {
   if (!hltb.value) return
 
   const blurredImage = document?.querySelector('.image--blurred') as HTMLElement;
 
   blurredImage?.style.setProperty('background-image', `url(${hltb.value.image})`);
+
+  isLoading.value = false
 })
 </script>
 
@@ -55,7 +85,7 @@ onMounted(() => {
     height: 95%;
     background-size: cover;
     position: absolute;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background-image: url('');
     filter: blur(5px);
     z-index: -1;
   }
@@ -69,13 +99,13 @@ onMounted(() => {
 }
 
 .image:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05);
   box-shadow: 0 0 1rem var(--highlight-bg);
 }
 
-.flex-centered-row {
+.flex-centered-column {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>
