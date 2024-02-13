@@ -1,6 +1,6 @@
 {
   "name": "erbilnas-com",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "dependencies": {
     "@nuxt/content": "^2.12.0",
     "@pinia/nuxt": "^0.5.1",
