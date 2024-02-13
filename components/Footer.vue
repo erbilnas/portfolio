@@ -30,11 +30,13 @@
 </template>
 
 <script lang="ts" setup>
+import { version } from '@@/package.json';
+
 const store = useDefaultStore()
 const dayjs = useDayjs()
 const config = useRuntimeConfig()
 
-const versionMessage = computed(() => `Version ${config.public.appVersion}`);
+const versionMessage = computed(() => `Version ${version}`);
 
 const isLoading = ref(true)
 
