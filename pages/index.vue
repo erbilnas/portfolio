@@ -27,6 +27,7 @@
     </div>
 
     <AboutMeSidebar />
+    <ChangelogSidebar />
   </main>
 </template>
 

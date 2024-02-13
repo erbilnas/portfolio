@@ -4,6 +4,7 @@ export const useDefaultStore = defineStore({
   id: "defaultStore",
   state: () => ({
     sidebarVisible: false,
+    changelogVisible: false,
   }),
   actions: {},
 });

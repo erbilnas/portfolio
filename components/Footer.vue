@@ -4,7 +4,7 @@
       <template #start>{{ dayjs().year() }} © Made with 🤍</template>
 
       <template #center>
-        <Button v-tooltip.top="versionMessage" label="Changelog" link />
+        <Button v-tooltip.top="versionMessage" label="Changelog" link @click="store.changelogVisible = true" />
       </template>
 
       <template #end>
@@ -26,6 +26,7 @@
 <script lang="ts" setup>
 import { version } from '@@/package.json';
 
+const store = useDefaultStore()
 const dayjs = useDayjs()
 const config = useRuntimeConfig()
 
