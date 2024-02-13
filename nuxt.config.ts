@@ -1,7 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["nuxt-primevue", "@pinia/nuxt", "@nuxt/content", "dayjs-nuxt"],
+  modules: [
+    "nuxt-primevue",
+    "@pinia/nuxt",
+    "@nuxt/content",
+    "dayjs-nuxt",
+    "@nuxt/image",
+    "@nuxtjs/fontaine",
+    "nuxt-delay-hydration",
+  ],
+  delayHydration: {
+    mode: "mount",
+  },
   css: [
     "primevue/resources/themes/aura-dark-noir/theme.css",
     "primeicons/primeicons.css",
@@ -38,6 +49,9 @@ export default defineNuxtConfig({
       title: "Welcome | It's me, Erbil!",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
+      htmlAttrs: {
+        lang: "en",
+      },
       meta: [
         {
           name: "viewport",

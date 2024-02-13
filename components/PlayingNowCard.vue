@@ -4,7 +4,7 @@
       <div class="image">
         <div class="image--blurred" />
 
-        <img alt="playing-now" v-if="!isLoading" :src="hltb?.image" />
+        <NuxtImg alt="playing-now" v-if="!isLoading" :src="hltb?.image" />
 
         <Skeleton v-else width="8rem" height="10rem" />
       </div>
