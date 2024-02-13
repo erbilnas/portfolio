@@ -23,15 +23,15 @@
     </template>
 
     <template #title>
-      <Skeleton height="1.5rem" width="6rem" />
+      <Skeleton height="1.5rem" width="5vw" />
     </template>
 
     <template #subtitle>
-      <Skeleton height="1rem" width="10rem" />
+      <Skeleton height="1rem" width="10vw" />
     </template>
 
     <template #content>
-      <Skeleton height="1rem" width="18rem" />
+      <Skeleton height="1rem" width="15vw" />
     </template>
   </Card>
 </template>
