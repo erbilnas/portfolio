@@ -11,7 +11,7 @@
         </NuxtLink>
 
         <NuxtLink :to="config.public.mediumProfileUrl" target="_blank" rel="noopener">
-          <Button label="More" outlined />
+          <Button label="More Posts" outlined />
         </NuxtLink>
       </div>
     </template>

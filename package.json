@@ -23,6 +23,7 @@
   },
   "type": "module",
   "devDependencies": {
+    "@nuxt/image": "latest",
     "dayjs-nuxt": "^2.1.9",
     "nuxt-primevue": "^0.3.0",
     "sass": "^1.70.0",

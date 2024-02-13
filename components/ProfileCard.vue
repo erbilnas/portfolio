@@ -2,7 +2,7 @@
   <Card v-if="!isLoading" @click="openSidebar">
     <template #header>
       <div class="profile-image">
-        <img :src="profileImageUrl" />
+        <NuxtImg :src="profileImageUrl" alt="profile-picture" />
       </div>
     </template>
 
