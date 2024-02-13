@@ -11,7 +11,7 @@
     <template #subtitle>Software Engineer</template>
 
     <template #content>
-      An always-learner software engineer
+      An ever-learning software engineer
     </template>
   </Card>
 

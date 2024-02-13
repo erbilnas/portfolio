@@ -41,6 +41,8 @@
   border-style: solid;
   border-width: 0.1rem;
 
+  flex: auto;
+
   &:hover {
     box-shadow: 0 0 1rem var(--primary-color);
     transition: box-shadow 0.3s ease;
@@ -71,6 +73,7 @@
 .flex-column {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 1rem;
 }
 </style>

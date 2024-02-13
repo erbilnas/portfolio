@@ -1,7 +1,7 @@
 <template>
   <Card v-if="!isLoading" @click="useOpenUrl(config.public.spotifyProfileUrl)">
     <template #subtitle>
-      Listening
+      Listening Now
     </template>
 
     <template #content>

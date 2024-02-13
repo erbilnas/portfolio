@@ -1,6 +1,6 @@
 <template>
   <Card>
-    <template #title>Recent Article</template>
+    <template #title>Recent Post</template>
 
     <template #subtitle>{{ title }}</template>
 

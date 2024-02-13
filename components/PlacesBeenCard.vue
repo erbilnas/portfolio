@@ -6,10 +6,13 @@
       </div>
     </template>
 
-    <template #content>
+    <template #title>
       The Hitchhiker's Guide
     </template>
 
+    <template #subtitle>
+      Veni, vidi, vici!
+    </template>
   </Card>
 </template>
 

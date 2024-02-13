@@ -11,42 +11,45 @@
 
     <Fieldset legend="About Me">
       <span>
-        I don’t know how to start introducing myself. I can briefly say that I’m an always-learner software engineer
-        who
-        wants to build his future with zeros and ones. I’m 27 years old and I’ve been living in Turkey since I was born,
-        which makes me a Turk naturally. Anyway, let me tell you a little bit of my physical appearance. I’ve got a
-        normal
-        height and slightly weaker weight than usual. Usually, I’m getting around with short hair and a beard. If it’s a
-        sunny day, you’ll see me wearing sunglasses because I’ve got an issue in my eyes. Those damn sun rays, I hate
-        them.
+        Introducing myself is always a challenge, but here's a brief glimpse into who I am: I'm a software engineer,
+        constantly learning and passionate about building my future with zeros and ones. I'm {{ age }}
+        years old, born and raised in Turkey.
       </span>
 
-      <p class="m-0">
-        I have loved computer technologies, softwares, and of course, video games since my childhood. Perhaps, this is
-        the
-        biggest reason I chose the profession in software engineering today. (Yeah, definitely it is 🙂) There is no
-        doubt, I’m not an extremely social person because in general I’m not a talkative fellow. But there is an
-        exception. If there are people I love or is something I can talk about, I can be a chatty guy ^_^
+      <p>
+        In terms of appearance, I'm of average height and slightly leaner than most. You'll usually find me sporting short
+        hair and a beard, and on sunny days, I'll have sunglasses on due to an eye issue—those sun rays are no friend of
+        mine.
       </p>
 
-      <p class="m-0">
-        Well, what’s happening in my inner world? Let’s take a quick look at what’s going on over there. Intelligent,
-        sophisticated, cultured, dignified, gentle, calm, and humble. These are some words that other people say about
-        me.
-        Mostly they’re saying positive based words about me. I think I’m a good fellow 😅. But I don’t care so much
-        about
-        whether I’m good or bad. I’m just trying to do the right thing, not the good one. That’s my lifelong goal and
-        source of my motivation. I tried to introduce myself to you because I wanted that. It’s a little selfish, isn’t
-        it? I hope I succeeded. Take safe care of yourself and have fun. Farewell!
+      <p>
+        My love for computer technologies, software, and video games dates back to my childhood, which ultimately led me
+        to pursue a career in software engineering. While I may not be the most social person, those close to me know that
+        I can be quite chatty when discussing topics I'm passionate about. ^_^
       </p>
+
+      <p>
+        As for my inner world, others have described me as intelligent, sophisticated, cultured, dignified, gentle, calm,
+        and humble. While I appreciate these positive qualities, I'm more focused on doing what's right rather than being
+        perceived as good or bad.
+      </p>
+
+      <span>
+        I hope this brief introduction gives you a glimpse into who I am. Thank you for taking the time to get to know me.
+        Take care and stay safe!
+      </span>
     </Fieldset>
   </Sidebar>
 </template>
 
 <script lang="ts" setup>
 const store = useDefaultStore()
+const dayjs = useDayjs()
+const config = useRuntimeConfig()
 
 const isMobile = ref(false)
+
+const age = dayjs().diff(dayjs(config.public.birthday), 'year')
 
 onMounted(() => {
   if (window.innerWidth <= 768) {
