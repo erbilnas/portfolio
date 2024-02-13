@@ -37,6 +37,34 @@ export default defineNuxtConfig({
       title: "Welcome | It's me, Erbil!",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
+      meta: [
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1",
+        },
+        {
+          name: "author",
+          content: "Erbil Nas",
+        },
+        {
+          name: "description",
+          content:
+            "I'm Erbil Nas, a software engineer who loves to create things and share knowledge.",
+        },
+        {
+          name: "keywords",
+          content:
+            "erbil, nas, software, engineer, developer, web, mobile, erbil nas, technology, website, personal, blog, portfolio, mentalmynx",
+        },
+        {
+          name: "robots",
+          content: "index, follow",
+        },
+        {
+          name: "theme-color",
+          content: "#000000",
+        },
+      ],
     },
   },
 });
