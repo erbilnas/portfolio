@@ -27,7 +27,7 @@ const store = useDefaultStore()
 const isMobile = ref(false)
 
 const logs = ref([
-  { status: 'The initial preview of Version 5, built with Nuxt and deployed on Vercel, has been released.', date: 'Feb 13, 2024' },
+  { status: 'Version 5, built with Nuxt and deployed on Vercel, has been released.', date: 'Feb 13, 2024' },
   { status: 'Version 4.3 introduces the Medium integration. The blog is now live!', date: '2022' },
   { status: 'Version 4.2 introduces the live stats.', date: '2020' },
   { status: 'Version 4 now utilizes a custom WordPress theme.', date: '2018' },

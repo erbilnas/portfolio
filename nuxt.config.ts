@@ -42,6 +42,7 @@ export default defineNuxtConfig({
       mediumRssFeed: process.env.MEDIUM_RSS_FEED,
       spotifyProfileUrl: process.env.SPOTIFY_PROFILE_URL,
       trendyolProfileUrl: process.env.LINKEDIN_TRENDYOL_COMPANY_URL,
+      appVersion: process.env.APP_VERSION,
     },
   },
   app: {
