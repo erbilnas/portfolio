@@ -1,75 +1,19 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# erbilnas.com
 
-## Setup
+The digital showcase curated by me, a passionate software engineer with a love for video games, technology, and insightful writing
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
+## Demo
 
-# pnpm
-pnpm install
+https://preview.erbilnas.com/
 
-# yarn
-yarn install
 
-# bun
-bun install
-```
+## Tech Stack
 
-## Development Server
+**Client:** Nuxt, Pinia, PrimeVue, SCSS
 
-Start the development server on `http://localhost:3000`:
+**Server:** Nitro
 
-```bash
-# npm
-npm run dev
+**PaaS:** Vercel
 
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
