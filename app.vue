@@ -3,7 +3,7 @@
 
 <template>
   <LazyNuxtLayout>
-    <NuxtPage />
+    <LazyNuxtPage />
   </LazyNuxtLayout>
 </template>
 

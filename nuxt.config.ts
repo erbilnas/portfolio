@@ -6,8 +6,13 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxt/content",
     "dayjs-nuxt",
-    "@nuxt/image"
+    "@nuxt/image",
+    "@nuxtjs/fontaine",
+    "nuxt-delay-hydration",
   ],
+  delayHydration: {
+    mode: "mount",
+  },
   css: [
     "primevue/resources/themes/aura-dark-noir/theme.css",
     "primeicons/primeicons.css",
