@@ -13,8 +13,11 @@ export default defineEventHandler(async (event) => {
   if (status === "ok") {
     const { title, link } = items[0];
 
-    return { title, link, feed: feed.link };
+    return { title, link, feed: feed.link, status: "success" };
   }
 
-  return "Medium service is not available.";
+  return {
+    title: "🚫 Medium service is not available.",
+    status: "error",
+  };
 });
