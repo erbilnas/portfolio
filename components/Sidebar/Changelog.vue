@@ -1,6 +1,5 @@
 <template>
-  <Sidebar :visible="store.changelogVisible" :position="isMobile ? 'full' : 'bottom'"
-    :pt="{ root: { style: { 'height': '35vh' } } }" :draggable="false">
+  <Sidebar :visible="store.changelogVisible" :position="isMobile ? 'full' : 'bottom'" :pt="sidebarPt" :draggable="false">
     <template #header>
       <div />
     </template>
@@ -10,12 +9,12 @@
     </template>
 
     <Timeline :value="logs" align="alternate">
-      <template #opposite="props">
-        <small class="p-text-secondary">{{ props.item.date }}</small>
+      <template #opposite="{ item }">
+        <small class="p-text-secondary">{{ item.date }}</small>
       </template>
 
-      <template #content="props">
-        {{ props.item.status }}
+      <template #content="{ item }">
+        {{ item.status }}
       </template>
     </Timeline>
   </Sidebar>
@@ -35,6 +34,8 @@ const logs = ref([
   { status: 'Version 2 has been released using WordPress. Hello PHP!', date: '2016' },
   { status: 'The initial release of the application utilizing Blogger.', date: '2013' }
 ]);
+
+const sidebarPt = { root: { style: { height: "50vh" } } };
 
 
 onMounted(() => {
