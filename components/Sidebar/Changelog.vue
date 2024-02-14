@@ -26,6 +26,7 @@ const store = useDefaultStore()
 const isMobile = ref(false)
 
 const logs = ref([
+  { status: 'Version 5.1 introduces the Spotify integration. You can see what I am listening now ^-^', date: 'Feb 14, 2024' },
   { status: 'Version 5, built with Nuxt and deployed on Vercel, has been released.', date: 'Feb 13, 2024' },
   { status: 'Version 4.3 introduces the Medium integration. The blog is now live!', date: '2022' },
   { status: 'Version 4.2 introduces the live stats.', date: '2020' },
