@@ -10,7 +10,7 @@
       </div>
     </template>
 
-    <template #title v-if="!isLoading">Playing Now</template>
+    <template #title v-if="!isLoading">{{ isPlayingGameExist ? "Playing Now" : "Most Recently Finished" }}</template>
 
     <template #title v-else>
       <Skeleton height="1rem" width="12rem" />
@@ -28,7 +28,7 @@
       <div class="flex-centered-column">
         <Tag :value="platform" severity="contrast" />
 
-        <Tag :value="progressionMessage" severity="secondary" />
+        <Tag v-if="isPlayingGameExist" :value="progressionMessage" severity="secondary" />
       </div>
     </template>
 
@@ -47,12 +47,13 @@ type HLTB = {
   platform: string;
   image: string;
   progress: number;
+  status: string;
 }
 
-const { data } = await useFetch('/api/hltb?status=playing')
+const { data } = await useFetch('/api/hltb?status=currently-playing')
 const { profiles } = useAppConfig()
 
-const { title, platform, image, progress } = data.value as HLTB
+const { title, platform, image, progress, status } = data.value as HLTB
 
 const progressionMessage = computed(() => {
   if (!progress) return
@@ -61,6 +62,8 @@ const progressionMessage = computed(() => {
 })
 
 const isLoading = ref(true)
+
+const isPlayingGameExist = computed(() => status !== 'no-playing-games')
 
 onNuxtReady(() => {
   if (!image) return

@@ -4,7 +4,7 @@ const hltb = new HowLongToBeatService();
 
 const { hltbApi } = useRuntimeConfig();
 
-const getGames = async (status: string) => {
+const getGames = async (status: string, sortBy = "name") => {
   const headers = {
     "Content-Type": "application/json",
   };
@@ -16,7 +16,7 @@ const getGames = async (status: string) => {
     name: "",
     platform: "",
     storefront: "",
-    sortBy: "name",
+    sortBy,
     sortFlip: 0,
     view: "blox",
     random: 0,
@@ -45,10 +45,26 @@ const getCurrentlyPlayingGame = async () => {
   return { title, platform, progress, image: imageUrl };
 };
 
+const getLastCompletedGame = async () => {
+  const { data } = await getGames("completed", "date_complete");
+
+  const { imageUrl } = await hltb.detail(data.gamesList[0].game_id.toString());
+
+  const title = data.gamesList[0].custom_title;
+  const platform = data.gamesList[0].platform;
+  const status = "no-playing-games";
+
+  return { title, platform, image: imageUrl, status };
+};
+
 export default defineEventHandler(async (event) => {
   const { status } = getQuery(event);
 
-  if (status === "playing") {
-    return await getCurrentlyPlayingGame();
+  if (status === "currently-playing") {
+    try {
+      return await getCurrentlyPlayingGame();
+    } catch (error) {
+      return await getLastCompletedGame();
+    }
   }
 });
