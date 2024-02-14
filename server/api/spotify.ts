@@ -32,14 +32,16 @@ export default defineEventHandler(async (event) => {
   const { player } = getQuery(event);
 
   if (player === "currently-playing") {
-    const { item } = await getCurrentlyPlayingSong();
+    try {
+      const { item } = await getCurrentlyPlayingSong();
 
-    const { artists, name } = item;
+      const { artists, name } = item;
 
-    const player_message = `${artists[0].name} - ${name}`;
+      const player_message = `${artists[0].name} - ${name}`;
 
-    return player_message || "No song is currently playing.";
+      return player_message;
+    } catch (error) {
+      return "No song is currently playing.";
+    }
   }
-
-  return "Spotify service is not available.";
 });
