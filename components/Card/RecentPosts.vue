@@ -1,11 +1,11 @@
 <template>
   <Card>
-    <template #title>Recent Post</template>
+    <template #title>{{ success ? 'Recent Post' : 'Warning' }}</template>
 
     <template #subtitle>{{ title }}</template>
 
     <template #footer>
-      <div class="button-container">
+      <div v-if="success" class="button-container">
         <NuxtLink :to="link" target="_blank" rel="noopener">
           <Button label="Read Now" />
         </NuxtLink>
@@ -13,6 +13,10 @@
         <NuxtLink :to="feed" target="_blank" rel="noopener">
           <Button label="More Posts" outlined />
         </NuxtLink>
+      </div>
+
+      <div v-else>
+        Please attempt again at a later time.
       </div>
     </template>
   </Card>
@@ -23,11 +27,14 @@ type Medium = {
   title: string;
   link: string;
   feed: string;
+  status: string;
 }
 
 const { data } = await useFetch('/api/medium')
 
-const { title, link, feed } = data.value as Medium
+const { title, link, feed, status } = data.value as Medium
+
+const success = computed(() => status === 'success')
 </script>
 
 <style lang="scss" scoped>
