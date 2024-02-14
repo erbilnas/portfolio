@@ -1,5 +1,5 @@
 <template>
-  <Card v-if="!isLoading" @click="useOpenUrl(config.public.spotifyProfileUrl)">
+  <Card @click="useOpenUrl(profiles.spotify)">
     <template #subtitle>
       Listening Now
     </template>
@@ -8,31 +8,39 @@
       <div class="card-content">
         <div class="equalizer"><span /><span /><span /></div>
 
-        <span>Poets of the Fall - Carnival of Rust</span>
-      </div>
-    </template>
-  </Card>
-
-  <Card v-else>
-    <template #subtitle>
-      <Skeleton width="8rem"></Skeleton>
-    </template>
-
-    <template #content>
-      <div class="card-content">
-        <Skeleton height="4rem"></Skeleton>
+        <span>{{ currentlyPlaying }}</span>
       </div>
     </template>
   </Card>
 </template>
 
 <script lang="ts" setup>
-const config = useRuntimeConfig()
+const { profiles } = useAppConfig()
 
-const isLoading = ref(true)
+const { data: currentlyPlaying, refresh } = useFetch('/api/spotify?player=currently-playing')
 
-onMounted(() => {
-  isLoading.value = false
+const setCurrentSongAsHeadTitle = () => {
+  useHead({
+    title: "🔊 " + currentlyPlaying.value
+  })
+}
+
+onNuxtReady(() => {
+  setInterval(async () => {
+    await refresh()
+
+    setCurrentSongAsHeadTitle()
+  }, 60_000)
+
+  setInterval(async () => {
+    setCurrentSongAsHeadTitle()
+  }, 15_000)
+
+  setInterval(() => {
+    useHead({
+      title: "Welcome | It's me, Erbil"
+    })
+  }, 10_000)
 })
 </script>
 
@@ -45,28 +53,24 @@ onMounted(() => {
 }
 
 .equalizer {
-  position: relative;
   display: flex;
   justify-content: space-between;
-  width: 13px;
-  height: 13px;
+  width: 1rem;
+  height: 1rem;
 
   span {
-    width: 3px;
-    height: 100%;
+    width: 0.2rem;
     background-color: var(--primary-color);
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     animation: bounce 2.2s ease infinite alternate;
     content: '';
 
     &:nth-of-type(2) {
       animation-delay: -2.2s;
-      /* Start at the end of animation */
     }
 
     &:nth-of-type(3) {
       animation-delay: -3.7s;
-      /* Start mid-way of return of animation */
     }
   }
 }
@@ -74,27 +78,22 @@ onMounted(() => {
 @keyframes bounce {
   10% {
     transform: scaleY(0.3);
-    /* start by scaling to 30% */
   }
 
   30% {
     transform: scaleY(1);
-    /* scale up to 100% */
   }
 
   60% {
     transform: scaleY(0.5);
-    /* scale down to 50% */
   }
 
   80% {
     transform: scaleY(0.75);
-    /* scale up to 75% */
   }
 
   100% {
     transform: scaleY(0.6);
-    /* scale down to 60% */
   }
 }
 </style>
