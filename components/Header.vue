@@ -1,6 +1,6 @@
 <template>
   <header>
-    <ProgressBar v-if="isLoading" mode="indeterminate" style="height: 6px"></ProgressBar>
+    <ProgressBar v-if="isLoading" mode="indeterminate" class="progress-bar" />
 
     <div class="navigation">
       <span v-if="!isLoading" class="p-buttonset">
@@ -16,7 +16,7 @@
           :badge="!isMobile ? 'soon' : ''" badgeSeverity="contrast" />
       </span>
 
-      <Skeleton v-else :width="!isMobile ? '30vw' : '10rem'" height="3rem"></Skeleton>
+      <Skeleton v-else :width="!isMobile ? '30vw' : '10rem'" height="3rem" />
     </div>
   </header>
 </template>
@@ -25,7 +25,7 @@
 const isMobile = ref(false)
 const isLoading = ref(true)
 
-onMounted(() => {
+onNuxtReady(() => {
   if (window.innerWidth <= 768) {
     isMobile.value = true
   }
@@ -40,5 +40,9 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   padding: 5vh 0 10vh 0;
+}
+
+.progress-bar {
+  height: 6px;
 }
 </style>

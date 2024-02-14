@@ -1,29 +1,15 @@
 <template>
-  <Card v-if="!isLoading">
+  <Card @click="useOpenUrl(profiles.linkedin)">
     <template #content>
-      <div class="flex-centered-row">
-        <div class="flex-centered-column">
+      <div class="card-content">
+        <div class="card-content--column">
           <Knob v-model="age" :strokeWidth="5" readonly />
           <p>Age</p>
         </div>
 
-        <div class="flex-centered-column">
+        <div class="card-content--column">
           <Knob v-model="experience" :strokeWidth="5" readonly :max="35" />
           <p>Experience</p>
-        </div>
-      </div>
-    </template>
-  </Card>
-
-  <Card v-else>
-    <template #content>
-      <div class="flex-centered-row">
-        <div class="flex-centered-column">
-          <Skeleton shape="circle" size="8rem"></Skeleton>
-        </div>
-
-        <div class="flex-centered-column">
-          <Skeleton shape="circle" size="8rem"></Skeleton>
         </div>
       </div>
     </template>
@@ -31,37 +17,37 @@
 </template>
 
 <script lang="ts" setup>
-const dayjs = useDayjs()
+type Stats = {
+  age: number;
+  experience: number;
+};
 
-const config = useRuntimeConfig()
+const { data } = await useFetch("/api/stats");
+const { profiles } = useAppConfig();
+const store = useDefaultStore();
 
-const isLoading = ref(true)
+const { age, experience } = data.value as Stats;
 
-const age = dayjs().diff(dayjs(config.public.birthday), 'year')
-const experience = dayjs().diff(dayjs(config.public.firstExperienceDate), 'year')
-
-onMounted(() => {
-  isLoading.value = false
-})
+store.age = age;
 </script>
 
 <style lang="scss" scoped>
-@media (max-width: 768px) {
-  .p-card {
+.p-card {
+  @media (max-width: 768px) {
     align-items: center;
   }
 }
 
-.flex-centered-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.flex-centered-row {
+.card-content {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
+
+  &--column {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+  }
 }
 </style>

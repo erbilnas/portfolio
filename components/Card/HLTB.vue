@@ -1,10 +1,10 @@
 <template>
-  <Card @click="useOpenUrl(config.public.hltbProfileUrl)">
+  <Card @click="useOpenUrl(profiles.hltb)">
     <template #header>
       <div class="image">
         <div class="image--blurred" />
 
-        <NuxtImg alt="playing-now" v-if="!isLoading" :src="hltb?.image" />
+        <NuxtImg alt="playing-now" v-if="!isLoading" :src="image" />
 
         <Skeleton v-else width="8rem" height="10rem" />
       </div>
@@ -17,7 +17,7 @@
     </template>
 
     <template #subtitle v-if="!isLoading">
-      {{ hltb?.title }}
+      {{ title }}
     </template>
 
     <template #subtitle v-else>
@@ -26,7 +26,7 @@
 
     <template #content v-if="!isLoading">
       <div class="flex-centered-column">
-        <Tag :value="hltb?.platform" severity="contrast" />
+        <Tag :value="platform" severity="contrast" />
 
         <Tag :value="progressionMessage" severity="secondary" />
       </div>
@@ -42,25 +42,32 @@
 </template>
 
 <script lang="ts" setup>
-const { data: hltb } = await useFetch('/api/hltb?status=playing')
+type HLTB = {
+  title: string;
+  platform: string;
+  image: string;
+  progress: number;
+}
 
-const config = useRuntimeConfig()
+const { data } = await useFetch('/api/hltb?status=playing')
+const { profiles } = useAppConfig()
 
+const { title, platform, image, progress } = data.value as HLTB
 
 const progressionMessage = computed(() => {
-  if (!hltb.value) return
+  if (!progress) return
 
-  return "Playing for " + hltb.value.progress + " hours."
+  return "Playing for " + progress + " hours."
 })
 
 const isLoading = ref(true)
 
-onMounted(() => {
-  if (!hltb.value) return
+onNuxtReady(() => {
+  if (!image) return
 
   const blurredImage = document?.querySelector('.image--blurred') as HTMLElement;
 
-  blurredImage?.style.setProperty('background-image', `url(${hltb.value.image})`);
+  blurredImage?.style.setProperty('background-image', `url(${image})`);
 
   isLoading.value = false
 })
@@ -95,12 +102,12 @@ onMounted(() => {
     box-shadow: 0 0 1rem var(--highlight-bg);
     border-radius: var(--border-radius);
     transition: transform 1s ease;
-  }
-}
 
-.image:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 0 1rem var(--highlight-bg);
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 1rem var(--highlight-bg);
+    }
+  }
 }
 
 .flex-centered-column {

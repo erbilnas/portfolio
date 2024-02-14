@@ -1,53 +1,54 @@
-import { HowLongToBeatService, type HowLongToBeatEntry } from "howlongtobeat";
+import { HowLongToBeatService } from "howlongtobeat";
 
 const hltb = new HowLongToBeatService();
 
-const config = useRuntimeConfig();
+const { hltbApi } = useRuntimeConfig();
+
+const getGames = async (status: string) => {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  const body = JSON.stringify({
+    user_id: 82755,
+    lists: [status],
+    set_playstyle: "comp_plus",
+    name: "",
+    platform: "",
+    storefront: "",
+    sortBy: "name",
+    sortFlip: 0,
+    view: "blox",
+    random: 0,
+    limit: 102,
+    currentUserHome: false,
+  });
+
+  const response = await fetch(hltbApi, {
+    method: "POST",
+    headers,
+    body,
+  });
+
+  return response.json();
+};
+
+const getCurrentlyPlayingGame = async () => {
+  const { data } = await getGames("playing");
+
+  const { imageUrl } = await hltb.detail(data.gamesList[0].game_id.toString());
+
+  const title = data.gamesList[0].custom_title;
+  const platform = data.gamesList[0].platform;
+  const progress = data.gamesList[0].invested_pro / 3600;
+
+  return { title, platform, progress, image: imageUrl };
+};
 
 export default defineEventHandler(async (event) => {
   const { status } = getQuery(event);
 
   if (status === "playing") {
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
-    const body = JSON.stringify({
-      user_id: 82755,
-      lists: [status],
-      set_playstyle: "comp_plus",
-      name: "",
-      platform: "",
-      storefront: "",
-      sortBy: "name",
-      sortFlip: 0,
-      view: "blox",
-      random: 0,
-      limit: 102,
-      currentUserHome: false,
-    });
-
-    const response = await fetch(config.hltbApi, {
-      method: "POST",
-      headers,
-      body,
-    });
-
-    const { data } = await response.json();
-
-    const id = data.gamesList[0].game_id as HowLongToBeatEntry;
-    const title = data.gamesList[0].custom_title as HowLongToBeatEntry;
-    const platform = data.gamesList[0].platform as HowLongToBeatEntry;
-    const progress =
-      (data.gamesList[0].invested_pro as HowLongToBeatEntry) / 3600;
-
-    const { imageUrl } = await hltb.detail(id.toString());
-
-    return {
-      title,
-      platform,
-      progress,
-      image: imageUrl,
-    };
+    return await getCurrentlyPlayingGame();
   }
 });
