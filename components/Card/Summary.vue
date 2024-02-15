@@ -44,7 +44,7 @@ const { profilePicture } = useAppConfig()
     transition: transform 1s ease;
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 }
