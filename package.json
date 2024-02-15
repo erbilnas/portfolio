@@ -1,6 +1,6 @@
 {
   "name": "erbilnas-com",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "dependencies": {
     "@nuxt/content": "^2.12.0",
     "@pinia/nuxt": "^0.5.1",
@@ -24,9 +24,7 @@
   "type": "module",
   "devDependencies": {
     "@nuxt/image": "latest",
-    "@nuxtjs/fontaine": "^0.4.1",
     "dayjs-nuxt": "^2.1.9",
-    "nuxt-delay-hydration": "^1.3.3",
     "nuxt-primevue": "^0.3.0",
     "sass": "^1.70.0",
     "sass-loader": "^14.1.0"
