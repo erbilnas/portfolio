@@ -2,29 +2,20 @@
   <Card @click="useOpenUrl(profiles.hltb)">
     <template #header>
       <div class="image">
-        <div class="image--blurred" />
 
-        <NuxtImg alt="playing-now" v-if="!isLoading" :src="image" />
-
-        <Skeleton v-else width="8rem" height="10rem" />
+        <NuxtImg alt="playing-now" :src="image" />
       </div>
     </template>
 
-    <template #title v-if="!isLoading">{{ isPlayingGameExist ? "Playing Now" : "Most Recently Finished" }}</template>
+    <template #title>{{ isPlayingGameExist ? "Playing Now" : "Most Recently Finished" }}</template>
 
-    <template #title v-else>
-      <Skeleton height="1rem" width="12rem" />
-    </template>
 
-    <template #subtitle v-if="!isLoading">
+    <template #subtitle>
       {{ title }}
     </template>
 
-    <template #subtitle v-else>
-      <Skeleton height="1rem" width="8rem" />
-    </template>
 
-    <template #content v-if="!isLoading">
+    <template #content>
       <div class="flex-centered-column">
         <Tag :value="platform" severity="contrast" />
 
@@ -32,12 +23,6 @@
       </div>
     </template>
 
-    <template #content v-else>
-      <div class="flex-centered-column">
-        <Skeleton height="2rem" />
-        <Skeleton height="2rem" />
-      </div>
-    </template>
   </Card>
 </template>
 
@@ -61,19 +46,8 @@ const progressionMessage = computed(() => {
   return "Playing for " + progress + " hours."
 })
 
-const isLoading = ref(true)
 
 const isPlayingGameExist = computed(() => status !== 'no-playing-games')
-
-onNuxtReady(() => {
-  if (!image) return
-
-  const blurredImage = document?.querySelector('.image--blurred') as HTMLElement;
-
-  blurredImage?.style.setProperty('background-image', `url(${image})`);
-
-  isLoading.value = false
-})
 </script>
 
 <style lang="scss" scoped>
@@ -86,28 +60,15 @@ onNuxtReady(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 1;
-
-
-  &--blurred {
-    width: 95%;
-    height: 95%;
-    background-size: cover;
-    position: absolute;
-    background-image: url('');
-    filter: blur(5px);
-    z-index: -1;
-  }
 
   img {
-    width: 30%;
-    box-shadow: 0 0 1rem var(--highlight-bg);
+    width: 45%;
+    box-shadow: 0 0 2rem var(--highlight-bg);
     border-radius: var(--border-radius);
     transition: transform 1s ease;
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.5);
       box-shadow: 0 0 1rem var(--highlight-bg);
     }
   }

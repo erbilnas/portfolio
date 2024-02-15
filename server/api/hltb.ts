@@ -40,7 +40,7 @@ const getCurrentlyPlayingGame = async () => {
 
   const title = data.gamesList[0].custom_title;
   const platform = data.gamesList[0].platform;
-  const progress = data.gamesList[0].invested_pro / 3600;
+  const progress = (data.gamesList[0].invested_pro / 3600).toFixed(1);
 
   return { title, platform, progress, image: imageUrl };
 };

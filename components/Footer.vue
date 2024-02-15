@@ -4,13 +4,14 @@
       <template #start>
         <div>
           {{ getYear }} © Made with <NuxtLink :to="profiles.luv" rel="noopener" target="__blank">
-            🤍
+            {{ store.theme == themes.dark ? '🤍' : '🖤' }}
           </NuxtLink>
         </div>
       </template>
 
       <template #center>
         <Button v-tooltip.top="versionMessage" label="Changelog" link @click="store.changelogVisible = true" />
+        <Button :label="store.theme == themes.dark ? 'Be a Jedi' : 'Come to the Dark Side'" link @click="toggleTheme" />
       </template>
 
       <template #end>
@@ -27,10 +28,25 @@ import { version } from '@@/package.json';
 
 const store = useDefaultStore()
 const dayjs = useDayjs()
-const { profiles } = useAppConfig()
+const { profiles, themes } = useAppConfig()
 
 const versionMessage = computed(() => `Version ${version}`);
 const getYear = computed(() => dayjs().year());
+
+const currentTheme = ref(themes.dark);
+
+const toggleTheme = () => {
+  const newTheme = currentTheme.value === themes.dark ? themes.light : themes.dark;
+
+  currentTheme.value = newTheme;
+  store.theme = newTheme;
+
+  const themeLink = document.getElementById('theme-link');
+
+  if (themeLink) {
+    themeLink.setAttribute('href', newTheme);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
