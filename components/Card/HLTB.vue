@@ -17,7 +17,7 @@
 
     <template #content>
       <div class="flex-centered-column">
-        <Tag :value="platform" severity="contrast" />
+        <Tag :value="isPlatformPC ? customPlatform : platform" severity="contrast" />
 
         <Tag v-if="isPlayingGameExist" :value="progressionMessage" severity="secondary" />
       </div>
@@ -33,12 +33,13 @@ type HLTB = {
   image: string;
   progress: number;
   status: string;
+  storefront: string;
 }
 
 const { data } = await useFetch('/api/hltb?status=currently-playing')
 const { profiles } = useAppConfig()
 
-const { title, platform, image, progress, status } = data.value as HLTB
+const { title, platform, image, progress, status, storefront } = data.value as HLTB
 
 const progressionMessage = computed(() => {
   if (!progress) return
@@ -46,8 +47,11 @@ const progressionMessage = computed(() => {
   return "Playing for " + progress + " hours."
 })
 
-
 const isPlayingGameExist = computed(() => status !== 'no-playing-games')
+
+const customPlatform = computed(() => (platform + ' | ' + storefront))
+
+const isPlatformPC = computed(() => platform === 'PC')
 </script>
 
 <style lang="scss" scoped>
