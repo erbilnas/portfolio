@@ -11,7 +11,7 @@
     <template #subtitle>Software Engineer</template>
 
     <template #content>
-      An ever-learning software engineer
+      An ever-learning technology enthusiast.
     </template>
   </Card>
 </template>
@@ -26,6 +26,10 @@ const { profilePicture } = useAppConfig()
 .p-card {
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .profile-image {

@@ -3,7 +3,7 @@
     <ProgressBar v-if="isLoading" mode="indeterminate" class="progress-bar" />
 
     <div class="navigation">
-      <span v-if="!isLoading" class="p-buttonset">
+      <ButtonGroup v-if="!isLoading" >
         <Button :label="!isMobile ? 'Home' : ''" icon="pi pi-home" text outlined />
 
         <Button :label="!isMobile ? 'About Me' : ''" icon="pi pi-user" text outlined disabled
@@ -14,7 +14,7 @@
 
         <Button :label="!isMobile ? 'Contact' : ''" icon="pi pi-phone" text outlined disabled
           :badge="!isMobile ? 'soon' : ''" badgeSeverity="contrast" />
-      </span>
+      </ButtonGroup>
 
       <Skeleton v-else :width="!isMobile ? '30vw' : '10rem'" height="3rem" />
     </div>
