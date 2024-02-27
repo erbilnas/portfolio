@@ -1,6 +1,6 @@
 {
   "name": "erbilnas-com",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "dependencies": {
     "@nuxt/content": "^2.12.0",
     "@pinia/nuxt": "^0.5.1",
@@ -9,7 +9,7 @@
     "howlongtobeat": "^1.8.0",
     "nuxt": "^3.10.1",
     "primeicons": "^6.0.1",
-    "primevue": "^3.48.1",
+    "primevue": "^3.49.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@nuxt/image": "latest",
     "dayjs-nuxt": "^2.1.9",
-    "nuxt-primevue": "^0.3.0",
+    "nuxt-primevue": "^0.3.1",
     "sass": "^1.70.0",
     "sass-loader": "^14.1.0"
   }
