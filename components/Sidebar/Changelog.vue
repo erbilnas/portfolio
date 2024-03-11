@@ -1,5 +1,6 @@
 <template>
-  <Sidebar :visible="store.changelogVisible" :position="isMobile ? 'full' : 'bottom'" :pt="sidebarPt" :draggable="false">
+  <Sidebar :visible="store.changelogVisible" :position="isMobile ? 'full' : 'bottom'" :pt="sidebarPt"
+    :draggable="false">
     <template #header>
       <div />
     </template>
@@ -26,6 +27,7 @@ const store = useDefaultStore()
 const isMobile = ref(false)
 
 const logs = ref([
+  { status: 'Version 5.3 enables the Career page.', date: 'Mar 11, 2024' },
   { status: 'Version 5.2 introduces the light theme.', date: 'Feb 15, 2024' },
   { status: 'Version 5.1 introduces Spotify. You can see what I am listening now ^-^', date: 'Feb 14, 2024' },
   { status: 'Version 5, built with Nuxt and deployed on Vercel, has been released.', date: 'Feb 13, 2024' },
