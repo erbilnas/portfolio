@@ -69,10 +69,10 @@ const isPlatformPC = computed(() => platform === 'PC')
     width: 45%;
     box-shadow: 0 0 2rem var(--highlight-bg);
     border-radius: var(--border-radius);
-    transition: transform 1s ease;
+    transition: all 1s ease-in-out;
 
     &:hover {
-      transform: scale(1.5);
+      transform: scale(1.2);
       box-shadow: 0 0 1rem var(--highlight-bg);
     }
   }

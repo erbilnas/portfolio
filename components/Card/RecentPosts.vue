@@ -42,4 +42,8 @@ const success = computed(() => status === 'success')
   display: flex;
   gap: 1rem;
 }
+
+.p-card {
+  cursor: default !important;
+}
 </style>

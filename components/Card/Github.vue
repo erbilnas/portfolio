@@ -7,7 +7,7 @@
     </template>
 
     <template #footer>
-      Talk is cheap. Show me the code.
+      <p>Talk is cheap. Show me the code.</p>
     </template>
   </Card>
 </template>
@@ -23,13 +23,17 @@ const { profiles } = useAppConfig();
   justify-content: center;
 
   i {
-    font-size: 8rem;
+    font-size: 6rem;
   }
 }
 
 .p-card {
   @media (max-width: 768px) {
     align-items: center;
+  }
+
+  p {
+    text-align: center;
   }
 }
 </style>

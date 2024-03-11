@@ -1,5 +1,13 @@
 const meta = [
   {
+    name: "charset",
+    content: "utf-8",
+  },
+  {
+    name: "title",
+    content: process.env.NUXT_APP_TITLE,
+  },
+  {
     name: "viewport",
     content: "width=device-width, initial-scale=1",
   },
