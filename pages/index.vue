@@ -20,9 +20,6 @@
       <CardPlacesBeen />
     </div>
   </main>
-
-  <SidebarAboutMe />
-  <SidebarChangelog />
 </template>
 
 <script lang="ts" setup>

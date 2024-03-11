@@ -39,16 +39,19 @@ const { profilePicture } = useAppConfig()
   justify-content: center;
   align-items: center;
 
+  overflow: hidden;
+
   img {
     width: 10vh;
     height: 10vh;
     border-radius: 50%;
     margin: 2vh;
     box-shadow: 0 0 1rem var(--highlight-bg);
-    transition: transform 1s ease;
+    transition: all .5s ease-in;
 
     &:hover {
-      transform: scale(1.2);
+      border-radius: var(--border-radius);
+      transform: scale(2);
     }
   }
 }

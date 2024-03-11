@@ -3,13 +3,13 @@
     <ProgressBar v-if="isLoading" mode="indeterminate" class="progress-bar" />
 
     <div class="navigation">
-      <ButtonGroup v-if="!isLoading" >
-        <Button :label="!isMobile ? 'Home' : ''" icon="pi pi-home" text outlined />
+      <ButtonGroup v-if="!isLoading">
+        <Button :label="!isMobile ? 'Home' : ''" icon="pi pi-home" text outlined @click="router.push('/')" />
 
-        <Button :label="!isMobile ? 'About Me' : ''" icon="pi pi-user" text outlined disabled
-          :badge="!isMobile ? 'soon' : ''" badgeSeverity="contrast" />
+        <Button :label="!isMobile ? 'Career' : ''" icon="pi pi-briefcase" text outlined
+          @click="router.push('/career')" />
 
-        <Button :label="!isMobile ? 'Works' : ''" icon="pi pi-briefcase" text outlined disabled
+        <Button :label="!isMobile ? 'About' : ''" icon="pi pi-user" text outlined disabled
           :badge="!isMobile ? 'soon' : ''" badgeSeverity="contrast" />
 
         <Button :label="!isMobile ? 'Contact' : ''" icon="pi pi-phone" text outlined disabled
@@ -22,6 +22,8 @@
 </template>
 
 <script lang="ts" setup>
+const router = useRouter()
+
 const isMobile = ref(false)
 const isLoading = ref(true)
 
@@ -39,7 +41,7 @@ onNuxtReady(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5vh 0 10vh 0;
+  padding: 5vh 0;
 }
 
 .progress-bar {
