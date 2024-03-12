@@ -1,8 +1,6 @@
 <template>
   <Card @click="useOpenUrl(profiles.spotify)">
-    <template #subtitle>
-      Listening Now
-    </template>
+    <template #subtitle> Listening Now </template>
 
     <template #content>
       <div class="card-content">
@@ -15,33 +13,35 @@
 </template>
 
 <script lang="ts" setup>
-const { profiles } = useAppConfig()
+const { profiles } = useAppConfig();
 
-const { data: currentlyPlaying, refresh } = useFetch('/api/spotify?player=currently-playing')
+const { data: currentlyPlaying, refresh } = useFetch(
+  "/api/spotify?player=currently-playing"
+);
 
 const setCurrentSongAsHeadTitle = () => {
   useHead({
-    title: "🔊 " + currentlyPlaying.value
-  })
-}
+    title: "🔊 " + currentlyPlaying.value,
+  });
+};
 
 onNuxtReady(() => {
   setInterval(async () => {
-    await refresh()
+    await refresh();
 
-    setCurrentSongAsHeadTitle()
-  }, 60_000)
+    setCurrentSongAsHeadTitle();
+  }, 60_000);
 
   setInterval(async () => {
-    setCurrentSongAsHeadTitle()
-  }, 15_000)
+    setCurrentSongAsHeadTitle();
+  }, 15_000);
 
   setInterval(() => {
     useHead({
-      title: "Welcome | It's me, Erbil"
-    })
-  }, 10_000)
-})
+      title: "Welcome | It's me, Erbil",
+    });
+  }, 10_000);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -63,7 +63,7 @@ onNuxtReady(() => {
     background-color: var(--primary-color);
     border-radius: var(--border-radius);
     animation: bounce 2.2s ease infinite alternate;
-    content: '';
+    content: "";
 
     &:nth-of-type(2) {
       animation-delay: -2.2s;

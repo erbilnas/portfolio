@@ -1,11 +1,22 @@
 <template>
-  <Sidebar :visible="store.sidebarVisible" :position="isMobile ? 'full' : 'left'" :pt="sidebarPt" :draggable="false">
+  <Sidebar
+    :visible="store.sidebarVisible"
+    :position="isMobile ? 'full' : 'left'"
+    :pt="sidebarPt"
+    :draggable="false"
+  >
     <template #header>
       <div />
     </template>
 
     <template #closeicon>
-      <Button icon="pi pi-times" text rounded aria-label="Cancel" @click="store.sidebarVisible = false" />
+      <Button
+        icon="pi pi-times"
+        text
+        rounded
+        aria-label="Cancel"
+        @click="store.sidebarVisible = false"
+      />
     </template>
 
     <div class="panel">
@@ -31,7 +42,7 @@ const isMobile = ref(false);
 
 const sidebarPt = { root: { style: { width: "50vw" } } };
 
-onMounted(() => {
+onNuxtReady(() => {
   if (window.innerWidth <= 768) {
     isMobile.value = true;
   }

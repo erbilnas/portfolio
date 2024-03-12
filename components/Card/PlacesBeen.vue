@@ -6,18 +6,14 @@
       </div>
     </template>
 
-    <template #title>
-      The Hitchhiker's Guide
-    </template>
+    <template #title> The Hitchhiker's Guide </template>
 
-    <template #subtitle>
-      Veni, vidi, vici!
-    </template>
+    <template #subtitle> Veni, vidi, vici! </template>
   </Card>
 </template>
 
 <script lang="ts" setup>
-const { maps } = useAppConfig()
+const { maps } = useAppConfig();
 </script>
 
 <style lang="scss" scoped>
