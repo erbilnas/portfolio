@@ -135,6 +135,11 @@ onNuxtReady(() => {
 
   &:hover {
     box-shadow: 0 0 0.5rem var(--primary-color);
+    background: linear-gradient(
+      45deg,
+      var(--primary-color),
+      var(--secondary-color)
+    );
     transition: box-shadow 0.3s ease;
   }
 }
