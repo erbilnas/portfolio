@@ -9,7 +9,6 @@
           icon="pi pi-home"
           text
           outlined
-          rounded
           @click="router.push('/')"
         />
 
@@ -39,7 +38,6 @@
           disabled
           :badge="!isMobile ? 'soon' : ''"
           badgeSeverity="contrast"
-          rounded
         />
       </ButtonGroup>
 
