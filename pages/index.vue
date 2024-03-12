@@ -27,6 +27,7 @@
 <style lang="scss" scoped>
 main {
   display: flex;
+  justify-content: center;
   gap: 1rem;
 
   .p-card {
@@ -49,6 +50,7 @@ main {
 
   .flex-row {
     display: flex;
+    flex: 1;
     gap: 1rem;
 
     @media (max-width: 768px) {
@@ -58,6 +60,7 @@ main {
 
   .flex-column {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 1rem;
   }
