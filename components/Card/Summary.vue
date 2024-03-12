@@ -10,22 +10,22 @@
 
     <template #subtitle>Software Engineer</template>
 
-    <template #content>
-      An ever-learning technology enthusiast.
-    </template>
+    <template #content> An ever-learning technology enthusiast. </template>
   </Card>
 </template>
 
 <script lang="ts" setup>
-const store = useDefaultStore()
+const store = useDefaultStore();
 
-const { profilePicture } = useAppConfig()
+const { profilePicture } = useAppConfig();
 </script>
 
 <style lang="scss" scoped>
 .p-card {
   display: flex;
   flex-direction: row;
+
+  border-radius: var(--border-radius);
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -38,7 +38,6 @@ const { profilePicture } = useAppConfig()
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   overflow: hidden;
 
   img {
@@ -46,12 +45,11 @@ const { profilePicture } = useAppConfig()
     height: 10vh;
     border-radius: 50%;
     margin: 2vh;
-    box-shadow: 0 0 1rem var(--highlight-bg);
-    transition: all .5s ease-in;
+    transition: all 1s ease-in;
 
     &:hover {
       border-radius: var(--border-radius);
-      transform: scale(2);
+      transform: scale(4);
     }
   }
 }
