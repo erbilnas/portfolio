@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <LazyNuxtLayout>
@@ -7,4 +6,6 @@
   </LazyNuxtLayout>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+@import "/assets/index.scss";
+</style>

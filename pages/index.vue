@@ -22,39 +22,33 @@
   </main>
 </template>
 
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 main {
   display: flex;
-  justify-content: center;
-  padding: 0 10vw;
   gap: 1rem;
-
-  @media (max-width: 1180px) {
-    flex-direction: column;
-  }
 
   .p-card {
     cursor: pointer;
     transition: box-shadow 0.3s ease;
-    border-color: var(--primary-color);
-    border-style: solid;
-    border-width: 0.1rem;
-
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
     flex: auto;
 
     &:hover {
-      box-shadow: 0 0 1rem var(--primary-color);
+      box-shadow: 0 0 0.5rem var(--primary-color);
+      background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color)
+      );
       transition: box-shadow 0.3s ease;
     }
   }
 
-
   .flex-row {
     display: flex;
-    flex-direction: row;
     gap: 1rem;
 
     @media (max-width: 768px) {
@@ -65,8 +59,11 @@ main {
   .flex-column {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 1rem;
+  }
+
+  @media (max-width: 1366px) {
+    flex-direction: column;
   }
 }
 </style>

@@ -1,12 +1,22 @@
 <template>
-  <Sidebar :visible="store.changelogVisible" :position="isMobile ? 'full' : 'bottom'" :pt="sidebarPt"
-    :draggable="false">
+  <Sidebar
+    :visible="store.changelogVisible"
+    :position="isMobile ? 'full' : 'bottom'"
+    :pt="sidebarPt"
+    :draggable="false"
+  >
     <template #header>
       <div />
     </template>
 
     <template #closeicon>
-      <Button icon="pi pi-times" text rounded aria-label="Cancel" @click="store.changelogVisible = false" />
+      <Button
+        icon="pi pi-times"
+        text
+        rounded
+        aria-label="Cancel"
+        @click="store.changelogVisible = false"
+      />
     </template>
 
     <Timeline :value="logs" align="alternate">
@@ -22,32 +32,51 @@
 </template>
 
 <script lang="ts" setup>
-const store = useDefaultStore()
+const store = useDefaultStore();
 
-const isMobile = ref(false)
+const isMobile = ref(false);
 
 const logs = ref([
-  { status: 'Version 5.3 enables the Career page.', date: 'Mar 11, 2024' },
-  { status: 'Version 5.2 introduces the light theme.', date: 'Feb 15, 2024' },
-  { status: 'Version 5.1 introduces Spotify. You can see what I am listening now ^-^', date: 'Feb 14, 2024' },
-  { status: 'Version 5, built with Nuxt and deployed on Vercel, has been released.', date: 'Feb 13, 2024' },
-  { status: 'Version 4.3 introduces Medium. The blog is now live!', date: '2022' },
-  { status: 'Version 4.2 introduces life stats.', date: '2020' },
-  { status: 'Version 4.1 introduces the portfolio.', date: '2019' },
-  { status: 'Version 4 now utilizes a custom WordPress theme.', date: '2018' },
-  { status: 'In Version 3, the theme and the context have been changed.', date: '2017' },
-  { status: 'Version 2 has been released using WordPress. Hello PHP!', date: '2016' },
-  { status: 'The initial release of the application utilizing Blogger.', date: '2013' }
+  { status: "Version 5.3 enables the Career page.", date: "Mar 2024" },
+  { status: "Version 5.2 introduces the light theme.", date: "Feb 2024" },
+  {
+    status:
+      "Version 5.1 introduces Spotify. You can see what I am listening now ^-^",
+    date: "Feb 2024",
+  },
+  {
+    status:
+      "Version 5, built with Nuxt and deployed on Vercel, has been released.",
+    date: "Feb 2024",
+  },
+  {
+    status: "Version 4.3 introduces Medium. The blog is now live!",
+    date: "2022",
+  },
+  { status: "Version 4.2 introduces life stats.", date: "2020" },
+  { status: "Version 4.1 introduces the portfolio.", date: "2019" },
+  { status: "Version 4 now utilizes a custom WordPress theme.", date: "2018" },
+  {
+    status: "In Version 3, the theme and the context have been changed.",
+    date: "2017",
+  },
+  {
+    status: "Version 2 has been released using WordPress. Hello PHP!",
+    date: "2016",
+  },
+  {
+    status: "The initial release of the application utilizing Blogger.",
+    date: "2013",
+  },
 ]);
 
 const sidebarPt = { root: { style: { height: "50vh" } } };
 
-
 onMounted(() => {
   if (window.innerWidth <= 768) {
-    isMobile.value = true
+    isMobile.value = true;
   }
-})
+});
 </script>
 
 <style></style>

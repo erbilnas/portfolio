@@ -2,27 +2,32 @@
   <Card @click="useOpenUrl(profiles.hltb)">
     <template #header>
       <div class="image">
-
         <NuxtImg alt="playing-now" :src="image" />
       </div>
     </template>
 
-    <template #title>{{ isPlayingGameExist ? "Playing Now" : "Most Recently Finished" }}</template>
-
+    <template #title>{{
+      isPlayingGameExist ? "Playing Now" : "Most Recently Finished"
+    }}</template>
 
     <template #subtitle>
       {{ title }}
     </template>
 
-
     <template #content>
       <div class="flex-centered-column">
-        <Tag :value="isPlatformPC ? customPlatform : platform" severity="contrast" />
+        <Tag
+          :value="isPlatformPC ? customPlatform : platform"
+          severity="contrast"
+        />
 
-        <Tag v-if="isPlayingGameExist" :value="progressionMessage" severity="secondary" />
+        <Tag
+          v-if="isPlayingGameExist"
+          :value="progressionMessage"
+          severity="secondary"
+        />
       </div>
     </template>
-
   </Card>
 </template>
 
@@ -34,24 +39,25 @@ type HLTB = {
   progress: number;
   status: string;
   storefront: string;
-}
+};
 
-const { data } = await useFetch('/api/hltb?status=currently-playing')
-const { profiles } = useAppConfig()
+const { data } = await useFetch("/api/hltb?status=currently-playing");
+const { profiles } = useAppConfig();
 
-const { title, platform, image, progress, status, storefront } = data.value as HLTB
+const { title, platform, image, progress, status, storefront } =
+  data.value as HLTB;
 
 const progressionMessage = computed(() => {
-  if (!progress) return
+  if (!progress) return;
 
-  return "Playing for " + progress + " hours."
-})
+  return "Playing for " + progress + " hours.";
+});
 
-const isPlayingGameExist = computed(() => status !== 'no-playing-games')
+const isPlayingGameExist = computed(() => status !== "no-playing-games");
 
-const customPlatform = computed(() => (platform + ' | ' + storefront))
+const customPlatform = computed(() => platform + " | " + storefront);
 
-const isPlatformPC = computed(() => platform === 'PC')
+const isPlatformPC = computed(() => platform === "PC");
 </script>
 
 <style lang="scss" scoped>
@@ -67,13 +73,11 @@ const isPlatformPC = computed(() => platform === 'PC')
 
   img {
     width: 45%;
-    box-shadow: 0 0 2rem var(--highlight-bg);
     border-radius: var(--border-radius);
     transition: all 1s ease-in-out;
 
     &:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 1rem var(--highlight-bg);
+      transform: scale(1.1);
     }
   }
 }
