@@ -9,7 +9,7 @@ The digital showcase curated by me, a passionate software engineer with a love f
 https://preview.erbilnas.com/
 
 
-### Stack
+### Development Stack
 
 - [Nuxt](https://nuxt.com/)
 - [PrimeVue](https://primevue.org/)
