@@ -4,7 +4,7 @@
 The digital showcase curated by me, a passionate software engineer with a love for video games, technology, and insightful writing
 
 
-### Beta Releases
+### Preview Latest Features
 
 https://preview.erbilnas.com/
 
