@@ -8,12 +8,18 @@ const getRecentPost = async () => {
 };
 
 export default defineEventHandler(async (event) => {
-  const { items, feed, status } = await getRecentPost();
+  const { items, feed, status, description } = await getRecentPost();
 
   if (status === "ok") {
-    const { title, link } = items[0];
+    const { title, link, pubDate } = items[0];
 
-    return { title, link, feed: feed.link, status: "success" };
+    return {
+      title,
+      link,
+      feed: feed.link,
+      publishedDate: pubDate,
+      status: "success",
+    };
   }
 
   return {
