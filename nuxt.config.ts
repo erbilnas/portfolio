@@ -45,6 +45,7 @@ const appConfig = {
     twitter: process.env.TWITTER_PROFILE,
     instagram: process.env.INSTAGRAM_PROFILE,
     luv: process.env.LUV_PROFILE,
+    goodreads: process.env.GOODREADS_PROFILE,
   },
   maps: {
     placesBeen: process.env.PLACES_BEEN_URL,
