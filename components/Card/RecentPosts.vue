@@ -4,6 +4,12 @@
 
     <template #subtitle>{{ title }}</template>
 
+    <template #content>
+      <p v-if="success">
+        <span>Published on {{ dayjs(publishedDate) }}</span>
+      </p>
+    </template>
+
     <template #footer class="footer">
       <div v-if="success" class="button-container">
         <NuxtLink :to="link" target="_blank" rel="noopener">
@@ -21,16 +27,19 @@
 </template>
 
 <script lang="ts" setup>
+import dayjs from "dayjs";
+
 type Medium = {
   title: string;
   link: string;
   feed: string;
   status: string;
+  publishedDate: string;
 };
 
 const { data } = await useFetch("/api/medium");
 
-const { title, link, feed, status } = data.value as Medium;
+const { title, link, feed, status, publishedDate } = data.value as Medium;
 
 const success = computed(() => status === "success");
 </script>
