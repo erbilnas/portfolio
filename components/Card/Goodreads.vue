@@ -1,19 +1,19 @@
 <template>
-  <Card @click="useOpenUrl(maps.placesBeen)">
+  <Card @click="useOpenUrl(profiles.goodreads)">
     <template #header>
       <div class="card-header">
-        <i class="pi pi-compass" />
+        <i class="pi pi-book" />
       </div>
     </template>
 
-    <template #title> The Hitchhiker's Guide </template>
+    <template #title> Bookshelf </template>
 
-    <template #subtitle> Veni, vidi, vici! </template>
+    <template #subtitle> Look at what I'm reading now! </template>
   </Card>
 </template>
 
 <script lang="ts" setup>
-const { maps } = useAppConfig();
+const { profiles } = useAppConfig();
 </script>
 
 <style lang="scss" scoped>
@@ -24,7 +24,7 @@ const { maps } = useAppConfig();
   padding: 5vh 0;
 }
 
-.pi-compass {
+.pi-book {
   font-size: 8rem;
 }
 </style>

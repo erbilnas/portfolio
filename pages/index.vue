@@ -12,12 +12,17 @@
 
     <div class="flex-column">
       <CardHLTB />
+
       <CardWorkingCompany />
     </div>
 
     <div class="flex-column">
       <CardRecentPosts />
-      <CardPlacesBeen />
+
+      <div class="flex-row">
+        <CardPlacesBeen />
+        <CardGoodreads />
+      </div>
     </div>
   </main>
 </template>
