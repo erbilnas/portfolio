@@ -7,6 +7,7 @@ const { hltbApi } = useRuntimeConfig();
 const getGames = async (status: string, sortBy = "name") => {
   const headers = {
     "Content-Type": "application/json",
+    "User-Agent": "PostmanRuntime",
   };
 
   const body = JSON.stringify({
