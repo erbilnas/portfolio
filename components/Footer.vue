@@ -3,47 +3,41 @@
     <Toolbar>
       <template #start>
         <div>
-          {{ getYear }} © Made with
-          <NuxtLink :to="profiles.luv" rel="noopener" target="__blank">
-            {{ store.theme == themes.dark ? "🤍" : "🖤" }}
+          {{ copyrightText }}
+
+          <NuxtLink :to="luv" rel="noopener" target="__blank">
+            {{ theme == themes.dark ? "🤍" : "🖤" }}
           </NuxtLink>
         </div>
       </template>
 
       <template #center>
-        <Button
-          v-tooltip.top="versionMessage"
-          label="Changelog"
-          link
-          @click="store.changelogVisible = true"
-        />
-        <Button
-          :label="
-            store.theme == themes.dark ? 'Be a Jedi' : 'Come to the Dark Side'
-          "
-          link
-          @click="toggleTheme"
-        />
+        <div class="center">
+          <Button
+            v-tooltip.top="versionText"
+            label="Changelog"
+            text
+            @click="changelogVisible = true"
+          />
+
+          <Button
+            :label="
+              theme == themes.dark ? 'Be a Jedi' : 'Come to the Dark Side'
+            "
+            text
+            @click="toggleTheme"
+          />
+        </div>
       </template>
 
       <template #end>
         <Button
-          icon="pi pi-twitter"
-          aria-label="Twitter"
+          v-for="({ ariaLabel, icon, onClick }, index) in socialMediaButtons"
+          :key="index"
+          :icon
+          :aria-label
+          @click="onClick"
           text
-          @click="useOpenUrl(profiles.twitter)"
-        />
-        <Button
-          icon="pi pi-instagram"
-          aria-label="Instagram"
-          text
-          @click="useOpenUrl(profiles.instagram)"
-        />
-        <Button
-          icon="pi pi-linkedin"
-          aria-label="LinkedIn"
-          text
-          @click="useOpenUrl(profiles.linkedin)"
         />
       </template>
     </Toolbar>
@@ -55,10 +49,15 @@ import { version } from "@@/package.json";
 
 const store = useDefaultStore();
 const dayjs = useDayjs();
-const { profiles, themes } = useAppConfig();
+const {
+  profiles: { twitter, instagram, linkedin, luv, github, youtube },
+  themes,
+} = useAppConfig();
 
-const versionMessage = computed(() => `Version ${version}`);
-const getYear = computed(() => dayjs().year());
+const { changelogVisible, theme } = toRefs(store);
+
+const versionText = computed(() => `Version ${version}`);
+const copyrightText = computed(() => `${dayjs().year()} © Made with`);
 
 const currentTheme = ref(themes.dark);
 
@@ -69,35 +68,67 @@ const toggleTheme = () => {
   currentTheme.value = newTheme;
   store.theme = newTheme;
 
-  const themeLink = document.getElementById("theme-link");
-
-  if (themeLink) {
-    themeLink.setAttribute("href", newTheme);
+  // Find the existing theme link element or create a new one
+  let themeLink = document.getElementById("theme-link");
+  if (!themeLink) {
+    themeLink = document.createElement("link");
+    themeLink.setAttribute("rel", "stylesheet");
+    themeLink.setAttribute("id", "theme-link");
+    document.head.appendChild(themeLink);
   }
+
+  // Update the href attribute of the theme link
+  themeLink.setAttribute("href", newTheme);
 };
+
+const socialMediaButtons = [
+  {
+    icon: "pi pi-twitter",
+    ariaLabel: "Twitter",
+    onClick: () => useOpenUrl(twitter),
+  },
+  {
+    icon: "pi pi-github",
+    ariaLabel: "GitHub",
+    onClick: () => useOpenUrl(github),
+  },
+  {
+    icon: "pi pi-instagram",
+    ariaLabel: "Instagram",
+    onClick: () => useOpenUrl(instagram),
+  },
+  {
+    icon: "pi pi-linkedin",
+    ariaLabel: "LinkedIn",
+    onClick: () => useOpenUrl(linkedin),
+  },
+  {
+    icon: "pi pi-youtube",
+    ariaLabel: "YouTube",
+    onClick: () => useOpenUrl(youtube),
+  },
+];
 </script>
 
 <style lang="scss" scoped>
-footer {
-  padding: 5vh 0;
+.p-toolbar {
+  padding: 5vh;
+  border: none;
+  background: none;
 
   @media (max-width: 768px) {
-    padding: 5vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .p-toolbar {
-    border: none;
-    background: none;
+  .center {
+    display: flex;
+    gap: 1rem;
+  }
 
-    @media (max-width: 1100px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    a {
-      text-decoration: none;
-    }
+  a {
+    text-decoration: none;
   }
 }
 </style>

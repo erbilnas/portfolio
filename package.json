@@ -1,6 +1,6 @@
 {
   "name": "erbilnas-com",
-  "version": "5.4.1",
+  "version": "5.5",
   "type": "module",
   "private": true,
   "scripts": {
@@ -17,7 +17,7 @@
     "@vercel/speed-insights": "^1.0.9",
     "howlongtobeat": "^1.8.0",
     "nuxt": "^3.10.1",
-    "primeicons": "^6.0.1",
+    "primeicons": "^7.0.0",
     "primevue": "^3.49.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"

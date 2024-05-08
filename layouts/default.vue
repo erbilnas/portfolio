@@ -7,8 +7,6 @@
 
     <Footer />
 
-    <SidebarAboutMe />
-
     <SidebarChangelog />
   </main>
 </template>

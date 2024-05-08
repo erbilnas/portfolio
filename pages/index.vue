@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="flex-column">
-      <CardSummary />
+      <CardSummary class="summary-card" />
       <CardSpotify />
 
       <div class="flex-row">
@@ -38,8 +38,6 @@ main {
   .p-card {
     cursor: pointer;
     transition: box-shadow 0.3s ease;
-    border: 1px solid var(--primary-color);
-    border-radius: var(--border-radius);
     flex: auto;
 
     &:hover {
@@ -51,6 +49,10 @@ main {
       );
       transition: box-shadow 0.3s ease;
     }
+  }
+
+  .summary-card {
+    cursor: default;
   }
 
   .flex-row {

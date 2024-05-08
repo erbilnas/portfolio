@@ -37,27 +37,38 @@ const getGames = async (status: string, sortBy = "name") => {
 const getCurrentlyPlayingGame = async () => {
   const { data } = await getGames("playing", "date_updated");
 
-  const { imageUrl } = await hltb.detail(data.gamesList[0].game_id.toString());
+  const { imageUrl, description } = await hltb.detail(
+    data.gamesList[0].game_id.toString()
+  );
 
   const title = data.gamesList[0].custom_title;
   const platform = data.gamesList[0].platform;
   const progress = (data.gamesList[0].invested_pro / 3600).toFixed(1);
   const storefront = data.gamesList[0].play_storefront;
 
-  return { title, platform, progress, image: imageUrl, storefront };
+  return {
+    title,
+    platform,
+    progress,
+    image: imageUrl,
+    storefront,
+    description,
+  };
 };
 
 const getLastCompletedGame = async () => {
   const { data } = await getGames("completed", "date_complete");
 
-  const { imageUrl } = await hltb.detail(data.gamesList[0].game_id.toString());
+  const { imageUrl, description } = await hltb.detail(
+    data.gamesList[0].game_id.toString()
+  );
 
   const title = data.gamesList[0].custom_title;
   const platform = data.gamesList[0].platform;
   const storefront = data.gamesList[0].play_storefront;
   const status = "no-playing-games";
 
-  return { title, platform, image: imageUrl, status, storefront };
+  return { title, platform, image: imageUrl, status, storefront, description };
 };
 
 export default defineEventHandler(async (event) => {
