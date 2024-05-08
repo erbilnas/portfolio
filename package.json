@@ -1,6 +1,6 @@
 {
   "name": "erbilnas-com",
-  "version": "5.5",
+  "version": "5.5.1",
   "type": "module",
   "private": true,
   "scripts": {

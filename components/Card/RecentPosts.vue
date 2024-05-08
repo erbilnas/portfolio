@@ -1,16 +1,16 @@
 <template>
   <Card>
-    <template #title>{{ title }}</template>
+    <template #title>{{ success ? title : "Error" }}</template>
 
-    <template #subtitle>{{ success ? "Recent Post" : "Warning" }}</template>
+    <template #subtitle>{{ success ? "Recent Post" : title }}</template>
 
     <template #content>
       <p v-if="success">
-        <div class="content">
-          <p>{{ description }}</p>
-      
-          <small>Published on {{ dayjs(publishedDate).format("LLLL") }}</small>
-        </div>
+      <div class="content">
+        <p>{{ description }}</p>
+
+        <small>Published on {{ dayjs(publishedDate).format("LLLL") }}</small>
+      </div>
       </p>
     </template>
 
@@ -71,7 +71,7 @@ const success = computed(() => status === "success");
 
 .p-card {
   cursor: default !important;
-  
+
   .content {
     display: flex;
     flex-direction: column;
