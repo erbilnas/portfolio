@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(profiles.spotify)">
+  <Card @click="useOpenUrl(spotify)">
     <template #subtitle> Listening Now </template>
 
     <template #content>
@@ -13,34 +13,18 @@
 </template>
 
 <script lang="ts" setup>
-const { profiles } = useAppConfig();
+const {
+  profiles: { spotify },
+} = useAppConfig();
 
 const { data: currentlyPlaying, refresh } = useFetch(
   "/api/spotify?player=currently-playing"
 );
 
-const setCurrentSongAsHeadTitle = () => {
-  useHead({
-    title: "🔊 " + currentlyPlaying.value,
-  });
-};
-
 onNuxtReady(() => {
   setInterval(async () => {
     await refresh();
-
-    setCurrentSongAsHeadTitle();
   }, 60_000);
-
-  setInterval(async () => {
-    setCurrentSongAsHeadTitle();
-  }, 15_000);
-
-  setInterval(() => {
-    useHead({
-      title: "Welcome | It's me, Erbil",
-    });
-  }, 10_000);
 });
 </script>
 

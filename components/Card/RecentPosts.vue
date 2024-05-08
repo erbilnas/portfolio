@@ -1,12 +1,16 @@
 <template>
   <Card>
-    <template #title>{{ success ? "Recent Post" : "Warning" }}</template>
+    <template #title>{{ title }}</template>
 
-    <template #subtitle>{{ title }}</template>
+    <template #subtitle>{{ success ? "Recent Post" : "Warning" }}</template>
 
     <template #content>
       <p v-if="success">
-        <span>Published on {{ dayjs(publishedDate) }}</span>
+        <div class="content">
+          <p>{{ description }}</p>
+      
+          <small>Published on {{ dayjs(publishedDate).format("LLLL") }}</small>
+        </div>
       </p>
     </template>
 
@@ -28,6 +32,9 @@
 
 <script lang="ts" setup>
 import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(localizedFormat);
 
 type Medium = {
   title: string;
@@ -35,11 +42,13 @@ type Medium = {
   feed: string;
   status: string;
   publishedDate: string;
+  description: string;
 };
 
 const { data } = await useFetch("/api/medium");
 
-const { title, link, feed, status, publishedDate } = data.value as Medium;
+const { title, link, feed, status, publishedDate, description } =
+  data.value as Medium;
 
 const success = computed(() => status === "success");
 </script>
@@ -62,5 +71,11 @@ const success = computed(() => status === "success");
 
 .p-card {
   cursor: default !important;
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 </style>

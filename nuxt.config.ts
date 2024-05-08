@@ -46,6 +46,10 @@ const appConfig = {
     instagram: process.env.INSTAGRAM_PROFILE,
     luv: process.env.LUV_PROFILE,
     goodreads: process.env.GOODREADS_PROFILE,
+    steam: process.env.STEAM_PROFILE,
+    twitch: process.env.TWITCH_PROFILE,
+    youtube: process.env.YOUTUBE_PROFILE,
+    medium: process.env.MEDIUM_PROFILE,
   },
   maps: {
     placesBeen: process.env.PLACES_BEEN_URL,
@@ -101,6 +105,12 @@ export default defineNuxtConfig({
           id: "theme-link",
           rel: "stylesheet",
           href: process.env.NUXT_APP_DARK_THEME,
+        },
+      ],
+      script: [
+        {
+          src: "https://kit.fontawesome.com/f1354c0521.js",
+          crossorigin: "anonymous",
         },
       ],
     },

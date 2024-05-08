@@ -1,32 +1,38 @@
 <template>
-  <Card @click="useOpenUrl(profiles.hltb)">
+  <Card @click="useOpenUrl(hltb)">
     <template #header>
       <div class="image">
         <NuxtImg alt="playing-now" :src="image" />
       </div>
+
+      <div class="tag-collection">
+        <Tag :value="platform" severity="contrast" :icon="platformIcon" />
+
+        <Tag
+          v-if="storefront"
+          :value="storefront"
+          severity="info"
+          :icon="storefrontIcon"
+        />
+
+        <Tag
+          v-if="isPlayingGameExist"
+          :value="progressionText"
+          icon="fa-regular fa-clock"
+        />
+      </div>
     </template>
 
-    <template #title>{{
-      isPlayingGameExist ? "Playing Now" : "Most Recently Finished"
-    }}</template>
+    <template #title>
+      {{ isPlayingGameExist ? "Playing Now" : "Recently Finished" }}
+    </template>
 
     <template #subtitle>
       {{ title }}
     </template>
 
     <template #content>
-      <div class="flex-centered-column">
-        <Tag
-          :value="isPlatformPC ? customPlatform : platform"
-          severity="contrast"
-        />
-
-        <Tag
-          v-if="isPlayingGameExist"
-          :value="progressionMessage"
-          severity="secondary"
-        />
-      </div>
+      {{ descriptionText }}
     </template>
   </Card>
 </template>
@@ -39,52 +45,94 @@ type HLTB = {
   progress: number;
   status: string;
   storefront: string;
+  description: string;
 };
 
-const { data } = await useFetch("/api/hltb?status=currently-playing");
-const { profiles } = useAppConfig();
+// const { data } = await useFetch("/api/hltb?status=currently-playing");
+const { data } = await useAsyncData("hltb", async () => {
+  const response = await $fetch("/api/hltb?status=currently-playing");
 
-const { title, platform, image, progress, status, storefront } =
+  return response;
+});
+
+const {
+  profiles: { hltb },
+} = useAppConfig();
+
+const { title, platform, image, progress, status, storefront, description } =
   data.value as HLTB;
 
-const progressionMessage = computed(() => {
+const progressionText = computed(() => {
   if (!progress) return;
 
-  return "Playing for " + progress + " hours.";
+  return progress + " hours";
+});
+
+const descriptionText = computed(() => {
+  return description.split("How long")[0];
 });
 
 const isPlayingGameExist = computed(() => status !== "no-playing-games");
 
-const customPlatform = computed(() => platform + " | " + storefront);
+const platformIcon = computed(() => {
+  switch (platform) {
+    case "PC":
+      return "fa-brands fa-microsoft";
+    case "PlayStation 4":
+      return "fa-brands fa-playstation";
+    case "PlayStation 5":
+      return "fa-brands fa-playstation";
+    case "Xbox One":
+      return "fa-brands fa-xbox";
+    case "Xbox Series X/S":
+      return "fa-brands fa-xbox";
+    case "Meta Quest":
+      return "fa-solid fa-vr-cardboard";
+    case "iOS":
+      return "fa-brands fa-apple";
+    default:
+      return "fa-solid fa-gamepad";
+  }
+});
 
-const isPlatformPC = computed(() => platform === "PC");
+const storefrontIcon = computed(() => {
+  switch (storefront) {
+    case "Steam":
+      return "fa-brands fa-steam";
+    case "Xbox Game Pass":
+      return "fa-brands fa-xbox";
+    case "Microsoft Store":
+      return "fa-brands fa-microsoft";
+    case "PlayStation Store":
+      return "fa-brands fa-playstation";
+    case "PlayStation Plus":
+      return "fa-brands fa-playstation";
+    case "Battle.net":
+      return "fa-brands fa-battle-net";
+    case "itch.io":
+      return "fa-brands fa-itch-io";
+    default:
+      return "fa-solid fa-store";
+  }
+});
 </script>
 
 <style lang="scss" scoped>
-.p-card {
-  min-width: 20vw;
-}
-
 .image {
-  padding: 2vh 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 1.2rem;
 
   img {
-    width: 45%;
     border-radius: var(--border-radius);
-    transition: all 1s ease-in-out;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 }
 
-.flex-centered-column {
+.tag-collection {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
+  padding: 0 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 }
 </style>

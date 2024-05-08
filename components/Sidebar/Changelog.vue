@@ -1,10 +1,5 @@
 <template>
-  <Sidebar
-    :visible="store.changelogVisible"
-    :position="isMobile ? 'full' : 'bottom'"
-    :pt="sidebarPt"
-    :draggable="false"
-  >
+  <Sidebar :visible="changelogVisible" :position :pt :draggable="false">
     <template #header>
       <div />
     </template>
@@ -15,11 +10,11 @@
         text
         rounded
         aria-label="Cancel"
-        @click="store.changelogVisible = false"
+        @click="changelogVisible = false"
       />
     </template>
 
-    <Timeline :value="logs" align="alternate">
+    <Timeline :value="changelogs" align="alternate">
       <template #opposite="{ item }">
         <small class="p-text-secondary">{{ item.date }}</small>
       </template>
@@ -32,43 +27,15 @@
 </template>
 
 <script lang="ts" setup>
+import { CHANGELOGS as changelogs } from "~/constants";
+
 const store = useDefaultStore();
 
-const isMobile = ref(false);
+const { changelogVisible } = toRefs(store);
 
-const logs = ref([
-  {
-    status:
-      "Version 5, built with Nuxt and deployed on Vercel, has been released.",
-    date: "2024",
-  },
-  {
-    status: "Version 4 now utilizes a custom WordPress theme. Hello PHP!",
-    date: "2018",
-  },
-  {
-    status:
-      "Version 3 has been released with changes to both the theme and the content.",
-    date: "2017",
-  },
-  {
-    status:
-      "Version 2 has been released using a pre-configured WordPress setup.",
-    date: "2016",
-  },
-  {
-    status: "The initial release of the application utilizing Blogger.",
-    date: "2013",
-  },
-]);
+const isMobile = useResize(768);
 
-const sidebarPt = { root: { style: { height: "50vh" } } };
+const position = computed(() => (isMobile.value ? "full" : "bottom"));
 
-onMounted(() => {
-  if (window.innerWidth <= 768) {
-    isMobile.value = true;
-  }
-});
+const pt = { root: { style: { height: "50vh" } } };
 </script>
-
-<style></style>
