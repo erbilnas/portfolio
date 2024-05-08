@@ -5,7 +5,7 @@
         <NuxtImg alt="playing-now" :src="image" />
       </div>
 
-      <div style="display: flex; gap: 0.5rem; padding: 0 1.2rem">
+      <div class="tag-collection">
         <Tag :value="platform" severity="contrast" :icon="platformIcon" />
 
         <Tag
@@ -123,6 +123,16 @@ const storefrontIcon = computed(() => {
 
   img {
     border-radius: var(--border-radius);
+  }
+}
+
+.tag-collection {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
   }
 }
 </style>
