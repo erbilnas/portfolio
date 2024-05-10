@@ -19,13 +19,12 @@
 </template>
 
 <script lang="ts" setup>
-const careerTypes = ["Experience", "Education"];
-
 const CAREER_TYPE = {
   EXPERIENCE: "Experience",
   EDUCATION: "Education",
 };
 
+const careerTypes = ref(["Experience", "Education"]);
 const careerType = ref(CAREER_TYPE.EXPERIENCE);
 
 const isCareerTypeExperience = computed(

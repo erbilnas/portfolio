@@ -24,6 +24,8 @@
         <CardGoodreads />
       </div>
     </div>
+
+    <ScrollTop />
   </main>
 </template>
 

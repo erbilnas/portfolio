@@ -17,7 +17,7 @@
           {{ range }}
 
           <p>
-            {{ studyField }}
+            <small> {{ studyField }}</small>
           </p>
         </template>
       </Card>
