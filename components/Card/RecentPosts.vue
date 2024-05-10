@@ -1,31 +1,47 @@
 <template>
   <Card>
-    <template #title>{{ success ? title : "Error" }}</template>
+    <template #title>
+      <div v-if="store.recentPosts.title">{{ success ? store.recentPosts.title : "Error" }}</div>
 
-    <template #subtitle>{{ success ? "Recent Post" : title }}</template>
+      <Skeleton height="2rem" width="80%" v-else />
+    </template>
+
+    <template #subtitle>
+      <div v-if="store.recentPosts.status">
+        {{ success ? "Recent Post" : '500' }}
+      </div>
+    </template>
 
     <template #content>
-      <p v-if="success">
-      <div class="content">
-        <p>{{ description }}</p>
+      <div v-if="store.recentPosts.description">
+        <p v-if="success">
+        <div class="content">
+          <p>{{ store.recentPosts.description }}</p>
 
-        <small>Published on {{ dayjs(publishedDate).format("LLLL") }}</small>
+          <small>Published on {{ dayjs(store.recentPosts.publishedDate).format("LLLL") }}</small>
+        </div>
+        </p>
       </div>
-      </p>
+
+      <Skeleton height="1rem" width="40%" v-else />
     </template>
 
     <template #footer class="footer">
-      <div v-if="success" class="button-container">
-        <NuxtLink :to="link" target="_blank" rel="noopener">
-          <Button label="Read Now" />
-        </NuxtLink>
+      <div v-if="store.recentPosts.link">
+        <div v-if="success" class="button-container">
+          <NuxtLink :to="store.recentPosts.link" target="_blank" rel="noopener">
+            <Button label="Read Now" />
+          </NuxtLink>
 
-        <NuxtLink :to="feed" target="_blank" rel="noopener">
-          <Button label="More Posts" outlined />
-        </NuxtLink>
+          <NuxtLink :to="store.recentPosts.feed" target="_blank" rel="noopener">
+            <Button label="More Posts" outlined />
+          </NuxtLink>
+        </div>
+
+        <div v-else>Please attempt again at a later time.</div>
       </div>
 
-      <div v-else>Please attempt again at a later time.</div>
+      <Skeleton height="12rem" v-else />
     </template>
   </Card>
 </template>
@@ -36,21 +52,9 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 
 dayjs.extend(localizedFormat);
 
-type Medium = {
-  title: string;
-  link: string;
-  feed: string;
-  status: string;
-  publishedDate: string;
-  description: string;
-};
+const store = useDefaultStore();
 
-const { data } = await useFetch("/api/medium");
-
-const { title, link, feed, status, publishedDate, description } =
-  data.value as Medium;
-
-const success = computed(() => status === "success");
+const success = computed(() => store.recentPosts.status === "success");
 </script>
 
 <style lang="scss" scoped>

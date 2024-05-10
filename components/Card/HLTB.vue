@@ -2,15 +2,28 @@
   <Card @click="useOpenUrl(hltb)">
     <template #header>
       <div class="image">
-        <NuxtImg alt="playing-now" :src="image" />
+        <NuxtImg
+          alt="playing-now"
+          :src="store.hltb.image"
+          v-if="store.hltb.image"
+        />
+
+        <Skeleton height="18rem" width="50%" v-else />
       </div>
 
-      <div class="tag-collection">
-        <Tag :value="platform" severity="contrast" :icon="platformIcon" />
+      <div
+        class="tag-collection"
+        v-if="store.hltb.platform && isPlayingGameExist"
+      >
+        <Tag
+          :value="store.hltb.platform"
+          severity="contrast"
+          :icon="platformIcon"
+        />
 
         <Tag
-          v-if="storefront"
-          :value="storefront"
+          v-if="store.hltb.storefront"
+          :value="store.hltb.storefront"
           severity="info"
           :icon="storefrontIcon"
         />
@@ -24,58 +37,48 @@
     </template>
 
     <template #title>
-      {{ isPlayingGameExist ? "Playing Now" : "Recently Finished" }}
+      <div v-if="store.hltb.title">{{ store.hltb.title }}</div>
+
+      <Skeleton height="2rem" width="80%" v-else />
     </template>
 
     <template #subtitle>
-      {{ title }}
+      <div v-if="store.hltb.title">
+        {{ isPlayingGameExist ? "Playing Now" : "Recently Finished" }}
+      </div>
     </template>
 
     <template #content>
-      {{ descriptionText }}
+      <div v-if="descriptionText">{{ descriptionText }}</div>
+
+      <Skeleton height="4rem" v-else />
     </template>
   </Card>
 </template>
 
 <script lang="ts" setup>
-type HLTB = {
-  title: string;
-  platform: string;
-  image: string;
-  progress: number;
-  status: string;
-  storefront: string;
-  description: string;
-};
-
-// const { data } = await useFetch("/api/hltb?status=currently-playing");
-const { data } = await useAsyncData("hltb", async () => {
-  const response = await $fetch("/api/hltb?status=currently-playing");
-
-  return response;
-});
-
 const {
   profiles: { hltb },
 } = useAppConfig();
 
-const { title, platform, image, progress, status, storefront, description } =
-  data.value as HLTB;
+const store = useDefaultStore();
 
 const progressionText = computed(() => {
-  if (!progress) return;
+  if (!store.hltb.progress) return;
 
-  return progress + " hours";
+  return store.hltb.progress + " hours";
 });
 
 const descriptionText = computed(() => {
-  return description.split("How long")[0];
+  return store.hltb.description.split("How long")[0];
 });
 
-const isPlayingGameExist = computed(() => status !== "no-playing-games");
+const isPlayingGameExist = computed(
+  () => store.hltb.status !== "no-playing-games"
+);
 
 const platformIcon = computed(() => {
-  switch (platform) {
+  switch (store.hltb.platform) {
     case "PC":
       return "fa-brands fa-microsoft";
     case "PlayStation 4":
@@ -96,7 +99,7 @@ const platformIcon = computed(() => {
 });
 
 const storefrontIcon = computed(() => {
-  switch (storefront) {
+  switch (store.hltb.storefront) {
     case "Steam":
       return "fa-brands fa-steam";
     case "Xbox Game Pass":

@@ -6,6 +6,8 @@
       <div class="card-content">
         <div class="equalizer"><span /><span /><span /></div>
 
+        <Skeleton v-if="!currentlyPlaying"></Skeleton>
+
         <span>{{ currentlyPlaying }}</span>
       </div>
     </template>
@@ -17,15 +19,9 @@ const {
   profiles: { spotify },
 } = useAppConfig();
 
-const { data: currentlyPlaying, refresh } = useFetch(
-  "/api/spotify?player=currently-playing"
-);
+const store = useDefaultStore();
 
-onNuxtReady(() => {
-  setInterval(async () => {
-    await refresh();
-  }, 60_000);
-});
+const { currentlyPlaying } = toRefs(store);
 </script>
 
 <style lang="scss" scoped>

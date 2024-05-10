@@ -42,6 +42,33 @@ export const WORKPLACES = [
   },
 ];
 
+export const EDUCATIONS = [
+  {
+    name: "Mugla Sitki Kocman University",
+    degree: "Master's Degree",
+    studyField: "Digital Game Design and Technologies",
+    range: "2021 - Present",
+  },
+  {
+    name: "Anadolu University",
+    degree: "Bachelor's Degree",
+    studyField: "Management Information Systems and Services",
+    range: "2019 - Present",
+  },
+  {
+    name: "Sakarya University",
+    degree: "Bachelor's Degree",
+    studyField: "Computer Science and Engineering",
+    range: "2015 - 2019",
+  },
+  {
+    name: "Florya Tevfik Ercan Anadolu Lisesi",
+    degree: "High School Diploma",
+    studyField: "Mathematics & Science",
+    range: "2011 - 2015",
+  },
+];
+
 export const CHANGELOGS = [
   {
     status:
