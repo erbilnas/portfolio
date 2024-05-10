@@ -29,7 +29,47 @@
   </main>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+type Medium = {
+  title: string;
+  link: string;
+  feed: string;
+  status: string;
+  publishedDate: string;
+  description: string;
+};
+
+type HLTB = {
+  title: string;
+  platform: string;
+  image: string;
+  progress: number;
+  status: string;
+  storefront: string;
+  description: string;
+};
+
+const store = useDefaultStore();
+
+const ONE_MINUTE = 60_000;
+const HLTB_API = "/api/hltb?status=currently-playing";
+const SPOTIFY_API = "/api/spotify?player=currently-playing";
+const MEDIUM_API = "/api/medium";
+
+onNuxtReady(async () => {
+  const { data: currentlyPlaying, refresh } = await useFetch(SPOTIFY_API);
+  const { data: hltb } = await useFetch(HLTB_API);
+  const { data: recentPosts } = await useFetch(MEDIUM_API);
+
+  setInterval(async () => {
+    await refresh();
+  }, ONE_MINUTE);
+
+  store.currentlyPlaying = currentlyPlaying.value as string;
+  store.hltb = hltb.value as HLTB;
+  store.recentPosts = recentPosts.value as Medium;
+});
+</script>
 
 <style lang="scss" scoped>
 main {
