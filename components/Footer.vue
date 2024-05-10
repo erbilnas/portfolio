@@ -116,7 +116,7 @@ const socialMediaButtons = [
   border: none;
   background: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     display: flex;
     flex-direction: column;
     align-items: center;

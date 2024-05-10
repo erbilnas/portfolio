@@ -24,11 +24,11 @@
     </template>
 
     <template #title>
-      {{ isPlayingGameExist ? "Playing Now" : "Recently Finished" }}
+      {{ title }}
     </template>
 
     <template #subtitle>
-      {{ title }}
+      {{ isPlayingGameExist ? "Playing Now" : "Recently Finished" }}
     </template>
 
     <template #content>
