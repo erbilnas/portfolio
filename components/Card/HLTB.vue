@@ -126,6 +126,11 @@ const storefrontIcon = computed(() => {
 
   img {
     border-radius: var(--border-radius);
+    width: 50%;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
 }
 
