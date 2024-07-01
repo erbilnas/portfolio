@@ -87,14 +87,18 @@ export default defineNuxtConfig({
     "dayjs-nuxt",
     "@nuxt/image",
   ],
+
   css: ["primeicons/primeicons.css"],
+
   primevue: {
     options: {
       ripple: true,
     },
   },
+
   appConfig,
   runtimeConfig,
+
   app: {
     head: {
       title: process.env.NUXT_APP_TITLE,
@@ -117,5 +121,9 @@ export default defineNuxtConfig({
         },
       ],
     },
+  },
+
+  devtools: {
+    enabled: true,
   },
 });
