@@ -116,19 +116,24 @@ const socialMediaButtons = [
   border: none;
   background: none;
 
-  @media (max-width: 1080px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .center {
     display: flex;
     gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 
   a {
     text-decoration: none;
+  }
+
+  @media (max-width: 1080px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
