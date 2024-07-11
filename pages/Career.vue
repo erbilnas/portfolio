@@ -37,6 +37,8 @@ useHead({
 </script>
 
 <style lang="scss" scoped>
+@import "/assets/animation.scss";
+
 .career {
   display: flex;
   flex-direction: column;
@@ -45,17 +47,6 @@ useHead({
   &__switch-type {
     display: flex;
     justify-content: center;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   animation: fadeIn 0.5s;

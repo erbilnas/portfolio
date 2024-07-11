@@ -49,7 +49,7 @@
     </template>
 
     <template #content>
-      <div v-if="descriptionText">{{ descriptionText }}</div>
+      <small v-if="descriptionText">{{ descriptionText }}</small>
 
       <Skeleton height="4rem" v-else />
     </template>
@@ -70,7 +70,13 @@ const progressionText = computed(() => {
 });
 
 const descriptionText = computed(() => {
-  return store.hltb.description.split("How long")[0];
+  let description = store.hltb.description;
+
+  if (description.includes("Read More")) {
+    description = description.replace("...Read More", "");
+  }
+
+  return description.split("How long")[0];
 });
 
 const isPlayingGameExist = computed(
@@ -126,10 +132,10 @@ const storefrontIcon = computed(() => {
 
   img {
     border-radius: var(--border-radius);
-    width: 50%;
+    width: 30%;
 
     @media screen and (max-width: 768px) {
-      width: 100%;
+      width: 50%;
     }
   }
 }

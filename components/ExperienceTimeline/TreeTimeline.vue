@@ -38,6 +38,8 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
+@import "/assets/animation.scss";
+
 .p-card {
   &:hover {
     cursor: default;
@@ -49,5 +51,7 @@ defineProps<{
       var(--secondary-color)
     );
   }
+
+  animation: fadeIn 0.5s;
 }
 </style>
