@@ -12,4 +12,8 @@ const {
 } = useAppConfig();
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.p-card {
+  max-height: 14vh;
+}
+</style>
