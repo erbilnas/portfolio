@@ -1,38 +1,32 @@
 <template>
-  <Card @click="useOpenUrl(hltb)">
+  <Card v-if="store.hltb.error" class="error-card">
+    <template #header>
+      <div class="error-image">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+    </template>
+    <template #title>
+      <div>Error</div>
+    </template>
+    <template #content>
+      <small>Unable to fetch HowLongToBeat data. Please try again later.</small>
+    </template>
+  </Card>
+
+  <Card v-else>
     <template #header>
       <div class="image">
-        <NuxtImg
-          alt="playing-now"
-          :src="store.hltb.image"
-          v-if="store.hltb.image"
-        />
+        <NuxtImg alt="playing-now" :src="store.hltb.image" v-if="store.hltb.image" />
 
         <Skeleton height="18rem" width="50%" v-else />
       </div>
 
-      <div
-        class="tag-collection"
-        v-if="store.hltb.platform && isPlayingGameExist"
-      >
-        <Tag
-          :value="store.hltb.platform"
-          severity="contrast"
-          :icon="platformIcon"
-        />
+      <div class="tag-collection" v-if="store.hltb.platform && isPlayingGameExist">
+        <Tag :value="store.hltb.platform" severity="contrast" :icon="platformIcon" />
 
-        <Tag
-          v-if="store.hltb.storefront"
-          :value="store.hltb.storefront"
-          severity="info"
-          :icon="storefrontIcon"
-        />
+        <Tag v-if="store.hltb.storefront" :value="store.hltb.storefront" severity="info" :icon="storefrontIcon" />
 
-        <Tag
-          v-if="isPlayingGameExist"
-          :value="progressionText"
-          icon="fa-regular fa-clock"
-        />
+        <Tag v-if="isPlayingGameExist" :value="progressionText" icon="fa-regular fa-clock" />
       </div>
     </template>
 
@@ -53,6 +47,14 @@
 
       <Skeleton height="4rem" v-else />
     </template>
+
+    <template #footer>
+      <NuxtLink :to="hltb" target="_blank" external v-if="store.hltb.title">
+        <Button label="View on HowLongToBeat" size="small" icon="fa-solid fa-gamepad" />
+      </NuxtLink>
+
+      <Skeleton height="2rem" width="30%" v-else />
+    </template>
   </Card>
 </template>
 
@@ -70,7 +72,7 @@ const progressionText = computed(() => {
 });
 
 const descriptionText = computed(() => {
-  let description = store.hltb.description;
+  let description = store.hltb.description || '';
 
   if (description.includes("Read More")) {
     description = description.replace("...Read More", "");
@@ -147,6 +149,34 @@ const storefrontIcon = computed(() => {
 
   @media screen and (max-width: 768px) {
     flex-wrap: wrap;
+  }
+}
+
+.error-card {
+  :deep(.p-card) {
+    background-color: #1f1f1f;
+    border: 1px solid #2d2d2d;
+  }
+
+  .error-image {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+
+    i {
+      font-size: 3rem;
+      color: red; // HLTB's signature orange color
+    }
+  }
+
+  :deep(.p-card-title) {
+    color: red;
+    text-align: center;
+  }
+
+  :deep(.p-card-content) {
+    text-align: center;
+    color: #a8a8a8;
   }
 }
 </style>
