@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { version } from "@@/package.json";
+import { version } from "@@/package.json"
 
 const store = useDefaultStore();
 const dayjs = useDayjs();
@@ -61,14 +61,7 @@ const copyrightText = computed(() => `${dayjs().year()} © Made with`);
 
 const currentTheme = ref(themes.dark);
 
-const toggleTheme = () => {
-  const newTheme =
-    currentTheme.value === themes.dark ? themes.light : themes.dark;
-
-  currentTheme.value = newTheme;
-  store.theme = newTheme;
-
-  // Find the existing theme link element or create a new one
+const setupThemeLink = (theme: string) => {
   let themeLink = document.getElementById("theme-link");
   if (!themeLink) {
     themeLink = document.createElement("link");
@@ -76,9 +69,17 @@ const toggleTheme = () => {
     themeLink.setAttribute("id", "theme-link");
     document.head.appendChild(themeLink);
   }
+  themeLink.setAttribute("href", theme);
+};
 
-  // Update the href attribute of the theme link
-  themeLink.setAttribute("href", newTheme);
+const toggleTheme = () => {
+  const newTheme =
+    currentTheme.value === themes.dark ? themes.light : themes.dark;
+
+  currentTheme.value = newTheme;
+  store.theme = newTheme;
+  localStorage.setItem('theme', newTheme);
+  setupThemeLink(newTheme);
 };
 
 const socialMediaButtons = [
@@ -108,6 +109,13 @@ const socialMediaButtons = [
     onClick: () => useOpenUrl(youtube),
   },
 ];
+
+onMounted(() => {
+  const savedTheme = localStorage.getItem('theme') || themes.dark;
+  currentTheme.value = savedTheme;
+  store.theme = savedTheme;
+  setupThemeLink(savedTheme);
+});
 </script>
 
 <style lang="scss" scoped>
