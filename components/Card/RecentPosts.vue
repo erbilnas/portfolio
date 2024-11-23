@@ -29,12 +29,12 @@
     <template #footer class="footer">
       <div v-if="store.recentPosts.link">
         <div v-if="success" class="button-container">
-          <NuxtLink :to="store.recentPosts.link" target="_blank" rel="noopener">
-            <Button label="Read Now" />
+          <NuxtLink :to="store.recentPosts.link" target="_blank" rel="noopener" external>
+            <Button label="Read Now" size="small" icon="fa-solid fa-eye" />
           </NuxtLink>
 
-          <NuxtLink :to="store.recentPosts.feed" target="_blank" rel="noopener">
-            <Button label="More Posts" outlined />
+          <NuxtLink :to="store.recentPosts.feed" target="_blank" rel="noopener" external>
+            <Button label="More Posts" outlined size="small" icon="fa-solid fa-arrow-right" />
           </NuxtLink>
         </div>
 
@@ -47,8 +47,8 @@
 </template>
 
 <script lang="ts" setup>
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+import dayjs from "dayjs"
+import localizedFormat from "dayjs/plugin/localizedFormat"
 
 dayjs.extend(localizedFormat);
 
@@ -74,8 +74,6 @@ const success = computed(() => store.recentPosts.status === "success");
 }
 
 .p-card {
-  cursor: default !important;
-
   .content {
     display: flex;
     flex-direction: column;

@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(goodreads)">
+  <Card>
     <template #header>
       <div class="card-header">
         <i class="pi pi-book" />
@@ -9,6 +9,10 @@
     <template #title> Bookshelf </template>
 
     <template #subtitle> Look at what I'm reading now! </template>
+
+    <template #footer>
+      <Button label="View on Goodreads" size="small" icon="fa-solid fa-book" @click="useOpenUrl(goodreads)" />
+    </template>
   </Card>
 </template>
 
@@ -42,9 +46,11 @@ const {
   0% {
     transform: perspective(1000px) rotateY(0deg);
   }
+
   50% {
     transform: perspective(1000px) rotateY(30deg);
   }
+
   100% {
     transform: perspective(1000px) rotateY(-30deg);
   }

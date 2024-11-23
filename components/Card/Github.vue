@@ -1,5 +1,5 @@
 <template>
-  <Card @click="useOpenUrl(github)">
+  <Card>
     <template #content>
       <div class="card-content">
         <i class="pi pi-github" />
@@ -7,7 +7,10 @@
     </template>
 
     <template #footer>
-      <p>Talk is cheap. Show me the code.</p>
+      <div class="footer-content">
+        <p>Talk is cheap. Show me the code.</p>
+        <Button label="View on Github" size="small" icon="fa-solid fa-code-fork" @click="useOpenUrl(github)" />
+      </div>
     </template>
   </Card>
 </template>
@@ -45,11 +48,20 @@ const {
   0% {
     transform: rotate(0deg);
   }
+
   50% {
     transform: rotate(5deg);
   }
+
   100% {
     transform: rotate(-5deg);
   }
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>
