@@ -19,6 +19,8 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from "vue";
+
 type Stats = {
   age: number;
   experience: number;
@@ -30,10 +32,45 @@ const {
 const store = useDefaultStore();
 
 const { data } = await useFetch("/api/stats");
+const { age: targetAge, experience: targetExperience } = data.value as Stats;
 
-const { age, experience } = data.value as Stats;
+const age = ref(0);
+const experience = ref(0);
+const currentStep = ref(0);
 
-store.age = age;
+const animateValues = () => {
+  const duration = 1500;
+  const steps = 60;
+  const interval = duration / steps;
+
+  const ageIncrement = targetAge / steps;
+  const experienceIncrement = targetExperience / steps;
+
+  const timer = setInterval(() => {
+    currentStep.value++;
+    age.value = Math.min(
+      Math.round(ageIncrement * currentStep.value),
+      targetAge
+    );
+    experience.value = Math.min(
+      Math.round(experienceIncrement * currentStep.value),
+      targetExperience
+    );
+
+    if (currentStep.value >= steps) {
+      clearInterval(timer);
+      store.age = targetAge;
+    }
+  }, interval);
+
+  return timer;
+};
+
+onMounted(() => {
+  const timer = animateValues();
+
+  onUnmounted(() => clearInterval(timer));
+});
 </script>
 
 <style lang="scss" scoped>

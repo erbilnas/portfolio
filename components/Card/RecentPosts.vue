@@ -30,11 +30,11 @@
       <div v-if="store.recentPosts.link">
         <div v-if="success" class="button-container">
           <NuxtLink :to="store.recentPosts.link" target="_blank" rel="noopener" external>
-            <Button label="Read Now" size="small" icon="fa-solid fa-eye" />
+            <Button label="Read Now" size="small" />
           </NuxtLink>
 
           <NuxtLink :to="store.recentPosts.feed" target="_blank" rel="noopener" external>
-            <Button label="More Posts" outlined size="small" icon="fa-solid fa-arrow-right" />
+            <Button label="More Posts" outlined size="small"  />
           </NuxtLink>
         </div>
 
