@@ -37,21 +37,4 @@ defineProps<{
 }>();
 </script>
 
-<style lang="scss" scoped>
-@import "/assets/animation.scss";
-
-.p-card {
-  &:hover {
-    cursor: default;
-    transition: box-shadow 0.5s ease;
-    box-shadow: 0 0 0.5rem var(--primary-color);
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-  }
-
-  animation: fadeIn 0.5s;
-}
-</style>
+<style lang="scss" scoped></style>
