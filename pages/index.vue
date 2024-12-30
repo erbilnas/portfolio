@@ -57,15 +57,15 @@ const SPOTIFY_API = "/api/spotify?player=currently-playing";
 const MEDIUM_API = "/api/medium";
 
 function handleMouseMove(e: MouseEvent) {
-  const cards = document.querySelectorAll('.p-card');
-  
+  const cards = document.querySelectorAll(".p-card");
+
   cards.forEach((card) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
-    (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
-    (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+
+    (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+    (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
   });
 }
 
@@ -82,11 +82,11 @@ onNuxtReady(async () => {
   store.hltb = hltb.value as HLTB;
   store.recentPosts = recentPosts.value as Medium;
 
-  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener("mousemove", handleMouseMove);
 });
 
 onUnmounted(() => {
-  document.removeEventListener('mousemove', handleMouseMove);
+  document.removeEventListener("mousemove", handleMouseMove);
 });
 </script>
 
@@ -106,7 +106,7 @@ main {
     background-clip: padding-box;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: -1px;
       border-radius: inherit;
@@ -116,11 +116,11 @@ main {
         var(--primary-color),
         transparent 40%
       );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
-      mask: 
-        linear-gradient(#fff 0 0) content-box, 
+      mask:
+        linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;

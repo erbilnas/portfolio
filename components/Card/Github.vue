@@ -9,7 +9,12 @@
     <template #footer>
       <div class="footer-content">
         <p>Talk is cheap. Show me the code.</p>
-        <Button label="View on Github" size="small" icon="fa-solid fa-code-fork" @click="useOpenUrl(github)" />
+        <Button
+          label="Go to GitHub"
+          size="small"
+          icon="fa-solid fa-arrow-up-right-from-square"
+          @click="useOpenUrl(github)"
+        />
       </div>
     </template>
   </Card>

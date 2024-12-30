@@ -1,7 +1,7 @@
 export const WORKPLACES = [
   {
     name: "Trendyol",
-    title: "Software Engineer",
+    title: "Senior Software Engineer",
     range: "Jul 2021 - Present",
     description:
       "Trendyol were founded in 2010 with a dynamic and agile start-up spirit. Since then, it has grown into a decacorn, backed by Alibaba, General Atlantic, Softbank, Princeville Capital, and several sovereign wealth funds. They believe that technology is the driver; e- commerce is the outcome.",

@@ -2,7 +2,7 @@
   <Card>
     <template #title>Erbil Nas</template>
 
-    <template #subtitle>Software Engineer</template>
+    <template #subtitle>Senior Software Engineer</template>
 
     <template #content>
       <div class="content">

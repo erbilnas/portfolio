@@ -11,8 +11,12 @@
     <template #subtitle> Veni, vidi, vici! </template>
 
     <template #footer>
-      <Button label="View on Google Maps" size="small" icon="fa-solid fa-map-location-dot"
-        @click="useOpenUrl(placesBeen)" />
+      <Button
+        label="View My Travels"
+        size="small"
+        icon="fa-solid fa-arrow-up-right-from-square"
+        @click="useOpenUrl(placesBeen)"
+      />
     </template>
   </Card>
 </template>

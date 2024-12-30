@@ -31,6 +31,27 @@ const isCareerTypeExperience = computed(
   () => careerType.value === CAREER_TYPE.EXPERIENCE
 );
 
+function handleMouseMove(e: MouseEvent) {
+  const cards = document.querySelectorAll(".p-card");
+
+  cards.forEach((card) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+    (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
+  });
+}
+
+onMounted(() => {
+  document.addEventListener("mousemove", handleMouseMove);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("mousemove", handleMouseMove);
+});
+
 useHead({
   title: "Career | It's me, Erbil",
 });
@@ -47,6 +68,41 @@ useHead({
   &__switch-type {
     display: flex;
     justify-content: center;
+  }
+
+  :deep(.p-card) {
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        var(--primary-color),
+        transparent 40%
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
   }
 
   animation: fadeIn 0.5s;

@@ -16,17 +16,37 @@
   <Card v-else>
     <template #header>
       <div class="image">
-        <NuxtImg alt="playing-now" :src="store.hltb.image" v-if="store.hltb.image" />
+        <NuxtImg
+          alt="playing-now"
+          :src="store.hltb.image"
+          v-if="store.hltb.image"
+        />
 
         <Skeleton height="18rem" width="50%" v-else />
       </div>
 
-      <div class="tag-collection" v-if="store.hltb.platform && isPlayingGameExist">
-        <Tag :value="store.hltb.platform" severity="contrast" :icon="platformIcon" />
+      <div
+        class="tag-collection"
+        v-if="store.hltb.platform && isPlayingGameExist"
+      >
+        <Tag
+          :value="store.hltb.platform"
+          severity="contrast"
+          :icon="platformIcon"
+        />
 
-        <Tag v-if="store.hltb.storefront" :value="store.hltb.storefront" severity="info" :icon="storefrontIcon" />
+        <Tag
+          v-if="store.hltb.storefront"
+          :value="store.hltb.storefront"
+          severity="info"
+          :icon="storefrontIcon"
+        />
 
-        <Tag v-if="isPlayingGameExist" :value="progressionText" icon="fa-regular fa-clock" />
+        <Tag
+          v-if="isPlayingGameExist"
+          :value="progressionText"
+          icon="fa-regular fa-clock"
+        />
       </div>
     </template>
 
@@ -50,7 +70,11 @@
 
     <template #footer>
       <NuxtLink :to="hltb" target="_blank" external v-if="store.hltb.title">
-        <Button label="View on HowLongToBeat" size="small" icon="fa-solid fa-gamepad" />
+        <Button
+          label="View More"
+          size="small"
+          icon="fa-solid fa-arrow-up-right-from-square"
+        />
       </NuxtLink>
 
       <Skeleton height="2rem" width="30%" v-else />
@@ -72,7 +96,7 @@ const progressionText = computed(() => {
 });
 
 const descriptionText = computed(() => {
-  let description = store.hltb.description || '';
+  let description = store.hltb.description || "";
 
   if (description.includes("Read More")) {
     description = description.replace("...Read More", "");

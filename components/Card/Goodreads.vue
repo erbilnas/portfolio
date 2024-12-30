@@ -11,7 +11,12 @@
     <template #subtitle> Look at what I'm reading now! </template>
 
     <template #footer>
-      <Button label="View on Goodreads" size="small" icon="fa-solid fa-book" @click="useOpenUrl(goodreads)" />
+      <Button
+        label="Look at My Bookshelf"
+        size="small"
+        icon="fa-solid fa-arrow-up-right-from-square"
+        @click="useOpenUrl(goodreads)"
+      />
     </template>
   </Card>
 </template>
