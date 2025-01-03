@@ -52,5 +52,5 @@
     "@semantic-release/release-notes-generator": "^12.1.0",
     "semantic-release": "^23.0.2"
   },
-  "version": "1.0.0-preview.1"
+  "version": "5.8.1-preview.1"
 }
