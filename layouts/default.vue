@@ -28,6 +28,7 @@ onMounted(() => {
   };
 
   window.addEventListener("scroll", updateProgress);
+
   updateProgress();
 
   onUnmounted(() => {
