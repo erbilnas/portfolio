@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import { computed } from "vue"
-import IntroductionText from "./IntroductionText.vue"
-import SocialLinks from "./SocialLinks.vue"
+import { computed } from "vue";
+import IntroductionText from "./IntroductionText.vue";
+import SocialLinks from "./SocialLinks.vue";
 
 const app_config = useAppConfig();
 
 const sectionRef = ref<HTMLElement | null>(null);
 
-const words = computed(() => app_config.flipping_words.split(","));
+const words = computed(
+  () =>
+    app_config.flipping_words.split(",") || [
+      "an ever-learning technology enthusiast",
+      "a passionate software engineer",
+    ]
+);
 
 const updateMetaTitle = (title: string) => {
   useHead({
