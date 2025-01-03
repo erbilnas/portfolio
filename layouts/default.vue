@@ -5,9 +5,7 @@
 
   <main>
     <SpeedInsights />
-    
     <Cursor />
-
     <slot />
   </main>
 
@@ -17,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { Cursor } from "@/components/ui/cursor"
-import { SpeedInsights } from "@vercel/speed-insights/vue"
+import { Cursor } from "@/components/ui/cursor";
+import { SpeedInsights } from "@vercel/speed-insights/vue";
 
 const scrollProgress = ref(0);
 
