@@ -3,7 +3,9 @@
     "main",
     {
       "name": "preview",
-      "prerelease": true
+      "prerelease": true,
+      "channel": "preview",
+      "initialVersion": "6.0.0-preview.1"
     }
   ],
   "plugins": [
