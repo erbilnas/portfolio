@@ -1,7 +1,7 @@
 name: Preview Release
 
 on:
-  pull_request:
+  push:
     branches:
       - preview
 
