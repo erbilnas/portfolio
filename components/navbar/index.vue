@@ -2,7 +2,7 @@
 import {
   BriefcaseBusinessIcon,
   DoorOpenIcon,
-  HandIcon,
+  HomeIcon,
   JoystickIcon,
   UserIcon,
 } from "lucide-vue-next";
@@ -11,7 +11,7 @@ import {
 
 const menuItems = computed(() => [
   {
-    icon: HandIcon,
+    icon: HomeIcon,
     label: "Welcome",
     action: () => scrollToSection("welcome"),
   },
@@ -32,7 +32,7 @@ const menuItems = computed(() => [
   },
   {
     icon: DoorOpenIcon,
-    label: "Leave",
+    label: "End of Page",
     action: () => scrollToSection("footer"),
   },
   // {
