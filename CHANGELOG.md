@@ -1,3 +1,13 @@
+# [6.0.0-preview.3](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.2...v6.0.0-preview.3) (2025-01-04)
+
+
+### Features
+
+* **current-vibes:** change naming and collection design of cards ([61e39da](https://github.com/erbilnas/erbilnas-com/commit/61e39da537c2049e382400849ea9f13179c12ffd))
+* **header:** change progress indicator color ([f1d1f7a](https://github.com/erbilnas/erbilnas-com/commit/f1d1f7a0df6aafa1411f609ae32acf67e314cdda))
+* **navbar:** edit navbar titles ([16584d8](https://github.com/erbilnas/erbilnas-com/commit/16584d83b6ca6701ba2a764ced66edc18241e2ff))
+* **social-links:** improve responsiveness for icons and flip words ([2479325](https://github.com/erbilnas/erbilnas-com/commit/24793250cb723120f2c0b2c6ad2a8df44039c67e))
+
 # [6.0.0-preview.2](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.1...v6.0.0-preview.2) (2025-01-04)
 
 

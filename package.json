@@ -49,5 +49,5 @@
     "@semantic-release/release-notes-generator": "^12.1.0",
     "semantic-release": "^23.0.2"
   },
-  "version": "6.0.0-preview.2"
+  "version": "6.0.0-preview.3"
 }
