@@ -3,9 +3,12 @@ import {
   BriefcaseBusinessIcon,
   DoorOpenIcon,
   HandIcon,
+  JoystickIcon,
   PartyPopperIcon,
   UserIcon,
 } from "lucide-vue-next";
+
+import confetti from "canvas-confetti";
 
 const menuItems = computed(() => [
   {
@@ -19,7 +22,7 @@ const menuItems = computed(() => [
     action: () => scrollToSection("about-me"),
   },
   {
-    icon: PartyPopperIcon,
+    icon: JoystickIcon,
     label: "Current Vibes",
     action: () => scrollToSection("current-vibes"),
   },
@@ -32,6 +35,12 @@ const menuItems = computed(() => [
     icon: DoorOpenIcon,
     label: "The End",
     action: () => scrollToSection("the-end"),
+  },
+  {
+    icon: PartyPopperIcon,
+    label: "Confetti",
+    action: () => handleConfetti(),
+    badge: true,
   },
   // {
   //   icon: SunIcon,
@@ -46,6 +55,42 @@ const scrollToSection = (sectionId: string) => {
     element.scrollIntoView({ behavior: "smooth" });
   }
 };
+
+const handleConfetti = () => {
+  const duration = 5 * 1000; // 5 seconds
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+  // Helper function to get a random value between a range
+  function randomInRange(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = window.setInterval(() => {
+    const timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      clearInterval(interval);
+      return;
+    }
+
+    const particleCount = 50 * (timeLeft / duration);
+
+    // Confetti from left side
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+    });
+
+    // Confetti from right side
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+    });
+  }, 250);
+};
 </script>
 
 <template>
@@ -57,6 +102,14 @@ const scrollToSection = (sectionId: string) => {
             <DockIcon @click="item.action">
               <div class="relative">
                 <component :is="item.icon" class="size-6" />
+                <span
+                  v-if="item.badge"
+                  class="absolute -top-1 -right-1 flex h-2 min-w-2 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground animate-pulse-ring"
+                >
+                  <span
+                    class="absolute inset-0 rounded-full bg-primary animate-pulse"
+                  ></span>
+                </span>
               </div>
             </DockIcon>
           </TooltipTrigger>
@@ -70,3 +123,26 @@ const scrollToSection = (sectionId: string) => {
     </Dock>
   </div>
 </template>
+
+<style scoped>
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgb(var(--primary) / 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgb(var(--primary) / 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgb(var(--primary) / 0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+</style>
