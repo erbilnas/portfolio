@@ -3,7 +3,7 @@ import {
   BriefcaseBusinessIcon,
   DoorOpenIcon,
   HandIcon,
-  JoystickIcon,
+  PartyPopperIcon,
   UserIcon,
 } from "lucide-vue-next";
 
@@ -19,9 +19,9 @@ const menuItems = computed(() => [
     action: () => scrollToSection("about-me"),
   },
   {
-    icon: JoystickIcon,
-    label: "Fun Facts",
-    action: () => scrollToSection("fun-facts"),
+    icon: PartyPopperIcon,
+    label: "Current Vibes",
+    action: () => scrollToSection("current-vibes"),
   },
   {
     icon: BriefcaseBusinessIcon,
@@ -31,7 +31,7 @@ const menuItems = computed(() => [
   {
     icon: DoorOpenIcon,
     label: "The End",
-    action: () => scrollToSection("footer"),
+    action: () => scrollToSection("the-end"),
   },
   // {
   //   icon: SunIcon,

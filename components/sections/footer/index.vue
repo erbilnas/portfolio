@@ -25,7 +25,7 @@ const techStack: TechStack[] = [
 
 <template>
   <section
-    id="footer"
+    id="the-end"
     class="flex flex-col items-center justify-end p-4 bg-gradient-to-b from-zinc-950 to-slate-950 gap-8 pb-32"
   >
     <div class="flex flex-col items-center gap-4">

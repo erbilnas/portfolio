@@ -1,7 +1,7 @@
 <template>
   <SectionsWelcome />
   <SectionsAboutMe />
-  <SectionsFunFacts />
+  <SectionsCurrentVibes />
   <SectionsCareer />
   <SectionsFooter />
 </template>
