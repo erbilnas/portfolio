@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onUnmounted } from "vue"
-import BlogPostCard from "./BlogPostCard.vue"
-import MusicPlayerCard from "./MusicPlayerCard.vue"
-import VideoGameCard from "./VideoGameCard.vue"
+import { onUnmounted } from "vue";
+import MusicPlayerCard from "./MusicPlayerCard.vue";
+import VideoGameCard from "./VideoGameCard.vue";
 
 interface MediumPost {
   title: string;
@@ -83,11 +82,14 @@ onMounted(() => {
   <section
     id="fun-facts"
     ref="sectionRef"
-    class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-violet-950 to-red-950"
+    class="min-h-screen flex flex-col gap-16 justify-evenly items-center p-4 bg-gradient-to-b from-violet-950 to-red-950"
   >
+    <Text3d class="text-9xl font-bold" shadow-color="black">Fun Facts</Text3d>
+
     <div class="max-w-7xl mx-auto w-full">
-      <!-- Game and Music Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 w-full">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-4 w-full"
+      >
         <VideoGameCard :game="playing" class="w-full" />
         <VideoGameCard :game="last_completed" class="w-full" />
         <MusicPlayerCard
@@ -95,9 +97,6 @@ onMounted(() => {
           class="w-full md:col-span-2 lg:col-span-1"
         />
       </div>
-
-      <!-- Blog Post Card -->
-      <BlogPostCard :post="recentPost" class="w-full" />
     </div>
   </section>
 </template>
