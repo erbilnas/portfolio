@@ -1,3 +1,11 @@
+# [6.0.0-preview.4](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.3...v6.0.0-preview.4) (2025-01-04)
+
+
+### Features
+
+* **confetti:** add confetti feature ([849f337](https://github.com/erbilnas/erbilnas-com/commit/849f3379a22d2cc5378f30b00053e9870ffd4589))
+* **current-vibes:** add new map card, add background image for blog post card ([232d903](https://github.com/erbilnas/erbilnas-com/commit/232d903fd2400a22f477b91e2d71863d61ddb1c5))
+
 # [6.0.0-preview.3](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.2...v6.0.0-preview.3) (2025-01-04)
 
 
