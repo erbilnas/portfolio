@@ -35,6 +35,9 @@ const runtimeConfig = {
     birthday: process.env.MY_BIRTHDAY_DATE,
     first_work_experience: process.env.FIRST_WORK_EXPERIENCE_DATE,
   },
+  public: {
+    version: process.env.npm_package_version || "Unknown",
+  },
 };
 
 // https://nuxt.com/docs/api/configuration/nuxt-config

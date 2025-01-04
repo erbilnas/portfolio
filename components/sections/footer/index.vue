@@ -1,61 +1,70 @@
 <script setup lang="ts">
-const socialLinks = [
+interface TechStack {
+  name: string;
+  url: string;
+  icon: string;
+}
+
+const version = useRuntimeConfig().public.version;
+
+const techStack: TechStack[] = [
+  { name: "Nuxt", url: "https://nuxt.com", icon: "simple-icons:nuxtdotjs" },
+  { name: "Vue", url: "https://vuejs.org", icon: "simple-icons:vuedotjs" },
   {
-    icon: "mdi:github",
-    url: "https://github.com/erbilnas",
+    name: "TypeScript",
+    url: "https://typescript.com",
+    icon: "simple-icons:typescript",
   },
   {
-    icon: "mdi:linkedin",
-    url: "https://www.linkedin.com/in/erbilnas",
+    name: "Tailwind CSS",
+    url: "https://tailwindcss.com",
+    icon: "simple-icons:tailwindcss",
   },
-  {
-    icon: "simple-icons:medium",
-    url: "https://medium.com/@erbilnas",
-  },
-  {
-    icon: "simple-icons:bluesky",
-    url: "https://bsky.app/profile/erbilnas.com",
-  },
-] as const;
+];
 </script>
 
 <template>
   <section
     id="footer"
-    class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-zinc-950 to-slate-950 gap-8"
+    class="flex flex-col items-center justify-end p-4 bg-gradient-to-b from-zinc-950 to-slate-950 gap-8 pb-32"
   >
-    <!-- Copyright -->
-    <div class="text-center space-y-2">
-      <p class="text-sm text-white/60">
-        Built with Nuxt 3, TypeScript, and Tailwind CSS.
-      </p>
-      <p class="text-sm text-white/60">
-        © {{ new Date().getFullYear() }} Erbil Nas. All rights reserved.
-      </p>
+    <div class="flex flex-col items-center gap-4">
+      <TooltipProvider>
+        <div class="flex items-center gap-2">
+          <template v-for="tech in techStack" :key="tech.name">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  :href="tech.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Icon :name="tech.icon" class="w-5 h-5" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{{ tech.name }}</p>
+              </TooltipContent>
+            </Tooltip>
+          </template>
+        </div>
+      </TooltipProvider>
+
+      <div class="text-center space-y-2">
+        <div class="flex flex-col items-center gap-2">
+          <p class="text-xs text-white/40">Version {{ version }}</p>
+
+          <p class="text-xs text-white/50">
+            The game data provided by HowLongToBeat.com | The song data provided
+            by Spotify.
+          </p>
+        </div>
+
+        <p class="text-sm text-white/60">
+          {{ new Date().getFullYear() }} © Erbil Nas. Made with ❤️ in Turkey.
+        </p>
+      </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.code-rain {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(139, 92, 246, 0.3) 50%,
-    rgba(139, 92, 246, 0.1) 100%
-  );
-  background-size: 100% 100%;
-  animation: rain 2s linear infinite;
-  mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='14' fill='white'%3E01%3C/text%3E%3C/svg%3E");
-  mask-size: 24px 24px;
-}
-
-@keyframes rain {
-  from {
-    transform: translateY(-50%);
-  }
-  to {
-    transform: translateY(50%);
-  }
-}
-</style>
