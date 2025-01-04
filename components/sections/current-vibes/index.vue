@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onUnmounted } from "vue";
+import BlogPostCard from "./BlogPostCard.vue";
+import CustomMapCard from "./CustomMapCard.vue";
 import MusicPlayerCard from "./MusicPlayerCard.vue";
 import VideoGameCard from "./VideoGameCard.vue";
 
@@ -39,13 +41,14 @@ interface MusicPlayer {
 
 const sectionRef = ref<HTMLElement | null>(null);
 const currentIndex = ref(0);
-const cards = ref([]);
 
 // Combine all cards into a single array for easier navigation
 const allCards = computed(() => [
   { type: "game", data: playing, component: VideoGameCard },
-  { type: "game", data: last_completed, component: VideoGameCard },
   { type: "music", data: player, component: MusicPlayerCard },
+  { type: "blog", data: recentPost, component: BlogPostCard },
+  { type: "map", component: CustomMapCard },
+  { type: "game", data: last_completed, component: VideoGameCard },
 ]);
 
 // Handle keyboard navigation
@@ -88,14 +91,14 @@ const updateMetaTitle = (title: string) => {
 const handleIntersection = (entries: IntersectionObserverEntry[]) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      updateMetaTitle("Fun Facts | Erbil Nas");
+      updateMetaTitle("Current Vibes | Erbil Nas");
     }
   });
 };
 
 // Add these new refs and functions after your existing refs
 const touchStartX = ref(0);
-const touchMoveX = ref(0);
+
 const isDragging = ref(false);
 const currentTouchX = ref(0);
 
@@ -217,9 +220,13 @@ onUnmounted(() => {
           >
             <component
               :is="card.component"
-              v-bind="card.type === 'game' 
+              v-bind="card.type === 'game'
                 ? { game: card.data as SingleGameDetail }
-                : { player: card.data as MusicPlayer['player'] }"
+                : card.type === 'music'
+                ? { player: card.data as MusicPlayer['player'] }
+                : card.type === 'map'
+                ? { map: card.data, isActive: index === currentIndex }
+                : { post: card.data, isActive: index === currentIndex }"
               class="w-full transform-gpu"
             />
           </div>

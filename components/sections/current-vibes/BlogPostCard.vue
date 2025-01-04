@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { CalendarIcon } from "lucide-vue-next"
+import { computed } from "vue"
 
 interface MediumPost {
   title: string;
@@ -8,9 +9,21 @@ interface MediumPost {
   description: string;
 }
 
-const props = defineProps<{ post: MediumPost }>();
+const props = defineProps<{
+  post: MediumPost;
+  isActive?: boolean;
+}>();
 
 const { title, link, published_at, description } = props.post;
+
+const truncatedDescription = computed(() => {
+  const maxLength = 500;
+  // Remove HTML tags using regex
+  const strippedText = description.replace(/<[^>]*>/g, "");
+
+  if (strippedText.length <= maxLength) return strippedText;
+  return strippedText.slice(0, maxLength) + "...";
+});
 
 const navigateTo = (link: string) => {
   window.open(link, "_blank");
@@ -18,40 +31,53 @@ const navigateTo = (link: string) => {
 </script>
 
 <template>
-  <div
-    class="relative flex h-full flex-col items-start justify-end overflow-hidden rounded-2xl border border-gray-800 bg-gradient-to-b from-violet-950 to-slate-900 px-4 py-8 shadow-xl"
-  >
-    <h3 class="relative z-50 mb-4 text-base font-normal text-gray-300">
-      Recent Post
-    </h3>
+  <div class="flex flex-col gap-2 items-center">
+    <GlareCard>
+      <div class="absolute inset-0">
+        <NuxtImg
+          class="size-full object-cover"
+          src="/images/blog-post-card-bg.jpg"
+          quality="100"
+        />
+      </div>
+      <div
+        class="relative z-10 p-8 text-white bg-black/50 backdrop-blur-sm h-full"
+      >
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h3 class="text-l font-semibold">Recent Blog Post</h3>
+            <h2 class="text-2xl font-bold">{{ title }}</h2>
+          </div>
 
-    <h1 class="relative z-50 mb-4 text-xl font-bold text-white">
-      {{ title }}
-    </h1>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <CalendarIcon class="h-4 w-4" />
 
-    <div class="flex items-center gap-2 content-center justify-center mb-4">
-      <CalendarIcon class="size-4 text-gray-300" />
+              <span class="text-sm">{{
+                new Date(published_at).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                })
+              }}</span>
+            </div>
+          </div>
 
-      <p class="relative z-50 text-base font-normal text-gray-300">
-        {{
-          new Date(published_at).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-          })
-        }}
-      </p>
-    </div>
+          <p class="text-sm text-white/80 line-clamp-3">
+            {{ truncatedDescription }}
+          </p>
+        </div>
+      </div>
+    </GlareCard>
 
     <InteractiveHoverButton
-      class="w-40"
+      v-show="isActive"
+      class="w-48 text-center"
       text="Read Now"
       @click="navigateTo(link)"
     />
-
-    <Meteors />
   </div>
 </template>
 

@@ -19,7 +19,7 @@ const { image, title, platform, progress, description, storefront, status } =
   props.game;
 
 const getStatusText = () => {
-  return status === "playing" ? "Currently Playing" : "Last Completion";
+  return status === "playing" ? "Currently Playing" : "Recently Completed";
 };
 </script>
 
