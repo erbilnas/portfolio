@@ -2,16 +2,14 @@
 import {
   BriefcaseBusinessIcon,
   DoorOpenIcon,
-  HomeIcon,
+  HandIcon,
   JoystickIcon,
   UserIcon,
 } from "lucide-vue-next";
 
-// const colorMode = useColorMode();
-
 const menuItems = computed(() => [
   {
-    icon: HomeIcon,
+    icon: HandIcon,
     label: "Welcome",
     action: () => scrollToSection("welcome"),
   },
@@ -32,13 +30,13 @@ const menuItems = computed(() => [
   },
   {
     icon: DoorOpenIcon,
-    label: "End of Page",
+    label: "The End",
     action: () => scrollToSection("footer"),
   },
   // {
-  //   icon: colorMode.preference === "dark" ? SunIcon : MoonIcon,
+  //   icon: SunIcon,
   //   label: "Change Theme",
-  //   action: changeColorMode,
+  //   soon: true,
   // },
 ]);
 
@@ -48,10 +46,6 @@ const scrollToSection = (sectionId: string) => {
     element.scrollIntoView({ behavior: "smooth" });
   }
 };
-
-// const changeColorMode = () => {
-//   colorMode.preference = colorMode.preference === "dark" ? "light" : "dark";
-// };
 </script>
 
 <template>
@@ -61,11 +55,15 @@ const scrollToSection = (sectionId: string) => {
         <Tooltip v-for="item in menuItems" :key="item.label">
           <TooltipTrigger>
             <DockIcon @click="item.action">
-              <component :is="item.icon" class="size-6" />
+              <div class="relative">
+                <component :is="item.icon" class="size-6" />
+              </div>
             </DockIcon>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{{ item.label }}</p>
+            <div class="flex items-center gap-2">
+              <p>{{ item.label }}</p>
+            </div>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

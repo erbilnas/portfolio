@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue"
-import IntroductionText from "./IntroductionText.vue"
-import SocialLinks from "./SocialLinks.vue"
+import { computed } from "vue";
+import IntroductionText from "./IntroductionText.vue";
+import SocialLinks from "./SocialLinks.vue";
 
 const app_config = useAppConfig();
 
@@ -51,7 +51,7 @@ onMounted(() => {
       <div class="w-full flex flex-col items-center space-y-4 pt-12">
         <IntroductionText />
 
-        <FlipWords :words class="text-xl font-light" />
+        <FlipWords :words class="text-xl font-light text-center" />
 
         <SocialLinks />
       </div>

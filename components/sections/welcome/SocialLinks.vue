@@ -58,7 +58,7 @@ const social_links = [
 <template>
   <div class="max-w-4xl mx-auto">
     <TooltipProvider>
-      <div class="grid grid-cols-5 gap-4 mt-4">
+      <div class="grid grid-cols-5 md:grid-cols-10 gap-4 mt-4">
         <template v-for="{ icon, href, label } in social_links" :key="href">
           <Tooltip>
             <TooltipTrigger asChild>
