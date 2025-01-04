@@ -45,7 +45,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
     "@vueuse/motion/nuxt",
-    "@vesp/nuxt-fontawesome",
+    "@nuxt/icon",
   ],
   appConfig,
   runtimeConfig,
