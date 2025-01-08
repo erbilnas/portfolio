@@ -1,3 +1,11 @@
+# [6.0.0-preview.6](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.5...v6.0.0-preview.6) (2025-01-08)
+
+
+### Features
+
+* make improvements ([c4179b2](https://github.com/erbilnas/erbilnas-com/commit/c4179b207195475e076ca665e52e4f9286165edb))
+* make improvements ([1984ff4](https://github.com/erbilnas/erbilnas-com/commit/1984ff42260432d470b7e9769e904a389bb89017))
+
 # [6.0.0-preview.5](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.4...v6.0.0-preview.5) (2025-01-08)
 
 
