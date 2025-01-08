@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import { useSwipeNavigation } from "@/composables/useSwipeNavigation";
 import { useMediaQuery } from "@vueuse/core";
 import EducationTab from "./EducationTab.vue";
 import ExperienceTab from "./ExperienceTab.vue";
@@ -41,31 +40,19 @@ const activeTab = ref(tabs[0]);
 const isMobile = useMediaQuery("(max-width: 768px)");
 
 const nextTab = () => {
-  const currentIndex = tabs.indexOf(activeTab.value);
-  if (currentIndex < tabs.length - 1) {
-    activeTab.value = tabs[currentIndex + 1];
-  }
+  activeTab.value = tabs[(tabs.indexOf(activeTab.value) + 1) % tabs.length];
 };
 
 const previousTab = () => {
-  const currentIndex = tabs.indexOf(activeTab.value);
-  if (currentIndex > 0) {
-    activeTab.value = tabs[currentIndex - 1];
-  }
+  activeTab.value =
+    tabs[(tabs.indexOf(activeTab.value) - 1 + tabs.length) % tabs.length];
 };
-
-const { handleTouchStart, handleTouchMove, handleTouchEnd } =
-  useSwipeNavigation({
-    onPrevious: previousTab,
-    onNext: nextTab,
-    isMobile: isMobile.value,
-  });
 </script>
 
 <template>
   <section id="career" ref="sectionRef">
     <div
-      class="bg-gradient-to-b from-violet-950 to-red-950 flex flex-col h-screen p-4"
+      class="bg-gradient-to-b from-violet-950 to-red-950 flex flex-col h-screen p-4 gap-8"
     >
       <!-- Mobile View -->
       <div v-if="isMobile" class="mb-8">
@@ -76,7 +63,6 @@ const { handleTouchStart, handleTouchMove, handleTouchEnd } =
             variant="ghost"
             size="icon"
             class="rounded-full hover:bg-background/80 hover:backdrop-blur-sm disabled:opacity-50 transition-opacity"
-            :disabled="tabs.indexOf(activeTab) === 0"
             @click="previousTab"
           >
             <Icon name="ph:caret-left-bold" class="w-6 h-6" />
@@ -90,7 +76,6 @@ const { handleTouchStart, handleTouchMove, handleTouchEnd } =
             variant="ghost"
             size="icon"
             class="rounded-full hover:bg-background/80 hover:backdrop-blur-sm disabled:opacity-50 transition-opacity"
-            :disabled="tabs.indexOf(activeTab) === tabs.length - 1"
             @click="nextTab"
           >
             <Icon name="ph:caret-right-bold" class="w-6 h-6" />
@@ -99,7 +84,7 @@ const { handleTouchStart, handleTouchMove, handleTouchEnd } =
       </div>
 
       <!-- Desktop View -->
-      <div v-else class="w-full flex justify-center items-center mb-16">
+      <div v-else class="flex justify-center items-center">
         <MorphingTabs
           :tabs="tabs"
           :active-tab="activeTab"
@@ -107,7 +92,7 @@ const { handleTouchStart, handleTouchMove, handleTouchEnd } =
         />
       </div>
 
-      <div class="flex-1">
+      <div class="flex-1 overflow-auto scrollbar-hide">
         <Transition
           mode="out-in"
           enter-active-class="transition ease-out duration-200"
@@ -134,14 +119,3 @@ const { handleTouchStart, handleTouchMove, handleTouchEnd } =
     </div>
   </section>
 </template>
-
-<style scoped>
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-</style>

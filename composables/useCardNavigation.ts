@@ -49,18 +49,11 @@ export const useCardNavigation = (cards: Card[]) => {
     currentIndex.value = (currentIndex.value - 1 + cards.length) % cards.length;
   };
 
-  const navigateToIndex = (index: number) => {
-    if (index >= 0 && index < cards.length) {
-      currentIndex.value = index;
-    }
-  };
-
   return {
     currentIndex,
     handleKeydown,
     getCardStyle,
     navigateToNext,
     navigateToPrev,
-    navigateToIndex,
   };
 };

@@ -52,28 +52,3 @@ const isLearning = computed(() => props.skill.mastery === "learning");
     </div>
   </div>
 </template>
-
-<style scoped>
-.shadow-glow {
-  box-shadow: 0 8px 16px -2px rgb(var(--primary) / 0.2),
-    0 2px 8px -2px rgb(var(--primary) / 0.1);
-}
-
-.shadow-red-glow {
-  box-shadow: 0 8px 16px -2px rgb(153 27 27 / 0.2),
-    0 2px 8px -2px rgb(153 27 27 / 0.1);
-  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse-subtle {
-  0%,
-  100% {
-    box-shadow: 0 8px 16px -2px rgb(153 27 27 / 0.2),
-      0 2px 8px -2px rgb(153 27 27 / 0.1);
-  }
-  50% {
-    box-shadow: 0 8px 20px -2px rgb(153 27 27 / 0.3),
-      0 2px 12px -2px rgb(153 27 27 / 0.2);
-  }
-}
-</style>

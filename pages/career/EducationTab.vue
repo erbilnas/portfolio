@@ -1,8 +1,8 @@
 <template>
   <div class="h-full flex flex-col">
-    <div class="flex-1 overflow-y-auto scrollbar-hide">
+    <div class="flex-1">
       <div
-        class="container mx-auto px-4 py-4 md:py-8 min-h-full max-h-[calc(100vh-20rem)] overflow-y-auto"
+        class="container mx-auto px-4 py-4 md:py-8 min-h-full max-h-[calc(100vh-20rem)]"
       >
         <div class="relative">
           <!-- Timeline Line -->
@@ -158,29 +158,3 @@ const educationList: Education[] = [
   },
 ];
 </script>
-
-<style scoped>
-.scrollbar-hide {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(139, 92, 246, 0.3) rgba(255, 255, 255, 0.1);
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-hide::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-.scrollbar-hide::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.3);
-  border-radius: 3px;
-  transition: background 0.2s ease;
-}
-
-.scrollbar-hide::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
-}
-</style>

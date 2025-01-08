@@ -78,15 +78,12 @@ export function useExperience() {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const goToPrevious = () => {
-    if (currentIndex.value > 0) {
-      currentIndex.value--;
-    }
+    currentIndex.value =
+      (currentIndex.value - 1 + experiences.length) % experiences.length;
   };
 
   const goToNext = () => {
-    if (currentIndex.value < maxIndex) {
-      currentIndex.value++;
-    }
+    currentIndex.value = (currentIndex.value + 1) % experiences.length;
   };
 
   const setIndex = (index: number) => {

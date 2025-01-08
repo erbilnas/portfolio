@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMediaQuery } from "@vueuse/core";
 import { onUnmounted } from "vue";
 import { useCardNavigation } from "~/composables/useCardNavigation";
 import { useCardTouch } from "~/composables/useCardTouch";
@@ -27,6 +28,8 @@ const handleIntersection = (entries: IntersectionObserverEntry[]) => {
   });
 };
 
+const isMobile = useMediaQuery("(max-width: 768px)");
+
 // Initialize card navigation
 const {
   currentIndex,
@@ -34,7 +37,6 @@ const {
   getCardStyle,
   navigateToNext,
   navigateToPrev,
-  navigateToIndex,
 } = useCardNavigation(allCards.value);
 
 // Initialize touch handling
@@ -89,7 +91,7 @@ onUnmounted(() => {
 <template>
   <section id="current-vibes" ref="sectionRef">
     <div
-      class="overflow-hidden h-screen flex flex-col gap-4 items-center bg-gradient-to-b from-red-950 to-zinc-950"
+      class="overflow-hidden h-screen flex flex-col gap-4 py-16 items-center bg-gradient-to-b from-red-950 to-zinc-950"
     >
       <!-- Swipe indicator - only visible on mobile -->
       <div class="text-white/80 flex items-center gap-2 md:hidden">
@@ -109,7 +111,7 @@ onUnmounted(() => {
           <div
             v-for="(card, index) in allCards"
             :key="index"
-            class="card-container absolute w-[330px] md:w-[400px] transition-all duration-500"
+            class="absolute w-[330px] md:w-[400px] transition-all duration-500"
             :style="getCardStyle(index) as any"
           >
             <component
@@ -123,11 +125,11 @@ onUnmounted(() => {
 
       <!-- Navigation -->
       <Navigation
+        v-show="!isMobile"
         :current-index="currentIndex"
         :total-cards="allCards.length"
-        @prev="navigateToPrev"
+        @previous="navigateToPrev"
         @next="navigateToNext"
-        @navigate="navigateToIndex"
       />
     </div>
   </section>

@@ -20,94 +20,20 @@ interface Props {
   experience: WorkExperience;
   isActive: boolean;
   isMobile: boolean;
-  style: {
-    transform: string;
-    opacity: number;
-    zIndex: number;
-    filter: string;
-    transition: string;
-  };
 }
 
 const props = defineProps<Props>();
-const isHovered = ref(false);
-
-// Add subtle floating animation
-const floatingOffset = ref(0);
-const startFloatingAnimation = () => {
-  const animate = () => {
-    floatingOffset.value = Math.sin(Date.now() / 1000) * 5;
-    requestAnimationFrame(animate);
-  };
-  animate();
-};
-
-onMounted(() => {
-  startFloatingAnimation();
-});
 </script>
 
 <template>
-  <CardContainer
-    class="absolute experience-card"
-    :style="[
-      style,
-      {
-        transform: `${style.transform} translateY(${
-          isHovered && isActive ? floatingOffset : 0
-        }px)`,
-      },
-    ]"
-    :aria-hidden="!isActive"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
-  >
+  <CardContainer>
     <Card
-      v-if="isActive || !props.isMobile"
-      class="w-full bg-gradient-to-br from-slate-950 to-slate-900 backdrop-blur-sm hover:shadow-glow transition-all duration-300 border border-slate-800/50 overflow-hidden"
-      :class="{
-        'h-[500px] sm:h-[400px] md:h-[450px]': isActive,
-        'h-[100px] sm:h-[120px]': !isActive,
-        'w-full': isActive,
-        'hidden sm:block': !isActive,
-      }"
-      :tabindex="isActive ? 0 : -1"
+      v-if="isActive"
+      class="md:w-[calc(100vw-12rem)] w-[calc(100vw-4rem)] bg-gradient-to-br from-slate-950 to-slate-900 backdrop-blur-sm hover:shadow-glow transition-all duration-300 border border-slate-800/50"
     >
-      <!-- Preview mode for inactive cards on mobile -->
-      <div
-        v-if="!isActive"
-        class="h-full p-2 sm:p-3 flex items-center justify-between"
-      >
-        <div class="flex items-center gap-1 sm:gap-2">
-          <div
-            class="p-1 sm:p-1.5 rounded-lg bg-primary/5 text-primary shrink-0 border border-primary/10"
-          >
-            <Icon
-              v-if="experience.icon"
-              :name="experience.icon"
-              class="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 animate-glow"
-              :aria-label="experience.company + ' icon'"
-            />
-          </div>
-          <div>
-            <h3 class="font-semibold text-violet-400">
-              {{ experience.position }}
-            </h3>
-            <p class="text-sm text-slate-400">{{ experience.company }}</p>
-          </div>
-        </div>
-        <Icon name="heroicons:chevron-right" class="w-5 h-5 text-slate-400" />
-      </div>
-
       <!-- Full content for active cards -->
-      <CardContent
-        v-else
-        class="h-full p-2 sm:p-4 md:p-6 overflow-y-auto custom-scrollbar"
-      >
-        <CardItem
-          class="flex flex-col h-full gap-1 sm:gap-2 md:gap-4"
-          :translateZ="20"
-        >
+      <CardContent class="h-full p-2 sm:p-4 md:p-6 overflow-y-auto">
+        <CardItem class="flex flex-col h-full gap-1 sm:gap-2 md:gap-4">
           <!-- Top section with icon and company info -->
           <div
             class="flex items-start gap-1 sm:gap-2 pb-2 border-b border-slate-800/50"
@@ -123,6 +49,7 @@ onMounted(() => {
                 :aria-label="experience.company + ' icon'"
               />
             </CardItem>
+
             <CardItem class="space-y-1 md:space-y-2" :translateZ="30">
               <h3
                 class="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-violet-600"
@@ -202,44 +129,3 @@ onMounted(() => {
     </Card>
   </CardContainer>
 </template>
-
-<style scoped>
-.shadow-glow {
-  box-shadow: 0 0 30px -5px rgb(124 58 237 / 0.3),
-    0 8px 16px -2px rgb(124 58 237 / 0.2), 0 4px 8px -2px rgb(124 58 237 / 0.1);
-}
-
-@keyframes glow {
-  0%,
-  100% {
-    filter: brightness(1);
-    opacity: 0.8;
-  }
-  50% {
-    filter: brightness(1.3);
-    opacity: 1;
-  }
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(124 58 237 / 0.3) transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgb(124 58 237 / 0.3);
-  border-radius: 20px;
-}
-</style>
