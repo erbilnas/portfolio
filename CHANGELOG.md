@@ -1,3 +1,12 @@
+# [6.0.0-preview.5](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.4...v6.0.0-preview.5) (2025-01-08)
+
+
+### Features
+
+* add career section ([28f2013](https://github.com/erbilnas/erbilnas-com/commit/28f2013900150b8bbe0d24e6b5b9961bbccc04e0))
+* **default-layout:** hide navbar when scrolling ([cc8da81](https://github.com/erbilnas/erbilnas-com/commit/cc8da81419504d6bd595e9b856e0282dd5d47057))
+* **welcome:** add scroll more tip for users ([41c9301](https://github.com/erbilnas/erbilnas-com/commit/41c9301f50959244cbc87e9ae43f45a2e65d3258))
+
 # [6.0.0-preview.4](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.3...v6.0.0-preview.4) (2025-01-04)
 
 
