@@ -1,5 +1,5 @@
 const appConfig = {
-  social_links: {
+  socialLinks: {
     linkedin: process.env.LINKEDIN_PROFILE_URL,
     spotify: process.env.SPOTIFY_PROFILE_URL,
     github: process.env.GITHUB_PROFILE_URL,
@@ -15,7 +15,9 @@ const appConfig = {
   maps: {
     placesBeen: process.env.PLACES_BEEN_URL,
   },
-  flipping_words: process.env.FLIPPING_WORDS,
+  flippingWords: process.env.FLIPPING_WORDS,
+
+  version: process.env.npm_package_version || "Unknown",
 };
 
 const runtimeConfig = {
@@ -34,9 +36,6 @@ const runtimeConfig = {
   lifetime_stats: {
     birthday: process.env.MY_BIRTHDAY_DATE,
     first_work_experience: process.env.FIRST_WORK_EXPERIENCE_DATE,
-  },
-  public: {
-    version: process.env.npm_package_version || "Unknown",
   },
 };
 

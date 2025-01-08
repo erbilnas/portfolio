@@ -5,7 +5,6 @@
 
   <main>
     <SpeedInsights />
-    <Cursor />
     <slot />
   </main>
 
@@ -29,7 +28,7 @@ const lastScrollPosition = ref(0);
 const isNavbarHidden = ref(false);
 
 const SCROLL_THRESHOLD = 50;
-const SCROLL_DELAY = 100;
+const SCROLL_DELAY = 50;
 
 const handleScroll = () => {
   const currentScrollPosition = window.scrollY;
