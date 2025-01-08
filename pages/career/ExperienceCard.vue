@@ -29,7 +29,7 @@ const props = defineProps<Props>();
   <CardContainer>
     <Card
       v-if="isActive"
-      class="md:w-[calc(100vw-12rem)] w-[calc(100vw-4rem)] bg-gradient-to-br from-slate-950 to-slate-900 backdrop-blur-sm hover:shadow-glow transition-all duration-300 border border-slate-800/50"
+      class="md:w-[calc(100vw/4)] w-[calc(100vw-4rem)] bg-gradient-to-br from-slate-950 to-slate-900 backdrop-blur-sm hover:shadow-glow transition-all duration-300 border border-slate-800/50"
     >
       <!-- Full content for active cards -->
       <CardContent class="h-full p-2 sm:p-4 md:p-6 overflow-y-auto">
