@@ -1,11 +1,11 @@
 export const usePageMeta = () => {
-  const updateTitle = (section: string) => {
+  const setTitle = (section: string) => {
     useHead({
       titleTemplate: `${section} | Erbil Nas`,
     });
   };
 
   return {
-    updateTitle,
+    setTitle,
   };
 };

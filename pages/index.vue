@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import AboutMe from "@/pages/about-me/index.vue";
+import AboutMe from "@/pages/about-me";
 
-import Footer from "@/pages/footer/index.vue";
+import Footer from "@/pages/footer";
 
-import Welcome from "@/pages/welcome/index.vue";
-
-import Career from "@/pages/career/index.vue";
+import Career from "@/pages/career";
 
 import CurrentVibes from "@/pages/current-vibes/index.vue";
+
+import Welcome from "@/pages/welcome";
 </script>
 
 <template>

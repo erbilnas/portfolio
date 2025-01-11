@@ -1,20 +1,10 @@
-interface TechStack {
+interface Technologies {
   name: string;
   url: string;
   icon: string;
 }
 
-interface Provider {
-  name: string;
-  description: string;
-}
-
-export const observerOptions: IntersectionObserverInit = {
-  root: null,
-  threshold: 0.1,
-};
-
-export const techStack: TechStack[] = [
+export const technologies: Technologies[] = [
   { name: "Nuxt", url: "https://nuxt.com", icon: "simple-icons:nuxtdotjs" },
   { name: "Vue", url: "https://vuejs.org", icon: "simple-icons:vuedotjs" },
   {
@@ -37,20 +27,24 @@ export const techStack: TechStack[] = [
     url: "https://vercel.com",
     icon: "simple-icons:vercel",
   },
-];
-
-export const providers: Provider[] = [
   {
-    name: "HowLongToBeat",
-    description:
-      'Provides information to my "Currently Playing" and "Recently Completed" cards.',
+    name: "Lucide",
+    url: "https://lucide.dev",
+    icon: "simple-icons:lucide",
   },
   {
-    name: "Spotify",
-    description: 'Provides information to my "Listening Now" card.',
+    name: "Simple Icons",
+    url: "https://simpleicons.org",
+    icon: "simple-icons:simpleicons",
   },
   {
-    name: "RSS2JSON",
-    description: 'Provides information to my "Recent Blog Post" card.',
+    name: "Phosphor Icons",
+    url: "https://phosphoricons.com",
+    icon: "simple-icons:phosphoricons",
+  },
+  {
+    name: "Semantic Release",
+    url: "https://semantic-release.gitbook.io",
+    icon: "simple-icons:semanticrelease",
   },
 ];

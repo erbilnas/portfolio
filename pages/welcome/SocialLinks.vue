@@ -1,7 +1,13 @@
 <script lang="ts" setup>
 const appConfig = useAppConfig();
 
-const socialLinks = [
+interface SocialLink {
+  icon: string;
+  href: string;
+  label: string;
+}
+
+const socialLinks: SocialLink[] = [
   {
     icon: "ph:github-logo",
     href: appConfig.socialLinks.github,
@@ -56,9 +62,9 @@ const socialLinks = [
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto">
+  <div class="mx-auto">
     <TooltipProvider>
-      <div class="grid grid-cols-5 md:grid-cols-10 gap-4 pt-8 md:pt-16">
+      <div class="grid grid-cols-5 md:grid-cols-10 gap-4">
         <template v-for="{ icon, href, label } in socialLinks" :key="href">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -67,7 +73,7 @@ const socialLinks = [
                 target="_blank"
                 class="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Icon :name="icon" :size="32" />
+                <Icon :name="icon" :size="24" />
               </a>
             </TooltipTrigger>
 

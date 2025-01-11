@@ -63,27 +63,22 @@
     --input: 215 27.9% 16.9%;
     --ring: 263.4 70% 50.4%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
-  /* Hide default cursor */
-  html {
-    cursor: none !important;
-  }
-  * {
-    cursor: none !important;
-  }
-  /* Ensure cursor is visible on interactive elements */
+
+  /* Hide default cursor and ensure cursor is visible on interactive elements */
   a,
   button,
   [role="button"],
   input,
+  body,
+  svg,
+  div,
   select,
   textarea {
     cursor: none !important;

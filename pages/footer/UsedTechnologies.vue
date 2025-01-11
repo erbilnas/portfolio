@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { techStack } from "~/constants";
+import { technologies } from "~/constants/footer";
 </script>
 
 <template>
   <TooltipProvider>
     <div class="flex items-center gap-2">
-      <template v-for="{ url, name, icon } in techStack" :key="name">
+      <template v-for="{ url, name, icon } in technologies" :key="name">
         <Tooltip>
           <TooltipTrigger asChild>
             <a
@@ -13,7 +13,7 @@ import { techStack } from "~/constants";
               target="_blank"
               class="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Icon :name="icon" class="w-5 h-5" />
+              <Icon :name="icon" class="w-4 h-4" />
             </a>
           </TooltipTrigger>
 

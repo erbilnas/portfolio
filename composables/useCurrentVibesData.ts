@@ -8,21 +8,17 @@ import type {
   SingleGameDetail,
 } from "~/types/current-vibes";
 
-export const useCurrentVibesData = async () => {
-  const { playing, last_completed } = await $fetch<GameDetails>(
-    "/api/video-games"
-  );
-  const { title, link, published_at, description } = await $fetch<MediumPost>(
-    "/api/blog"
-  );
-  const { player } = await $fetch<MusicPlayer>("/api/music");
+export const useCurrentVibesData = () => {
+  const { data: gameData } = useFetch<GameDetails>("/api/video-games");
+  const { data: blogData } = useFetch<MediumPost>("/api/blog");
+  const { data: musicData } = useFetch<MusicPlayer>("/api/music");
 
   const allCards = computed<Card[]>(() => {
     return [
       {
         type: "game",
-        data: playing as SingleGameDetail,
-        component: playing
+        data: gameData.value?.playing as SingleGameDetail,
+        component: gameData.value?.playing
           ? defineAsyncComponent(
               () => import("~/pages/current-vibes/VideoGameCard.vue")
             )
@@ -32,8 +28,8 @@ export const useCurrentVibesData = async () => {
       },
       {
         type: "music",
-        data: player as MusicPlayerData,
-        component: player
+        data: musicData.value?.player as MusicPlayerData,
+        component: musicData.value?.player
           ? defineAsyncComponent(
               () => import("~/pages/current-vibes/MusicPlayerCard.vue")
             )
@@ -43,9 +39,12 @@ export const useCurrentVibesData = async () => {
       },
       {
         type: "blog",
-        data: { title, link, published_at, description } as MediumPost,
+        data: blogData.value as MediumPost,
         component:
-          title || link || published_at || description
+          blogData.value?.title ||
+          blogData.value?.link ||
+          blogData.value?.published_at ||
+          blogData.value?.description
             ? defineAsyncComponent(
                 () => import("~/pages/current-vibes/BlogPostCard.vue")
               )
@@ -61,8 +60,8 @@ export const useCurrentVibesData = async () => {
       },
       {
         type: "game",
-        data: last_completed as SingleGameDetail,
-        component: last_completed
+        data: gameData.value?.last_completed as SingleGameDetail,
+        component: gameData.value?.last_completed
           ? defineAsyncComponent(
               () => import("~/pages/current-vibes/VideoGameCard.vue")
             )

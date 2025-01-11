@@ -4,6 +4,10 @@ const { maps } = useAppConfig();
 const props = defineProps<{
   isActive?: boolean;
 }>();
+
+const navigateTo = (url: string) => {
+  window.open(url, "_blank");
+};
 </script>
 
 <template>

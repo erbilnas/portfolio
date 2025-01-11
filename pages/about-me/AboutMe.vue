@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import type { Ref } from "vue";
-import { onMounted, ref } from "vue";
-import { observerOptions } from "~/constants";
+import { ref } from "vue";
 
 interface LifetimeStats {
   age: number;
 }
-
-const { updateTitle } = usePageMeta();
 
 const sectionRef: Ref<HTMLElement | null> = ref(null);
 
@@ -17,31 +14,9 @@ const text = computed(() => {
   return `I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm ${age} years old, born and raised in Turkey.`;
 });
 
-const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      updateTitle("About Me");
-    }
-  });
-};
+const { observeSectionChange } = useObserver("About Me", sectionRef);
 
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    handleIntersection,
-    observerOptions
-  );
-
-  if (sectionRef.value) {
-    observer.observe(sectionRef.value);
-  }
-
-  onUnmounted(() => {
-    if (sectionRef.value) {
-      observer.unobserve(sectionRef.value);
-      observer.disconnect();
-    }
-  });
-});
+observeSectionChange();
 </script>
 
 <template>

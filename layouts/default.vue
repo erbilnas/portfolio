@@ -64,7 +64,6 @@ const handleScroll = () => {
     return;
   }
 
-  isNavbarHidden.value = currentScrollPosition > lastScrollPosition.value;
   lastScrollPosition.value = currentScrollPosition;
 };
 

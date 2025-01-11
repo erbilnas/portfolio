@@ -1,23 +1,47 @@
 <script setup lang="ts">
-import { providers } from "~/constants";
+interface Provider {
+  name: string;
+  description: string;
+}
+
+const providers: Provider[] = [
+  {
+    name: "HowLongToBeat",
+    description:
+      'Provides information to my "Currently Playing" and "Recently Completed" cards.',
+  },
+  {
+    name: "Spotify",
+    description: 'Provides information to my "Listening Now" card.',
+  },
+  {
+    name: "RSS2JSON",
+    description: 'Provides information to my "Recent Blog Post" card.',
+  },
+];
 </script>
 
 <template>
   <HoverCard>
     <HoverCardTrigger asChild>
-      <Button variant="link" class="text-xs text-white/50"> Providers </Button>
+      <Button
+        variant="link"
+        class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+      >
+        Providers
+      </Button>
     </HoverCardTrigger>
 
     <HoverCardContent>
       <ul class="flex flex-col gap-4 text-sm">
         <li
-          v-for="provider in providers"
-          :key="provider.name"
+          v-for="{ name, description } in providers"
+          :key="name"
           class="flex flex-col gap-1"
         >
-          <p class="font-bold text-primary">{{ provider.name }}</p>
-          <p class="text-xs text-white/60">
-            {{ provider.description }}
+          <p class="font-bold text-primary-foreground">{{ name }}</p>
+          <p class="text-xs text-muted-foreground">
+            {{ description }}
           </p>
         </li>
       </ul>

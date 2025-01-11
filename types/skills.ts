@@ -1,13 +1,11 @@
-export type SkillMastery = "learning" | "mastered";
-
-export interface SkillItem {
+export interface Skill {
   name: string;
-  mastery: SkillMastery;
-  icon?: string;
-  description?: string;
+  description: string;
+  icon: string;
 }
 
-export interface Skill {
-  category: string;
-  items: SkillItem[];
+export interface SkillCategory {
+  name: string;
+  icon: string;
+  skills: Skill[];
 }

@@ -1,13 +1,11 @@
 <template>
-  <span class="text-5xl sm:text-6xl">
+  <span class="text-5xl md:text-6xl">
     <TextHighlight
-      class="rounded-xl bg-gradient-to-r from-violet-200 to-violet-100 px-4 py-2"
+      class="rounded bg-gradient-to-r from-violet-200 to-violet-100 px-4 py-2"
       text-end-color="hsl(var(--accent))"
     >
       It's me,
-      <span class="bg-violet-600 bg-clip-text font-semibold text-transparent">
-        Erbil.
-      </span>
+      <span class="text-primary font-semibold"> Erbil. </span>
     </TextHighlight>
   </span>
 </template>
