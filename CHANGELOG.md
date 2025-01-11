@@ -1,3 +1,10 @@
+# [6.0.0-preview.7](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.6...v6.0.0-preview.7) (2025-01-11)
+
+
+### Features
+
+* increase improvements, change skills and experiences sections, improve performance ([84a45fc](https://github.com/erbilnas/erbilnas-com/commit/84a45fc729854b2466dfb232d26959ece7015d61))
+
 # [6.0.0-preview.6](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.5...v6.0.0-preview.6) (2025-01-08)
 
 
