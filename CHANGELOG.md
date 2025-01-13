@@ -1,3 +1,11 @@
+# [6.0.0-preview.8](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.7...v6.0.0-preview.8) (2025-01-13)
+
+
+### Features
+
+* **career:** improve design ([b662686](https://github.com/erbilnas/erbilnas-com/commit/b6626869c133aa3196e1fcc0c9a7d57ce5438706))
+* increase design quality, remove unnecessary things ([4d791a7](https://github.com/erbilnas/erbilnas-com/commit/4d791a7dfc0f574e7f99d2f18b57d2ec80cf73d8))
+
 # [6.0.0-preview.7](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.6...v6.0.0-preview.7) (2025-01-11)
 
 
