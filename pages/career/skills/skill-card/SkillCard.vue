@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { SkillCategory } from "~/types/skills";
+import type { SkillCategory } from "~/types/career";
 import CategoryHeader from "./CategoryHeader.vue";
 import SkillItem from "./SkillItem.vue";
 

@@ -56,6 +56,9 @@ export default {
         "card-enter": "card-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
         "card-leave": "card-leave 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
         "card-move": "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+        "title-float": "title-float 3s ease-in-out infinite",
+        "title-gradient": "title-gradient 3s linear infinite",
+        "title-fade": "title-fade 1s ease-out forwards",
       },
       keyframes: {
         "pulse-subtle": {
@@ -88,6 +91,25 @@ export default {
             transform:
               "perspective(2000px) translateX(-100px) translateY(10px) translateZ(-100px) rotateY(20deg) scale(0.8)",
             filter: "blur(4px)",
+          },
+        },
+        "title-float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "title-gradient": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        "title-fade": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
           },
         },
       },

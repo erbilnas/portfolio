@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { WorkExperience } from "~/types/experience";
+import type { WorkExperience } from "~/types/career";
 import Description from "./Description.vue";
 import Positions from "./Positions.vue";
 import Summary from "./Summary.vue";

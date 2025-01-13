@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Position } from "~/types/experience";
+import type { Position } from "~/types/career";
 
 interface Props {
   positions?: Position[];

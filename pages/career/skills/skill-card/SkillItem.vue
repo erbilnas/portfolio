@@ -1,13 +1,24 @@
 <script lang="ts" setup>
-import type { Skill } from "~/types/skills";
+import { computed } from "vue";
+import type { Skill } from "~/types/career";
 
-defineProps<{
-  skill: Skill;
+const props = defineProps<{
+  skill?: Skill;
 }>();
+
+const skill = computed(
+  () =>
+    props.skill || {
+      name: "",
+      description: "",
+      icon: "lucide:code",
+    }
+);
 </script>
 
 <template>
   <div
+    v-if="props.skill"
     class="group flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
     :class="[
       'bg-slate-900/50 hover:bg-violet-500/10',

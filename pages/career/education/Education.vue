@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNavigation } from "#build/imports";
 import { ref } from "vue";
-import { educationList } from "~/constants/education";
+import { educationList } from "~/constants/career";
 import EducationCard from "./education-card";
 
 const currentIndex = ref(0);

@@ -1,20 +1,11 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
+import { careerTabs } from "~/constants/career";
+import type { CareerTabs } from "~/types/career";
 
 const sectionRef = ref<HTMLElement | null>(null);
+const activeTab = ref<CareerTabs>(careerTabs[0]);
 
-const { observeSectionChange } = useObserver("Career", sectionRef);
-
-observeSectionChange();
-
-type TabName = "Skills" | "Experience" | "Education" | "Projects";
-const tabs = computed<TabName[]>(() => [
-  "Skills",
-  "Experience",
-  "Education",
-  "Projects",
-]);
-const activeTab = ref<TabName>(tabs.value[0]);
 const isMobile = useMediaQuery("(max-width: 768px)");
 
 const tabComponents = {
@@ -23,18 +14,22 @@ const tabComponents = {
   Education: defineAsyncComponent(() => import("./education")),
   Projects: defineAsyncComponent(() => import("./projects")),
 } as const;
+
+const { observeSectionChange } = useObserver("Career", sectionRef);
+
+observeSectionChange();
 </script>
 
 <template>
   <section id="career" ref="sectionRef">
     <div
-      class="bg-gradient-to-b from-violet-950 to-red-950 flex flex-col h-screen p-4 gap-8"
+      class="bg-gradient-to-b from-violet-950 to-red-950 flex flex-col h-screen py-16 gap-8"
     >
       <!-- Mobile Tabs -->
       <div v-if="isMobile" class="flex justify-center items-center">
         <div class="flex gap-2 overflow-x-auto scrollbar-hide p-2">
           <Button
-            v-for="tab in tabs"
+            v-for="tab in careerTabs"
             :key="tab"
             @click="activeTab = tab"
             class="px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap"
@@ -53,9 +48,9 @@ const tabComponents = {
       <!-- Desktop Tabs -->
       <div v-else class="flex justify-center items-center">
         <MorphingTabs
-          :tabs="tabs"
+          :tabs="careerTabs"
           :active-tab="activeTab"
-          @update:active-tab="activeTab = $event as TabName"
+          @update:active-tab="activeTab = $event as CareerTabs"
         />
       </div>
 

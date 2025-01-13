@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import {
   BriefcaseBusinessIcon,
+  FerrisWheelIcon,
   HandIcon,
-  JoystickIcon,
   PartyPopperIcon,
   UserIcon,
 } from "lucide-vue-next";
@@ -37,7 +37,7 @@ const navigationItems = computed<NavigationItem[]>(() => [
     action: () => scrollToSection("career"),
   },
   {
-    icon: JoystickIcon,
+    icon: FerrisWheelIcon,
     label: "Current Vibes",
     action: () => scrollToSection("current-vibes"),
   },

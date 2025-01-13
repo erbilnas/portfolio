@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useNavigation } from "#build/imports";
 import { ref } from "vue";
-import { experiences } from "~/constants/experience";
+import { experiences } from "~/constants/career";
 import ExperienceCard from "./experience-card";
 
 const currentIndex = ref(0);

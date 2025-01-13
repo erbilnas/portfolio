@@ -14,6 +14,7 @@ export interface SingleGameDetail {
   progress: string;
   description: string;
   storefront: string;
+  completion_time: number;
   status: "playing" | "completed";
 }
 

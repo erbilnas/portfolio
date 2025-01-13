@@ -1,19 +1,16 @@
 <script setup lang="ts">
-interface Education {
-  school: string;
-  degree: string;
-  year: string;
-  description: string;
-  achievements: string[];
-}
+import { computed } from "vue";
+import type { Education } from "~/types/career";
 
-defineProps<{
-  education: Education;
+const props = defineProps<{
+  education?: Education;
 }>();
+
+const education = computed(() => props.education);
 </script>
 
 <template>
-  <div class="p-4 sm:p-8">
+  <div v-if="props.education" class="p-4 sm:p-8">
     <div class="space-y-4 sm:space-y-6">
       <div
         class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4"
@@ -22,10 +19,10 @@ defineProps<{
           <h3
             class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
           >
-            {{ education.school }}
+            {{ education?.school }}
           </h3>
           <p class="text-sm sm:text-base text-gray-400 mt-1">
-            {{ education.degree }}
+            {{ education?.degree }}
           </p>
         </div>
         <div
@@ -34,18 +31,18 @@ defineProps<{
           <span
             class="text-xs sm:text-sm font-medium text-white whitespace-nowrap"
           >
-            {{ education.year }}
+            {{ education?.year }}
           </span>
         </div>
       </div>
 
       <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
-        {{ education.description }}
+        {{ education?.description }}
       </p>
 
       <div class="flex flex-wrap gap-1.5 sm:gap-2">
         <span
-          v-for="achievement in education.achievements"
+          v-for="achievement in education?.achievements"
           :key="achievement"
           class="rounded-full bg-white/5 border border-white/10 px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm text-white hover:bg-white/10 transition-colors duration-200"
         >

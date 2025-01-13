@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNavigation } from "#build/imports";
 import { ref } from "vue";
-import { skillCategories } from "~/constants/skills";
+import { skillCategories } from "~/constants/career";
 import SkillCard from "./skill-card";
 
 const currentIndex = ref(0);

@@ -55,7 +55,7 @@ const isMobile = useMediaQuery("(max-width: 768px)");
           :class="[
             idx === index.current
               ? 'bg-gradient-to-r from-violet-500 to-violet-700 scale-125 shadow-glow'
-              : 'bg-slate-700/50 hover:bg-slate-600/50 scale-100',
+              : 'bg-white/10 hover:bg-white/20 scale-100',
           ]"
         >
           <div

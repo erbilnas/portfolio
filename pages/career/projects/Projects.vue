@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { projectsList } from "~/constants/projects";
+import { projectsList } from "~/constants/career";
 import ProjectCard from "./project-card";
 
 const currentIndex = ref(0);
