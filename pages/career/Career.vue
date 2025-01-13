@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useMediaQuery } from "@vueuse/core";
+
 const sectionRef = ref<HTMLElement | null>(null);
 
 const { observeSectionChange } = useObserver("Career", sectionRef);
@@ -13,12 +15,13 @@ const tabs = computed<TabName[]>(() => [
   "Projects",
 ]);
 const activeTab = ref<TabName>(tabs.value[0]);
+const isMobile = useMediaQuery("(max-width: 768px)");
 
 const tabComponents = {
   Skills: defineAsyncComponent(() => import("./skills")),
   Experience: defineAsyncComponent(() => import("./experience")),
-  Education: defineAsyncComponent(() => import("./EducationTab.vue")),
-  Projects: defineAsyncComponent(() => import("./ProjectsTab.vue")),
+  Education: defineAsyncComponent(() => import("./education")),
+  Projects: defineAsyncComponent(() => import("./projects")),
 } as const;
 </script>
 
@@ -27,7 +30,28 @@ const tabComponents = {
     <div
       class="bg-gradient-to-b from-violet-950 to-red-950 flex flex-col h-screen p-4 gap-8"
     >
-      <div class="flex justify-center items-center">
+      <!-- Mobile Tabs -->
+      <div v-if="isMobile" class="flex justify-center items-center">
+        <div class="flex gap-2 overflow-x-auto scrollbar-hide p-2">
+          <Button
+            v-for="tab in tabs"
+            :key="tab"
+            @click="activeTab = tab"
+            class="px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap"
+            :class="[
+              activeTab === tab
+                ? 'bg-primary text-white shadow-glow'
+                : 'bg-background/50 text-muted-foreground hover:text-primary hover:bg-accent/50',
+              'backdrop-blur-md border border-white/10',
+            ]"
+          >
+            {{ tab }}
+          </Button>
+        </div>
+      </div>
+
+      <!-- Desktop Tabs -->
+      <div v-else class="flex justify-center items-center">
         <MorphingTabs
           :tabs="tabs"
           :active-tab="activeTab"

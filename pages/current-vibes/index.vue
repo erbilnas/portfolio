@@ -96,6 +96,7 @@ onUnmounted(() => {
       <!-- Swipe indicator - only visible on mobile -->
       <div class="text-white/80 flex items-center gap-2 md:hidden">
         <Icon name="ph:hand-swipe-left" class="w-5 h-5 animate-pulse" />
+
         <span class="text-sm">Swipe to navigate</span>
       </div>
 
