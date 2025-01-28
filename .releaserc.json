@@ -2,9 +2,7 @@
   "branches": [
     {
       "name": "main",
-      "prerelease": false,
-      "channel": "main",
-      "initialVersion": "6.0.0"
+      "channel": "main"
     },
     {
       "name": "preview",
