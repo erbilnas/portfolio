@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 # 1.0.0 (2025-01-28)
+=======
+# [6.0.0-preview.13](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.12...v6.0.0-preview.13) (2025-01-28)
+>>>>>>> ff137cc32dbb0ad08dc03d08c63a5182f2da2190
 
 
 ### Bug Fixes
 
+<<<<<<< HEAD
 * change runtime config ([713b222](https://github.com/erbilnas/portfolio/commit/713b222a5a29347bcc1fa721530202c1377676cc))
 * changelog ([71cac7e](https://github.com/erbilnas/portfolio/commit/71cac7eeb29779997e7736c5d1e579114202555f))
 * **changelog:** update latest log ([95b36fa](https://github.com/erbilnas/portfolio/commit/95b36fab276ae067fa36740f98e7d3eb7dd0fbaf))
@@ -63,6 +68,9 @@
 ### BREAKING CHANGES
 
 * Major version upgrade with significant architectural changes and UI improvements
+=======
+* semantic release ([e88ddc0](https://github.com/erbilnas/portfolio/commit/e88ddc04cf6c65cfc8633947d227565913ef71ed))
+>>>>>>> ff137cc32dbb0ad08dc03d08c63a5182f2da2190
 
 # [6.0.0-preview.12](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.11...v6.0.0-preview.12) (2025-01-28)
 

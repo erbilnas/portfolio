@@ -51,5 +51,9 @@
     "@types/canvas-confetti": "^1.9.0",
     "semantic-release": "^23.0.2"
   },
+<<<<<<< HEAD
   "version": "1.0.0"
+=======
+  "version": "6.0.0-preview.13"
+>>>>>>> ff137cc32dbb0ad08dc03d08c63a5182f2da2190
 }
