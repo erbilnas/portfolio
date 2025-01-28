@@ -1,3 +1,10 @@
+# [6.0.0-preview.14](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.13...v6.0.0-preview.14) (2025-01-28)
+
+
+### Features
+
+* release version 6 ([7fe0e5e](https://github.com/erbilnas/portfolio/commit/7fe0e5e08b118b48fc8cbc57fae4455f67be60d9))
+
 # [6.0.0-preview.13](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.12...v6.0.0-preview.13) (2025-01-28)
 
 
