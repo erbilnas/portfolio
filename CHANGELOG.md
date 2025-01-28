@@ -1,3 +1,10 @@
+# [6.0.0-preview.9](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.8...v6.0.0-preview.9) (2025-01-28)
+
+
+### Features
+
+* **career:** add data, make improvements ([430b964](https://github.com/erbilnas/erbilnas-com/commit/430b9647c51ff22b1b0e4efcb2b0cd06f91ec11a))
+
 # [6.0.0-preview.8](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.7...v6.0.0-preview.8) (2025-01-13)
 
 
