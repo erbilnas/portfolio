@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
+import { useNavigation } from "~/composables/navigation";
 import { careerTabs } from "~/constants/career";
 import type { CareerTabs } from "~/types/career";
 
@@ -18,6 +19,18 @@ const tabComponents = {
 const { observeSectionChange } = useObserver("Career", sectionRef);
 
 observeSectionChange();
+
+const currentTabIndex = computed(() => careerTabs.indexOf(activeTab.value));
+
+const { handleTouchStart, handleTouchMove, handleTouchEnd } = useNavigation(
+  currentTabIndex,
+  careerTabs.length - 1
+);
+
+// Add watcher to sync index back to activeTab
+watch(currentTabIndex, (newIndex) => {
+  activeTab.value = careerTabs[newIndex];
+});
 </script>
 
 <template>
@@ -27,21 +40,50 @@ observeSectionChange();
     >
       <!-- Mobile Tabs -->
       <div v-if="isMobile" class="flex justify-center items-center">
-        <div class="flex gap-2 overflow-x-auto scrollbar-hide p-2">
-          <Button
-            v-for="tab in careerTabs"
-            :key="tab"
-            @click="activeTab = tab"
-            class="px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap"
-            :class="[
-              activeTab === tab
-                ? 'bg-primary text-white shadow-glow'
-                : 'bg-background/50 text-muted-foreground hover:text-primary hover:bg-accent/50',
-              'backdrop-blur-md border border-white/10',
-            ]"
+        <div class="relative w-full max-w-sm px-4">
+          <div
+            class="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-3 py-2"
+            @touchstart="handleTouchStart"
+            @touchmove="handleTouchMove"
+            @touchend="handleTouchEnd"
           >
-            {{ tab }}
-          </Button>
+            <Button
+              v-for="tab in careerTabs"
+              :key="tab"
+              @click="activeTab = tab"
+              class="snap-center min-w-[140px] flex-shrink-0 transition-all duration-300"
+              :class="[
+                'relative overflow-hidden rounded-xl border border-white/10',
+                activeTab === tab
+                  ? 'bg-gradient-to-br from-violet-500/80 to-violet-700/80 text-white shadow-glow'
+                  : 'bg-background/30 text-muted-foreground hover:text-primary hover:bg-accent/20',
+              ]"
+            >
+              <div
+                class="relative z-10 px-4 py-3 flex flex-col items-center gap-1"
+              >
+                <span class="text-sm font-medium">{{ tab }}</span>
+              </div>
+
+              <!-- Active tab indicator -->
+              <div
+                v-if="activeTab === tab"
+                class="absolute inset-0 bg-gradient-to-br from-violet-400/20 to-violet-600/20 animate-pulse-subtle blur-sm"
+              />
+            </Button>
+          </div>
+
+          <!-- Scroll indicator -->
+          <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+            <div
+              v-for="tab in careerTabs"
+              :key="tab"
+              class="w-1 h-1 rounded-full transition-all duration-300"
+              :class="[
+                activeTab === tab ? 'bg-primary w-2' : 'bg-muted-foreground/30',
+              ]"
+            />
+          </div>
         </div>
       </div>
 

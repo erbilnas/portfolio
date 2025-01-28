@@ -5,6 +5,8 @@
 
   <main>
     <SpeedInsights />
+
+    <AdBlockWarning />
     <slot />
   </main>
 

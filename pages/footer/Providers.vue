@@ -22,17 +22,17 @@ const providers: Provider[] = [
 </script>
 
 <template>
-  <HoverCard>
-    <HoverCardTrigger asChild>
+  <Dialog>
+    <DialogTrigger asChild>
       <Button
         variant="link"
         class="text-xs text-muted-foreground hover:text-foreground transition-colors"
       >
         Providers
       </Button>
-    </HoverCardTrigger>
+    </DialogTrigger>
 
-    <HoverCardContent>
+    <DialogContent>
       <ul class="flex flex-col gap-4 text-sm">
         <li
           v-for="{ name, description } in providers"
@@ -45,6 +45,6 @@ const providers: Provider[] = [
           </p>
         </li>
       </ul>
-    </HoverCardContent>
-  </HoverCard>
+    </DialogContent>
+  </Dialog>
 </template>

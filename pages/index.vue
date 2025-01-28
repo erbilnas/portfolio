@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import AboutMe from "@/pages/about-me";
-import Career from "@/pages/career";
-import CurrentVibes from "@/pages/current-vibes";
+import AboutMe from "./about-me";
+import Career from "./career";
+import CurrentVibes from "./current-vibes";
+import Footer from "./footer";
 
-import Footer from "@/pages/footer";
-
-import Welcome from "@/pages/welcome";
+import Welcome from "./welcome";
 </script>
 
 <template>
