@@ -2,7 +2,9 @@
   "branches": [
     {
       "name": "main",
-      "channel": "main"
+      "prerelease": false,
+      "channel": "main",
+      "initialVersion": "6.0.0"
     },
     {
       "name": "preview",
@@ -17,6 +19,7 @@
       {
         "preset": "angular",
         "releaseRules": [
+          { "breaking": true, "release": "major" },
           { "type": "feat", "release": "minor" },
           { "type": "feature", "release": "minor" },
           { "type": "fix", "release": "patch" },
