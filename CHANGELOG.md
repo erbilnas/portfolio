@@ -1,3 +1,10 @@
+# [6.0.0-preview.13](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.12...v6.0.0-preview.13) (2025-01-28)
+
+
+### Bug Fixes
+
+* semantic release ([e88ddc0](https://github.com/erbilnas/portfolio/commit/e88ddc04cf6c65cfc8633947d227565913ef71ed))
+
 # [6.0.0-preview.12](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.11...v6.0.0-preview.12) (2025-01-28)
 
 
