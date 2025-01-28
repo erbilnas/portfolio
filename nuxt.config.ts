@@ -54,16 +54,6 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: process.env.NUXT_APP_TITLE,
-      script: [
-        {
-          children: `
-            document.addEventListener('touchstart', function(e) {
-              e.preventDefault();
-            }, { passive: false });
-          `,
-          type: "text/javascript",
-        },
-      ],
     },
   },
   devtools: {
@@ -77,8 +67,5 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: "",
     preference: "dark",
-  },
-  experimental: {
-    payloadExtraction: false,
   },
 });

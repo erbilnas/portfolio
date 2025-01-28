@@ -40,50 +40,20 @@ watch(currentTabIndex, (newIndex) => {
     >
       <!-- Mobile Tabs -->
       <div v-if="isMobile" class="flex justify-center items-center">
-        <div class="relative w-full max-w-sm px-4">
-          <div
-            class="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-3 py-2"
-            @touchstart.prevent="handleTouchStart"
-            @touchmove.prevent="handleTouchMove"
-            @touchend.prevent="handleTouchEnd"
-            @touchcancel.prevent="handleTouchEnd"
-          >
+        <div class="w-full max-w-sm px-4">
+          <div class="flex overflow-x-auto scrollbar-hide gap-2 py-2">
             <Button
               v-for="tab in careerTabs"
               :key="tab"
               @click="activeTab = tab"
-              class="snap-center min-w-[140px] flex-shrink-0 transition-all duration-300"
               :class="[
-                'relative overflow-hidden rounded-xl border border-white/10',
                 activeTab === tab
-                  ? 'bg-gradient-to-br from-violet-500/80 to-violet-700/80 text-white shadow-glow'
-                  : 'bg-background/30 text-muted-foreground hover:text-primary hover:bg-accent/20',
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-background/30 text-muted-foreground hover:text-primary',
               ]"
             >
-              <div
-                class="relative z-10 px-4 py-3 flex flex-col items-center gap-1"
-              >
-                <span class="text-sm font-medium">{{ tab }}</span>
-              </div>
-
-              <!-- Active tab indicator -->
-              <div
-                v-if="activeTab === tab"
-                class="absolute inset-0 bg-gradient-to-br from-violet-400/20 to-violet-600/20 animate-pulse-subtle blur-sm"
-              />
+              {{ tab }}
             </Button>
-          </div>
-
-          <!-- Scroll indicator -->
-          <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
-            <div
-              v-for="tab in careerTabs"
-              :key="tab"
-              class="w-1 h-1 rounded-full transition-all duration-300"
-              :class="[
-                activeTab === tab ? 'bg-primary w-2' : 'bg-muted-foreground/30',
-              ]"
-            />
           </div>
         </div>
       </div>
