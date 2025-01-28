@@ -1,11 +1,7 @@
-<script setup lang="ts"></script>
-
 <template>
-  <LazyNuxtLayout>
-    <LazyNuxtPage />
-  </LazyNuxtLayout>
-</template>
+  <Cursor />
 
-<style lang="scss">
-@import "/assets/index.scss";
-</style>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
