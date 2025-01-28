@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/erbilnas/portfolio/compare/v1.0.0...v1.0.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* resolve conflict ([feddec5](https://github.com/erbilnas/portfolio/commit/feddec5176bc93314012f1734cd70dcf3175f529))
+* resolve conflict ([98f1a84](https://github.com/erbilnas/portfolio/commit/98f1a84adb5158565c1e85d034003f4ca85ee907))
+* semantic release ([e88ddc0](https://github.com/erbilnas/portfolio/commit/e88ddc04cf6c65cfc8633947d227565913ef71ed))
+
 # [6.0.0-preview.13](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.12...v6.0.0-preview.13) (2025-01-28)
 
 
