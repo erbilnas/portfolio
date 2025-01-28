@@ -1,3 +1,10 @@
+# [6.0.0-preview.12](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.11...v6.0.0-preview.12) (2025-01-28)
+
+
+### Bug Fixes
+
+* fix career mobile navigation ([62bddd0](https://github.com/erbilnas/portfolio/commit/62bddd09d6a4de7f1c16a6d16d61feaa94ca231d))
+
 # [6.0.0-preview.11](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.10...v6.0.0-preview.11) (2025-01-28)
 
 
