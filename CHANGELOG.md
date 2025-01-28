@@ -1,3 +1,10 @@
+# [6.0.0-preview.10](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.9...v6.0.0-preview.10) (2025-01-28)
+
+
+### Features
+
+* add adblocker warning dialog, change providers component ([3e2e588](https://github.com/erbilnas/portfolio/commit/3e2e588c7449db8e4ea0e2cb36acdfde38d74361))
+
 # [6.0.0-preview.9](https://github.com/erbilnas/erbilnas-com/compare/v6.0.0-preview.8...v6.0.0-preview.9) (2025-01-28)
 
 
