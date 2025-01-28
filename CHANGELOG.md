@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/erbilnas/portfolio/compare/v1.0.0...v1.1.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* resolve conflicts ([323ca5b](https://github.com/erbilnas/portfolio/commit/323ca5b712b9822e2d9a5c4c4d21de7ed6fb8154))
+
+
+### Features
+
+* release version 6 ([7fe0e5e](https://github.com/erbilnas/portfolio/commit/7fe0e5e08b118b48fc8cbc57fae4455f67be60d9))
+
 # [6.0.0-preview.15](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.14...v6.0.0-preview.15) (2025-01-28)
 
 
