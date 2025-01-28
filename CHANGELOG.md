@@ -1,3 +1,10 @@
+# [6.0.0-preview.11](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.10...v6.0.0-preview.11) (2025-01-28)
+
+
+### Bug Fixes
+
+* fix adblock not closing bug, fix career navigation misdesign ([38644c8](https://github.com/erbilnas/portfolio/commit/38644c8c2c7d6eed61da82cca83bf77e96653be3))
+
 # [6.0.0-preview.10](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.9...v6.0.0-preview.10) (2025-01-28)
 
 
