@@ -21,6 +21,9 @@ const props = defineProps<{
       class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       :src="player.album.image"
       quality="100"
+      alt="Music Player Card Background"
+      loading="lazy"
+      format="webp"
     />
 
     <!-- Overlay Gradient -->

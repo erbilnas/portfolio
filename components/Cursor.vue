@@ -13,9 +13,9 @@
 
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
-import gsap from "gsap";
 import { onMounted, onUnmounted, ref } from "vue";
 
+const gsap = await import("gsap").then((m) => m.default);
 // Constants
 const MAGNETIC_MAX_DISTANCE = 100;
 const MAGNETIC_STRENGTH = 0.5;

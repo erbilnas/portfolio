@@ -54,6 +54,42 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: process.env.NUXT_APP_TITLE,
+      htmlAttrs: {
+        lang: "en",
+      },
+      meta: [
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "format-detection", content: "telephone=no" },
+        {
+          name: "description",
+          content:
+            process.env.NUXT_APP_DESCRIPTION ||
+            "The digital showcase about me, a passionate software engineer with a love for video games, technology, and insightful writing.",
+        },
+        {
+          name: "keywords",
+          content:
+            "Erbil Nas, Software Engineer, Web Development, Full Stack Developer, Portfolio, Video Games, Technology, Writing, Frontend Developer, Digital Showcase, Personal Website",
+        },
+        { name: "author", content: "Erbil Nas" },
+        {
+          property: "og:title",
+          content: process.env.NUXT_APP_TITLE || "Erbil Nas",
+        },
+        {
+          property: "og:description",
+          content:
+            process.env.NUXT_APP_DESCRIPTION ||
+            "The digital showcase about me, a passionate software engineer with a love for video games, technology, and insightful writing.",
+        },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: process.env.NUXT_APP_URL },
+      ],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "canonical", href: process.env.NUXT_APP_URL },
+      ],
     },
   },
   devtools: {

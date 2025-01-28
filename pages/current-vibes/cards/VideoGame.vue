@@ -39,6 +39,9 @@ const getStatusText = () => {
       class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       :src="game.image"
       quality="100"
+      alt="Video Game Card Background"
+      loading="lazy"
+      format="webp"
     />
     <div v-else class="absolute inset-0 bg-gray-800"></div>
 

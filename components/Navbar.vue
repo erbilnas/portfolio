@@ -1,12 +1,4 @@
 <script lang="ts" setup>
-import {
-  BriefcaseBusinessIcon,
-  FerrisWheelIcon,
-  HandIcon,
-  PartyPopperIcon,
-  UserIcon,
-} from "lucide-vue-next";
-
 import { useConfetti } from "@/composables/confetti";
 
 type sections = "welcome" | "about-me" | "career" | "current-vibes";
@@ -22,27 +14,37 @@ const { fireConfetti } = useConfetti();
 
 const navigationItems = computed<NavigationItem[]>(() => [
   {
-    icon: HandIcon,
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.HandIcon)
+    ),
     label: "Welcome",
     action: () => scrollToSection("welcome"),
   },
   {
-    icon: UserIcon,
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.UserIcon)
+    ),
     label: "About Me",
     action: () => scrollToSection("about-me"),
   },
   {
-    icon: BriefcaseBusinessIcon,
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.BriefcaseBusinessIcon)
+    ),
     label: "Career",
     action: () => scrollToSection("career"),
   },
   {
-    icon: FerrisWheelIcon,
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.FerrisWheelIcon)
+    ),
     label: "Current Vibes",
     action: () => scrollToSection("current-vibes"),
   },
   {
-    icon: PartyPopperIcon,
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.PartyPopperIcon)
+    ),
     label: "Confetti",
     action: () => fireConfetti(),
     badge: true,

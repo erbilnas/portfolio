@@ -20,19 +20,22 @@ observeSectionChange();
   <section id="welcome" ref="sectionRef">
     <LampEffect>
       <div class="flex flex-col gap-12">
-        <TextGenerateEffect
-          words="Hello"
-          class="text-foreground text-9xl font-bold"
-        />
+        <h1 fetchpriority="high">
+          <TextGenerateEffect
+            words="Hello"
+            class="text-foreground text-9xl font-bold"
+            :duration="0.3"
+            :delay="0"
+            :filter="false"
+          />
+        </h1>
 
         <div class="flex flex-col items-center gap-2">
           <IntroductionText />
-
           <FlipWords :words />
         </div>
 
         <SocialLinks />
-
         <ScrollReminder />
       </div>
     </LampEffect>

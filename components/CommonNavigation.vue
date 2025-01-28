@@ -50,6 +50,8 @@ const isMobile = useMediaQuery("(max-width: 768px)");
       >
         <Button
           v-for="(_, idx) in items"
+          aria-label="Navigation tab"
+          role="tab"
           :key="idx"
           class="w-6 h-1.5 sm:h-2 rounded-full transition-all duration-300 focus:outline-none group-hover:scale-110 relative overflow-hidden"
           :class="[

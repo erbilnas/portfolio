@@ -32,11 +32,6 @@ const isGameDataValid = (game: SingleGameDetail | null | undefined) => {
   return !!(game?.title && game?.platform && game?.description);
 };
 
-// Helper to check if music data is valid
-const isMusicDataValid = (player: MusicPlayerData | null | undefined) => {
-  return !!(player?.album?.name && player?.artist && player?.name);
-};
-
 const ErrorComponent = defineAsyncComponent(() => import("./cards/Error.vue"));
 const VideoGameComponent = defineAsyncComponent(
   () => import("./cards/VideoGame.vue")

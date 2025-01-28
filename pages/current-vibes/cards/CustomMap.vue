@@ -26,6 +26,9 @@ const completionPercentage = Math.round(
       class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       src="/images/map-card-bg.jpg"
       quality="100"
+      alt="Map Card Background"
+      loading="lazy"
+      format="webp"
     />
 
     <!-- Overlay Gradient -->
