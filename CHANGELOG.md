@@ -1,3 +1,17 @@
+# [6.0.0-preview.15](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.14...v6.0.0-preview.15) (2025-01-28)
+
+
+### Bug Fixes
+
+* resolve conflict ([feddec5](https://github.com/erbilnas/portfolio/commit/feddec5176bc93314012f1734cd70dcf3175f529))
+* resolve conflict ([98f1a84](https://github.com/erbilnas/portfolio/commit/98f1a84adb5158565c1e85d034003f4ca85ee907))
+* resolve conflicts ([323ca5b](https://github.com/erbilnas/portfolio/commit/323ca5b712b9822e2d9a5c4c4d21de7ed6fb8154))
+
+
+### Features
+
+* release version 6 ([d01717d](https://github.com/erbilnas/portfolio/commit/d01717d4c7c56c75d47b821742293b828fd378ab))
+
 # [6.0.0-preview.14](https://github.com/erbilnas/portfolio/compare/v6.0.0-preview.13...v6.0.0-preview.14) (2025-01-28)
 
 ### Features
