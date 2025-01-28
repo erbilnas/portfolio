@@ -1,19 +1,24 @@
+# My Portfolio
 
-# erbilnas.com
-
-The digital showcase curated by me, a passionate software engineer with a love for video games, technology, and insightful writing
-
+The digital showcase about me, a passionate software engineer with a love for video games, technology, and insightful writing
 
 ### Preview Latest Features
 
-https://preview.erbilnas.com/
+- [Visit my playground](https://preview.erbilnas.com/)
 
+### Did You Miss Old Versions?
 
-### Development Stack
+- [Version 5](https://v5.erbilnas.com/)
+
+### Technology Stack
 
 - [Nuxt](https://nuxt.com/)
-- [PrimeVue](https://primevue.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [shadcn-vue](https://shadcn-vue.com/)
+- [Inspira UI](https://inspira-ui.com/)
+- [TailwindCSS](https://tailwindcss.com/)
 - [Pinia](https://pinia.vuejs.org/)
-- [SCSS](https://sass-lang.com/)
+- [VueUse](https://vueuse.org/)
+- [gsap](https://gsap.com/)
 - [HowLongToBeat API](https://github.com/ckatzorke/howlongtobeat)
 - [Vercel](https://vercel.com/)

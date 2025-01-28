@@ -69,7 +69,7 @@ const props = defineProps<{
             </div>
           </div>
           <div class="px-3 py-1 text-sm text-white/90">
-            {{ player?.name ? "Now Playing" : "Paused" }}
+            {{ player?.name ? "Listening" : "Paused" }}
           </div>
         </div>
 
