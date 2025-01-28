@@ -43,9 +43,10 @@ watch(currentTabIndex, (newIndex) => {
         <div class="relative w-full max-w-sm px-4">
           <div
             class="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-3 py-2"
-            @touchstart="handleTouchStart"
-            @touchmove="handleTouchMove"
-            @touchend="handleTouchEnd"
+            @touchstart.prevent="handleTouchStart"
+            @touchmove.prevent="handleTouchMove"
+            @touchend.prevent="handleTouchEnd"
+            @touchcancel.prevent="handleTouchEnd"
           >
             <Button
               v-for="tab in careerTabs"
