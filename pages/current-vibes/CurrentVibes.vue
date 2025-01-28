@@ -64,10 +64,7 @@ const cards = computed<Card[]>(() => {
     {
       type: "music",
       data: musicData.value?.player,
-      component:
-        isMusicDataValid(musicData.value?.player) && !musicError.value
-          ? MusicPlayerComponent
-          : ErrorComponent,
+      component: MusicPlayerComponent,
     },
     {
       type: "blog",

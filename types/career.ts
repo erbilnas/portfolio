@@ -18,7 +18,7 @@ export interface WorkExperience {
 export interface Skill {
   name: string;
   description: string;
-  icon: string;
+  icon?: string;
 }
 
 export interface SkillCategory {
@@ -40,6 +40,6 @@ export interface Project {
   description: string;
   tech: string[];
   features: string[];
-  status: "Active" | "In Progress" | "Archived";
+  status: "Active" | "Archived" | "Completed" | "Dropped";
   github?: string;
 }

@@ -27,6 +27,7 @@ const skill = computed(
     ]"
   >
     <div
+      v-if="skill.icon"
       class="p-2 sm:p-2.5 rounded-lg sm:rounded-xl shrink-0 shadow-inner transition-colors"
       :class="[
         'bg-primary/5 text-primary-foreground',

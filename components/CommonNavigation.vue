@@ -54,8 +54,8 @@ const isMobile = useMediaQuery("(max-width: 768px)");
           class="w-6 h-1.5 sm:h-2 rounded-full transition-all duration-300 focus:outline-none group-hover:scale-110 relative overflow-hidden"
           :class="[
             idx === index.current
-              ? 'bg-gradient-to-r from-violet-500 to-violet-700 scale-125 shadow-glow'
-              : 'bg-white/10 hover:bg-white/20 scale-100',
+              ? 'bg-gradient-to-r from-violet-500 to-violet-700 shadow-glow'
+              : 'bg-white/10 hover:bg-white/20',
           ]"
         >
           <div

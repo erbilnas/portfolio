@@ -25,9 +25,12 @@ const getCurrentlyPlayingSong = async () => {
     },
   });
 
-  // Return null if no song is playing (204 status)
+  // Return empty object if no song is playing (204 status)
   if (response.status === 204) {
-    return null;
+    return {
+      is_playing: false,
+      item: {},
+    };
   }
 
   return response.json();
@@ -36,13 +39,6 @@ const getCurrentlyPlayingSong = async () => {
 export default defineEventHandler(async (event) => {
   try {
     const song = await getCurrentlyPlayingSong();
-
-    if (!song) {
-      return {
-        is_playing: false,
-        player: {},
-      };
-    }
 
     const { item, is_playing } = song;
 
