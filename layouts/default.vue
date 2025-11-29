@@ -11,7 +11,7 @@
   </main>
 
   <footer
-    class="fixed bottom-0 left-0 right-0 transition-all duration-500 ease-in-out transform"
+    class="fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out transform"
     :class="{
       'translate-y-full opacity-0': isNavbarHidden,
       'translate-y-0 opacity-100': !isNavbarHidden,
