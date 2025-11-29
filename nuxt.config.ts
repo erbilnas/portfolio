@@ -14,6 +14,8 @@ const appConfig = {
   },
   maps: {
     placesBeen: process.env.PLACES_BEEN_URL,
+    countriesVisited: process.env.COUNTRIES_VISITED_COUNT,
+    citiesVisited: process.env.CITIES_VISITED_COUNT,
   },
   flippingWords: process.env.FLIPPING_WORDS,
 
