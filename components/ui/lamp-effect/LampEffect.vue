@@ -2,7 +2,7 @@
   <div
     :class="
       cn(
-        'relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-slate-950 w-full rounded-md z-0',
+        'relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white dark:bg-slate-950 w-full rounded-md z-0',
         $props.class
       )
     "
@@ -18,10 +18,10 @@
         class="animate-conic-gradient bg-gradient-conic absolute inset-auto right-1/2 h-56 w-60 overflow-visible from-violet-500 via-transparent to-transparent text-white opacity-50 [--conic-position:from_70deg_at_center_top]"
       >
         <div
-          class="absolute bottom-0 left-0 z-20 h-40 w-full bg-slate-950 [mask-image:linear-gradient(to_top,white,transparent)]"
+          class="absolute bottom-0 left-0 z-20 h-40 w-full bg-white dark:bg-slate-950 [mask-image:linear-gradient(to_top,white,transparent)]"
         />
         <div
-          class="absolute bottom-0 left-0 z-20 h-full w-40 bg-slate-950 [mask-image:linear-gradient(to_right,white,transparent)]"
+          class="absolute bottom-0 left-0 z-20 h-full w-40 bg-white dark:bg-slate-950 [mask-image:linear-gradient(to_right,white,transparent)]"
         />
       </div>
 
@@ -32,15 +32,15 @@
         class="animate-conic-gradient bg-gradient-conic absolute inset-auto left-1/2 h-56 w-60 from-transparent via-transparent to-violet-500 text-white opacity-50 [--conic-position:from_290deg_at_center_top]"
       >
         <div
-          class="absolute bottom-0 right-0 z-20 h-full w-40 bg-slate-950 [mask-image:linear-gradient(to_left,white,transparent)]"
+          class="absolute bottom-0 right-0 z-20 h-full w-40 bg-white dark:bg-slate-950 [mask-image:linear-gradient(to_left,white,transparent)]"
         />
         <div
-          class="absolute bottom-0 right-0 z-20 h-40 w-full bg-slate-950 [mask-image:linear-gradient(to_top,white,transparent)]"
+          class="absolute bottom-0 right-0 z-20 h-40 w-full bg-white dark:bg-slate-950 [mask-image:linear-gradient(to_top,white,transparent)]"
         />
       </div>
 
       <div
-        class="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-slate-950 blur-2xl"
+        class="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-white dark:bg-slate-950 blur-2xl"
       ></div>
 
       <div
@@ -62,7 +62,7 @@
       ></div>
 
       <div
-        class="absolute inset-auto z-40 h-44 w-full translate-y-[-12.5rem] bg-slate-950"
+        class="absolute inset-auto z-40 h-44 w-full translate-y-[-12.5rem] bg-white dark:bg-slate-950"
       ></div>
     </div>
 
