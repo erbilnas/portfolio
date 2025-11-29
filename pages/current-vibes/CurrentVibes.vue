@@ -74,7 +74,7 @@ onUnmounted(() => {
 <template>
   <section id="current-vibes" ref="sectionRef">
     <div
-      class="overflow-hidden min-h-screen flex flex-col gap-6 py-16 items-center bg-gradient-to-b from-red-950 to-zinc-950"
+      class="overflow-hidden min-h-screen flex flex-col gap-6 py-16 items-center bg-white dark:bg-gradient-to-b dark:from-red-950 dark:to-zinc-950"
     >
       <CurrentVibesHeader />
 

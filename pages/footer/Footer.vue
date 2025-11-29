@@ -9,7 +9,7 @@ import Version from "./Version.vue";
 <template>
   <section id="footer">
     <div
-      class="flex flex-col py-32 items-center gap-4 p-4 bg-gradient-to-b from-zinc-950 to-slate-950"
+      class="flex flex-col py-32 items-center gap-4 p-4 bg-white dark:bg-gradient-to-b dark:from-zinc-950 dark:to-slate-950"
     >
       <UsedTechnologies />
 

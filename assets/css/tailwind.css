@@ -72,15 +72,15 @@
   }
 
   /* Hide default cursor and ensure cursor is visible on interactive elements */
-  a,
-  button,
-  [role="button"],
-  input,
-  body,
-  svg,
-  div,
-  select,
-  textarea {
+  body:not(.cursor-disabled) a,
+  body:not(.cursor-disabled) button,
+  body:not(.cursor-disabled) [role="button"],
+  body:not(.cursor-disabled) input,
+  body:not(.cursor-disabled) body,
+  body:not(.cursor-disabled) svg,
+  body:not(.cursor-disabled) div,
+  body:not(.cursor-disabled) select,
+  body:not(.cursor-disabled) textarea {
     cursor: none !important;
   }
 }

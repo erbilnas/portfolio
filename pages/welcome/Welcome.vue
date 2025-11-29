@@ -23,7 +23,7 @@ observeSectionChange();
         <h1 fetchpriority="high">
           <TextGenerateEffect
             words="Hello"
-            class="text-foreground text-9xl font-bold"
+            class="text-gray-900 dark:text-white text-9xl font-bold"
             :duration="0.3"
             :delay="0"
             :filter="false"

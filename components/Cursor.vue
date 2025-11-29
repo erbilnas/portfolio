@@ -12,8 +12,9 @@
 </template>
 
 <script setup lang="ts">
+import { useSettings } from "@/composables/settings";
 import { useMediaQuery } from "@vueuse/core";
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 
 const gsap = await import("gsap").then((m) => m.default);
 // Constants
@@ -25,9 +26,12 @@ const MOBILE_BREAKPOINT = 767;
 // Refs
 const cursor = ref<HTMLElement | null>(null);
 const follower = ref<HTMLElement | null>(null);
+let clickableElements: NodeListOf<Element> | null = null;
+let listenersAttached = false;
 
 // Composables
 const isDesktop = useMediaQuery(`(min-width: ${MOBILE_BREAKPOINT}px)`);
+const { cursorDisabled } = useSettings();
 
 // Animation configurations
 const cursorConfig = {
@@ -154,14 +158,15 @@ const click = () => {
   gsap.to(follower.value, followerConfig.click);
 };
 
-// Lifecycle hooks
-onMounted(() => {
-  if (!isDesktop.value) return;
+// Helper function to attach event listeners
+const attachListeners = () => {
+  if (listenersAttached) return;
 
   cursor.value?.classList.remove("hidden");
   follower.value?.classList.remove("hidden");
+  document.body.classList.remove("cursor-disabled");
 
-  const clickableElements = document.querySelectorAll(
+  clickableElements = document.querySelectorAll(
     'a,  button, [role="button"], .link, input[type="submit"], input[type="button"], .card, .card-raised-big'
   );
 
@@ -174,14 +179,59 @@ onMounted(() => {
     el.addEventListener("mousemove", hover);
   });
 
-  onUnmounted(() => {
-    document.removeEventListener("mousemove", moveCircle);
-    document.removeEventListener("click", click);
+  listenersAttached = true;
+};
+
+// Helper function to remove event listeners
+const removeListeners = () => {
+  if (!listenersAttached) return;
+
+  cursor.value?.classList.add("hidden");
+  follower.value?.classList.add("hidden");
+  document.body.classList.add("cursor-disabled");
+
+  document.removeEventListener("mousemove", moveCircle);
+  document.removeEventListener("click", click);
+
+  if (clickableElements) {
     clickableElements.forEach((el) => {
       el.removeEventListener("mouseenter", hover);
       el.removeEventListener("mouseleave", unhover);
       el.removeEventListener("mousemove", hover);
     });
-  });
+  }
+
+  listenersAttached = false;
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if (cursorDisabled.value) {
+    document.body.classList.add("cursor-disabled");
+  }
+  if (!isDesktop.value || cursorDisabled.value) return;
+  attachListeners();
+});
+
+onUnmounted(() => {
+  removeListeners();
+});
+
+// Watch for cursor disabled state changes
+watch(cursorDisabled, (disabled) => {
+  if (disabled) {
+    removeListeners();
+  } else if (isDesktop.value) {
+    attachListeners();
+  }
+});
+
+// Watch for desktop state changes
+watch(isDesktop, (desktop) => {
+  if (!desktop || cursorDisabled.value) {
+    removeListeners();
+  } else if (!cursorDisabled.value) {
+    attachListeners();
+  }
 });
 </script>

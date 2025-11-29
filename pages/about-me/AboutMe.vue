@@ -21,7 +21,7 @@ observeSectionChange();
 
 <template>
   <section id="about-me" ref="sectionRef">
-    <div class="bg-gradient-to-b from-slate-950 to-violet-950 flex">
+    <div class="bg-white dark:bg-gradient-to-b dark:from-slate-950 dark:to-violet-950 flex min-h-screen">
       <TextScrollReveal :text />
     </div>
   </section>

@@ -7,16 +7,15 @@ interface Provider {
 const providers: Provider[] = [
   {
     name: "HowLongToBeat",
-    description:
-      'Provides information to my "Currently Playing" and "Recently Completed" cards.',
+    description: "Provides data for my video games section.",
   },
   {
     name: "Spotify",
-    description: 'Provides information to my "Listening Now" card.',
+    description: "Provides data for my music section.",
   },
   {
     name: "RSS2JSON",
-    description: 'Provides information to my "Recent Blog Post" card.',
+    description: "Provides data for my blog section.",
   },
 ];
 </script>
@@ -39,7 +38,7 @@ const providers: Provider[] = [
           :key="name"
           class="flex flex-col gap-1"
         >
-          <p class="font-bold text-primary-foreground">{{ name }}</p>
+          <p class="font-bold text-gray-900 dark:text-white">{{ name }}</p>
           <p class="text-xs text-muted-foreground">
             {{ description }}
           </p>

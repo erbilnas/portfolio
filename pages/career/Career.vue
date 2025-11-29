@@ -36,7 +36,7 @@ watch(currentTabIndex, (newIndex) => {
 <template>
   <section id="career" ref="sectionRef">
     <div
-      class="bg-gradient-to-b from-violet-950 to-red-950 flex flex-col h-screen py-16 gap-8"
+      class="bg-white dark:bg-gradient-to-b dark:from-violet-950 dark:to-red-950 flex flex-col h-screen py-16 gap-8"
     >
       <!-- Mobile Tabs -->
       <div v-if="isMobile" class="flex justify-center items-center">
