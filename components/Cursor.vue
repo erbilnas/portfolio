@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useSettings } from "@/composables/settings";
-import { useMediaQuery } from "@vueuse/core";
+import { useMediaQuery } from "@/composables/use-media-query-client";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 
 const gsap = await import("gsap").then((m) => m.default);
@@ -21,7 +21,6 @@ const gsap = await import("gsap").then((m) => m.default);
 const MAGNETIC_MAX_DISTANCE = 100;
 const MAGNETIC_STRENGTH = 0.5;
 const ELEMENT_MAGNETIC_STRENGTH = 0.1;
-const MOBILE_BREAKPOINT = 767;
 
 // Refs
 const cursor = ref<HTMLElement | null>(null);
@@ -30,7 +29,7 @@ let clickableElements: NodeListOf<Element> | null = null;
 let listenersAttached = false;
 
 // Composables
-const isDesktop = useMediaQuery(`(min-width: ${MOBILE_BREAKPOINT}px)`);
+const isDesktop = useMediaQuery("(min-width: 768px)");
 const { cursorDisabled } = useSettings();
 
 // Animation configurations
