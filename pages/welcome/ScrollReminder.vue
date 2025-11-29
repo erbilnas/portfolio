@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useMediaQuery } from "@vueuse/core";
+import { useMediaQuery } from "@/composables/use-media-query-client";
 
 const isMobile = useMediaQuery("(max-width: 768px)");
 </script>

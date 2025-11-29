@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMediaQuery } from "@vueuse/core";
+import { useMediaQuery } from "@/composables/use-media-query-client";
 import { useNavigation } from "~/composables/navigation";
 import { careerTabs } from "~/constants/career";
 import type { CareerTabs } from "~/types/career";

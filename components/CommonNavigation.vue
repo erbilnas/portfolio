@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useMediaQuery } from "@vueuse/core";
+import { useMediaQuery } from "@/composables/use-media-query-client";
 import { ChevronLeft, ChevronRight } from "lucide-vue-next";
 
 interface NavigationProps {
