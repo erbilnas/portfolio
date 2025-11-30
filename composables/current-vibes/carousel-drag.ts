@@ -101,6 +101,7 @@ export const useCarouselDrag = (
    * Setup global mouse event listeners
    */
   const setupMouseListeners = () => {
+    if (typeof window === 'undefined') return;
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
   };
@@ -109,6 +110,7 @@ export const useCarouselDrag = (
    * Remove global mouse event listeners
    */
   const removeMouseListeners = () => {
+    if (typeof window === 'undefined') return;
     window.removeEventListener("mousemove", handleMouseMove);
     window.removeEventListener("mouseup", handleMouseUp);
   };

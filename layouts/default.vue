@@ -36,6 +36,8 @@ const SCROLL_THRESHOLD = 50;
 const SCROLL_DELAY = 50;
 
 const handleScroll = () => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  
   const currentScrollPosition = window.scrollY;
   const winScroll = window.scrollY;
   const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -99,8 +101,11 @@ const throttle = <T extends (...args: any[]) => any>(
 const throttledScrollHandler = throttle(handleScroll, SCROLL_DELAY);
 
 onMounted(() => {
+  // Only run on client side
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  
   // Detect iPhone devices
-  if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+  if (typeof navigator !== "undefined") {
     const userAgent =
       navigator.userAgent || navigator.vendor || (window as any).opera;
     isIPhone.value = /iPhone/i.test(userAgent);
@@ -110,7 +115,9 @@ onMounted(() => {
   handleScroll(); // Initial call
 
   onUnmounted(() => {
-    window.removeEventListener("scroll", throttledScrollHandler);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener("scroll", throttledScrollHandler);
+    }
   });
 });
 </script>
