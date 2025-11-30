@@ -14,6 +14,8 @@ const appConfig = {
   },
   maps: {
     placesBeen: process.env.PLACES_BEEN_URL,
+    countriesVisited: process.env.COUNTRIES_VISITED_COUNT,
+    citiesVisited: process.env.CITIES_VISITED_COUNT,
   },
   flippingWords: process.env.FLIPPING_WORDS,
 
@@ -93,7 +95,18 @@ export default defineNuxtConfig({
     },
   },
   devtools: {
-    enabled: true,
+    enabled: process.env.NODE_ENV !== "production",
+  },
+  logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
+  nitro: {
+    logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
+    sourceMap: process.env.NODE_ENV !== "production",
+    esbuild: {
+      options: {
+        drop:
+          process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+      },
+    },
   },
   compatibilityDate: "2025-01-02",
   shadcn: {
@@ -103,5 +116,67 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: "",
     preference: "dark",
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            // Only process node_modules dependencies
+            if (!id.includes("node_modules")) {
+              return;
+            }
+
+            // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
+            if (id.includes("gsap") || id.includes("@vueuse/motion")) {
+              return "vendor-animations";
+            }
+
+            // Heavy 3D/visual libraries
+            if (id.includes("cobe") || id.includes("canvas-confetti")) {
+              return "vendor-visual";
+            }
+
+            // UI component libraries (Radix Vue, Shadcn)
+            if (id.includes("radix-vue") || id.includes("shadcn-nuxt")) {
+              return "vendor-ui";
+            }
+
+            // VueUse core utilities
+            if (id.includes("@vueuse/core")) {
+              return "vendor-vueuse";
+            }
+
+            // Icon libraries (can be large)
+            if (id.includes("lucide-vue-next") || id.includes("@nuxt/icon")) {
+              return "vendor-icons";
+            }
+
+            // Vercel analytics (lightweight, but separate for clarity)
+            if (id.includes("@vercel")) {
+              return "vendor-analytics";
+            }
+
+            // Nuxt modules (framework-specific)
+            if (id.includes("@nuxt/") || id.includes("@nuxtjs/")) {
+              return "vendor-nuxt";
+            }
+
+            // Vue core and related
+            if (id.includes("vue") && !id.includes("node_modules/vue/")) {
+              return "vendor-vue";
+            }
+
+            // Default vendor chunk for other node_modules
+            return "vendor";
+          },
+        },
+      },
+      chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
+    },
+    esbuild: {
+      drop:
+        process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+    },
   },
 });

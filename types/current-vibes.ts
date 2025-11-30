@@ -1,5 +1,3 @@
-import type { Component } from "vue";
-
 export interface MediumPost {
   title: string;
   link: string;
@@ -37,20 +35,4 @@ export interface MusicPlayerData {
 
 export interface MusicPlayer {
   player: MusicPlayerData;
-}
-
-export type CardType = "game" | "music" | "blog" | "map" | "error";
-
-export interface CardProps {
-  game?: SingleGameDetail;
-  player?: MusicPlayerData;
-  post?: MediumPost;
-  map?: unknown;
-  isActive?: boolean;
-}
-
-export interface Card {
-  type: CardType;
-  data?: SingleGameDetail | MusicPlayerData | MediumPost;
-  component: Component;
 }

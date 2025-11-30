@@ -12,22 +12,32 @@
 </template>
 
 <script setup lang="ts">
-import { useMediaQuery } from "@vueuse/core";
-import { onMounted, onUnmounted, ref } from "vue";
+import { useSettings } from "@/composables/settings";
+import { useMediaQuery } from "@/composables/use-media-query-client";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
 
 const gsap = await import("gsap").then((m) => m.default);
 // Constants
 const MAGNETIC_MAX_DISTANCE = 100;
 const MAGNETIC_STRENGTH = 0.5;
 const ELEMENT_MAGNETIC_STRENGTH = 0.1;
-const MOBILE_BREAKPOINT = 767;
 
 // Refs
 const cursor = ref<HTMLElement | null>(null);
 const follower = ref<HTMLElement | null>(null);
+let clickableElements: NodeListOf<Element> | null = null;
+let listenersAttached = false;
 
 // Composables
-const isDesktop = useMediaQuery(`(min-width: ${MOBILE_BREAKPOINT}px)`);
+const isDesktop = useMediaQuery("(min-width: 768px)");
+const { cursorDisabled } = useSettings();
+
+// Fallback check for desktop (in case media query hasn't initialized)
+const isDesktopFallback = computed(() => {
+  if (process.server) return false;
+  if (typeof window === "undefined") return false;
+  return window.innerWidth >= 768;
+});
 
 // Animation configurations
 const cursorConfig = {
@@ -154,14 +164,24 @@ const click = () => {
   gsap.to(follower.value, followerConfig.click);
 };
 
-// Lifecycle hooks
-onMounted(() => {
-  if (!isDesktop.value) return;
+// Helper function to attach event listeners
+const attachListeners = () => {
+  if (listenersAttached) return;
+  if (!cursor.value || !follower.value) return;
 
-  cursor.value?.classList.remove("hidden");
-  follower.value?.classList.remove("hidden");
+  // Remove hidden class and set initial position
+  cursor.value.classList.remove("hidden");
+  follower.value.classList.remove("hidden");
+  document.body.classList.remove("cursor-disabled");
 
-  const clickableElements = document.querySelectorAll(
+  // Set initial position at center of screen (will be updated on first mousemove)
+  const initialX = window.innerWidth / 2;
+  const initialY = window.innerHeight / 2;
+  
+  gsap.set(cursor.value, { x: initialX, y: initialY });
+  gsap.set(follower.value, { x: initialX, y: initialY });
+
+  clickableElements = document.querySelectorAll(
     'a,  button, [role="button"], .link, input[type="submit"], input[type="button"], .card, .card-raised-big'
   );
 
@@ -174,14 +194,63 @@ onMounted(() => {
     el.addEventListener("mousemove", hover);
   });
 
-  onUnmounted(() => {
-    document.removeEventListener("mousemove", moveCircle);
-    document.removeEventListener("click", click);
+  listenersAttached = true;
+};
+
+// Helper function to remove event listeners
+const removeListeners = () => {
+  if (!listenersAttached) return;
+
+  cursor.value?.classList.add("hidden");
+  follower.value?.classList.add("hidden");
+  document.body.classList.add("cursor-disabled");
+
+  document.removeEventListener("mousemove", moveCircle);
+  document.removeEventListener("click", click);
+
+  if (clickableElements) {
     clickableElements.forEach((el) => {
       el.removeEventListener("mouseenter", hover);
       el.removeEventListener("mouseleave", unhover);
       el.removeEventListener("mousemove", hover);
     });
+  }
+
+  listenersAttached = false;
+};
+
+// Helper function to check if cursor should be enabled
+const shouldEnableCursor = () => {
+  // Use fallback if media query hasn't initialized yet
+  const desktop = isDesktop.value || isDesktopFallback.value;
+  return desktop && !cursorDisabled.value;
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if (cursorDisabled.value) {
+    document.body.classList.add("cursor-disabled");
+  }
+  
+  // Use nextTick to ensure DOM is ready, then check immediately
+  // The watchEffect will also handle state changes
+  nextTick(() => {
+    if (shouldEnableCursor()) {
+      attachListeners();
+    }
   });
+});
+
+onUnmounted(() => {
+  removeListeners();
+});
+
+// Watch both values together to handle state changes
+watchEffect(() => {
+  if (shouldEnableCursor() && !listenersAttached) {
+    attachListeners();
+  } else if (!shouldEnableCursor() && listenersAttached) {
+    removeListeners();
+  }
 });
 </script>

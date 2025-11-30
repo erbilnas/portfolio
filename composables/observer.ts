@@ -14,28 +14,40 @@ export const useObserver = (section: string, ref: Ref<HTMLElement | null>) => {
     });
   };
 
-  const observeSectionChange = () => {
-    onMounted(() => {
-      const observer = new IntersectionObserver(
-        handleIntersection,
-        observerOptions
-      );
+  let observer: IntersectionObserver | null = null;
+  let stopWatcher: (() => void) | null = null;
 
-      if (ref.value) {
+  onMounted(() => {
+    const setupObserver = () => {
+      if (ref.value && !observer) {
+        observer = new IntersectionObserver(
+          handleIntersection,
+          observerOptions
+        );
         observer.observe(ref.value);
-
-        onUnmounted(() => {
-          if (ref.value) {
-            observer.unobserve(ref.value);
-
-            observer.disconnect();
-          }
-        });
       }
-    });
-  };
+    };
 
-  return {
-    observeSectionChange,
-  };
+    // Try to setup immediately
+    setupObserver();
+
+    // Watch for ref changes in case it's not available yet
+    stopWatcher = watch(
+      () => ref.value,
+      () => {
+        setupObserver();
+      },
+      { immediate: true }
+    );
+  });
+
+  onUnmounted(() => {
+    if (stopWatcher) {
+      stopWatcher();
+    }
+    if (observer && ref.value) {
+      observer.unobserve(ref.value);
+      observer.disconnect();
+    }
+  });
 };
