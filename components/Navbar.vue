@@ -3,6 +3,7 @@ import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
 import { useConfetti } from "@/composables/confetti";
 import { useSettings } from "@/composables/settings";
 import { useMediaQuery } from "@/composables/use-media-query-client";
+import { nextTick } from "vue";
 
 type sections =
   | "welcome"
@@ -21,8 +22,48 @@ interface NavigationItem {
 
 const { fireConfetti } = useConfetti();
 const hasTriggeredConfetti = ref(false);
-const { cursorDisabled, toggleCursor, theme, setTheme } = useSettings();
 const settingsDialogOpen = ref(false);
+
+// Lazy load settings to avoid initialization order issues
+let settingsComposable: ReturnType<typeof useSettings> | null = null;
+const cursorDisabled = ref(false);
+const theme = ref<"light" | "dark" | "system">("dark");
+let toggleCursor: (() => void) | null = null;
+let setTheme: ((theme: "light" | "dark" | "system") => void) | null = null;
+
+// Initialize settings after mount to avoid initialization order issues
+const initializeSettings = () => {
+  if (!settingsComposable && process.client) {
+    try {
+      settingsComposable = useSettings();
+      // Sync initial values
+      cursorDisabled.value = settingsComposable.cursorDisabled.value;
+      const initialTheme = settingsComposable.theme.value;
+      theme.value =
+        initialTheme === "light" ||
+        initialTheme === "dark" ||
+        initialTheme === "system"
+          ? initialTheme
+          : "system";
+      toggleCursor = settingsComposable.toggleCursor;
+      setTheme = settingsComposable.setTheme;
+
+      // Watch for changes
+      watch(settingsComposable.cursorDisabled, (newValue) => {
+        cursorDisabled.value = newValue;
+      });
+      watch(settingsComposable.theme, (newValue) => {
+        theme.value =
+          newValue === "light" || newValue === "dark" || newValue === "system"
+            ? newValue
+            : "dark";
+      });
+    } catch (error) {
+      console.warn("Settings not ready yet:", error);
+    }
+  }
+  return settingsComposable;
+};
 
 // Mobile detection - show navbar only on scroll up
 const isMobile = useMediaQuery("(max-width: 768px)");
@@ -103,11 +144,47 @@ const navigationItems = computed<NavigationItem[]>(() => [
 ]);
 
 const scrollToSection = (sectionId: sections) => {
-  const element = document.getElementById(sectionId);
+  // Function to perform the scroll
+  const performScroll = () => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Get the element's position
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 20; // 20px offset for spacing
 
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Smooth scroll to the element
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      return true;
+    }
+    return false;
+  };
+
+  // Try immediately
+  if (performScroll()) {
+    return;
   }
+
+  // If not found, wait for next tick (for Vue reactivity)
+  nextTick(() => {
+    if (performScroll()) {
+      return;
+    }
+
+    // If still not found, retry with increasing delays (for async components)
+    let retryCount = 0;
+    const maxRetries = 10;
+    const retryInterval = 100;
+
+    const retryScroll = setInterval(() => {
+      if (performScroll() || retryCount >= maxRetries) {
+        clearInterval(retryScroll);
+      }
+      retryCount++;
+    }, retryInterval);
+  });
 };
 
 const checkScrollPosition = () => {
@@ -161,6 +238,9 @@ const handleScrollDirection = () => {
 let handleScroll: (() => void) | null = null;
 
 onMounted(() => {
+  // Initialize settings after mount to avoid initialization order issues
+  initializeSettings();
+
   lastScrollY.value = window.pageYOffset || document.documentElement.scrollTop;
 
   // Use requestAnimationFrame for smoother performance
@@ -184,6 +264,25 @@ onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
   }
 });
+
+// Helper functions for theme buttons
+const setLightTheme = () => {
+  if (setTheme) {
+    setTheme("light");
+  }
+};
+
+const setDarkTheme = () => {
+  if (setTheme) {
+    setTheme("dark");
+  }
+};
+
+const setSystemTheme = () => {
+  if (setTheme) {
+    setTheme("system");
+  }
+};
 </script>
 
 <template>
@@ -247,7 +346,7 @@ onUnmounted(() => {
             </p>
           </div>
           <button
-            @click="toggleCursor"
+            @click="toggleCursor || (() => {})"
             :class="[
               'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
               cursorDisabled ? 'bg-primary' : 'bg-muted',
@@ -269,7 +368,7 @@ onUnmounted(() => {
           <label class="text-sm font-medium">Theme</label>
           <div class="flex gap-2">
             <button
-              @click="setTheme('light')"
+              @click="setLightTheme"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'light'
@@ -280,7 +379,7 @@ onUnmounted(() => {
               Light
             </button>
             <button
-              @click="setTheme('dark')"
+              @click="setDarkTheme"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'dark'
@@ -291,7 +390,7 @@ onUnmounted(() => {
               Dark
             </button>
             <button
-              @click="setTheme('system')"
+              @click="setSystemTheme"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'system'

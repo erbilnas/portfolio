@@ -8,10 +8,12 @@ interface LifetimeStats {
 
 const sectionRef: Ref<HTMLElement | null> = ref(null);
 
-const { age } = await $fetch<LifetimeStats>("/api/lifetime-stats");
+// Use useFetch instead of top-level await $fetch to avoid $r initialization errors
+const { data: lifetimeStats } = useFetch<LifetimeStats>("/api/lifetime-stats");
+const age = computed(() => lifetimeStats.value?.age ?? 0);
 
 const text = computed(() => {
-  return `I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm ${age} years old, born and raised in Turkey.`;
+  return `I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm ${age.value} years old, born and raised in Turkey.`;
 });
 
 useObserver("About Me", sectionRef);
@@ -19,9 +21,14 @@ useObserver("About Me", sectionRef);
 
 <template>
   <section id="about-me" ref="sectionRef">
-    <div class="bg-white dark:bg-black flex min-h-screen items-center justify-center px-6 py-32">
+    <div
+      class="bg-white dark:bg-black flex min-h-screen items-center justify-center px-6 py-32"
+    >
       <div class="max-w-4xl w-full">
-        <TextScrollReveal :text class="text-2xl md:text-4xl font-light leading-relaxed text-gray-900 dark:text-white tracking-tight" />
+        <TextScrollReveal
+          :text
+          class="text-2xl md:text-4xl font-light leading-relaxed text-gray-900 dark:text-white tracking-tight"
+        />
       </div>
     </div>
   </section>

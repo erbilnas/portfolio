@@ -14,9 +14,26 @@
 <script setup lang="ts">
 import { useSettings } from "@/composables/settings";
 import { useMediaQuery } from "@/composables/use-media-query-client";
-import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+  watchEffect,
+} from "vue";
 
-const gsap = await import("gsap").then((m) => m.default);
+// Lazy load GSAP to avoid top-level await causing $r initialization errors
+let gsap: typeof import("gsap").default | null = null;
+const loadGSAP = async () => {
+  if (!gsap) {
+    const module = await import("gsap");
+    gsap = module.default;
+  }
+  return gsap;
+};
+
 // Constants
 const MAGNETIC_MAX_DISTANCE = 100;
 const MAGNETIC_STRENGTH = 0.5;
@@ -28,9 +45,36 @@ const follower = ref<HTMLElement | null>(null);
 let clickableElements: NodeListOf<Element> | null = null;
 let listenersAttached = false;
 
-// Composables
+// Composables - lazy initialize to avoid initialization order issues
 const isDesktop = useMediaQuery("(min-width: 768px)");
-const { cursorDisabled } = useSettings();
+
+// Lazy load settings to avoid initialization order issues
+// Initialize as a ref that will be set after mount
+const cursorDisabled = ref(false);
+let settingsComposable: ReturnType<typeof useSettings> | null = null;
+
+// Initialize settings after mount to avoid initialization order issues
+const initializeSettings = () => {
+  if (!settingsComposable && process.client) {
+    try {
+      settingsComposable = useSettings();
+      // Sync the initial value
+      cursorDisabled.value = settingsComposable.cursorDisabled.value;
+      // Watch for changes - watch the computed ref directly
+      watch(
+        settingsComposable.cursorDisabled,
+        (newValue) => {
+          cursorDisabled.value = newValue;
+        },
+        { immediate: false }
+      );
+    } catch (error) {
+      // If settings can't be initialized yet, keep default value
+      console.warn("Settings not ready yet:", error);
+    }
+  }
+  return settingsComposable;
+};
 
 // Fallback check for desktop (in case media query hasn't initialized)
 const isDesktopFallback = computed(() => {
@@ -106,17 +150,18 @@ const calculateMagneticEffect = (
 };
 
 // Event handlers
-const moveCircle = (e: MouseEvent) => {
+const moveCircle = async (e: MouseEvent) => {
   if (!cursor.value || !follower.value) return;
+  const gsapInstance = await loadGSAP();
 
-  gsap.to(cursor.value, {
+  gsapInstance.to(cursor.value, {
     x: e.clientX,
     y: e.clientY,
     duration: 0.1,
     ease: "power2.out",
   });
 
-  gsap.to(follower.value, {
+  gsapInstance.to(follower.value, {
     x: e.clientX,
     y: e.clientY,
     duration: 0.3,
@@ -124,8 +169,9 @@ const moveCircle = (e: MouseEvent) => {
   });
 };
 
-const hover = (e: Event) => {
+const hover = async (e: Event) => {
   if (!cursor.value || !follower.value) return;
+  const gsapInstance = await loadGSAP();
 
   const mouseEvent = e as MouseEvent;
   const target = mouseEvent.currentTarget as HTMLElement;
@@ -134,9 +180,13 @@ const hover = (e: Event) => {
     target
   );
 
-  gsap.to(cursor.value, cursorConfig.hover);
-  gsap.to(follower.value, { ...followerConfig.hover, x: magnetX, y: magnetY });
-  gsap.to(target, {
+  gsapInstance.to(cursor.value, cursorConfig.hover);
+  gsapInstance.to(follower.value, {
+    ...followerConfig.hover,
+    x: magnetX,
+    y: magnetY,
+  });
+  gsapInstance.to(target, {
     x: elementX,
     y: elementY,
     duration: 0.3,
@@ -144,13 +194,14 @@ const hover = (e: Event) => {
   });
 };
 
-const unhover = (e: Event) => {
+const unhover = async (e: Event) => {
   if (!cursor.value || !follower.value) return;
+  const gsapInstance = await loadGSAP();
   const target = (e as MouseEvent).currentTarget as HTMLElement;
 
-  gsap.to(cursor.value, cursorConfig.normal);
-  gsap.to(follower.value, followerConfig.normal);
-  gsap.to(target, {
+  gsapInstance.to(cursor.value, cursorConfig.normal);
+  gsapInstance.to(follower.value, followerConfig.normal);
+  gsapInstance.to(target, {
     x: 0,
     y: 0,
     duration: 0.3,
@@ -158,16 +209,18 @@ const unhover = (e: Event) => {
   });
 };
 
-const click = () => {
+const click = async () => {
   if (!cursor.value || !follower.value) return;
-  gsap.to(cursor.value, cursorConfig.click);
-  gsap.to(follower.value, followerConfig.click);
+  const gsapInstance = await loadGSAP();
+  gsapInstance.to(cursor.value, cursorConfig.click);
+  gsapInstance.to(follower.value, followerConfig.click);
 };
 
 // Helper function to attach event listeners
-const attachListeners = () => {
+const attachListeners = async () => {
   if (listenersAttached) return;
   if (!cursor.value || !follower.value) return;
+  const gsapInstance = await loadGSAP();
 
   // Remove hidden class and set initial position
   cursor.value.classList.remove("hidden");
@@ -177,9 +230,9 @@ const attachListeners = () => {
   // Set initial position at center of screen (will be updated on first mousemove)
   const initialX = window.innerWidth / 2;
   const initialY = window.innerHeight / 2;
-  
-  gsap.set(cursor.value, { x: initialX, y: initialY });
-  gsap.set(follower.value, { x: initialX, y: initialY });
+
+  gsapInstance.set(cursor.value, { x: initialX, y: initialY });
+  gsapInstance.set(follower.value, { x: initialX, y: initialY });
 
   clickableElements = document.querySelectorAll(
     'a,  button, [role="button"], .link, input[type="submit"], input[type="button"], .card, .card-raised-big'
@@ -228,15 +281,18 @@ const shouldEnableCursor = () => {
 
 // Lifecycle hooks
 onMounted(() => {
+  // Initialize settings composable after mount to avoid initialization order issues
+  initializeSettings();
+
   if (cursorDisabled.value) {
     document.body.classList.add("cursor-disabled");
   }
-  
+
   // Use nextTick to ensure DOM is ready, then check immediately
   // The watchEffect will also handle state changes
   nextTick(() => {
     if (shouldEnableCursor()) {
-      attachListeners();
+      attachListeners().catch(console.error);
     }
   });
 });
@@ -248,7 +304,7 @@ onUnmounted(() => {
 // Watch both values together to handle state changes
 watchEffect(() => {
   if (shouldEnableCursor() && !listenersAttached) {
-    attachListeners();
+    attachListeners().catch(console.error);
   } else if (!shouldEnableCursor() && listenersAttached) {
     removeListeners();
   }

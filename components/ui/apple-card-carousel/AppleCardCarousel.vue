@@ -16,7 +16,7 @@
       <div
         :class="
           cn(
-            'flex flex-row justify-start gap-4 pl-4 md:pl-4 pl-0',
+            'flex flex-row justify-start gap-4 pl-0 md:pl-4',
             'mx-auto max-w-7xl'
           )
         "
@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import { computed, onMounted, provide, ref, watch } from "vue";
+import { onMounted, provide, ref, watch } from "vue";
 import { useMediaQuery } from "~/composables/use-media-query-client";
 import { CarouselKey } from "./AppleCarouselContext";
 

@@ -95,18 +95,32 @@ export default defineNuxtConfig({
     },
   },
   devtools: {
-    enabled: process.env.NODE_ENV !== "production",
+    enabled: true,
   },
-  logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
+  // Logging: Disable logs in production, 'verbose' in development
+  logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'verbose',
+  // Disable sourcemaps in production for smaller bundle size
+  sourcemap: {
+    server: process.env.NODE_ENV !== 'production',
+    client: process.env.NODE_ENV !== 'production',
+  },
   nitro: {
-    logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
-    sourceMap: process.env.NODE_ENV !== "production",
-    esbuild: {
-      options: {
-        drop:
-          process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
-      },
+    logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'verbose',
+    sourceMap: process.env.NODE_ENV !== 'production',
+    // Log errors with full details
+    experimental: {
+      wasm: true,
     },
+  },
+  // Enable Vue error handling
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => tag.startsWith('nuxt'),
+    },
+  },
+  // Better error pages
+  experimental: {
+    watcher: 'chokidar',
   },
   compatibilityDate: "2025-01-02",
   shadcn: {
@@ -119,11 +133,38 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
+      sourcemap: process.env.NODE_ENV !== 'production',
+      minify: "esbuild",
       rollupOptions: {
         output: {
+          sourcemapExcludeSources: false,
+          sourcemapPathTransform: (relativeSourcePath) => {
+            return relativeSourcePath;
+          },
           manualChunks: (id) => {
             // Only process node_modules dependencies
             if (!id.includes("node_modules")) {
+              return;
+            }
+
+            // CRITICAL: Never split Nuxt core components - they must load synchronously
+            // This prevents "Cannot access before initialization" errors in production
+            if (
+              id.includes(".nuxt") ||
+              id.includes("nuxt/dist") ||
+              id.includes("#app") ||
+              id.includes("#components")
+            ) {
+              return;
+            }
+
+            // CRITICAL: Never split motion-v and its dependencies - they must load synchronously
+            // motion-v has internal circular dependencies that break when split into async chunks
+            if (
+              id.includes("motion-v") ||
+              id.includes("motion-dom") ||
+              id.includes("framer-motion")
+            ) {
               return;
             }
 
@@ -157,8 +198,11 @@ export default defineNuxtConfig({
               return "vendor-analytics";
             }
 
-            // Nuxt modules (framework-specific)
-            if (id.includes("@nuxt/") || id.includes("@nuxtjs/")) {
+            // Nuxt modules (framework-specific) - but exclude core Nuxt runtime
+            if (
+              id.includes("@nuxt/") ||
+              (id.includes("@nuxtjs/") && !id.includes(".nuxt"))
+            ) {
               return "vendor-nuxt";
             }
 
@@ -174,9 +218,6 @@ export default defineNuxtConfig({
       },
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
     },
-    esbuild: {
-      drop:
-        process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
-    },
+    logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'info',
   },
 });

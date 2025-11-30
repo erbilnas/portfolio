@@ -28,6 +28,11 @@ export const useConfetti = (config: ConfettiConfig = {}) => {
   };
 
   const fireConfetti = () => {
+    // Guard against SSR
+    if (process.server || typeof window === "undefined") {
+      return () => {};
+    }
+
     const animationEnd = Date.now() + duration;
     let intervalId: number;
 

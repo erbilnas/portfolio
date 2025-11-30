@@ -7,6 +7,18 @@ interface ContrastResult {
 }
 
 export const useImageContrast = () => {
+  // Guard against SSR and initialization errors
+  if (process.server || typeof window === "undefined") {
+    return {
+      getContrastColor: async (): Promise<ContrastResult> => ({
+        isLight: false,
+        textColor: "#ffffff",
+        textColorClass: "text-white",
+      }),
+      getImageBrightness: async (): Promise<number> => 0.5,
+    };
+  }
+
   const contrastCache = ref<Map<string, ContrastResult>>(new Map());
 
   /**
@@ -14,6 +26,11 @@ export const useImageContrast = () => {
    * Returns a value between 0 (dark) and 1 (light)
    */
   const getImageBrightness = async (imageSrc: string): Promise<number> => {
+    // Double-check we're on client
+    if (typeof window === "undefined" || typeof document === "undefined") {
+      return 0.5;
+    }
+
     return new Promise((resolve) => {
       const img = new Image();
       img.crossOrigin = "anonymous";

@@ -1,3 +1,110 @@
+## [6.1.1-preview.15](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.14...v6.1.1-preview.15) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([769989b](https://github.com/erbilnas/portfolio/commit/769989b7953d357179253708329e6297c1b21729))
+
+## [6.1.1-preview.14](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.13...v6.1.1-preview.14) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([7360dfa](https://github.com/erbilnas/portfolio/commit/7360dfaf3f488c872ed27c330b3f7cfc724dcdf8))
+
+## [6.1.1-preview.13](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.12...v6.1.1-preview.13) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([f54aab9](https://github.com/erbilnas/portfolio/commit/f54aab9c6e6170b09ce8950f7c669b7716fc9a32))
+
+## [6.1.1-preview.12](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.11...v6.1.1-preview.12) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([3f95c57](https://github.com/erbilnas/portfolio/commit/3f95c57adfad0e8338da627eb94a3719c888cb67))
+
+## [6.1.1-preview.11](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.10...v6.1.1-preview.11) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([3e77c55](https://github.com/erbilnas/portfolio/commit/3e77c55b955af59739ca5cc5a0152c71ae6f937d))
+
+## [6.1.1-preview.10](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.9...v6.1.1-preview.10) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([66f2739](https://github.com/erbilnas/portfolio/commit/66f27395bd0969cb54bdfc585ccdfc4d3391e752))
+* find and fix reference errors on app ([19fd137](https://github.com/erbilnas/portfolio/commit/19fd13779aae490b526997ba0ff2347b4f198356))
+
+## [6.1.1-preview.9](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.8...v6.1.1-preview.9) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([9e553cd](https://github.com/erbilnas/portfolio/commit/9e553cd447baadb3724b96ce0db1c9df8b4d668d))
+
+## [6.1.1-preview.8](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.7...v6.1.1-preview.8) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([aedf82f](https://github.com/erbilnas/portfolio/commit/aedf82f0a726fd9db3069a8c56066fa9d1cc71d2))
+
+## [6.1.1-preview.7](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.6...v6.1.1-preview.7) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([9967fdd](https://github.com/erbilnas/portfolio/commit/9967fdd99c0df24f1e7f342d1448ef4e0cb694ff))
+
+## [6.1.1-preview.6](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.5...v6.1.1-preview.6) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([cc2eaa7](https://github.com/erbilnas/portfolio/commit/cc2eaa78d783bedc2d28128678b69c2866042f2e))
+* find and fix reference errors on app ([77b8286](https://github.com/erbilnas/portfolio/commit/77b8286feebee19d09dd4697b35624c19139d15b))
+
+## [6.1.1-preview.5](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.4...v6.1.1-preview.5) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([06efd1a](https://github.com/erbilnas/portfolio/commit/06efd1ac3360c498ccb2b9e8288054952e4df741))
+
+## [6.1.1-preview.4](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.3...v6.1.1-preview.4) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([4870839](https://github.com/erbilnas/portfolio/commit/48708394a1afa84ee92a6e7891bc70cd1644387f))
+
+## [6.1.1-preview.3](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.2...v6.1.1-preview.3) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([1aae7d2](https://github.com/erbilnas/portfolio/commit/1aae7d20c14aa46729708729ba95106be71d9969))
+
+## [6.1.1-preview.2](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.1...v6.1.1-preview.2) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([0b41177](https://github.com/erbilnas/portfolio/commit/0b41177d141d12615e47fc1f486e34da51e00d1c))
+
+## [6.1.1-preview.1](https://github.com/erbilnas/portfolio/compare/v6.1.0...v6.1.1-preview.1) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([db16e70](https://github.com/erbilnas/portfolio/commit/db16e70335613c6fdd0ae001d3558c1d3bac46f6))
+
 # [6.1.0](https://github.com/erbilnas/portfolio/compare/v6.0.0...v6.1.0) (2025-11-30)
 
 
