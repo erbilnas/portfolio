@@ -1,3 +1,16 @@
+# [6.1.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.1...v6.1.0-preview.2) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix build error and improve chunk management ([ba2f387](https://github.com/erbilnas/portfolio/commit/ba2f387c9cd0f337076359bc30379140d0e9a72e))
+* fix conflict ([4eb5231](https://github.com/erbilnas/portfolio/commit/4eb5231c4f0926f90d3a3dd466bbe6f330ccff35))
+
+
+### Features
+
+* redesign career section and themes ([7d56125](https://github.com/erbilnas/portfolio/commit/7d5612539885acd85fde59eb707b9c90db840bc3))
+
 # [6.1.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.0.0...v6.1.0-preview.1) (2025-11-29)
 
 
