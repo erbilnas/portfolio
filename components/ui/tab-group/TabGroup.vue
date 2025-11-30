@@ -2,7 +2,12 @@
   <div
     v-if="props.tabs.length"
     ref="containerRef"
-    :class="cn('relative inline-flex items-center gap-1 rounded-lg bg-background/50 p-1', props.class)"
+    :class="
+      cn(
+        'relative inline-flex items-center gap-1 rounded-lg bg-background/50 p-1',
+        props.class
+      )
+    "
   >
     <div
       class="absolute inset-y-1 left-1 rounded-md bg-primary transition-all duration-300 ease-out"
@@ -28,8 +33,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, nextTick, onMounted, onUnmounted, onBeforeUnmount } from "vue";
 import { cn } from "@/lib/utils";
+import {
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+  type ComponentPublicInstance,
+} from "vue";
 
 interface Props {
   tabs: string[];
@@ -53,7 +66,10 @@ const indicatorStyle = ref<{ width: string; transform: string }>({
 let resizeObserver: ResizeObserver | null = null;
 let updateTimeout: ReturnType<typeof setTimeout> | null = null;
 
-const setTabRef = (el: Element | null, index: number) => {
+const setTabRef = (
+  el: Element | ComponentPublicInstance | null,
+  index: number
+) => {
   if (el && el instanceof HTMLElement) {
     tabRefs.value[index] = el;
   } else {
@@ -73,9 +89,19 @@ const updateIndicator = () => {
 
     if (!activeTabElement || !container) {
       // Retry after a short delay if elements aren't ready
-      requestAnimationFrame(() => {
-        updateIndicator();
-      });
+      if (
+        typeof window !== "undefined" &&
+        typeof requestAnimationFrame !== "undefined"
+      ) {
+        requestAnimationFrame(() => {
+          updateIndicator();
+        });
+      } else {
+        // Fallback for SSR
+        setTimeout(() => {
+          updateIndicator();
+        }, 16);
+      }
       return;
     }
 
@@ -148,4 +174,3 @@ onUnmounted(() => {
   window.removeEventListener("resize", updateIndicator);
 });
 </script>
-
