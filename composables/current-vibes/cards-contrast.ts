@@ -1,6 +1,5 @@
 import type { Ref } from "vue";
 import { nextTick, onMounted, ref, watch } from "vue";
-import { useImageContrast } from "~/composables/image-contrast";
 import type { CardMetadata } from "./cards-metadata";
 import type { CardData } from "./current-vibes-data";
 
@@ -15,11 +14,16 @@ export const useCardsContrast = (
 ) => {
   const cardContrast = ref<Map<number, ContrastResult>>(new Map());
   // Defer initialization of useImageContrast to avoid $r initialization errors
-  // Initialize only when needed, after Vue reactivity is ready
-  let imageContrastComposable: ReturnType<typeof useImageContrast> | null =
-    null;
-  const getImageContrast = () => {
+  // Use dynamic import to prevent module evaluation during initial load
+  type ImageContrastReturn = {
+    getContrastColor: (imageSrc: string) => Promise<ContrastResult>;
+    getImageBrightness: (imageSrc: string) => Promise<number>;
+  };
+  let imageContrastComposable: ImageContrastReturn | null = null;
+  const getImageContrast = async (): Promise<ImageContrastReturn> => {
     if (!imageContrastComposable) {
+      // Dynamic import to avoid initialization order issues
+      const { useImageContrast } = await import("~/composables/image-contrast");
       imageContrastComposable = useImageContrast();
     }
     return imageContrastComposable;
@@ -45,8 +49,8 @@ export const useCardsContrast = (
       const metadata = getCardMetadata(card, i);
       if (metadata.src) {
         try {
-          const { getContrastColor } = getImageContrast();
-          const contrast = await getContrastColor(metadata.src);
+          const imageContrast = await getImageContrast();
+          const contrast = await imageContrast.getContrastColor(metadata.src);
           cardContrast.value.set(i, {
             isLight: contrast.isLight,
             textColorClass: contrast.textColorClass,

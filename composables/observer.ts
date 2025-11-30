@@ -1,3 +1,5 @@
+import { onMounted, onUnmounted, watch, type Ref } from "vue";
+
 const observerOptions: IntersectionObserverInit = {
   root: null,
   threshold: 0.1,

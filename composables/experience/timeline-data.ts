@@ -1,6 +1,7 @@
 import type { TimelineItem } from "~/types/experience";
 import { educationList, experiences } from "~/constants/experience";
 import { parseDate, parseYear } from "./date-parsing";
+import { computed, type Ref, type ComputedRef } from "vue";
 
 /**
  * Get the start date of a timeline item
