@@ -200,11 +200,26 @@ onMounted(async () => {
 
         // Initialize motion-v composables after mount to ensure refs are available
         // This prevents the $r initialization error by deferring reactive setup
-        // Pass the ref itself - motion-v handles ref unwrapping internally
-        const scrollResult = useScroll({
-          target: timelineRef,
-          offset: ["start 10%", "end 50%"],
-        });
+        // Ensure ref is unwrapped before passing to motion-v
+        const targetElement = unref(timelineRef);
+        if (!targetElement) {
+          isReady.value = true;
+          return;
+        }
+
+        // Wrap in try-catch to handle any initialization errors gracefully
+        let scrollResult: ReturnType<typeof useScroll> | null = null;
+        try {
+          // Pass unwrapped element directly to avoid $r initialization issues
+          scrollResult = useScroll({
+            target: targetElement,
+            offset: ["start 10%", "end 50%"],
+          });
+        } catch (e) {
+          console.error("Error initializing useScroll:", e);
+          isReady.value = true;
+          return;
+        }
 
         // Wait a tick before storing to ensure reactivity is set up
         await nextTick();
@@ -217,12 +232,19 @@ onMounted(async () => {
           await nextTick();
 
           // Initialize transform after scroll is set up
+          // Use the stored scrollYProgress.value instead of scrollResult directly
+          // to avoid accessing $r before initialization
           if (scrollYProgress.value) {
-            opacityTransformRef.value = useTransform(
-              scrollResult.scrollYProgress,
-              [0, 0.1],
-              [0, 1]
-            );
+            try {
+              opacityTransformRef.value = useTransform(
+                scrollYProgress.value,
+                [0, 0.1],
+                [0, 1]
+              );
+            } catch (e) {
+              console.error("Error initializing useTransform:", e);
+              // Continue without transform - component will still work
+            }
           }
         }
 
