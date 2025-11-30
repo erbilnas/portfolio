@@ -97,6 +97,18 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
+  logLevel: process.env.NUXT_PREVIEW
+    ? "verbose"
+    : process.env.NODE_ENV === "production"
+    ? "silent"
+    : "info",
+  nitro: {
+    logLevel: process.env.NUXT_PREVIEW
+      ? "verbose"
+      : process.env.NODE_ENV === "production"
+      ? "silent"
+      : "info",
+  },
   compatibilityDate: "2025-01-02",
   shadcn: {
     prefix: "",
@@ -112,52 +124,52 @@ export default defineNuxtConfig({
         output: {
           manualChunks: (id) => {
             // Only process node_modules dependencies
-            if (!id.includes('node_modules')) {
+            if (!id.includes("node_modules")) {
               return;
             }
 
             // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
-            if (id.includes('gsap') || id.includes('@vueuse/motion')) {
-              return 'vendor-animations';
+            if (id.includes("gsap") || id.includes("@vueuse/motion")) {
+              return "vendor-animations";
             }
-            
+
             // Heavy 3D/visual libraries
-            if (id.includes('cobe') || id.includes('canvas-confetti')) {
-              return 'vendor-visual';
+            if (id.includes("cobe") || id.includes("canvas-confetti")) {
+              return "vendor-visual";
             }
-            
+
             // UI component libraries (Radix Vue, Shadcn)
-            if (id.includes('radix-vue') || id.includes('shadcn-nuxt')) {
-              return 'vendor-ui';
+            if (id.includes("radix-vue") || id.includes("shadcn-nuxt")) {
+              return "vendor-ui";
             }
-            
+
             // VueUse core utilities
-            if (id.includes('@vueuse/core')) {
-              return 'vendor-vueuse';
+            if (id.includes("@vueuse/core")) {
+              return "vendor-vueuse";
             }
-            
+
             // Icon libraries (can be large)
-            if (id.includes('lucide-vue-next') || id.includes('@nuxt/icon')) {
-              return 'vendor-icons';
+            if (id.includes("lucide-vue-next") || id.includes("@nuxt/icon")) {
+              return "vendor-icons";
             }
-            
+
             // Vercel analytics (lightweight, but separate for clarity)
-            if (id.includes('@vercel')) {
-              return 'vendor-analytics';
+            if (id.includes("@vercel")) {
+              return "vendor-analytics";
             }
-            
+
             // Nuxt modules (framework-specific)
-            if (id.includes('@nuxt/') || id.includes('@nuxtjs/')) {
-              return 'vendor-nuxt';
+            if (id.includes("@nuxt/") || id.includes("@nuxtjs/")) {
+              return "vendor-nuxt";
             }
-            
+
             // Vue core and related
-            if (id.includes('vue') && !id.includes('node_modules/vue/')) {
-              return 'vendor-vue';
+            if (id.includes("vue") && !id.includes("node_modules/vue/")) {
+              return "vendor-vue";
             }
-            
+
             // Default vendor chunk for other node_modules
-            return 'vendor';
+            return "vendor";
           },
         },
       },

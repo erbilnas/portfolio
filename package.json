@@ -6,7 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "NUXT_PREVIEW=true nuxt preview",
     "postinstall": "nuxt prepare",
     "release": "semantic-release"
   },

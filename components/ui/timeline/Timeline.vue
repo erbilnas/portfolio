@@ -47,6 +47,7 @@
         class="absolute left-4 md:left-9 top-0 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-0% via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] dark:via-neutral-700"
       >
         <Motion
+          v-if="isReady && scrollYProgress !== null"
           as="div"
           :style="{
             height: heightTransform + 'px',
@@ -55,6 +56,15 @@
           class="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-gray-900 from-0% via-gray-600 via-10% to-transparent dark:from-white dark:via-gray-400"
         >
         </Motion>
+        <div
+          v-else
+          :style="{
+            height: '0px',
+            opacity: 0,
+          }"
+          class="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-gray-900 from-0% via-gray-600 via-10% to-transparent dark:from-white dark:via-gray-400"
+        >
+        </div>
       </div>
     </div>
   </div>
@@ -62,7 +72,7 @@
 
 <script lang="ts" setup>
 import { Motion, useScroll, useTransform } from "motion-v";
-import { unref, shallowRef } from "vue";
+import { unref, shallowRef, ref, computed, onMounted, nextTick } from "vue";
 import type { HTMLAttributes } from "vue";
 
 interface Props {
@@ -90,20 +100,30 @@ const scrollYProgress = shallowRef<ReturnType<typeof useScroll>['scrollYProgress
 const opacityTransformRef = shallowRef<ReturnType<typeof useTransform> | null>(null);
 
 const opacityTransform = computed(() => {
+  // Guard against SSR and accessing before initialization
+  if (process.server || typeof window === 'undefined') return 0;
   if (!isReady.value || !opacityTransformRef.value) return 0;
   try {
-    return unref(opacityTransformRef.value);
+    const transformRef = opacityTransformRef.value;
+    if (!transformRef) return 0;
+    const value = unref(transformRef);
+    if (typeof value !== 'number' || isNaN(value)) return 0;
+    return value;
   } catch (e) {
+    // Guard against $r initialization errors
     return 0;
   }
 });
 
 const heightTransform = computed(() => {
-  // Guard against accessing before initialization
+  // Guard against SSR and accessing before initialization
+  if (process.server || typeof window === 'undefined') return 0;
   if (!isReady.value || height.value === 0 || !scrollYProgress.value) return 0;
   try {
+    const progressRef = scrollYProgress.value;
+    if (!progressRef) return 0;
     // Use unref to safely access the value
-    const progress = unref(scrollYProgress.value);
+    const progress = unref(progressRef);
     if (typeof progress !== 'number' || isNaN(progress)) return 0;
     // Map progress from [0, 1] to [0, height.value]
     return progress * height.value;
@@ -115,7 +135,7 @@ const heightTransform = computed(() => {
 
 onMounted(async () => {
   // Only initialize on client side
-  if (process.server) {
+  if (process.server || typeof window === 'undefined') {
     isReady.value = true;
     return;
   }
@@ -129,43 +149,61 @@ onMounted(async () => {
     return;
   }
   
-  // Use setTimeout to defer initialization even further, ensuring Vue is fully ready
-  setTimeout(async () => {
-    try {
-      // Double-check ref is still available and we're on client
-      if (!timelineRef.value || process.server) {
+  // Use requestAnimationFrame to ensure DOM is fully rendered
+  requestAnimationFrame(async () => {
+    // Use setTimeout to defer initialization even further, ensuring Vue is fully ready
+    setTimeout(async () => {
+      try {
+        // Double-check ref is still available and we're on client
+        if (!timelineRef.value || process.server || typeof window === 'undefined') {
+          isReady.value = true;
+          return;
+        }
+        
+        // Ensure the element is actually in the DOM
+        if (!timelineRef.value.isConnected) {
+          isReady.value = true;
+          return;
+        }
+        
+        // Initialize motion-v composables after mount to ensure refs are available
+        // This prevents the $r initialization error by deferring reactive setup
+        // Pass the ref itself - motion-v handles ref unwrapping internally
+        const scrollResult = useScroll({
+          target: timelineRef,
+          offset: ["start 10%", "end 50%"],
+        });
+        
+        // Wait a tick before storing to ensure reactivity is set up
+        await nextTick();
+        
+        // Store references to the reactive values only after they're initialized
+        if (scrollResult && scrollResult.scrollYProgress) {
+          scrollYProgress.value = scrollResult.scrollYProgress;
+          
+          // Wait another tick before initializing transform
+          await nextTick();
+          
+          // Initialize transform after scroll is set up
+          if (scrollYProgress.value) {
+            opacityTransformRef.value = useTransform(scrollResult.scrollYProgress, [0, 0.1], [0, 1]);
+          }
+        }
+        
+        // Calculate height after a brief delay to ensure layout is stable
+        await nextTick();
+        const rect = timelineRef.value.getBoundingClientRect();
+        height.value = rect.height;
+        
+        // Set ready flag after everything is initialized
+        await nextTick();
         isReady.value = true;
-        return;
+      } catch (e) {
+        console.error('Error initializing timeline scroll:', e);
+        // Set ready anyway to prevent UI blocking
+        isReady.value = true;
       }
-      
-      // Initialize motion-v composables after mount to ensure refs are available
-      // This prevents the $r initialization error by deferring reactive setup
-      const scrollResult = useScroll({
-        target: timelineRef, // Pass the ref - motion-v handles refs
-        offset: ["start 10%", "end 50%"],
-      });
-      
-      // Store references to the reactive values
-      scrollYProgress.value = scrollResult.scrollYProgress;
-      
-      // Wait another tick before initializing transform
-      await nextTick();
-      
-      // Initialize transform after scroll is set up
-      opacityTransformRef.value = useTransform(scrollResult.scrollYProgress, [0, 0.1], [0, 1]);
-      
-      // Calculate height
-      const rect = timelineRef.value.getBoundingClientRect();
-      height.value = rect.height;
-      
-      // Set ready flag after everything is initialized
-      await nextTick();
-      isReady.value = true;
-    } catch (e) {
-      console.error('Error initializing timeline scroll:', e);
-      // Set ready anyway to prevent UI blocking
-      isReady.value = true;
-    }
-  }, 100); // Small delay to ensure Vue reactivity is fully initialized
+    }, 150); // Small delay to ensure Vue reactivity is fully initialized
+  });
 });
 </script>
