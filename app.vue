@@ -1,5 +1,7 @@
 <template>
-  <Cursor />
+  <ClientOnly>
+    <Cursor />
+  </ClientOnly>
 
   <NuxtLayout>
     <NuxtPage />
