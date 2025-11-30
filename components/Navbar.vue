@@ -38,7 +38,13 @@ const initializeSettings = () => {
       settingsComposable = useSettings();
       // Sync initial values
       cursorDisabled.value = settingsComposable.cursorDisabled.value;
-      theme.value = settingsComposable.theme.value;
+      const initialTheme = settingsComposable.theme.value;
+      theme.value =
+        initialTheme === "light" ||
+        initialTheme === "dark" ||
+        initialTheme === "system"
+          ? initialTheme
+          : "system";
       toggleCursor = settingsComposable.toggleCursor;
       setTheme = settingsComposable.setTheme;
 
@@ -47,7 +53,10 @@ const initializeSettings = () => {
         cursorDisabled.value = newValue;
       });
       watch(settingsComposable.theme, (newValue) => {
-        theme.value = newValue;
+        theme.value =
+          newValue === "light" || newValue === "dark" || newValue === "system"
+            ? newValue
+            : "dark";
       });
     } catch (error) {
       console.warn("Settings not ready yet:", error);
@@ -255,6 +264,25 @@ onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
   }
 });
+
+// Helper functions for theme buttons
+const setLightTheme = () => {
+  if (setTheme) {
+    setTheme("light");
+  }
+};
+
+const setDarkTheme = () => {
+  if (setTheme) {
+    setTheme("dark");
+  }
+};
+
+const setSystemTheme = () => {
+  if (setTheme) {
+    setTheme("system");
+  }
+};
 </script>
 
 <template>
@@ -340,7 +368,7 @@ onUnmounted(() => {
           <label class="text-sm font-medium">Theme</label>
           <div class="flex gap-2">
             <button
-              @click="setTheme ? setTheme('light') : undefined"
+              @click="setLightTheme"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'light'
@@ -351,7 +379,7 @@ onUnmounted(() => {
               Light
             </button>
             <button
-              @click="setTheme ? setTheme('dark') : undefined"
+              @click="setDarkTheme"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'dark'
@@ -362,7 +390,7 @@ onUnmounted(() => {
               Dark
             </button>
             <button
-              @click="setTheme ? setTheme('system') : undefined"
+              @click="setSystemTheme"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'system'

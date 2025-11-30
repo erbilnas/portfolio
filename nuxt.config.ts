@@ -147,6 +147,17 @@ export default defineNuxtConfig({
               return;
             }
 
+            // CRITICAL: Never split Nuxt core components - they must load synchronously
+            // This prevents "Cannot access before initialization" errors in production
+            if (
+              id.includes(".nuxt") ||
+              id.includes("nuxt/dist") ||
+              id.includes("#app") ||
+              id.includes("#components")
+            ) {
+              return;
+            }
+
             // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
             if (id.includes("gsap") || id.includes("@vueuse/motion")) {
               return "vendor-animations";
@@ -177,8 +188,11 @@ export default defineNuxtConfig({
               return "vendor-analytics";
             }
 
-            // Nuxt modules (framework-specific)
-            if (id.includes("@nuxt/") || id.includes("@nuxtjs/")) {
+            // Nuxt modules (framework-specific) - but exclude core Nuxt runtime
+            if (
+              id.includes("@nuxt/") ||
+              (id.includes("@nuxtjs/") && !id.includes(".nuxt"))
+            ) {
               return "vendor-nuxt";
             }
 

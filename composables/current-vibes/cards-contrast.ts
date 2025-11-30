@@ -55,7 +55,7 @@ export const useCardsContrast = (
             isLight: contrast.isLight,
             textColorClass: contrast.textColorClass,
           });
-        } catch {
+        } catch (_error) {
           // Default to dark text if analysis fails
           cardContrast.value.set(i, {
             isLight: false,
