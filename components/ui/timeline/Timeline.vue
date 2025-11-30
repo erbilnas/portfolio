@@ -49,7 +49,7 @@
         <Motion
           as="div"
           :style="{
-            height: heightTransform,
+            height: heightTransform + 'px',
             opacity: opacityTransform,
           }"
           class="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-gray-900 from-0% via-gray-600 via-10% to-transparent dark:from-white dark:via-gray-400"
@@ -62,6 +62,7 @@
 
 <script lang="ts" setup>
 import { Motion, useScroll, useTransform } from "motion-v";
+import { unref } from "vue";
 import type { HTMLAttributes } from "vue";
 
 interface Props {
@@ -82,24 +83,48 @@ const props = withDefaults(defineProps<Props>(), {
 const timelineContainerRef = ref<HTMLElement | null>(null);
 const timelineRef = ref<HTMLElement | null>(null);
 const height = ref(0);
+const isReady = ref(false);
+
+// Initialize scroll tracking - useScroll handles null refs gracefully
+const { scrollYProgress } = useScroll({
+  target: timelineRef,
+  offset: ["start 10%", "end 50%"],
+});
+
+const opacityTransformRef = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+
+const opacityTransform = computed(() => {
+  if (!isReady.value) return 0;
+  try {
+    return unref(opacityTransformRef);
+  } catch (e) {
+    return 0;
+  }
+});
+
+const heightTransform = computed(() => {
+  // Guard against accessing before initialization
+  if (!isReady.value || height.value === 0) return 0;
+  try {
+    // Use unref to safely access the value
+    const progress = unref(scrollYProgress);
+    if (typeof progress !== 'number' || isNaN(progress)) return 0;
+    // Map progress from [0, 1] to [0, height.value]
+    return progress * height.value;
+  } catch (e) {
+    // Guard against $r initialization errors
+    return 0;
+  }
+});
 
 onMounted(async () => {
   await nextTick();
   if (timelineRef.value) {
     const rect = timelineRef.value.getBoundingClientRect();
     height.value = rect.height;
+    // Set ready flag after a small delay to ensure reactivity is initialized
+    await nextTick();
+    isReady.value = true;
   }
-});
-
-const { scrollYProgress } = useScroll({
-  target: timelineRef,
-  offset: ["start 10%", "end 50%"],
-});
-
-const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-const heightTransform = computed(() => {
-  const progress = scrollYProgress.value;
-  // Map progress from [0, 1] to [0, height.value]
-  return progress * height.value;
 });
 </script>
