@@ -100,6 +100,12 @@ export default defineNuxtConfig({
   logLevel: "verbose",
   nitro: {
     logLevel: "verbose",
+    sourceMap: true, // Enable source maps for better log visibility
+    esbuild: {
+      options: {
+        drop: [], // Don't drop console logs in production
+      },
+    },
   },
   compatibilityDate: "2025-01-02",
   shadcn: {
@@ -166,6 +172,9 @@ export default defineNuxtConfig({
         },
       },
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
+    },
+    esbuild: {
+      drop: [], // Don't drop console logs in production
     },
   },
 });
