@@ -2,9 +2,11 @@
 import { defineAsyncComponent } from "vue";
 
 const AboutMe = defineAsyncComponent(() => import("./about-me"));
-const Career = defineAsyncComponent(() => import("./career"));
 const CurrentVibes = defineAsyncComponent(() => import("./current-vibes"));
+const Experience = defineAsyncComponent(() => import("./experience"));
 const FooterComponent = defineAsyncComponent(() => import("./footer"));
+const Projects = defineAsyncComponent(() => import("./projects"));
+const Skills = defineAsyncComponent(() => import("./skills"));
 const Welcome = defineAsyncComponent(() => import("./welcome"));
 
 useHead({
@@ -27,7 +29,9 @@ useHead({
 <template>
   <Welcome />
   <AboutMe />
-  <Career />
+  <Skills />
+  <Experience />
+  <Projects />
   <CurrentVibes />
   <FooterComponent />
 </template>

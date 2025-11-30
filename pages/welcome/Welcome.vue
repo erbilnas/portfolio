@@ -18,26 +18,24 @@ observeSectionChange();
 
 <template>
   <section id="welcome" ref="sectionRef">
-    <LampEffect>
-      <div class="flex flex-col gap-12">
-        <h1 fetchpriority="high">
-          <TextGenerateEffect
-            words="Hello"
-            class="text-gray-900 dark:text-white text-9xl font-bold"
-            :duration="0.3"
-            :delay="0"
-            :filter="false"
-          />
-        </h1>
+    <div class="flex flex-col gap-16 min-h-screen items-center justify-center px-6 py-32">
+      <h1 fetchpriority="high" class="text-center">
+        <TextGenerateEffect
+          words="Hello"
+          class="text-gray-900 dark:text-white text-8xl md:text-[180px] font-semibold tracking-tight leading-none"
+          :duration="0.3"
+          :delay="0"
+          :filter="false"
+        />
+      </h1>
 
-        <div class="flex flex-col items-center gap-2">
-          <IntroductionText />
-          <FlipWords :words />
-        </div>
-
-        <SocialLinks />
-        <ScrollReminder />
+      <div class="flex flex-col items-center gap-4 max-w-2xl text-center">
+        <IntroductionText />
+        <FlipWords :words class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light" />
       </div>
-    </LampEffect>
+
+      <SocialLinks />
+      <ScrollReminder />
+    </div>
   </section>
 </template>

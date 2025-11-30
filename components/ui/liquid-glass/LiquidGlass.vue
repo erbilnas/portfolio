@@ -9,15 +9,9 @@
       <slot />
     </div>
 
-    <svg
-      class="filter"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg class="filter" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <filter
-          id="displacementFilter"
-          color-interpolation-filters="sRGB"
-        >
+        <filter id="displacementFilter" color-interpolation-filters="sRGB">
           <feImage
             x="0"
             y="0"
@@ -71,18 +65,8 @@
             values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"
             result="blue"
           />
-          <feBlend
-            in="red"
-            in2="green"
-            mode="screen"
-            result="rg"
-          />
-          <feBlend
-            in="rg"
-            in2="blue"
-            mode="screen"
-            result="output"
-          />
+          <feBlend in="red" in2="green" mode="screen" result="rg" />
+          <feBlend in="rg" in2="blue" mode="screen" result="output" />
           <feGaussianBlur :stdDeviation="displace" />
         </filter>
       </defs>
@@ -91,7 +75,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, type HTMLAttributes, onMounted, onUnmounted, ref } from "vue";
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  type HTMLAttributes,
+} from "vue";
 import { cn } from "~/lib/utils";
 
 interface Props {
@@ -148,11 +139,15 @@ const baseStyle = computed(() => {
 
 // Computed displacement image
 const displacementImage = computed(() => {
-  const border = Math.min(dimensions.width, dimensions.height) * (props.border * 0.5);
-  const yBorder = Math.min(dimensions.width, dimensions.height) * (props.border * 0.5);
+  const border =
+    Math.min(dimensions.width, dimensions.height) * (props.border * 0.5);
+  const yBorder =
+    Math.min(dimensions.width, dimensions.height) * (props.border * 0.5);
 
   return `
-    <svg viewBox="0 0 ${dimensions.width} ${dimensions.height}" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 ${dimensions.width} ${
+    dimensions.height
+  }" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="red" x1="100%" y1="0%" x2="0%" y2="0%">
           <stop offset="0%" stop-color="#0000"/>
@@ -163,9 +158,17 @@ const displacementImage = computed(() => {
           <stop offset="100%" stop-color="blue"/>
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="${dimensions.width}" height="${dimensions.height}" fill="black"></rect>
-      <rect x="0" y="0" width="${dimensions.width}" height="${dimensions.height}" rx="${props.radius}" fill="url(#red)" />
-      <rect x="0" y="0" width="${dimensions.width}" height="${dimensions.height}" rx="${props.radius}" fill="url(#blue)" style="mix-blend-mode: ${props.blend}" />
+      <rect x="0" y="0" width="${dimensions.width}" height="${
+    dimensions.height
+  }" fill="black"></rect>
+      <rect x="0" y="0" width="${dimensions.width}" height="${
+    dimensions.height
+  }" rx="${props.radius}" fill="url(#red)" />
+      <rect x="0" y="0" width="${dimensions.width}" height="${
+    dimensions.height
+  }" rx="${props.radius}" fill="url(#blue)" style="mix-blend-mode: ${
+    props.blend
+  }" />
       <rect 
         x="${border}" 
         y="${yBorder}" 
@@ -223,9 +226,11 @@ onUnmounted(() => {
   opacity: 1;
   border-radius: inherit;
   backdrop-filter: url(#displacementFilter);
-  background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0)));
-  box-shadow:
-    0 0 2px 1px
+  background: light-dark(
+    hsl(0 0% 100% / var(--frost, 0)),
+    hsl(0 0% 0% / var(--frost, 0))
+  );
+  box-shadow: 0 0 2px 1px
       light-dark(
         color-mix(in oklch, canvasText, #0000 85%),
         color-mix(in oklch, canvasText, #0000 90%)
@@ -237,8 +242,7 @@ onUnmounted(() => {
         color-mix(in oklch, canvasText, #0000 95%)
       )
       inset,
-    0px 4px 16px rgba(17, 17, 26, 0.05),
-    0px 8px 24px rgba(17, 17, 26, 0.05),
+    0px 4px 16px rgba(17, 17, 26, 0.05), 0px 8px 24px rgba(17, 17, 26, 0.05),
     0px 16px 56px rgba(17, 17, 26, 0.05),
     0px 4px 16px rgba(17, 17, 26, 0.05) inset,
     0px 8px 24px rgba(17, 17, 26, 0.05) inset,

@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { useSettings } from "@/composables/settings";
 import { useMediaQuery } from "@/composables/use-media-query-client";
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
 
 const gsap = await import("gsap").then((m) => m.default);
 // Constants
@@ -31,6 +31,13 @@ let listenersAttached = false;
 // Composables
 const isDesktop = useMediaQuery("(min-width: 768px)");
 const { cursorDisabled } = useSettings();
+
+// Fallback check for desktop (in case media query hasn't initialized)
+const isDesktopFallback = computed(() => {
+  if (process.server) return false;
+  if (typeof window === "undefined") return false;
+  return window.innerWidth >= 768;
+});
 
 // Animation configurations
 const cursorConfig = {
@@ -160,10 +167,19 @@ const click = () => {
 // Helper function to attach event listeners
 const attachListeners = () => {
   if (listenersAttached) return;
+  if (!cursor.value || !follower.value) return;
 
-  cursor.value?.classList.remove("hidden");
-  follower.value?.classList.remove("hidden");
+  // Remove hidden class and set initial position
+  cursor.value.classList.remove("hidden");
+  follower.value.classList.remove("hidden");
   document.body.classList.remove("cursor-disabled");
+
+  // Set initial position at center of screen (will be updated on first mousemove)
+  const initialX = window.innerWidth / 2;
+  const initialY = window.innerHeight / 2;
+  
+  gsap.set(cursor.value, { x: initialX, y: initialY });
+  gsap.set(follower.value, { x: initialX, y: initialY });
 
   clickableElements = document.querySelectorAll(
     'a,  button, [role="button"], .link, input[type="submit"], input[type="button"], .card, .card-raised-big'
@@ -203,34 +219,38 @@ const removeListeners = () => {
   listenersAttached = false;
 };
 
+// Helper function to check if cursor should be enabled
+const shouldEnableCursor = () => {
+  // Use fallback if media query hasn't initialized yet
+  const desktop = isDesktop.value || isDesktopFallback.value;
+  return desktop && !cursorDisabled.value;
+};
+
 // Lifecycle hooks
 onMounted(() => {
   if (cursorDisabled.value) {
     document.body.classList.add("cursor-disabled");
   }
-  if (!isDesktop.value || cursorDisabled.value) return;
-  attachListeners();
+  
+  // Use nextTick to ensure DOM is ready, then check immediately
+  // The watchEffect will also handle state changes
+  nextTick(() => {
+    if (shouldEnableCursor()) {
+      attachListeners();
+    }
+  });
 });
 
 onUnmounted(() => {
   removeListeners();
 });
 
-// Watch for cursor disabled state changes
-watch(cursorDisabled, (disabled) => {
-  if (disabled) {
-    removeListeners();
-  } else if (isDesktop.value) {
+// Watch both values together to handle state changes
+watchEffect(() => {
+  if (shouldEnableCursor() && !listenersAttached) {
     attachListeners();
-  }
-});
-
-// Watch for desktop state changes
-watch(isDesktop, (desktop) => {
-  if (!desktop || cursorDisabled.value) {
+  } else if (!shouldEnableCursor() && listenersAttached) {
     removeListeners();
-  } else if (!cursorDisabled.value) {
-    attachListeners();
   }
 });
 </script>

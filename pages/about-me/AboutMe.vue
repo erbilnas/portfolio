@@ -21,8 +21,10 @@ observeSectionChange();
 
 <template>
   <section id="about-me" ref="sectionRef">
-    <div class="bg-white dark:bg-gradient-to-b dark:from-slate-950 dark:to-violet-950 flex min-h-screen">
-      <TextScrollReveal :text />
+    <div class="bg-white dark:bg-black flex min-h-screen items-center justify-center px-6 py-32">
+      <div class="max-w-4xl w-full">
+        <TextScrollReveal :text class="text-2xl md:text-4xl font-light leading-relaxed text-gray-900 dark:text-white tracking-tight" />
+      </div>
     </div>
   </section>
 </template>

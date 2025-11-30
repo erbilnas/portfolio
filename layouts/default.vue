@@ -1,7 +1,9 @@
 <template>
-  <header class="sticky top-0 z-50 w-full h-1">
+  <header v-if="!isIPhone" class="sticky top-0 z-50 w-full h-1">
     <Progress :model-value="scrollProgress" />
   </header>
+
+  <ScrollIsland v-if="isIPhone" title="Scroll to see more" />
 
   <main>
     <SpeedInsights />
@@ -22,12 +24,14 @@
 </template>
 
 <script setup lang="ts">
+import { ScrollIsland } from "@/components/ui/scroll-island";
 import { SpeedInsights } from "@vercel/speed-insights/vue";
 import { useThrottleFn } from "@vueuse/core";
 
 const scrollProgress = ref(0);
 const lastScrollPosition = ref(0);
 const isNavbarHidden = ref(false);
+const isIPhone = ref(false);
 
 const SCROLL_THRESHOLD = 50;
 const SCROLL_DELAY = 50;
@@ -73,6 +77,13 @@ const handleScroll = () => {
 const throttledScrollHandler = useThrottleFn(handleScroll, SCROLL_DELAY);
 
 onMounted(() => {
+  // Detect iPhone devices
+  if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+    const userAgent =
+      navigator.userAgent || navigator.vendor || (window as any).opera;
+    isIPhone.value = /iPhone/i.test(userAgent);
+  }
+
   window.addEventListener("scroll", throttledScrollHandler);
   handleScroll(); // Initial call
 

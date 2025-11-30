@@ -11,8 +11,8 @@
         cn(
           'px-4 py-2 transition-all duration-500 relative',
           activeTab === tab
-            ? 'text-white bg-primary shadow-glow'
-            : 'text-muted-foreground bg-background hover:text-primary hover:bg-accent'
+            ? 'dark:text-primary text-white dark:text-black bg-primary shadow-glow'
+            : 'text-gray-600 dark:text-gray-300 bg-background hover:text-primary hover:bg-accent'
         )
       "
       :style="{

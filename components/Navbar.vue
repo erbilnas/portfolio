@@ -3,7 +3,12 @@ import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
 import { useConfetti } from "@/composables/confetti";
 import { useSettings } from "@/composables/settings";
 
-type sections = "welcome" | "about-me" | "career" | "current-vibes";
+type sections =
+  | "welcome"
+  | "about-me"
+  | "skills"
+  | "projects"
+  | "current-vibes";
 
 interface NavigationItem {
   icon: Component;
@@ -53,10 +58,17 @@ const navigationItems = computed<NavigationItem[]>(() => [
   },
   {
     icon: defineAsyncComponent(() =>
-      import("lucide-vue-next").then((m) => m.BriefcaseBusinessIcon)
+      import("lucide-vue-next").then((m) => m.CodeIcon)
     ),
-    label: "Career",
-    action: () => scrollToSection("career"),
+    label: "Skills",
+    action: () => scrollToSection("skills"),
+  },
+  {
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.FolderKanbanIcon)
+    ),
+    label: "Projects",
+    action: () => scrollToSection("projects"),
   },
   {
     icon: defineAsyncComponent(() =>
@@ -138,9 +150,9 @@ onUnmounted(() => {
 
 <template>
   <LiquidGlass
-    :radius="16"
+    :radius="20"
     container-class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
-    class="flex h-max w-max items-center rounded-2xl p-2 transition-all gap-4"
+    class="flex h-max w-max items-center rounded-3xl p-3 transition-all gap-3 backdrop-blur-xl bg-white/80 dark:bg-black/80 border border-gray-200/50 dark:border-gray-800/50"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
   >
