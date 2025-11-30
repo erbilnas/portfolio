@@ -1,3 +1,10 @@
+## [6.1.1-preview.4](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.3...v6.1.1-preview.4) (2025-11-30)
+
+
+### Bug Fixes
+
+* find and fix reference errors on app ([4870839](https://github.com/erbilnas/portfolio/commit/48708394a1afa84ee92a6e7891bc70cd1644387f))
+
 ## [6.1.1-preview.3](https://github.com/erbilnas/portfolio/compare/v6.1.1-preview.2...v6.1.1-preview.3) (2025-11-30)
 
 
