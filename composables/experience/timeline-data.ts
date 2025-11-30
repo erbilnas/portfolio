@@ -1,7 +1,7 @@
-import type { TimelineItem } from "~/types/experience";
+import { computed, type ComputedRef, type Ref } from "vue";
 import { educationList, experiences } from "~/constants/experience";
+import type { TimelineItem } from "~/types/experience";
 import { parseDate, parseYear } from "./date-parsing";
-import { computed, type Ref, type ComputedRef } from "vue";
 
 /**
  * Get the start date of a timeline item
@@ -81,7 +81,9 @@ export function useTimelineItems(activeTab: Ref<string>) {
 /**
  * Transform timeline items into Timeline component format
  */
-export function useTimelineItemsForComponent(timelineItems: ComputedRef<TimelineItem[]>) {
+export function useTimelineItemsForComponent(
+  timelineItems: ComputedRef<TimelineItem[]>
+) {
   return computed(() => {
     return timelineItems.value.map((item, index) => {
       const id =
@@ -98,7 +100,9 @@ export function useTimelineItemsForComponent(timelineItems: ComputedRef<Timeline
 /**
  * Create items with slot names for template iteration
  */
-export function useTimelineItemsWithSlots(timelineItems: ComputedRef<TimelineItem[]>) {
+export function useTimelineItemsWithSlots(
+  timelineItems: ComputedRef<TimelineItem[]>
+) {
   return computed(() => {
     return timelineItems.value.map((item, index) => ({
       item,
@@ -109,4 +113,3 @@ export function useTimelineItemsWithSlots(timelineItems: ComputedRef<TimelineIte
     }));
   });
 }
-
