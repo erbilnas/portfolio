@@ -1,3 +1,10 @@
+# [6.1.0-preview.10](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.9...v6.1.0-preview.10) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix reference errors ([f5f6176](https://github.com/erbilnas/portfolio/commit/f5f61767628e5f15ad2eb213d0a28842c0702cca))
+
 # [6.1.0-preview.9](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.8...v6.1.0-preview.9) (2025-11-30)
 
 
