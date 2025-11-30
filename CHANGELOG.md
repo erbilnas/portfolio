@@ -1,3 +1,10 @@
+# [6.1.0-preview.4](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.3...v6.1.0-preview.4) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix ssr issues ([43c4496](https://github.com/erbilnas/portfolio/commit/43c4496754797c96ac3cedea72ea52125d6f0e5b))
+
 # [6.1.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.2...v6.1.0-preview.3) (2025-11-30)
 
 # [6.1.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.1...v6.1.0-preview.2) (2025-11-30)
