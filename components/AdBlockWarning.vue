@@ -23,7 +23,8 @@ const AD_TEST_SCRIPTS = [
 
 const isDialogOpen = ref(false);
 
-const createTestElement = (className: string): HTMLElement => {
+const createTestElement = (className: string): HTMLElement | null => {
+  if (typeof document === "undefined") return null;
   const elem = document.createElement("div");
   elem.className = className;
   elem.style.cssText =
@@ -32,7 +33,8 @@ const createTestElement = (className: string): HTMLElement => {
   return elem;
 };
 
-const createTestScript = (src: string): HTMLScriptElement => {
+const createTestScript = (src: string): HTMLScriptElement | null => {
+  if (typeof document === "undefined") return null;
   const script = document.createElement("script");
   script.src = src;
   script.async = true;
@@ -40,13 +42,16 @@ const createTestScript = (src: string): HTMLScriptElement => {
   return script;
 };
 
-const cleanupElements = (elements: HTMLElement[]) => {
+const cleanupElements = (elements: (HTMLElement | null)[]) => {
   elements.forEach((elem) => {
-    elem.parentNode?.removeChild(elem);
+    if (elem?.parentNode) {
+      elem.parentNode.removeChild(elem);
+    }
   });
 };
 
-const isElementBlocked = (elem: HTMLElement): boolean => {
+const isElementBlocked = (elem: HTMLElement | null): boolean => {
+  if (!elem || typeof window === "undefined") return false;
   const style = window.getComputedStyle(elem);
   return (
     !elem.offsetParent ||
@@ -56,18 +61,24 @@ const isElementBlocked = (elem: HTMLElement): boolean => {
   );
 };
 
-const isScriptBlocked = (script: HTMLScriptElement): boolean => {
+const isScriptBlocked = (script: HTMLScriptElement | null): boolean => {
+  if (!script || typeof document === "undefined") return false;
   return !script.getAttribute("src") || !document.head.contains(script);
 };
 
 const detectAdBlocker = async () => {
-  const testElements: HTMLElement[] = [];
-  const testScripts: HTMLScriptElement[] = [];
+  // Guard against SSR
+  if (process.server || typeof document === "undefined" || typeof window === "undefined") {
+    return;
+  }
+
+  const testElements: (HTMLElement | null)[] = [];
+  const testScripts: (HTMLScriptElement | null)[] = [];
 
   try {
     // Create test elements
-    testElements.push(...AD_TEST_CLASSES.map(createTestElement));
-    testScripts.push(...AD_TEST_SCRIPTS.map(createTestScript));
+    testElements.push(...AD_TEST_CLASSES.map(createTestElement).filter((el): el is HTMLElement => el !== null));
+    testScripts.push(...AD_TEST_SCRIPTS.map(createTestScript).filter((el): el is HTMLScriptElement => el !== null));
 
     // Wait for ad blockers to react
     await new Promise((resolve) => setTimeout(resolve, AD_BLOCKER_CHECK_DELAY));

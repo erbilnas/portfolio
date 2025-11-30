@@ -1,5 +1,5 @@
 import { useColorMode } from "#imports";
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 
 // Simple localStorage implementation to avoid VueUse import on server
 function useLocalStorage<T>(key: string, defaultValue: T) {
