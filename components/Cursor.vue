@@ -58,15 +58,16 @@ const initializeSettings = () => {
   if (!settingsComposable && process.client) {
     try {
       settingsComposable = useSettings();
+      const settings = settingsComposable;
       // Sync the initial value
-      cursorDisabled.value = settingsComposable.cursorDisabled.value;
+      cursorDisabled.value = settings.cursorDisabled.value;
       // Watch for changes - watch the computed ref directly
       watch(
-        settingsComposable.cursorDisabled,
+        settings.cursorDisabled,
         (newValue) => {
           cursorDisabled.value = newValue;
         },
-        { immediate: false }
+        { immediate: true }
       );
     } catch (error) {
       // If settings can't be initialized yet, keep default value

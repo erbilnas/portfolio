@@ -36,28 +36,37 @@ const initializeSettings = () => {
   if (!settingsComposable && process.client) {
     try {
       settingsComposable = useSettings();
+      const settings = settingsComposable;
       // Sync initial values
-      cursorDisabled.value = settingsComposable.cursorDisabled.value;
-      const initialTheme = settingsComposable.theme.value;
+      cursorDisabled.value = settings.cursorDisabled.value;
+      const initialTheme = settings.theme.value;
       theme.value =
         initialTheme === "light" ||
         initialTheme === "dark" ||
         initialTheme === "system"
           ? initialTheme
           : "system";
-      toggleCursor = settingsComposable.toggleCursor;
-      setTheme = settingsComposable.setTheme;
+      toggleCursor = settings.toggleCursor;
+      setTheme = settings.setTheme;
 
       // Watch for changes
-      watch(settingsComposable.cursorDisabled, (newValue) => {
-        cursorDisabled.value = newValue;
-      });
-      watch(settingsComposable.theme, (newValue) => {
-        theme.value =
-          newValue === "light" || newValue === "dark" || newValue === "system"
-            ? newValue
-            : "dark";
-      });
+      watch(
+        settings.cursorDisabled,
+        (newValue) => {
+          cursorDisabled.value = newValue;
+        },
+        { immediate: true }
+      );
+      watch(
+        settings.theme,
+        (newValue) => {
+          theme.value =
+            newValue === "light" || newValue === "dark" || newValue === "system"
+              ? newValue
+              : "dark";
+        },
+        { immediate: true }
+      );
     } catch (error) {
       console.warn("Settings not ready yet:", error);
     }
@@ -283,6 +292,12 @@ const setSystemTheme = () => {
     setTheme("system");
   }
 };
+
+const handleToggleCursor = () => {
+  if (toggleCursor) {
+    toggleCursor();
+  }
+};
 </script>
 
 <template>
@@ -340,13 +355,13 @@ const setSystemTheme = () => {
         <!-- Custom Cursor Toggle -->
         <div class="flex items-center justify-between">
           <div class="flex flex-col gap-1">
-            <label class="text-sm font-medium">Custom Cursor</label>
+            <label class="text-sm font-medium">Disable Custom Cursor</label>
             <p class="text-xs text-muted-foreground">
               Disable the custom cursor for better accessibility
             </p>
           </div>
           <button
-            @click="toggleCursor || (() => {})"
+            @click="handleToggleCursor"
             :class="[
               'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
               cursorDisabled ? 'bg-primary' : 'bg-muted',
