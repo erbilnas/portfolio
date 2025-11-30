@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { cn } from "@/lib/utils";
 import NumberFlow from "@number-flow/vue";
-import { useColorMode } from "@vueuse/core";
+import { useColorMode } from "#imports";
 import { motion, MotionConfig } from "motion-v";
 import { computed, onMounted, onUnmounted, ref, useSlots } from "vue";
 

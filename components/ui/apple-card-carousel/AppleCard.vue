@@ -86,7 +86,6 @@
 <script setup lang="ts">
 import { ref, onMounted, inject, onUnmounted, watch } from "vue";
 import { Motion, AnimatePresence } from "motion-v";
-import { onClickOutside } from "@vueuse/core";
 import { CarouselKey } from "./AppleCarouselContext";
 
 interface Card {
@@ -121,12 +120,24 @@ function handleKeyDown(event: KeyboardEvent) {
   }
 }
 
+const handleClickOutside = (event: MouseEvent) => {
+  if (containerRef.value && !containerRef.value.contains(event.target as Node)) {
+    handleClose();
+  }
+};
+
 onMounted(() => {
   window.addEventListener("keydown", handleKeyDown);
+  if (process.client) {
+    document.addEventListener("click", handleClickOutside);
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("keydown", handleKeyDown);
+  if (process.client) {
+    document.removeEventListener("click", handleClickOutside);
+  }
 });
 
 watch(open, (newVal) => {
@@ -136,8 +147,6 @@ watch(open, (newVal) => {
     document.body.style.overflow = "auto";
   }
 });
-
-onClickOutside(containerRef, () => handleClose());
 
 function handleOpen() {
   open.value = true;
