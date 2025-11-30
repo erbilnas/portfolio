@@ -95,16 +95,15 @@ export default defineNuxtConfig({
     },
   },
   devtools: {
-    enabled: process.env.NODE_ENV !== "production",
+    enabled: true,
   },
-  logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
+  logLevel: "verbose",
   nitro: {
-    logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
-    sourceMap: process.env.NODE_ENV !== "production",
+    logLevel: "verbose",
+    sourceMap: true,
     esbuild: {
       options: {
-        drop:
-          process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+        drop: ["console", "debugger"],
       },
     },
   },
@@ -175,8 +174,8 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
     },
     esbuild: {
-      drop:
-        process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+      drop: ["console", "debugger"],
     },
+    logLevel: "info",
   },
 });
