@@ -118,8 +118,13 @@ export default defineNuxtConfig({
   vite: {
     build: {
       sourcemap: true,
+      minify: "esbuild",
       rollupOptions: {
         output: {
+          sourcemapExcludeSources: false,
+          sourcemapPathTransform: (relativeSourcePath) => {
+            return relativeSourcePath;
+          },
           manualChunks: (id) => {
             // Only process node_modules dependencies
             if (!id.includes("node_modules")) {
