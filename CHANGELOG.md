@@ -1,3 +1,10 @@
+# [6.1.0-preview.5](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.4...v6.1.0-preview.5) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix unmount errors ([f861e91](https://github.com/erbilnas/portfolio/commit/f861e911eae808eb6ede5b47693c621d1e37910c))
+
 # [6.1.0-preview.4](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.3...v6.1.0-preview.4) (2025-11-30)
 
 
