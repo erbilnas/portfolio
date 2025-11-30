@@ -1,3 +1,17 @@
+## [6.1.2-preview.2](https://github.com/erbilnas/portfolio/compare/v6.1.2-preview.1...v6.1.2-preview.2) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix navbar design for better compatibility ([6319c8d](https://github.com/erbilnas/portfolio/commit/6319c8d7657b748739491c65848b535430234296))
+
+## [6.1.2-preview.1](https://github.com/erbilnas/portfolio/compare/v6.1.1...v6.1.2-preview.1) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix custom cursor switch ([dc1eb40](https://github.com/erbilnas/portfolio/commit/dc1eb40045d91fc38b91ce1b97a9698ec5b2cfa3))
+
 ## [6.1.1](https://github.com/erbilnas/portfolio/compare/v6.1.0...v6.1.1) (2025-11-30)
 
 

@@ -33,7 +33,10 @@ function useLocalStorage<T>(key: string, defaultValue: T) {
   return storedValue;
 }
 
-export const useSettings = () => {
+// Singleton instance to ensure all components share the same state
+let settingsInstance: ReturnType<typeof createSettings> | null = null;
+
+function createSettings() {
   const colorMode = useColorMode();
   const cursorDisabled = useLocalStorage("settings-cursor-disabled", false);
 
@@ -51,5 +54,12 @@ export const useSettings = () => {
     theme: computed(() => colorMode.preference),
     setTheme,
   };
+}
+
+export const useSettings = () => {
+  if (!settingsInstance) {
+    settingsInstance = createSettings();
+  }
+  return settingsInstance;
 };
 

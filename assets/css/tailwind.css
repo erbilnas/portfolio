@@ -110,4 +110,11 @@
   body:not(.cursor-disabled) textarea {
     cursor: none !important;
   }
+
+  /* Blur main content when mobile menu is open, but exclude the menu itself */
+  /* Ensure mobile menu is not blurred */
+  [data-mobile-menu],
+  [data-mobile-menu-overlay] {
+    filter: none !important;
+  }
 }

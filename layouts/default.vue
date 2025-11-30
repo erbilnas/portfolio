@@ -1,9 +1,9 @@
 <template>
-  <header v-if="!isIPhone" class="sticky top-0 z-50 w-full h-1">
+  <header v-if="!isMobile" class="sticky top-0 z-50 w-full h-1">
     <Progress :model-value="scrollProgress" />
   </header>
 
-  <ScrollIsland v-if="isIPhone" title="Scroll to see more" />
+  <ScrollIsland v-if="isMobile" title="Scroll to see more" />
 
   <main>
     <SpeedInsights />
@@ -30,14 +30,14 @@ import { SpeedInsights } from "@vercel/speed-insights/vue";
 const scrollProgress = ref(0);
 const lastScrollPosition = ref(0);
 const isNavbarHidden = ref(false);
-const isIPhone = ref(false);
+const isMobile = ref(false);
 
 const SCROLL_THRESHOLD = 50;
 const SCROLL_DELAY = 50;
 
 const handleScroll = () => {
-  if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
   const currentScrollPosition = window.scrollY;
   const winScroll = window.scrollY;
   const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -102,20 +102,25 @@ const throttledScrollHandler = throttle(handleScroll, SCROLL_DELAY);
 
 onMounted(() => {
   // Only run on client side
-  if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
-  // Detect iPhone devices
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  // Detect mobile devices
   if (typeof navigator !== "undefined") {
     const userAgent =
       navigator.userAgent || navigator.vendor || (window as any).opera;
-    isIPhone.value = /iPhone/i.test(userAgent);
+    // Check for mobile devices: iPhone, iPad, Android, and other mobile user agents
+    isMobile.value =
+      /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile|mobile|CriOS/i.test(
+        userAgent
+      ) ||
+      (window.innerWidth <= 768 && "ontouchstart" in window);
   }
 
   window.addEventListener("scroll", throttledScrollHandler);
   handleScroll(); // Initial call
 
   onUnmounted(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.removeEventListener("scroll", throttledScrollHandler);
     }
   });
