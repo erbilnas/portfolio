@@ -97,14 +97,30 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  logLevel: "verbose",
+  // Logging: Use 'info' in production to capture errors, 'verbose' in development
+  logLevel: process.env.NODE_ENV === 'production' ? 'info' : 'verbose',
+  // Enable sourcemaps in production for better error stack traces and debugging
   sourcemap: {
     server: true,
-    client: true,
+    client: true, // Keep sourcemaps in production for detailed error tracking
   },
   nitro: {
-    logLevel: "verbose",
+    logLevel: process.env.NODE_ENV === 'production' ? 'info' : 'verbose',
     sourceMap: true,
+    // Log errors with full details
+    experimental: {
+      wasm: true,
+    },
+  },
+  // Enable Vue error handling
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => tag.startsWith('nuxt'),
+    },
+  },
+  // Better error pages
+  experimental: {
+    watcher: 'chokidar',
   },
   compatibilityDate: "2025-01-02",
   shadcn: {

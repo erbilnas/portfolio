@@ -14,7 +14,15 @@
 <script setup lang="ts">
 import { useSettings } from "@/composables/settings";
 import { useMediaQuery } from "@/composables/use-media-query-client";
-import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+  watchEffect,
+} from "vue";
 
 // Lazy load GSAP to avoid top-level await causing $r initialization errors
 let gsap: typeof import("gsap").default | null = null;
@@ -37,9 +45,36 @@ const follower = ref<HTMLElement | null>(null);
 let clickableElements: NodeListOf<Element> | null = null;
 let listenersAttached = false;
 
-// Composables
+// Composables - lazy initialize to avoid initialization order issues
 const isDesktop = useMediaQuery("(min-width: 768px)");
-const { cursorDisabled } = useSettings();
+
+// Lazy load settings to avoid initialization order issues
+// Initialize as a ref that will be set after mount
+const cursorDisabled = ref(false);
+let settingsComposable: ReturnType<typeof useSettings> | null = null;
+
+// Initialize settings after mount to avoid initialization order issues
+const initializeSettings = () => {
+  if (!settingsComposable && process.client) {
+    try {
+      settingsComposable = useSettings();
+      // Sync the initial value
+      cursorDisabled.value = settingsComposable.cursorDisabled.value;
+      // Watch for changes - watch the computed ref directly
+      watch(
+        settingsComposable.cursorDisabled,
+        (newValue) => {
+          cursorDisabled.value = newValue;
+        },
+        { immediate: false }
+      );
+    } catch (error) {
+      // If settings can't be initialized yet, keep default value
+      console.warn("Settings not ready yet:", error);
+    }
+  }
+  return settingsComposable;
+};
 
 // Fallback check for desktop (in case media query hasn't initialized)
 const isDesktopFallback = computed(() => {
@@ -146,7 +181,11 @@ const hover = async (e: Event) => {
   );
 
   gsapInstance.to(cursor.value, cursorConfig.hover);
-  gsapInstance.to(follower.value, { ...followerConfig.hover, x: magnetX, y: magnetY });
+  gsapInstance.to(follower.value, {
+    ...followerConfig.hover,
+    x: magnetX,
+    y: magnetY,
+  });
   gsapInstance.to(target, {
     x: elementX,
     y: elementY,
@@ -191,7 +230,7 @@ const attachListeners = async () => {
   // Set initial position at center of screen (will be updated on first mousemove)
   const initialX = window.innerWidth / 2;
   const initialY = window.innerHeight / 2;
-  
+
   gsapInstance.set(cursor.value, { x: initialX, y: initialY });
   gsapInstance.set(follower.value, { x: initialX, y: initialY });
 
@@ -242,10 +281,13 @@ const shouldEnableCursor = () => {
 
 // Lifecycle hooks
 onMounted(() => {
+  // Initialize settings composable after mount to avoid initialization order issues
+  initializeSettings();
+
   if (cursorDisabled.value) {
     document.body.classList.add("cursor-disabled");
   }
-  
+
   // Use nextTick to ensure DOM is ready, then check immediately
   // The watchEffect will also handle state changes
   nextTick(() => {

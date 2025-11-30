@@ -54,11 +54,30 @@ const slots = useSlots();
 
 const scrollPercentage = ref(0);
 
-const isDark = computed(() => useColorMode().value == "dark");
+// Lazy load color mode to avoid initialization order issues
+let colorModeComposable: ReturnType<typeof useColorMode> | null = null;
+const initializeColorMode = () => {
+  if (!colorModeComposable && process.client) {
+    try {
+      colorModeComposable = useColorMode();
+    } catch (error) {
+      console.warn("Color mode not ready yet:", error);
+    }
+  }
+  return colorModeComposable;
+};
+
+const isDark = computed(() => {
+  const colorMode = initializeColorMode();
+  return colorMode?.value === "dark" ?? false;
+});
 const isSlotAvailable = computed(() => !!slots.default);
 const borderRadius = computed(() => `${props.height / 2}px`);
 
 onMounted(() => {
+  // Initialize color mode after mount to avoid initialization order issues
+  initializeColorMode();
+  
   if (window === undefined) return;
 
   window.addEventListener("scroll", updatePageScroll);

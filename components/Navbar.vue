@@ -21,8 +21,39 @@ interface NavigationItem {
 
 const { fireConfetti } = useConfetti();
 const hasTriggeredConfetti = ref(false);
-const { cursorDisabled, toggleCursor, theme, setTheme } = useSettings();
 const settingsDialogOpen = ref(false);
+
+// Lazy load settings to avoid initialization order issues
+let settingsComposable: ReturnType<typeof useSettings> | null = null;
+const cursorDisabled = ref(false);
+const theme = ref<"light" | "dark" | "system">("dark");
+let toggleCursor: (() => void) | null = null;
+let setTheme: ((theme: "light" | "dark" | "system") => void) | null = null;
+
+// Initialize settings after mount to avoid initialization order issues
+const initializeSettings = () => {
+  if (!settingsComposable && process.client) {
+    try {
+      settingsComposable = useSettings();
+      // Sync initial values
+      cursorDisabled.value = settingsComposable.cursorDisabled.value;
+      theme.value = settingsComposable.theme.value;
+      toggleCursor = settingsComposable.toggleCursor;
+      setTheme = settingsComposable.setTheme;
+      
+      // Watch for changes
+      watch(settingsComposable.cursorDisabled, (newValue) => {
+        cursorDisabled.value = newValue;
+      });
+      watch(settingsComposable.theme, (newValue) => {
+        theme.value = newValue;
+      });
+    } catch (error) {
+      console.warn("Settings not ready yet:", error);
+    }
+  }
+  return settingsComposable;
+};
 
 // Mobile detection - show navbar only on scroll up
 const isMobile = useMediaQuery("(max-width: 768px)");
@@ -161,6 +192,9 @@ const handleScrollDirection = () => {
 let handleScroll: (() => void) | null = null;
 
 onMounted(() => {
+  // Initialize settings after mount to avoid initialization order issues
+  initializeSettings();
+  
   lastScrollY.value = window.pageYOffset || document.documentElement.scrollTop;
 
   // Use requestAnimationFrame for smoother performance
@@ -247,7 +281,7 @@ onUnmounted(() => {
             </p>
           </div>
           <button
-            @click="toggleCursor"
+            @click="toggleCursor || (() => {})"
             :class="[
               'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
               cursorDisabled ? 'bg-primary' : 'bg-muted',
@@ -269,7 +303,7 @@ onUnmounted(() => {
           <label class="text-sm font-medium">Theme</label>
           <div class="flex gap-2">
             <button
-              @click="setTheme('light')"
+              @click="setTheme ? setTheme('light') : undefined"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'light'
@@ -280,7 +314,7 @@ onUnmounted(() => {
               Light
             </button>
             <button
-              @click="setTheme('dark')"
+              @click="setTheme ? setTheme('dark') : undefined"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'dark'
@@ -291,7 +325,7 @@ onUnmounted(() => {
               Dark
             </button>
             <button
-              @click="setTheme('system')"
+              @click="setTheme ? setTheme('system') : undefined"
               :class="[
                 'flex-1 rounded-md border px-4 py-2 text-sm transition-colors',
                 theme === 'system'
