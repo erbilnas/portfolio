@@ -97,16 +97,16 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  // Logging: Use 'info' in production to capture errors, 'verbose' in development
-  logLevel: process.env.NODE_ENV === 'production' ? 'info' : 'verbose',
-  // Enable sourcemaps in production for better error stack traces and debugging
+  // Logging: Disable logs in production, 'verbose' in development
+  logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'verbose',
+  // Disable sourcemaps in production for smaller bundle size
   sourcemap: {
-    server: true,
-    client: true, // Keep sourcemaps in production for detailed error tracking
+    server: process.env.NODE_ENV !== 'production',
+    client: process.env.NODE_ENV !== 'production',
   },
   nitro: {
-    logLevel: process.env.NODE_ENV === 'production' ? 'info' : 'verbose',
-    sourceMap: true,
+    logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'verbose',
+    sourceMap: process.env.NODE_ENV !== 'production',
     // Log errors with full details
     experimental: {
       wasm: true,
@@ -133,7 +133,7 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      sourcemap: true,
+      sourcemap: process.env.NODE_ENV !== 'production',
       minify: "esbuild",
       rollupOptions: {
         output: {
@@ -218,6 +218,6 @@ export default defineNuxtConfig({
       },
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
     },
-    logLevel: "info",
+    logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'info',
   },
 });
