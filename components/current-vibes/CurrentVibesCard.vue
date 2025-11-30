@@ -29,7 +29,7 @@ const props = defineProps<Props>();
 <template>
   <div
     :class="[
-      'group relative z-10 flex h-[32rem] flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[48rem] dark:bg-neutral-900 transition-all duration-300 hover:scale-[1.02] focus-within:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent snap-center flex-shrink-0 w-[calc(100vw-2rem)] md:w-[32rem]',
+      'group relative z-10 flex h-[calc(100vh-14rem)] max-h-[calc(100vh-14rem)] min-h-[32rem] flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[48rem] dark:bg-neutral-900 transition-all duration-300 hover:scale-[1.02] focus-within:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent snap-center flex-shrink-0 w-[calc(100vw-5rem)] md:w-[32rem]',
       isDragging ? 'cursor-grabbing' : 'cursor-grab',
     ]"
     tabindex="0"
@@ -48,7 +48,7 @@ const props = defineProps<Props>();
       target="_blank"
       rel="noopener noreferrer"
       :class="[
-        'absolute top-4 right-4 z-50 flex items-center gap-2 rounded-full px-3 py-2 transition-all duration-300 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 backdrop-blur-sm shadow-lg',
+        'absolute top-4 right-4 z-50 flex items-center gap-2 rounded-full px-3 py-2 transition-all duration-300 backdrop-blur-sm shadow-lg',
         isLight
           ? 'bg-white/90 text-gray-900 hover:bg-white'
           : 'bg-black/70 text-white hover:bg-black/90',

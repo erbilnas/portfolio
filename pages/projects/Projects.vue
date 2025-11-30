@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
-import { projectsList } from "~/constants/career";
+import { projectsList } from "~/constants/projects";
 
 const sectionRef = ref<HTMLElement | null>(null);
 
@@ -66,24 +66,6 @@ observeSectionChange();
                   class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
                 >
                   {{ tech }}
-                </span>
-              </div>
-
-              <div class="flex items-center justify-between pt-2">
-                <span
-                  class="text-xs font-medium px-3 py-1 rounded-full"
-                  :class="{
-                    'bg-green-500/20 text-green-700 dark:text-green-300':
-                      project.status === 'Active',
-                    'bg-blue-500/20 text-blue-700 dark:text-blue-300':
-                      project.status === 'Completed',
-                    'bg-gray-500/20 text-gray-700 dark:text-gray-300':
-                      project.status === 'Archived',
-                    'bg-red-500/20 text-red-700 dark:text-red-300':
-                      project.status === 'Dropped',
-                  }"
-                >
-                  {{ project.status }}
                 </span>
               </div>
             </div>

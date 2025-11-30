@@ -1,7 +1,7 @@
 <template>
   <div
     ref="timelineContainerRef"
-    class="w-full bg-white font-sans md:px-10 dark:bg-neutral-950"
+    class="w-full font-sans md:px-10"
   >
     <div class="mx-auto max-w-7xl px-4 py-20 lg:px-10 md:px-8">
       <h2 class="mb-4 max-w-4xl text-lg text-black md:text-4xl dark:text-white">
@@ -52,7 +52,7 @@
             height: heightTransform,
             opacity: opacityTransform,
           }"
-          class="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-purple-500 from-0% via-blue-500 via-10% to-transparent"
+          class="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-gray-900 from-0% via-gray-600 via-10% to-transparent dark:from-white dark:via-gray-400"
         >
         </Motion>
       </div>
