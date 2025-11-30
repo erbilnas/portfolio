@@ -97,9 +97,9 @@ const { scrollYProgress } = useScroll({
 });
 
 const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-const heightTransform = ref(useTransform(scrollYProgress, [0, 1], [0, 0]));
-
-watch(height, (newHeight) => {
-  heightTransform.value = useTransform(scrollYProgress, [0, 1], [0, newHeight]);
+const heightTransform = computed(() => {
+  const progress = scrollYProgress.value;
+  // Map progress from [0, 1] to [0, height.value]
+  return progress * height.value;
 });
 </script>
