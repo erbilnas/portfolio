@@ -158,6 +158,16 @@ export default defineNuxtConfig({
               return;
             }
 
+            // CRITICAL: Never split motion-v and its dependencies - they must load synchronously
+            // motion-v has internal circular dependencies that break when split into async chunks
+            if (
+              id.includes("motion-v") ||
+              id.includes("motion-dom") ||
+              id.includes("framer-motion")
+            ) {
+              return;
+            }
+
             // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
             if (id.includes("gsap") || id.includes("@vueuse/motion")) {
               return "vendor-animations";
