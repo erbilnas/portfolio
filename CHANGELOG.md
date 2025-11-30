@@ -1,3 +1,10 @@
+# [6.1.0-preview.8](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.7...v6.1.0-preview.8) (2025-11-30)
+
+
+### Bug Fixes
+
+* fix reference error on timeline ([178328c](https://github.com/erbilnas/portfolio/commit/178328cbea768b57b1180571be8a291ebe6414d7))
+
 # [6.1.0-preview.7](https://github.com/erbilnas/portfolio/compare/v6.1.0-preview.6...v6.1.0-preview.7) (2025-11-30)
 
 
