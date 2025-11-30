@@ -3,6 +3,7 @@ import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
 import { useConfetti } from "@/composables/confetti";
 import { useSettings } from "@/composables/settings";
 import { useMediaQuery } from "@/composables/use-media-query-client";
+import { nextTick } from "vue";
 
 type sections =
   | "welcome"
@@ -40,7 +41,7 @@ const initializeSettings = () => {
       theme.value = settingsComposable.theme.value;
       toggleCursor = settingsComposable.toggleCursor;
       setTheme = settingsComposable.setTheme;
-      
+
       // Watch for changes
       watch(settingsComposable.cursorDisabled, (newValue) => {
         cursorDisabled.value = newValue;
@@ -134,11 +135,47 @@ const navigationItems = computed<NavigationItem[]>(() => [
 ]);
 
 const scrollToSection = (sectionId: sections) => {
-  const element = document.getElementById(sectionId);
+  // Function to perform the scroll
+  const performScroll = () => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Get the element's position
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 20; // 20px offset for spacing
 
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Smooth scroll to the element
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      return true;
+    }
+    return false;
+  };
+
+  // Try immediately
+  if (performScroll()) {
+    return;
   }
+
+  // If not found, wait for next tick (for Vue reactivity)
+  nextTick(() => {
+    if (performScroll()) {
+      return;
+    }
+
+    // If still not found, retry with increasing delays (for async components)
+    let retryCount = 0;
+    const maxRetries = 10;
+    const retryInterval = 100;
+
+    const retryScroll = setInterval(() => {
+      if (performScroll() || retryCount >= maxRetries) {
+        clearInterval(retryScroll);
+      }
+      retryCount++;
+    }, retryInterval);
+  });
 };
 
 const checkScrollPosition = () => {
@@ -194,7 +231,7 @@ let handleScroll: (() => void) | null = null;
 onMounted(() => {
   // Initialize settings after mount to avoid initialization order issues
   initializeSettings();
-  
+
   lastScrollY.value = window.pageYOffset || document.documentElement.scrollTop;
 
   // Use requestAnimationFrame for smoother performance
