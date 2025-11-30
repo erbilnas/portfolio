@@ -1,39 +1,45 @@
-import { ref, watch } from "vue";
-
-let _vueuseCache: typeof import("@vueuse/core") | null = null;
+import { ref, onMounted, onUnmounted } from "vue";
 
 /**
  * Client-only wrapper for useMediaQuery to avoid SSR build issues
- * Uses dynamic import to prevent VueUse from being bundled into server code
+ * Implements media query matching without VueUse to prevent bundling issues
  */
 export function useMediaQuery(query: string) {
   const matches = ref(false);
 
+  // On server, return a ref that defaults to false
   if (process.server) {
-    // Return a ref that defaults to false on server
     return matches;
   }
 
-  // Initialize VueUse on client side using dynamic import
-  // This prevents VueUse from being statically bundled into server code
-  // Check if we're in a browser environment
-  if (typeof window !== "undefined") {
-    const loadVueUse = async () => {
-      if (!_vueuseCache) {
-        _vueuseCache = await import("@vueuse/core");
-      }
-      const result = _vueuseCache.useMediaQuery(query);
-      matches.value = result.value;
-      watch(result, (val) => {
-        matches.value = val;
-      });
+  // On client, implement media query matching manually
+  onMounted(() => {
+    if (typeof window === "undefined" || !window.matchMedia) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(query);
+    matches.value = mediaQuery.matches;
+
+    // Update matches when media query changes
+    const handleChange = (event: MediaQueryListEvent) => {
+      matches.value = event.matches;
     };
 
-    loadVueUse().catch(() => {
-      // Silently fail if VueUse can't be loaded
-      // matches will remain false
-    });
-  }
+    // Modern browsers
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleChange);
+      onUnmounted(() => {
+        mediaQuery.removeEventListener("change", handleChange);
+      });
+    } else {
+      // Fallback for older browsers
+      mediaQuery.addListener(handleChange);
+      onUnmounted(() => {
+        mediaQuery.removeListener(handleChange);
+      });
+    }
+  });
 
   return matches;
 }

@@ -74,7 +74,7 @@ onUnmounted(() => {
 <template>
   <section id="current-vibes" ref="sectionRef">
     <div
-      class="overflow-hidden min-h-screen flex flex-col gap-6 py-16 items-center bg-white dark:bg-gradient-to-b dark:from-red-950 dark:to-zinc-950"
+      class="overflow-hidden min-h-screen flex flex-col gap-12 py-20 items-center bg-white dark:bg-black px-6"
     >
       <CurrentVibesHeader />
 
@@ -94,7 +94,7 @@ onUnmounted(() => {
       >
         <AppleCardCarousel
           ref="carouselRef"
-          :hide-navigation="true"
+          :hide-navigation="false"
           class="px-4 md:px-0"
         >
           <AppleCarouselItem

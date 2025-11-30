@@ -15,9 +15,47 @@ export const careerTabs: CareerTabs[] = [
 
 export const experiences: WorkExperience[] = [
   {
-    company: "Trendyol Group",
+    company: "Trendyol Go by Uber Eats",
     currentPosition: "Senior Software Engineer",
-    period: "July 2021 - Present",
+    period: "July 2025 - Present",
+    location: "Remote",
+    description: [
+      "As a Senior Software Engineer at Trendyol Go By Uber Eats, I lead the design and development of scalable software solutions, mentor junior engineers, and drive technical initiatives to improve platform performance, reliability, and security. I collaborate with cross-functional teams to ensure high-quality code and contribute to shaping the company’s technology strategy.",
+    ],
+    technologies: [
+      "Vue",
+      "React",
+      "React Native",
+      "Astro",
+      "TypeScript",
+      "SCSS",
+      "BEM Methodology",
+      "Design System",
+      "Web Components",
+      "Lit",
+      "Golang",
+      "Kotlin",
+      "Couchbase",
+      "PostgreSQL",
+      "Redis",
+      "Kafka",
+      "Microservice Architecture",
+      "Microfrontend Architecture",
+      "Docker",
+      "Kubernetes",
+      "Nginx",
+      "Gitlab",
+      "CI/CD",
+      "Cypress",
+      "Playwright",
+      "Jest",
+      "Vitest",
+    ],
+  },
+  {
+    company: "Trendyol",
+    currentPosition: "Senior Software Engineer",
+    period: "July 2021 - July 2025",
     location: "Remote",
     description: [
       "As a Senior Software Engineer at Trendyol, I lead the design and development of scalable software solutions, mentor junior engineers, and drive technical initiatives to improve platform performance, reliability, and security. I collaborate with cross-functional teams to ensure high-quality code and contribute to shaping the company’s technology strategy.",
@@ -56,7 +94,7 @@ export const experiences: WorkExperience[] = [
     positions: [
       {
         title: "Senior Software Engineer",
-        duration: "Nov 2024 - Present",
+        duration: "Nov 2024 - Jul 2025",
       },
       {
         title: "Software Engineer",
@@ -237,72 +275,86 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "Vue",
-        description: "JavaScript Framework",
+        description:
+          "Progressive JavaScript framework for building user interfaces with reactive data binding and component-based architecture",
         icon: "simple-icons:vuedotjs",
       },
       {
         name: "Nuxt",
-        description: "Full Stack Vue Framework",
+        description:
+          "Full-stack Vue framework providing SSR, SSG, and powerful features like auto-imports, file-based routing, and server API routes",
         icon: "simple-icons:nuxt",
       },
       {
         name: "TypeScript",
-        description: "JavaScript Superset",
+        description:
+          "Strongly typed programming language that builds on JavaScript, adding static type definitions for better code quality and developer experience",
         icon: "simple-icons:typescript",
       },
       {
         name: "Vite",
-        description: "Build Tool",
+        description:
+          "Next-generation frontend build tool that provides lightning-fast HMR and optimized production builds using native ES modules",
         icon: "simple-icons:vite",
       },
       {
         name: "Bun",
-        description: "JavaScript Runtime",
+        description:
+          "Ultra-fast JavaScript runtime, bundler, and package manager all-in-one, built with Zig and designed for modern JavaScript development",
         icon: "simple-icons:bun",
       },
       {
         name: "Lit",
-        description: "Web Components",
+        description:
+          "Lightweight library for building fast, reusable web components using Web Components standards with a simple, expressive API",
         icon: "simple-icons:lit",
       },
       {
         name: "BEM",
-        description: "CSS Methodology",
+        description:
+          "CSS methodology that provides a naming convention for classes, making styles more maintainable and scalable in large projects",
         icon: "simple-icons:bem",
       },
       {
         name: "Hono",
-        description: "Minimalist Web Framework",
+        description:
+          "Ultrafast web framework for the Edge, providing a minimal API with excellent performance and TypeScript support out of the box",
         icon: "simple-icons:hono",
       },
       {
         name: "Supabase",
-        description: "Database",
+        description:
+          "Open-source Firebase alternative providing PostgreSQL database, authentication, real-time subscriptions, and storage with a great developer experience",
         icon: "simple-icons:supabase",
       },
       {
         name: "Drizzle",
-        description: "Database ORM",
+        description:
+          "Lightweight TypeScript ORM with a focus on performance and type safety, providing a SQL-like query builder and migrations",
         icon: "simple-icons:drizzle",
       },
       {
         name: "Cloudflare",
-        description: "Web Services",
+        description:
+          "Global cloud platform offering CDN, DDoS protection, DNS, security services, and edge computing with Workers for serverless functions",
         icon: "simple-icons:cloudflare",
       },
       {
         name: "Vercel",
-        description: "Web Services",
+        description:
+          "Platform for frontend frameworks providing zero-config deployments, edge functions, and automatic HTTPS with global CDN",
         icon: "simple-icons:vercel",
       },
       {
         name: "Vitest",
-        description: "Unit Testing Framework",
+        description:
+          "Blazing fast unit test framework powered by Vite, featuring native ESM support, HMR, and Jest-compatible API",
         icon: "simple-icons:vitest",
       },
       {
         name: "Cypress",
-        description: "End-to-End Testing Framework",
+        description:
+          "End-to-end testing framework that runs in the browser, providing real-time reloading, time-travel debugging, and automatic waiting",
         icon: "simple-icons:cypress",
       },
     ],
@@ -313,82 +365,98 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "Vue",
-        description: "JavaScript Framework",
+        description:
+          "Progressive JavaScript framework for building user interfaces with reactive data binding and component-based architecture",
         icon: "simple-icons:vuedotjs",
       },
       {
         name: "Nuxt",
-        description: "Full Stack Vue Framework",
+        description:
+          "Full-stack Vue framework providing SSR, SSG, and powerful features like auto-imports, file-based routing, and server API routes",
         icon: "simple-icons:nuxt",
       },
       {
         name: "React",
-        description: "JavaScript Framework",
+        description:
+          "Popular JavaScript library for building user interfaces using a component-based architecture with virtual DOM for efficient rendering",
         icon: "simple-icons:react",
       },
       {
         name: "Next",
-        description: "Full Stack React Framework",
+        description:
+          "Production-ready React framework with server-side rendering, static site generation, API routes, and optimized performance",
         icon: "simple-icons:nextdotjs",
       },
       {
         name: "TypeScript",
-        description: "JavaScript Superset",
+        description:
+          "Strongly typed programming language that builds on JavaScript, adding static type definitions for better code quality and developer experience",
         icon: "simple-icons:typescript",
       },
       {
         name: "Tailwind",
-        description: "CSS Framework",
+        description:
+          "Utility-first CSS framework that enables rapid UI development with low-level utility classes and customizable design system",
         icon: "simple-icons:tailwindcss",
       },
       {
         name: "Styled Components",
-        description: "CSS-in-JS Library",
+        description:
+          "CSS-in-JS library for React that enables component-scoped styling with JavaScript template literals and dynamic styling",
         icon: "simple-icons:styledcomponents",
       },
       {
         name: "BEM",
-        description: "CSS Methodology",
+        description:
+          "CSS methodology that provides a naming convention for classes, making styles more maintainable and scalable in large projects",
         icon: "simple-icons:bem",
       },
       {
         name: "SASS",
-        description: "CSS Preprocessor",
+        description:
+          "CSS preprocessor that extends CSS with variables, nesting, mixins, and functions for more maintainable and powerful stylesheets",
         icon: "simple-icons:sass",
       },
       {
         name: "Bun",
-        description: "JavaScript Runtime",
+        description:
+          "Ultra-fast JavaScript runtime, bundler, and package manager all-in-one, built with Zig and designed for modern JavaScript development",
         icon: "simple-icons:bun",
       },
       {
         name: "pnpm",
-        description: "Package Manager",
+        description:
+          "Fast, disk space efficient package manager that uses hard links and symlinks to save disk space and improve installation speed",
         icon: "simple-icons:pnpm",
       },
       {
         name: "Lit",
-        description: "Web Components",
+        description:
+          "Lightweight library for building fast, reusable web components using Web Components standards with a simple, expressive API",
         icon: "simple-icons:lit",
       },
       {
         name: "Vitest",
-        description: "Unit Testing Framework",
+        description:
+          "Blazing fast unit test framework powered by Vite, featuring native ESM support, HMR, and Jest-compatible API",
         icon: "simple-icons:vitest",
       },
       {
         name: "Jest",
-        description: "Unit Testing Framework",
+        description:
+          "Delightful JavaScript testing framework with a focus on simplicity, featuring snapshot testing and built-in code coverage",
         icon: "simple-icons:jest",
       },
       {
         name: "Cypress",
-        description: "End-to-End Testing Framework",
+        description:
+          "End-to-end testing framework that runs in the browser, providing real-time reloading, time-travel debugging, and automatic waiting",
         icon: "simple-icons:cypress",
       },
       {
         name: "Playwright",
-        description: "End-to-End Testing Framework",
+        description:
+          "Reliable end-to-end testing framework for modern web apps, supporting multiple browsers and providing powerful automation capabilities",
         icon: "simple-icons:playwright",
       },
     ],
@@ -399,37 +467,44 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "Hono",
-        description: "Minimalist Web Framework",
+        description:
+          "Ultrafast web framework for the Edge, providing a minimal API with excellent performance and TypeScript support out of the box",
         icon: "simple-icons:hono",
       },
       {
         name: "Node.js",
-        description: "JavaScript Runtime",
+        description:
+          "JavaScript runtime built on Chrome's V8 engine, enabling server-side JavaScript development with non-blocking I/O and event-driven architecture",
         icon: "simple-icons:nodedotjs",
       },
       {
         name: "Express",
-        description: "JavaScript Framework",
+        description:
+          "Minimal and flexible Node.js web application framework providing robust features for building APIs and web applications",
         icon: "simple-icons:express",
       },
       {
         name: "MongoDB",
-        description: "Database",
+        description:
+          "NoSQL document database that stores data in flexible JSON-like documents, ideal for scalable applications with dynamic schemas",
         icon: "simple-icons:mongodb",
       },
       {
         name: "PostgreSQL",
-        description: "Database",
+        description:
+          "Advanced open-source relational database with ACID compliance, extensibility, and support for complex queries and JSON data",
         icon: "simple-icons:postgresql",
       },
       {
         name: "MySQL",
-        description: "Database",
+        description:
+          "Popular open-source relational database management system known for reliability, performance, and ease of use in web applications",
         icon: "simple-icons:mysql",
       },
       {
         name: "Drizzle",
-        description: "Database ORM",
+        description:
+          "Lightweight TypeScript ORM with a focus on performance and type safety, providing a SQL-like query builder and migrations",
         icon: "simple-icons:drizzle",
       },
     ],
@@ -440,47 +515,56 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "Docker",
-        description: "Containerization",
+        description:
+          "Platform for containerization that packages applications and dependencies into lightweight containers for consistent deployment across environments",
         icon: "simple-icons:docker",
       },
       {
         name: "Nginx",
-        description: "Web Server",
+        description:
+          "High-performance web server and reverse proxy server known for its stability, rich feature set, and low resource consumption",
         icon: "simple-icons:nginx",
       },
       {
         name: "Vercel",
-        description: "Web Services",
+        description:
+          "Platform for frontend frameworks providing zero-config deployments, edge functions, and automatic HTTPS with global CDN",
         icon: "simple-icons:vercel",
       },
       {
         name: "Cloudflare",
-        description: "Web Services",
+        description:
+          "Global cloud platform offering CDN, DDoS protection, DNS, security services, and edge computing with Workers for serverless functions",
         icon: "simple-icons:cloudflare",
       },
       {
         name: "Linux",
-        description: "Operating System",
+        description:
+          "Open-source Unix-like operating system kernel powering servers, embedded systems, and cloud infrastructure worldwide",
         icon: "simple-icons:linux",
       },
       {
         name: "Git",
-        description: "Version Control System",
+        description:
+          "Distributed version control system for tracking changes in source code, enabling collaboration and maintaining project history",
         icon: "simple-icons:git",
       },
       {
         name: "GitHub",
-        description: "Version Control System",
+        description:
+          "Web-based platform for version control and collaboration using Git, providing code hosting, issue tracking, and project management",
         icon: "simple-icons:github",
       },
       {
         name: "GitHub Actions",
-        description: "CI/CD",
+        description:
+          "CI/CD platform integrated with GitHub, enabling automated workflows for building, testing, and deploying code directly from repositories",
         icon: "simple-icons:githubactions",
       },
       {
         name: "GitLab",
-        description: "Version Control System",
+        description:
+          "Complete DevOps platform providing Git repository management, CI/CD pipelines, issue tracking, and integrated project management tools",
         icon: "simple-icons:gitlab",
       },
     ],
@@ -491,27 +575,32 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "ChatGPT",
-        description: "Chatbot",
+        description:
+          "Advanced AI language model by OpenAI for natural language understanding, code generation, and intelligent conversation assistance",
         icon: "simple-icons:openai",
       },
       {
         name: "Claude",
-        description: "Chatbot",
+        description:
+          "AI assistant by Anthropic designed for helpful, harmless, and honest interactions with advanced reasoning and coding capabilities",
         icon: "simple-icons:claude",
       },
       {
         name: "Cursor",
-        description: "Code Editor",
+        description:
+          "AI-powered code editor that understands context and provides intelligent code completion, refactoring, and documentation generation",
         icon: "lucide:brain",
       },
       {
         name: "v0",
-        description: "Code Editor",
+        description:
+          "AI-powered UI component generator by Vercel that creates React components from text descriptions using advanced language models",
         icon: "simple-icons:v0",
       },
       {
         name: "GitHub Copilot",
-        description: "Code Assistant",
+        description:
+          "AI pair programmer that suggests code completions, functions, and entire code blocks based on context and comments",
         icon: "simple-icons:github",
       },
     ],
@@ -522,17 +611,20 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "Figma",
-        description: "UI Design Tool",
+        description:
+          "Collaborative browser-based design tool for creating user interfaces, prototypes, and design systems with real-time collaboration",
         icon: "simple-icons:figma",
       },
       {
         name: "Adobe XD",
-        description: "UI Design Tool",
+        description:
+          "Vector-based design tool for creating user experiences, wireframes, and interactive prototypes with seamless design-to-code workflow",
         icon: "simple-icons:adobexd",
       },
       {
         name: "Canva",
-        description: "UI Design Tool",
+        description:
+          "Online graphic design platform with drag-and-drop interface for creating social media graphics, presentations, and marketing materials",
         icon: "simple-icons:canva",
       },
     ],
@@ -543,17 +635,20 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "Turkish",
-        description: "Native",
+        description:
+          "Native speaker with full professional proficiency in reading, writing, and speaking",
         icon: "circle-flags:tr",
       },
       {
         name: "English",
-        description: "Upper Intermediate",
+        description:
+          "Upper intermediate level with strong technical communication skills for professional software development",
         icon: "circle-flags:us",
       },
       {
         name: "German",
-        description: "Elementary",
+        description:
+          "Elementary level with basic conversational and reading comprehension skills",
         icon: "circle-flags:de",
       },
     ],

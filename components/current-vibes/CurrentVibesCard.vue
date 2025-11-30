@@ -11,8 +11,8 @@ import {
   MicVocalIcon,
 } from "lucide-vue-next";
 import { AppleBlurImage } from "~/components/ui/apple-card-carousel";
-import type { CardData } from "~/composables/current-vibes/current-vibes-data";
 import type { CardMetadata } from "~/composables/current-vibes/cards-metadata";
+import type { CardData } from "~/composables/current-vibes/current-vibes-data";
 
 interface Props {
   card: CardData;
@@ -111,19 +111,13 @@ const props = defineProps<Props>();
         <template v-if="card.type === 'game'">
           <div v-if="metadata.progress" class="flex items-center gap-2">
             <ClockIcon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.progress }} hours</span>
           </div>
           <div v-if="metadata.platform" class="flex items-center gap-2">
             <Gamepad2Icon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.platform }}</span>
           </div>
@@ -142,19 +136,13 @@ const props = defineProps<Props>();
         <template v-if="card.type === 'music'">
           <div v-if="metadata.artist" class="flex items-center gap-2">
             <MicVocalIcon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.artist }}</span>
           </div>
           <div v-if="metadata.album" class="flex items-center gap-2">
             <Disc3Icon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.album }}</span>
           </div>
@@ -164,19 +152,13 @@ const props = defineProps<Props>();
         <template v-if="card.type === 'blog'">
           <div v-if="metadata.publishedDate" class="flex items-center gap-2">
             <CalendarIcon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.publishedDate }}</span>
           </div>
           <div v-if="metadata.readTime" class="flex items-center gap-2">
             <BookOpenIcon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.readTime }} min read</span>
           </div>
@@ -195,32 +177,18 @@ const props = defineProps<Props>();
         <template v-if="card.type === 'map'">
           <div class="flex items-center gap-2">
             <MapPinIcon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.cities }} Cities</span>
-            <span
-              :class="[
-                isLight ? 'text-gray-600' : 'text-white/60',
-              ]"
-            >
+            <span :class="[isLight ? 'text-gray-600' : 'text-white/60']">
               •
             </span>
             <span>{{ metadata.countries }} Countries</span>
-            <span
-              :class="[
-                isLight ? 'text-gray-600' : 'text-white/60',
-              ]"
-            >
+            <span :class="[isLight ? 'text-gray-600' : 'text-white/60']">
               •
             </span>
             <GlobeIcon
-              :class="[
-                'h-4 w-4',
-                isLight ? 'text-gray-700' : 'text-white/90',
-              ]"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.completionPercentage }}%</span>
           </div>
@@ -229,4 +197,3 @@ const props = defineProps<Props>();
     </div>
   </div>
 </template>
-

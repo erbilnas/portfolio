@@ -1,7 +1,9 @@
 <template>
-  <header class="sticky top-0 z-50 w-full h-1">
+  <header v-if="!isIPhone" class="sticky top-0 z-50 w-full h-1">
     <Progress :model-value="scrollProgress" />
   </header>
+
+  <ScrollIsland v-if="isIPhone" title="Scroll to see more" />
 
   <main>
     <SpeedInsights />
@@ -22,12 +24,13 @@
 </template>
 
 <script setup lang="ts">
+import { ScrollIsland } from "@/components/ui/scroll-island";
 import { SpeedInsights } from "@vercel/speed-insights/vue";
-import { useThrottleFn } from "@vueuse/core";
 
 const scrollProgress = ref(0);
 const lastScrollPosition = ref(0);
 const isNavbarHidden = ref(false);
+const isIPhone = ref(false);
 
 const SCROLL_THRESHOLD = 50;
 const SCROLL_DELAY = 50;
@@ -69,10 +72,40 @@ const handleScroll = () => {
   lastScrollPosition.value = currentScrollPosition;
 };
 
+// Simple throttle implementation to avoid VueUse import on server
+const throttle = <T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number
+): T => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  let lastExecTime = 0;
+  return ((...args: Parameters<T>) => {
+    const currentTime = Date.now();
+
+    if (currentTime - lastExecTime > delay) {
+      fn(...args);
+      lastExecTime = currentTime;
+    } else {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn(...args);
+        lastExecTime = Date.now();
+      }, delay - (currentTime - lastExecTime));
+    }
+  }) as T;
+};
+
 // Throttle the scroll handler for better performance
-const throttledScrollHandler = useThrottleFn(handleScroll, SCROLL_DELAY);
+const throttledScrollHandler = throttle(handleScroll, SCROLL_DELAY);
 
 onMounted(() => {
+  // Detect iPhone devices
+  if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+    const userAgent =
+      navigator.userAgent || navigator.vendor || (window as any).opera;
+    isIPhone.value = /iPhone/i.test(userAgent);
+  }
+
   window.addEventListener("scroll", throttledScrollHandler);
   handleScroll(); // Initial call
 
