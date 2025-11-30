@@ -101,11 +101,6 @@ export default defineNuxtConfig({
   nitro: {
     logLevel: "verbose",
     sourceMap: true,
-    esbuild: {
-      options: {
-        drop: ["console", "debugger"],
-      },
-    },
   },
   compatibilityDate: "2025-01-02",
   shadcn: {
@@ -118,6 +113,7 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
+      sourcemap: true,
       rollupOptions: {
         output: {
           manualChunks: (id) => {
@@ -172,9 +168,6 @@ export default defineNuxtConfig({
         },
       },
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
-    },
-    esbuild: {
-      drop: ["console", "debugger"],
     },
     logLevel: "info",
   },
