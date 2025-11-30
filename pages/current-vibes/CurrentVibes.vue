@@ -19,8 +19,7 @@ import {
 const sectionRef = ref<HTMLElement | null>(null);
 
 // Setup observer
-const { observeSectionChange } = useObserver("Current Vibes", sectionRef);
-observeSectionChange();
+useObserver("Current Vibes", sectionRef);
 
 // Data fetching
 const { cards } = useCurrentVibesData();

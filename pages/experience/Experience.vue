@@ -15,8 +15,7 @@ import type { ExperienceTab } from "~/types/experience";
 
 const sectionRef = ref<HTMLElement | null>(null);
 
-const { observeSectionChange } = useObserver("Experience", sectionRef);
-observeSectionChange();
+useObserver("Experience", sectionRef);
 
 const tabs: ExperienceTab[] = ["Work Experience", "Education"];
 const activeTab = ref<ExperienceTab>("Work Experience");

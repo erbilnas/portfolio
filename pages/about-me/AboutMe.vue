@@ -14,9 +14,7 @@ const text = computed(() => {
   return `I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm ${age} years old, born and raised in Turkey.`;
 });
 
-const { observeSectionChange } = useObserver("About Me", sectionRef);
-
-observeSectionChange();
+useObserver("About Me", sectionRef);
 </script>
 
 <template>

@@ -11,9 +11,7 @@ const sectionRef = ref<HTMLElement | null>(null);
 
 const words = computed(() => appConfig.flippingWords.split(","));
 
-const { observeSectionChange } = useObserver("Welcome", sectionRef);
-
-observeSectionChange();
+useObserver("Welcome", sectionRef);
 </script>
 
 <template>

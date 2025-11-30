@@ -6,8 +6,7 @@ import { projectsList } from "~/constants/projects";
 const sectionRef = ref<HTMLElement | null>(null);
 
 // Setup observer
-const { observeSectionChange } = useObserver("Projects", sectionRef);
-observeSectionChange();
+useObserver("Projects", sectionRef);
 </script>
 
 <template>

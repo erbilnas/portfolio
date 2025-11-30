@@ -12,8 +12,7 @@ const carouselComponentRef = ref<InstanceType<typeof SkillsCarousel> | null>(
   null
 );
 
-const { observeSectionChange } = useObserver("Skills", sectionRef);
-observeSectionChange();
+useObserver("Skills", sectionRef);
 
 const activeTab = ref("Favorites");
 
