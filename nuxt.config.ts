@@ -98,6 +98,10 @@ export default defineNuxtConfig({
     enabled: true,
   },
   logLevel: "verbose",
+  sourcemap: {
+    server: true,
+    client: true,
+  },
   nitro: {
     logLevel: "verbose",
     sourceMap: true,
