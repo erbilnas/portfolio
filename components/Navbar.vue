@@ -2,11 +2,13 @@
 import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
 import { useConfetti } from "@/composables/confetti";
 import { useSettings } from "@/composables/settings";
+import { useMediaQuery } from "@/composables/use-media-query-client";
 
 type sections =
   | "welcome"
   | "about-me"
   | "skills"
+  | "experience"
   | "projects"
   | "current-vibes";
 
@@ -21,6 +23,11 @@ const { fireConfetti } = useConfetti();
 const hasTriggeredConfetti = ref(false);
 const { cursorDisabled, toggleCursor, theme, setTheme } = useSettings();
 const settingsDialogOpen = ref(false);
+
+// Mobile detection - show navbar only on scroll up
+const isMobile = useMediaQuery("(max-width: 768px)");
+const navbarVisible = ref(true);
+const lastScrollY = ref(0);
 
 // Mouse tracking for DockIcon components
 const mouseX = ref(Infinity);
@@ -62,6 +69,13 @@ const navigationItems = computed<NavigationItem[]>(() => [
     ),
     label: "Skills",
     action: () => scrollToSection("skills"),
+  },
+  {
+    icon: defineAsyncComponent(() =>
+      import("lucide-vue-next").then((m) => m.BriefcaseIcon)
+    ),
+    label: "Experience",
+    action: () => scrollToSection("experience"),
   },
   {
     icon: defineAsyncComponent(() =>
@@ -123,15 +137,39 @@ const checkScrollPosition = () => {
   }
 };
 
+const handleScrollDirection = () => {
+  // Only apply scroll-based visibility on mobile
+  if (!isMobile.value) {
+    navbarVisible.value = true;
+    return;
+  }
+
+  const currentScrollY =
+    window.pageYOffset || document.documentElement.scrollTop;
+
+  // Show navbar when scrolling up, hide when scrolling down
+  // Also show at the top of the page
+  if (currentScrollY < lastScrollY.value || currentScrollY < 10) {
+    navbarVisible.value = true;
+  } else if (currentScrollY > lastScrollY.value) {
+    navbarVisible.value = false;
+  }
+
+  lastScrollY.value = currentScrollY;
+};
+
 let handleScroll: (() => void) | null = null;
 
 onMounted(() => {
+  lastScrollY.value = window.pageYOffset || document.documentElement.scrollTop;
+
   // Use requestAnimationFrame for smoother performance
   let ticking = false;
   handleScroll = () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         checkScrollPosition();
+        handleScrollDirection();
         ticking = false;
       });
       ticking = true;
@@ -149,39 +187,49 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <LiquidGlass
-    :radius="20"
-    container-class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
-    class="flex h-max w-max items-center rounded-3xl p-3 transition-all gap-3 backdrop-blur-xl bg-white/80 dark:bg-black/80 border border-gray-200/50 dark:border-gray-800/50"
-    @mousemove="onMouseMove"
-    @mouseleave="onMouseLeave"
+  <Transition
+    enter-active-class="transition-all duration-300 ease-out"
+    leave-active-class="transition-all duration-300 ease-in"
+    enter-from-class="translate-y-[calc(100%+2rem)] opacity-0"
+    enter-to-class="translate-y-0 opacity-100"
+    leave-from-class="translate-y-0 opacity-100"
+    leave-to-class="translate-y-[calc(100%+2rem)] opacity-0"
   >
-    <TooltipProvider>
-      <Tooltip
-        v-for="{ label, action, icon, badge } in navigationItems"
-        :key="label"
-      >
-        <TooltipTrigger>
-          <DockIcon @click="action">
-            <div class="relative">
-              <component :is="icon" class="size-6" />
+    <LiquidGlass
+      v-if="!isMobile || navbarVisible"
+      :radius="20"
+      container-class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
+      class="flex h-max w-max items-center rounded-3xl p-3 transition-all gap-3 backdrop-blur-xl bg-white/80 dark:bg-black/80 border border-gray-200/50 dark:border-gray-800/50"
+      @mousemove="onMouseMove"
+      @mouseleave="onMouseLeave"
+    >
+      <TooltipProvider>
+        <Tooltip
+          v-for="{ label, action, icon, badge } in navigationItems"
+          :key="label"
+        >
+          <TooltipTrigger>
+            <DockIcon @click="action">
+              <div class="relative">
+                <component :is="icon" class="size-6" />
 
-              <span
-                v-if="badge"
-                class="absolute -top-1 -right-1 flex h-2 min-w-2 rounded-full bg-primary animate-pulse"
-              />
+                <span
+                  v-if="badge"
+                  class="absolute -top-1 -right-1 flex h-2 min-w-2 rounded-full bg-primary animate-pulse"
+                />
+              </div>
+            </DockIcon>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <div class="flex items-center gap-2">
+              <p>{{ label }}</p>
             </div>
-          </DockIcon>
-        </TooltipTrigger>
-
-        <TooltipContent>
-          <div class="flex items-center gap-2">
-            <p>{{ label }}</p>
-          </div>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  </LiquidGlass>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </LiquidGlass>
+  </Transition>
 
   <Dialog v-model:open="settingsDialogOpen">
     <DialogContent class="sm:max-w-md">
