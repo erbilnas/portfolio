@@ -97,17 +97,9 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  logLevel: process.env.NUXT_PREVIEW
-    ? "verbose"
-    : process.env.NODE_ENV === "production"
-    ? "silent"
-    : "info",
+  logLevel: "verbose",
   nitro: {
-    logLevel: process.env.NUXT_PREVIEW
-      ? "verbose"
-      : process.env.NODE_ENV === "production"
-      ? "silent"
-      : "info",
+    logLevel: "verbose",
   },
   compatibilityDate: "2025-01-02",
   shadcn: {
