@@ -81,7 +81,9 @@ const truncateDescription = (
 };
 
 export const useCardsMetadata = () => {
-  const appConfig = useAppConfig();
+  // Lazy get appConfig to avoid $r initialization errors
+  // useAppConfig is safe, but deferring access ensures Vue is ready
+  const getAppConfig = () => useAppConfig();
 
   /**
    * Get metadata for a card based on its type
@@ -90,6 +92,7 @@ export const useCardsMetadata = () => {
     card: CardData,
     index: number
   ): CardMetadata => {
+    const appConfig = getAppConfig();
     switch (card.type) {
       case "game": {
         const game = card.data as SingleGameDetail;

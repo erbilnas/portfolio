@@ -1,8 +1,8 @@
 import type { Ref } from "vue";
-import { ref, watch, onMounted, nextTick } from "vue";
+import { nextTick, onMounted, ref, watch } from "vue";
+import { useImageContrast } from "~/composables/image-contrast";
 import type { CardMetadata } from "./cards-metadata";
 import type { CardData } from "./current-vibes-data";
-import { useImageContrast } from "~/composables/image-contrast";
 
 export interface ContrastResult {
   isLight: boolean;
@@ -14,8 +14,16 @@ export const useCardsContrast = (
   getCardMetadata: (card: CardData, index: number) => CardMetadata
 ) => {
   const cardContrast = ref<Map<number, ContrastResult>>(new Map());
-  // Initialize composable at top level (safe even on SSR)
-  const { getContrastColor } = useImageContrast();
+  // Defer initialization of useImageContrast to avoid $r initialization errors
+  // Initialize only when needed, after Vue reactivity is ready
+  let imageContrastComposable: ReturnType<typeof useImageContrast> | null =
+    null;
+  const getImageContrast = () => {
+    if (!imageContrastComposable) {
+      imageContrastComposable = useImageContrast();
+    }
+    return imageContrastComposable;
+  };
   let isClientReady = false;
 
   // Mark as ready after mount to ensure DOM APIs are available
@@ -31,12 +39,13 @@ export const useCardsContrast = (
     if (!isClientReady || process.server || typeof window === "undefined") {
       return;
     }
-    
+
     for (let i = 0; i < cards.value.length; i++) {
       const card = cards.value[i];
       const metadata = getCardMetadata(card, i);
       if (metadata.src) {
         try {
+          const { getContrastColor } = getImageContrast();
           const contrast = await getContrastColor(metadata.src);
           cardContrast.value.set(i, {
             isLight: contrast.isLight,
