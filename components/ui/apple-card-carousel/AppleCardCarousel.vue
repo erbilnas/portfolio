@@ -46,6 +46,7 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
 import { computed, onMounted, provide, ref, watch } from "vue";
+import { useMediaQuery } from "~/composables/use-media-query-client";
 import { CarouselKey } from "./AppleCarouselContext";
 
 interface Props {
@@ -62,6 +63,7 @@ const carouselRef = ref<HTMLDivElement | null>(null);
 const canScrollLeft = ref(false);
 const canScrollRight = ref(true);
 const currentIndex = ref(0);
+const isMobile = useMediaQuery("(max-width: 768px)");
 
 onMounted(() => {
   if (carouselRef.value) {
@@ -124,10 +126,6 @@ function handleCardClose(index: number) {
     currentIndex.value = index;
   }
 }
-
-const isMobile = computed(() => {
-  return window && window.innerWidth < 768;
-});
 
 provide(CarouselKey, {
   onCardClose: handleCardClose,

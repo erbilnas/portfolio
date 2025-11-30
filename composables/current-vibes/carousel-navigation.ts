@@ -14,7 +14,7 @@ export const useCarouselNavigation = (
   const updateCurrentIndex = () => {
     if (carouselRef.value?.carouselRef) {
       const scrollLeft = carouselRef.value.carouselRef.scrollLeft;
-      const isMobile = window.innerWidth < 768;
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
       if (isMobile) {
         // On mobile, each card is viewport width

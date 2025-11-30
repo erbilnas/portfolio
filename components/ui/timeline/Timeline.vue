@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import { Motion, useScroll, useTransform } from "motion-v";
-import { unref } from "vue";
+import { unref, shallowRef } from "vue";
 import type { HTMLAttributes } from "vue";
 
 interface Props {
@@ -85,18 +85,14 @@ const timelineRef = ref<HTMLElement | null>(null);
 const height = ref(0);
 const isReady = ref(false);
 
-// Initialize scroll tracking - useScroll handles null refs gracefully
-const { scrollYProgress } = useScroll({
-  target: timelineRef,
-  offset: ["start 10%", "end 50%"],
-});
-
-const opacityTransformRef = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+// Use shallowRef to store composable results and defer initialization
+const scrollYProgress = shallowRef<ReturnType<typeof useScroll>['scrollYProgress'] | null>(null);
+const opacityTransformRef = shallowRef<ReturnType<typeof useTransform> | null>(null);
 
 const opacityTransform = computed(() => {
-  if (!isReady.value) return 0;
+  if (!isReady.value || !opacityTransformRef.value) return 0;
   try {
-    return unref(opacityTransformRef);
+    return unref(opacityTransformRef.value);
   } catch (e) {
     return 0;
   }
@@ -104,10 +100,10 @@ const opacityTransform = computed(() => {
 
 const heightTransform = computed(() => {
   // Guard against accessing before initialization
-  if (!isReady.value || height.value === 0) return 0;
+  if (!isReady.value || height.value === 0 || !scrollYProgress.value) return 0;
   try {
     // Use unref to safely access the value
-    const progress = unref(scrollYProgress);
+    const progress = unref(scrollYProgress.value);
     if (typeof progress !== 'number' || isNaN(progress)) return 0;
     // Map progress from [0, 1] to [0, height.value]
     return progress * height.value;
@@ -119,11 +115,32 @@ const heightTransform = computed(() => {
 
 onMounted(async () => {
   await nextTick();
-  if (timelineRef.value) {
+  if (!timelineRef.value) return;
+  
+  // Initialize motion-v composables after mount to ensure refs are available
+  // This prevents the $r initialization error by deferring reactive setup
+  try {
+    const scrollResult = useScroll({
+      target: timelineRef,
+      offset: ["start 10%", "end 50%"],
+    });
+    
+    // Store references to the reactive values
+    scrollYProgress.value = scrollResult.scrollYProgress;
+    
+    // Initialize transform after scroll is set up
+    opacityTransformRef.value = useTransform(scrollResult.scrollYProgress, [0, 0.1], [0, 1]);
+    
+    // Calculate height
     const rect = timelineRef.value.getBoundingClientRect();
     height.value = rect.height;
-    // Set ready flag after a small delay to ensure reactivity is initialized
+    
+    // Set ready flag after everything is initialized
     await nextTick();
+    isReady.value = true;
+  } catch (e) {
+    console.error('Error initializing timeline scroll:', e);
+    // Set ready anyway to prevent UI blocking
     isReady.value = true;
   }
 });
