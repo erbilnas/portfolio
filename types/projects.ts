@@ -4,4 +4,5 @@ export interface Project {
   tech: string[];
   features: string[];
   github?: string;
+  visit?: string;
 }
