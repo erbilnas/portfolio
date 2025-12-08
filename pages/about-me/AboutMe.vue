@@ -12,15 +12,16 @@ const sectionRef: Ref<HTMLElement | null> = ref(null);
 const { data: lifetimeStats } = useFetch<LifetimeStats>("/api/lifetime-stats");
 const age = computed(() => lifetimeStats.value?.age ?? 0);
 
+const { t } = useI18n();
 const text = computed(() => {
-  return `I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm ${age.value} years old, born and raised in Turkey.`;
+  return t('aboutMe.description', { age: age.value });
 });
 
 useObserver("About Me", sectionRef);
 </script>
 
 <template>
-  <section id="about-me" ref="sectionRef">
+  <section id="about-me" ref="sectionRef" class="relative">
     <div
       class="bg-white dark:bg-black flex min-h-screen items-center justify-center px-6 py-32"
     >

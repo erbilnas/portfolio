@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
+import { useI18n } from "#imports";
 import { DockIcon } from "@/components/ui/dock";
+import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { MusicIcon } from "lucide-vue-next";
+import type { MusicPlayer } from "~/types/current-vibes";
 import type { NavigationItem } from "./navbar.types";
 
 interface Props {
@@ -14,6 +17,19 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const { t } = useI18n();
+
+// Fetch music data for tooltip
+const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+
+// Format music info for display
+const musicInfo = computed(() => {
+  const player = musicData.value?.player;
+  // Check if music is playing by checking if player data exists
+  if (!player?.name || !player?.artist) return null;
+  return `${player.name} - ${player.artist}`;
+});
 
 // Mouse tracking for DockIcon components
 const mouseX = ref(Infinity);
@@ -53,7 +69,7 @@ provide("distance", distance);
     >
       <TooltipProvider>
         <Tooltip
-          v-for="{ label, action, icon, badge } in navigationItems"
+          v-for="{ label, action, icon, badge, id } in navigationItems"
           :key="label"
         >
           <TooltipTrigger>
@@ -63,15 +79,25 @@ provide("distance", distance);
 
                 <span
                   v-if="badge"
-                  class="absolute -top-1 -right-1 flex h-2 min-w-2 rounded-full bg-primary animate-pulse"
+                  class="absolute -top-0.5 -right-0.5 flex h-3 w-3 rounded-full bg-primary border-2 border-background animate-pulse shadow-lg"
                 />
               </div>
             </DockIcon>
           </TooltipTrigger>
 
           <TooltipContent>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-col gap-1">
               <p>{{ label }}</p>
+              <p v-if="id === 'settings'" class="text-xs text-muted-foreground">
+                {{ t("nav.multipleLanguagesSupported") }}
+              </p>
+              <div
+                v-if="id === 'current-vibes' && musicInfo"
+                class="flex items-center gap-1.5 text-xs text-muted-foreground"
+              >
+                <MusicIcon class="h-3 w-3" />
+                <span>{{ musicInfo }}</span>
+              </div>
             </div>
           </TooltipContent>
         </Tooltip>
@@ -79,4 +105,3 @@ provide("distance", distance);
     </LiquidGlass>
   </Transition>
 </template>
-

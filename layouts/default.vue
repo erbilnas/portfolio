@@ -3,7 +3,10 @@
     <Progress :model-value="scrollProgress" />
   </header>
 
-  <ScrollIsland v-if="isMobile" title="Scroll to see more" />
+  <ScrollIsland
+    v-if="isMobile && showScrollIsland"
+    :title="$t('common.scrollToSeeMore')"
+  />
 
   <main>
     <SpeedInsights />
@@ -31,9 +34,11 @@ const scrollProgress = ref(0);
 const lastScrollPosition = ref(0);
 const isNavbarHidden = ref(false);
 const isMobile = ref(false);
+const showScrollIsland = ref(true);
 
 const SCROLL_THRESHOLD = 50;
 const SCROLL_DELAY = 50;
+const SCROLL_ISLAND_HIDE_DELAY = 1500; // 1.5 seconds
 
 const handleScroll = () => {
   if (typeof window === "undefined" || typeof document === "undefined") return;
@@ -100,6 +105,39 @@ const throttle = <T extends (...args: any[]) => any>(
 // Throttle the scroll handler for better performance
 const throttledScrollHandler = throttle(handleScroll, SCROLL_DELAY);
 
+let scrollIslandTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
+const resetScrollIslandTimer = () => {
+  // Show the scroll island when scrolling
+  if (!showScrollIsland.value) {
+    showScrollIsland.value = true;
+  }
+
+  // Clear existing timeout
+  if (scrollIslandTimeoutId) {
+    clearTimeout(scrollIslandTimeoutId);
+  }
+
+  // Set new timeout to hide after 3 seconds of inactivity
+  scrollIslandTimeoutId = setTimeout(() => {
+    showScrollIsland.value = false;
+    scrollIslandTimeoutId = null;
+  }, SCROLL_ISLAND_HIDE_DELAY);
+};
+
+const handleScrollWithIsland = () => {
+  handleScroll();
+  if (isMobile.value) {
+    resetScrollIslandTimer();
+  }
+};
+
+// Throttle the combined scroll handler
+const throttledScrollHandlerWithIsland = throttle(
+  handleScrollWithIsland,
+  SCROLL_DELAY
+);
+
 onMounted(() => {
   // Only run on client side
   if (typeof window === "undefined" || typeof document === "undefined") return;
@@ -116,12 +154,20 @@ onMounted(() => {
       (window.innerWidth <= 768 && "ontouchstart" in window);
   }
 
-  window.addEventListener("scroll", throttledScrollHandler);
-  handleScroll(); // Initial call
+  window.addEventListener("scroll", throttledScrollHandlerWithIsland);
+  handleScrollWithIsland(); // Initial call
+
+  // Start the timer to hide scroll island after 3 seconds
+  if (isMobile.value) {
+    resetScrollIslandTimer();
+  }
 
   onUnmounted(() => {
     if (typeof window !== "undefined") {
-      window.removeEventListener("scroll", throttledScrollHandler);
+      window.removeEventListener("scroll", throttledScrollHandlerWithIsland);
+    }
+    if (scrollIslandTimeoutId) {
+      clearTimeout(scrollIslandTimeoutId);
     }
   });
 });

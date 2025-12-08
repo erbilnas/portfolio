@@ -2,6 +2,8 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { onMounted, ref } from "vue";
 
+const { t } = useI18n();
+
 const AD_DETECTION_DELAY = 100;
 const AD_BLOCKER_CHECK_DELAY = 1000;
 
@@ -68,7 +70,11 @@ const isScriptBlocked = (script: HTMLScriptElement | null): boolean => {
 
 const detectAdBlocker = async () => {
   // Guard against SSR
-  if (process.server || typeof document === "undefined" || typeof window === "undefined") {
+  if (
+    process.server ||
+    typeof document === "undefined" ||
+    typeof window === "undefined"
+  ) {
     return;
   }
 
@@ -77,8 +83,16 @@ const detectAdBlocker = async () => {
 
   try {
     // Create test elements
-    testElements.push(...AD_TEST_CLASSES.map(createTestElement).filter((el): el is HTMLElement => el !== null));
-    testScripts.push(...AD_TEST_SCRIPTS.map(createTestScript).filter((el): el is HTMLScriptElement => el !== null));
+    testElements.push(
+      ...AD_TEST_CLASSES.map(createTestElement).filter(
+        (el): el is HTMLElement => el !== null
+      )
+    );
+    testScripts.push(
+      ...AD_TEST_SCRIPTS.map(createTestScript).filter(
+        (el): el is HTMLScriptElement => el !== null
+      )
+    );
 
     // Wait for ad blockers to react
     await new Promise((resolve) => setTimeout(resolve, AD_BLOCKER_CHECK_DELAY));
@@ -107,12 +121,9 @@ onMounted(() => {
   <Dialog v-model:open="isDialogOpen">
     <DialogContent class="sm:max-w-md">
       <div class="flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">AdBlocker Detected</h2>
+        <h2 class="text-lg font-semibold">{{ t("adBlockWarning.title") }}</h2>
         <p class="text-sm text-gray-500">
-          It looks like you're using an ad blocker (such as AdGuard or uBlock
-          Origin). While I respect your choice, please note that ad blockers
-          might break some functionality on this site. Consider disabling it for
-          the best experience.
+          {{ t("adBlockWarning.description") }}
         </p>
       </div>
     </DialogContent>

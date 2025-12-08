@@ -1,5 +1,5 @@
 <template>
-  <div ref="timelineContainerRef" class="w-full font-sans md:px-10">
+  <div ref="timelineContainerRef" class="relative w-full font-sans md:px-10">
     <div
       v-if="title || description"
       class="mx-auto max-w-7xl px-4 py-20 lg:px-10 md:px-8"

@@ -22,9 +22,31 @@ const emit = defineEmits<{
   "update:open": [value: boolean];
 }>();
 
+const { t } = useI18n();
+const { locale, currentLocale, availableLocales, switchLocale } =
+  useI18nLocale();
+const isSwitchingLocale = ref(false);
+
 const isOpen = computed({
   get: () => props.open,
   set: (value) => emit("update:open", value),
+});
+
+const handleLocaleChange = async (newLocale: string) => {
+  if (newLocale === locale.value) return;
+
+  isSwitchingLocale.value = true;
+  try {
+    await switchLocale(newLocale as any);
+  } finally {
+    isSwitchingLocale.value = false;
+  }
+};
+
+const allLocales = computed(() => {
+  const current = currentLocale.value;
+  const others = availableLocales.value;
+  return current ? [current, ...others] : others;
 });
 </script>
 
@@ -32,16 +54,18 @@ const isOpen = computed({
   <Dialog v-model:open="isOpen">
     <DialogContent class="sm:max-w-md">
       <DialogHeader>
-        <DialogTitle>Settings</DialogTitle>
+        <DialogTitle>{{ t("settings.title") }}</DialogTitle>
       </DialogHeader>
 
       <div class="flex flex-col gap-6 py-4">
         <!-- Custom Cursor Toggle -->
         <div class="flex items-center justify-between">
           <div class="flex flex-col gap-1">
-            <label class="text-sm font-medium">Disable Custom Cursor</label>
+            <label class="text-sm font-medium">{{
+              t("settings.disableCustomCursor")
+            }}</label>
             <p class="text-xs text-muted-foreground">
-              Disable the custom cursor for better accessibility
+              {{ t("settings.disableCustomCursorDescription") }}
             </p>
           </div>
           <button
@@ -64,7 +88,7 @@ const isOpen = computed({
 
         <!-- Theme Selection -->
         <div class="flex flex-col gap-2">
-          <label class="text-sm font-medium">Theme</label>
+          <label class="text-sm font-medium">{{ t("settings.theme") }}</label>
           <div class="flex gap-2">
             <button
               @click="onSetLightTheme"
@@ -75,7 +99,7 @@ const isOpen = computed({
                   : 'border-border hover:bg-accent',
               ]"
             >
-              Light
+              {{ t("settings.light") }}
             </button>
             <button
               @click="onSetDarkTheme"
@@ -86,7 +110,7 @@ const isOpen = computed({
                   : 'border-border hover:bg-accent',
               ]"
             >
-              Dark
+              {{ t("settings.dark") }}
             </button>
             <button
               @click="onSetSystemTheme"
@@ -97,12 +121,45 @@ const isOpen = computed({
                   : 'border-border hover:bg-accent',
               ]"
             >
-              System
+              {{ t("settings.system") }}
             </button>
           </div>
+        </div>
+
+        <!-- Language Selection -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <label class="text-sm font-medium">{{
+              t("settings.language")
+            }}</label>
+            <span
+              class="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+            >
+              Beta
+            </span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="loc in allLocales"
+              :key="loc.code"
+              @click="handleLocaleChange(loc.code)"
+              :disabled="isSwitchingLocale"
+              :class="[
+                'rounded-md border px-4 py-2 text-sm transition-colors',
+                locale === loc.code
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-border hover:bg-accent',
+                isSwitchingLocale ? 'opacity-50 cursor-not-allowed' : '',
+              ]"
+            >
+              {{ loc.name }}
+            </button>
+          </div>
+          <p v-if="isSwitchingLocale" class="text-xs text-muted-foreground">
+            {{ t("common.loading") }}
+          </p>
         </div>
       </div>
     </DialogContent>
   </Dialog>
 </template>
-

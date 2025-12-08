@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from "#imports";
 import {
   BookOpenIcon,
   CalendarIcon,
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -57,7 +59,9 @@ const props = defineProps<Props>();
       @click.stop
     >
       <ExternalLinkIcon class="h-5 w-5" />
-      <span class="text-sm font-medium whitespace-nowrap">Visit</span>
+      <span class="text-sm font-medium whitespace-nowrap">{{
+        t("currentVibes.cards.visit")
+      }}</span>
     </a>
 
     <!-- Top gradient overlay -->
@@ -114,7 +118,9 @@ const props = defineProps<Props>();
             <ClockIcon
               :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
-            <span>{{ metadata.progress }} hours</span>
+            <span
+              >{{ metadata.progress }} {{ t("currentVibes.cards.hours") }}</span
+            >
           </div>
           <div v-if="metadata.platform" class="flex items-center gap-2">
             <Gamepad2Icon
@@ -161,7 +167,10 @@ const props = defineProps<Props>();
             <BookOpenIcon
               :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
-            <span>{{ metadata.readTime }} min read</span>
+            <span
+              >{{ metadata.readTime }}
+              {{ t("currentVibes.cards.minRead") }}</span
+            >
           </div>
           <div
             v-if="metadata.description"
@@ -180,14 +189,19 @@ const props = defineProps<Props>();
             <MapPinIcon
               :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
-            <span>{{ metadata.cities }} Cities</span>
+            <span
+              >{{ metadata.cities }} {{ t("currentVibes.cards.cities") }}</span
+            >
             <span :class="[isLight ? 'text-gray-600' : 'text-white/60']">
               •
             </span>
             <FlagIcon
               :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
-            <span>{{ metadata.countries }} Countries</span>
+            <span
+              >{{ metadata.countries }}
+              {{ t("currentVibes.cards.countries") }}</span
+            >
             <span :class="[isLight ? 'text-gray-600' : 'text-white/60']">
               •
             </span>

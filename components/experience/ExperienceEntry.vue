@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { useCalculateYears } from "~/composables/experience/duration-calculation";
 import type { WorkExperience } from "~/types/experience";
-import { calculateYears } from "~/composables/experience";
 
 interface Props {
   experience: WorkExperience;
 }
 
 defineProps<Props>();
+
+const calculateYears = useCalculateYears();
 </script>
 
 <template>
@@ -29,9 +31,7 @@ defineProps<Props>();
       >
         <span>{{ experience.location }}</span>
       </div>
-      <div
-        class="text-xs md:text-sm text-slate-500 dark:text-slate-400"
-      >
+      <div class="text-xs md:text-sm text-slate-500 dark:text-slate-400">
         {{ experience.period }}
         <span class="ml-2 text-slate-400 dark:text-slate-500">
           • {{ calculateYears(experience.period) }}
@@ -49,4 +49,3 @@ defineProps<Props>();
     </div>
   </div>
 </template>
-

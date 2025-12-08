@@ -45,54 +45,59 @@ export const useNavbarNavigation = () => {
     });
   };
 
+  const { t } = useI18n();
+  
   const navigationItems = computed<NavigationItem[]>(() => [
     {
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.HandIcon)
       ),
-      label: "Welcome",
+      label: t("nav.welcome"),
       action: () => scrollToSection("welcome"),
     },
     {
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.UserIcon)
       ),
-      label: "About Me",
+      label: t("nav.aboutMe"),
       action: () => scrollToSection("about-me"),
     },
     {
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.CodeIcon)
       ),
-      label: "Skills",
+      label: t("nav.skills"),
       action: () => scrollToSection("skills"),
     },
     {
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.BriefcaseIcon)
       ),
-      label: "Experience",
+      label: t("nav.experience"),
       action: () => scrollToSection("experience"),
     },
     {
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.FolderKanbanIcon)
       ),
-      label: "Projects",
+      label: t("nav.projects"),
       action: () => scrollToSection("projects"),
     },
     {
+      id: "current-vibes",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.FerrisWheelIcon)
       ),
-      label: "Current Vibes",
+      label: t("nav.currentVibes"),
       action: () => scrollToSection("current-vibes"),
     },
     {
+      id: "settings",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.SettingsIcon)
       ),
-      label: "Settings",
+      label: t("nav.settings"),
+      badge: true,
       action: () => {
         // This will be handled by parent component
       },

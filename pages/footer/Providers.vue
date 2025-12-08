@@ -1,23 +1,25 @@
 <script setup lang="ts">
+const { t } = useI18n();
+
 interface Provider {
   name: string;
   description: string;
 }
 
-const providers: Provider[] = [
+const providers = computed<Provider[]>(() => [
   {
-    name: "HowLongToBeat",
-    description: "Provides data for my video games section.",
+    name: t("footer.providers.howLongToBeat.name"),
+    description: t("footer.providers.howLongToBeat.description"),
   },
   {
-    name: "Spotify",
-    description: "Provides data for my music section.",
+    name: t("footer.providers.spotify.name"),
+    description: t("footer.providers.spotify.description"),
   },
   {
-    name: "RSS2JSON",
-    description: "Provides data for my blog section.",
+    name: t("footer.providers.rss2json.name"),
+    description: t("footer.providers.rss2json.description"),
   },
-];
+]);
 </script>
 
 <template>
@@ -27,7 +29,7 @@ const providers: Provider[] = [
         variant="link"
         class="text-xs text-muted-foreground hover:text-foreground transition-colors"
       >
-        Providers
+        {{ $t("footer.providers.title") }}
       </Button>
     </DialogTrigger>
 
