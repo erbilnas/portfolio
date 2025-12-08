@@ -1,3 +1,5 @@
+# [6.2.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.1.3-preview.2...v6.2.0-preview.1) (2025-12-08)
+
 ## [6.1.3-preview.2](https://github.com/erbilnas/portfolio/compare/v6.1.3-preview.1...v6.1.3-preview.2) (2025-12-08)
 
 
