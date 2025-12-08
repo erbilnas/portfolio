@@ -1,3 +1,19 @@
+## [6.1.3-preview.2](https://github.com/erbilnas/portfolio/compare/v6.1.3-preview.1...v6.1.3-preview.2) (2025-12-08)
+
+
+### Bug Fixes
+
+* do not render title or desc for timeline if it is not setted ([36e8943](https://github.com/erbilnas/portfolio/commit/36e8943f4b4b4fa584a0fa6a8795b0a5c0c580c4))
+* fix color theme as system for default ([fc7065c](https://github.com/erbilnas/portfolio/commit/fc7065cfac85f6b29d5f928ab6a8c1bdf9dbe1f7))
+* **projects-view:** make more visible source links ([1c95bcc](https://github.com/erbilnas/portfolio/commit/1c95bcc74d7444900ceba919a4c77b2ac603cc3f))
+
+## [6.1.3-preview.1](https://github.com/erbilnas/portfolio/compare/v6.1.2...v6.1.3-preview.1) (2025-12-08)
+
+
+### Bug Fixes
+
+* fix current vibes api errors, add flag icon for map card ([6fbb25f](https://github.com/erbilnas/portfolio/commit/6fbb25fdf9bb9d363c7100e2c5c61750889e7bc6))
+
 ## [6.1.2](https://github.com/erbilnas/portfolio/compare/v6.1.1...v6.1.2) (2025-11-30)
 
 

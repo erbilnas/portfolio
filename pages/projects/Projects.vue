@@ -40,15 +40,56 @@ useObserver("Projects", sectionRef);
                 >
                   {{ project.name }}
                 </h3>
+                <!-- Desktop: Icons only -->
+                <div class="hidden md:flex items-center gap-2">
+                  <a
+                    v-if="project.visit"
+                    :href="project.visit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                    @click.stop
+                    :title="`Visit ${project.name} - Live Demo`"
+                  >
+                    <Icon name="mdi:open-in-new" class="w-5 h-5" />
+                  </a>
+                  <a
+                    v-if="project.github"
+                    :href="project.github"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                    @click.stop
+                    :title="`View ${project.name} source code on GitHub`"
+                  >
+                    <Icon name="mdi:github" class="w-5 h-5"></Icon>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Mobile: Buttons -->
+              <div class="flex md:hidden gap-2 mt-2">
+                <a
+                  v-if="project.visit"
+                  :href="project.visit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
+                  @click.stop
+                >
+                  <Icon name="mdi:open-in-new" class="w-4 h-4" />
+                  <span>Visit</span>
+                </a>
                 <a
                   v-if="project.github"
                   :href="project.github"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  class="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
                   @click.stop
                 >
-                  <Icon name="mdi:github" class="w-5 h-5" />
+                  <Icon name="mdi:github" class="w-4 h-4" />
+                  <span>View Source</span>
                 </a>
               </div>
 

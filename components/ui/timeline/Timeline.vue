@@ -1,6 +1,9 @@
 <template>
   <div ref="timelineContainerRef" class="w-full font-sans md:px-10">
-    <div class="mx-auto max-w-7xl px-4 py-20 lg:px-10 md:px-8">
+    <div
+      v-if="title || description"
+      class="mx-auto max-w-7xl px-4 py-20 lg:px-10 md:px-8"
+    >
       <h2 class="mb-4 max-w-4xl text-lg text-black md:text-4xl dark:text-white">
         {{ title }}
       </h2>

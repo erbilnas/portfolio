@@ -3,7 +3,7 @@ import { useSettings } from "@/composables/settings";
 export const useNavbarSettings = () => {
   const settingsDialogOpen = ref(false);
   const cursorDisabled = ref(false);
-  const theme = ref<"light" | "dark" | "system">("dark");
+  const theme = ref<"light" | "dark" | "system">("system");
   
   // Lazy load settings to avoid initialization order issues
   let settingsComposable: ReturnType<typeof useSettings> | null = null;
@@ -42,7 +42,7 @@ export const useNavbarSettings = () => {
             theme.value =
               newValue === "light" || newValue === "dark" || newValue === "system"
                 ? newValue
-                : "dark";
+                : "system";
           },
           { immediate: true }
         );

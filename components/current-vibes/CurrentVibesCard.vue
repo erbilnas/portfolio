@@ -5,6 +5,7 @@ import {
   ClockIcon,
   Disc3Icon,
   ExternalLinkIcon,
+  FlagIcon,
   Gamepad2Icon,
   GlobeIcon,
   MapPinIcon,
@@ -183,6 +184,9 @@ const props = defineProps<Props>();
             <span :class="[isLight ? 'text-gray-600' : 'text-white/60']">
               •
             </span>
+            <FlagIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
             <span>{{ metadata.countries }} Countries</span>
             <span :class="[isLight ? 'text-gray-600' : 'text-white/60']">
               •
