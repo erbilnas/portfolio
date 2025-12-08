@@ -1,3 +1,4 @@
+import { useI18n } from "#imports";
 import type {
   MediumPost,
   MusicPlayerData,
