@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@vueuse/motion/nuxt",
     "@nuxt/icon",
+    "@nuxtjs/i18n",
   ],
   appConfig,
   runtimeConfig,
@@ -57,7 +58,7 @@ export default defineNuxtConfig({
     head: {
       title: process.env.NUXT_APP_TITLE,
       htmlAttrs: {
-        lang: "en",
+        lang: "en", // Will be updated dynamically by i18n plugin
       },
       meta: [
         { charset: "utf-8" },
@@ -98,15 +99,15 @@ export default defineNuxtConfig({
     enabled: true,
   },
   // Logging: Disable logs in production, 'verbose' in development
-  logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'verbose',
+  logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
   // Disable sourcemaps in production for smaller bundle size
   sourcemap: {
-    server: process.env.NODE_ENV !== 'production',
-    client: process.env.NODE_ENV !== 'production',
+    server: process.env.NODE_ENV !== "production",
+    client: process.env.NODE_ENV !== "production",
   },
   nitro: {
-    logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'verbose',
-    sourceMap: process.env.NODE_ENV !== 'production',
+    logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
+    sourceMap: process.env.NODE_ENV !== "production",
     // Log errors with full details
     experimental: {
       wasm: true,
@@ -115,12 +116,12 @@ export default defineNuxtConfig({
   // Enable Vue error handling
   vue: {
     compilerOptions: {
-      isCustomElement: (tag) => tag.startsWith('nuxt'),
+      isCustomElement: (tag) => tag.startsWith("nuxt"),
     },
   },
   // Better error pages
   experimental: {
-    watcher: 'chokidar',
+    watcher: "chokidar",
   },
   compatibilityDate: "2025-01-02",
   shadcn: {
@@ -131,9 +132,25 @@ export default defineNuxtConfig({
     classSuffix: "",
     preference: "system",
   },
+  i18n: {
+    locales: [
+      { code: "en", iso: "en-US", name: "English", file: "en.json" },
+      { code: "tr", iso: "tr-TR", name: "Türkçe", file: "tr.json" },
+    ],
+    langDir: "./locales",
+    defaultLocale: "en",
+    strategy: "no_prefix",
+    lazy: true,
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+      alwaysRedirect: false,
+    },
+  },
   vite: {
     build: {
-      sourcemap: process.env.NODE_ENV !== 'production',
+      sourcemap: process.env.NODE_ENV !== "production",
       minify: "esbuild",
       rollupOptions: {
         output: {
@@ -218,6 +235,6 @@ export default defineNuxtConfig({
       },
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
     },
-    logLevel: process.env.NODE_ENV === 'production' ? 'silent' : 'info',
+    logLevel: process.env.NODE_ENV === "production" ? "silent" : "info",
   },
 });

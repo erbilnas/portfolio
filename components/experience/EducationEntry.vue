@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { Education } from "~/types/experience";
-import { calculateYearsFromYear } from "~/composables/experience";
+import { useCalculateYearsFromYear } from "~/composables/experience/duration-calculation";
 
 interface Props {
   education: Education;
 }
 
 defineProps<Props>();
+
+const calculateYearsFromYear = useCalculateYearsFromYear();
 </script>
 
 <template>

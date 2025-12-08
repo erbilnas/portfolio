@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import { useI18n, useObserver } from "#imports";
 import { ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
 import { projectsList } from "~/constants/projects";
 
+const { t } = useI18n();
 const sectionRef = ref<HTMLElement | null>(null);
 
 // Setup observer
@@ -10,20 +12,21 @@ useObserver("Projects", sectionRef);
 </script>
 
 <template>
-  <section id="projects" ref="sectionRef">
+  <section id="projects" ref="sectionRef" class="relative">
     <div
       class="bg-white dark:bg-black flex min-h-screen items-center justify-center px-6 py-32"
     >
       <div class="max-w-7xl w-full">
         <div class="mb-16 text-center">
-          <h2
-            class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
-          >
-            Projects
+          <h2 class="text-5xl md:text-7xl font-semibold tracking-tight">
+            <span class="inline-block text-gray-900 dark:text-white">
+              {{ t("projects.title") }}
+            </span>
           </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A showcase of projects I've worked on, featuring innovative
-            solutions and creative implementations.
+          <p
+            class="text-gray-600 dark:text-gray-400 mt-4 text-lg md:text-xl font-light animate-title-fade"
+          >
+            {{ t("projects.description") }}
           </p>
         </div>
 
@@ -49,7 +52,7 @@ useObserver("Projects", sectionRef);
                     rel="noopener noreferrer"
                     class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
                     @click.stop
-                    :title="`Visit ${project.name} - Live Demo`"
+                    :title="t('projects.visitTitle', { name: project.name })"
                   >
                     <Icon name="mdi:open-in-new" class="w-5 h-5" />
                   </a>
@@ -60,7 +63,7 @@ useObserver("Projects", sectionRef);
                     rel="noopener noreferrer"
                     class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
                     @click.stop
-                    :title="`View ${project.name} source code on GitHub`"
+                    :title="t('projects.githubTitle', { name: project.name })"
                   >
                     <Icon name="mdi:github" class="w-5 h-5"></Icon>
                   </a>
@@ -78,7 +81,7 @@ useObserver("Projects", sectionRef);
                   @click.stop
                 >
                   <Icon name="mdi:open-in-new" class="w-4 h-4" />
-                  <span>Visit</span>
+                  <span>{{ t("projects.visit") }}</span>
                 </a>
                 <a
                   v-if="project.github"
@@ -89,14 +92,14 @@ useObserver("Projects", sectionRef);
                   @click.stop
                 >
                   <Icon name="mdi:github" class="w-4 h-4" />
-                  <span>View Source</span>
+                  <span>{{ t("projects.viewSource") }}</span>
                 </a>
               </div>
 
               <p
                 class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed"
               >
-                {{ project.description }}
+                {{ t(`projects.items.${project.key}.description`) }}
               </p>
 
               <div class="flex flex-wrap gap-2">

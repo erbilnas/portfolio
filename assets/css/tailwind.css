@@ -110,11 +110,21 @@
   body:not(.cursor-disabled) textarea {
     cursor: none !important;
   }
+}
 
-  /* Blur main content when mobile menu is open, but exclude the menu itself */
-  /* Ensure mobile menu is not blurred */
-  [data-mobile-menu],
-  [data-mobile-menu-overlay] {
-    filter: none !important;
-  }
+/* Ensure custom cursor appears above Sonner toasts */
+/* Using global styles outside of @layer to ensure highest priority */
+[data-sonner-toaster],
+[data-sonner-toast],
+[data-sonner-toaster] > *,
+ol[data-sonner-toaster],
+ul[data-sonner-toaster] {
+  z-index: 99998 !important;
+}
+
+/* Ensure cursor is always on top - highest priority */
+[data-cursor],
+div[data-cursor] {
+  z-index: 99999 !important;
+  position: fixed !important;
 }

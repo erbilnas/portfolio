@@ -7,6 +7,7 @@ export type NavbarSection =
   | "current-vibes";
 
 export interface NavigationItem {
+  id?: string;
   icon: Component;
   label: string;
   action: () => void;

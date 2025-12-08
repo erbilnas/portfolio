@@ -1,0 +1,579 @@
+{
+  "nav": {
+    "welcome": "Hoş Geldiniz",
+    "aboutMe": "Hakkımda",
+    "skills": "Yetenekler",
+    "experience": "Deneyim",
+    "projects": "Projeler",
+    "currentVibes": "Güncel Vibe'lar",
+    "settings": "Ayarlar",
+    "multipleLanguagesSupported": "Çoklu dil desteği mevcuttur"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "disableCustomCursor": "Özel İmleci Devre Dışı Bırak",
+    "disableCustomCursorDescription": "Daha iyi erişilebilirlik için özel imleci devre dışı bırak",
+    "theme": "Tema",
+    "language": "Dil",
+    "light": "Açık",
+    "dark": "Koyu",
+    "system": "Sistem"
+  },
+  "welcome": {
+    "hello": "Merhaba",
+    "introduction": "Ben {name}.",
+    "name": "Erbil",
+    "flippingWords": [
+      "teknoloji meraklısı",
+      "yazılım mühendisi",
+      "takım oyuncusu",
+      "problem çözücü",
+      "sürekli öğrenen",
+      "yaratıcı düşünen",
+      "oyun oynamaktan keyif alan"
+    ]
+  },
+  "aboutMe": {
+    "description": "Geleceğini sıfırlar ve birlerle inşa etmeye tutkulu, sürekli öğrenmeye meraklı bir yazılım mühendisiyim. Şu anda {age} yaşındayım, Türkiye'de doğdum ve büyüdüm."
+  },
+  "projects": {
+    "title": "Projeler",
+    "description": "Üzerinde çalıştığım projelerin bir vitrini, yenilikçi çözümler ve yaratıcı uygulamalar içeriyor",
+    "visit": "Ziyaret Et",
+    "viewSource": "Kaynağı Görüntüle",
+    "visitTitle": "{name} - Canlı Demo'yu Ziyaret Et",
+    "githubTitle": "{name} kaynak kodunu GitHub'da görüntüle",
+    "items": {
+      "baklava": {
+        "description": "Baklava, Trendyol tarafından uygulama kullanıcıları için tutarlı bir UI/UX oluşturmak amacıyla sağlanan bir tasarım sistemidir."
+      },
+      "spaceflash": {
+        "description": "Spaceflash, ay üssünüzü savunmak için gelen sonsuz düşmanları yok ettiğiniz, VR başlığı (Oculus, HTC vb.) ile oynanabilen dalga tabanlı bir nişancı oyunudur."
+      },
+      "perfanalytics": {
+        "description": "Tarayıcıdan performansla ilgili bazı önemli metrikleri toplayan ve API'ye gönderen bir istemci tarafı kütüphanesidir."
+      },
+      "crossingOfTheRhine": {
+        "description": "Ren Geçişi: M.S. 406, tarihsel bir olaya dayanan ve Python ile geliştirilmiş sıra tabanlı/RPG bir oyundur."
+      }
+    }
+  },
+  "skills": {
+    "title": "Yetenekler",
+    "description": "Çalıştığım teknolojiler ve araçlar",
+    "categories": {
+      "favorites": "Favoriler",
+      "frontendDevelopment": "Frontend Geliştirme",
+      "backendDevelopment": "Backend Geliştirme",
+      "devops": "DevOps",
+      "ai": "Yapay Zeka",
+      "design": "Tasarım",
+      "languages": "Diller"
+    },
+    "items": {
+      "vue": {
+        "name": "Vue",
+        "description": "Reaktif veri bağlama ve bileşen tabanlı mimariyle kullanıcı arayüzleri geliştirmek için kullanılan popüler JavaScript framework'ü"
+      },
+      "nuxt": {
+        "name": "Nuxt",
+        "description": "SSR, SSG, otomatik içe aktarmalar, dosya tabanlı yönlendirme ve sunucu API rotaları gibi özellikler sunan tam yığın Vue framework'ü"
+      },
+      "typescript": {
+        "name": "TypeScript",
+        "description": "JavaScript üzerine kurulu, daha iyi kod kalitesi ve geliştirici deneyimi için statik tip tanımları ekleyen güçlü tipli programlama dili"
+      },
+      "vite": {
+        "name": "Vite",
+        "description": "Yerel ES modüllerini kullanarak çok hızlı HMR ve optimize üretim derlemeleri sunan yeni nesil frontend derleme aracı"
+      },
+      "bun": {
+        "name": "Bun",
+        "description": "Zig ile geliştirilmiş, modern JavaScript geliştirme için tasarlanmış, hepsi bir arada ultra hızlı JavaScript çalışma zamanı, paketleyici ve paket yöneticisi"
+      },
+      "lit": {
+        "name": "Lit",
+        "description": "Web Components standartlarını kullanarak basit ve ifade edici bir API ile hızlı, yeniden kullanılabilir web bileşenleri oluşturmak için hafif kütüphane"
+      },
+      "bem": {
+        "name": "BEM",
+        "description": "Büyük projelerde stilleri daha bakımı kolay ve ölçeklenebilir hale getiren, sınıflar için adlandırma kuralı sağlayan CSS metodolojisi"
+      },
+      "hono": {
+        "name": "Hono",
+        "description": "Mükemmel performans ve hazır TypeScript desteğiyle minimal API sunan, Edge için ultra hızlı web framework'ü"
+      },
+      "supabase": {
+        "name": "Supabase",
+        "description": "PostgreSQL veritabanı, kimlik doğrulama, gerçek zamanlı abonelikler ve depolama sunan, harika geliştirici deneyimiyle açık kaynak Firebase alternatifi"
+      },
+      "drizzle": {
+        "name": "Drizzle",
+        "description": "Performans ve tip güvenliğine odaklanan, SQL benzeri sorgu oluşturucu ve migrasyonlar sağlayan hafif TypeScript ORM"
+      },
+      "cloudflare": {
+        "name": "Cloudflare",
+        "description": "CDN, DDoS koruması, DNS, güvenlik hizmetleri ve sunucusuz fonksiyonlar için Workers ile edge computing sunan küresel bulut platformu"
+      },
+      "vercel": {
+        "name": "Vercel",
+        "description": "Sıfır yapılandırma dağıtımları, edge fonksiyonları ve küresel CDN ile otomatik HTTPS sunan frontend framework'leri için platform"
+      },
+      "vitest": {
+        "name": "Vitest",
+        "description": "Yerel ESM desteği, HMR ve Jest uyumlu API özelliklerine sahip, Vite tarafından desteklenen çok hızlı birim test framework'ü"
+      },
+      "cypress": {
+        "name": "Cypress",
+        "description": "Tarayıcıda çalışan, gerçek zamanlı yeniden yükleme, zaman yolculuğu hata ayıklama ve otomatik bekleme sunan uçtan uca test framework'ü"
+      },
+      "react": {
+        "name": "React",
+        "description": "Verimli render için sanal DOM kullanan bileşen tabanlı mimariyle kullanıcı arayüzleri geliştirmek için popüler JavaScript kütüphanesi"
+      },
+      "next": {
+        "name": "Next",
+        "description": "Sunucu tarafı render, statik site oluşturma, API rotaları ve optimize performansla üretime hazır React framework'ü"
+      },
+      "tailwind": {
+        "name": "Tailwind",
+        "description": "Düşük seviyeli yardımcı sınıflar ve özelleştirilebilir tasarım sistemiyle hızlı UI geliştirmeyi sağlayan utility-first CSS framework'ü"
+      },
+      "styledComponents": {
+        "name": "Styled Components",
+        "description": "JavaScript şablon değişmezleri ve dinamik stillendirmeyle bileşen kapsamlı stillendirmeyi sağlayan React için CSS-in-JS kütüphanesi"
+      },
+      "sass": {
+        "name": "SASS",
+        "description": "CSS'i değişkenler, iç içe geçirme, mixin'ler ve fonksiyonlarla genişleten, daha bakımı kolay ve güçlü stil sayfaları için CSS ön işlemcisi"
+      },
+      "pnpm": {
+        "name": "pnpm",
+        "description": "Disk alanı tasarrufu ve kurulum hızı için sabit ve sembolik bağlantılar kullanan hızlı, disk alanı verimli paket yöneticisi"
+      },
+      "jest": {
+        "name": "Jest",
+        "description": "Basitliğe odaklanan, anlık görüntü testi ve yerleşik kod kapsamı özelliklerine sahip keyifli JavaScript test framework'ü"
+      },
+      "playwright": {
+        "name": "Playwright",
+        "description": "Modern web uygulamaları için güvenilir uçtan uca test framework'ü, birden fazla tarayıcı desteği ve güçlü otomasyon yetenekleri sunar"
+      },
+      "nodejs": {
+        "name": "Node.js",
+        "description": "Chrome'un V8 motoru üzerine kurulu, engellemeyen I/O ve olay odaklı mimariyle sunucu tarafı JavaScript geliştirmeyi mümkün kılan JavaScript çalışma zamanı"
+      },
+      "express": {
+        "name": "Express",
+        "description": "API'ler ve web uygulamaları geliştirmek için sağlam özellikler sunan minimal ve esnek Node.js web uygulama framework'ü"
+      },
+      "mongodb": {
+        "name": "MongoDB",
+        "description": "Verileri esnek JSON benzeri belgelerde saklayan, dinamik şemalı ölçeklenebilir uygulamalar için ideal NoSQL belge veritabanı"
+      },
+      "postgresql": {
+        "name": "PostgreSQL",
+        "description": "ACID uyumluluğu, genişletilebilirlik ve karmaşık sorgular ile JSON verileri desteğiyle gelişmiş açık kaynak ilişkisel veritabanı"
+      },
+      "mysql": {
+        "name": "MySQL",
+        "description": "Web uygulamalarında güvenilirlik, performans ve kullanım kolaylığıyla bilinen popüler açık kaynak ilişkisel veritabanı yönetim sistemi"
+      },
+      "go": {
+        "name": "Go",
+        "description": "Basitlik, verimlilik ve eşzamanlılık için tasarlanmış, backend hizmetleri için mükemmel performansa sahip statik tipli, derlenmiş programlama dili"
+      },
+      "docker": {
+        "name": "Docker",
+        "description": "Uygulamaları ve bağımlılıkları hafif konteynerlere paketleyen, ortamlar arasında tutarlı dağıtım için konteynerleştirme platformu"
+      },
+      "nginx": {
+        "name": "Nginx",
+        "description": "Kararlılığı, zengin özellik seti ve düşük kaynak tüketimiyle bilinen yüksek performanslı web sunucusu ve ters proxy sunucusu"
+      },
+      "linux": {
+        "name": "Linux",
+        "description": "Sunucuları, gömülü sistemleri ve bulut altyapısını dünya çapında güçlendiren açık kaynak Unix benzeri işletim sistemi çekirdeği"
+      },
+      "git": {
+        "name": "Git",
+        "description": "Kaynak kodundaki değişiklikleri takip etmek için dağıtılmış sürüm kontrol sistemi, işbirliğini ve proje geçmişini korumayı sağlar"
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "Git kullanarak sürüm kontrolü ve işbirliği için web tabanlı platform, kod barındırma, sorun takibi ve proje yönetimi sunar"
+      },
+      "githubActions": {
+        "name": "GitHub Actions",
+        "description": "GitHub ile entegre CI/CD platformu, depolarından doğrudan kod oluşturma, test etme ve dağıtma için otomatik iş akışlarını sağlar"
+      },
+      "gitlab": {
+        "name": "GitLab",
+        "description": "Git depo yönetimi, CI/CD pipeline'ları, sorun takibi ve entegre proje yönetim araçları sunan eksiksiz DevOps platformu"
+      },
+      "chatgpt": {
+        "name": "ChatGPT",
+        "description": "Doğal dil anlama, kod oluşturma ve akıllı konuşma yardımı için OpenAI tarafından geliştirilmiş gelişmiş AI dil modeli"
+      },
+      "claude": {
+        "name": "Claude",
+        "description": "Gelişmiş akıl yürütme ve kodlama yetenekleriyle yardımcı, zararsız ve dürüst etkileşimler için tasarlanmış Anthropic'in AI asistanı"
+      },
+      "cursor": {
+        "name": "Cursor",
+        "description": "Bağlamı anlayan ve akıllı kod tamamlama, yeniden düzenleme ve dokümantasyon oluşturma sunan AI destekli kod editörü"
+      },
+      "v0": {
+        "name": "v0",
+        "description": "Gelişmiş dil modellerini kullanarak metin açıklamalarından React bileşenleri oluşturan Vercel'in AI destekli UI bileşen oluşturucusu"
+      },
+      "githubCopilot": {
+        "name": "GitHub Copilot",
+        "description": "Bağlama ve yorumlara dayalı kod tamamlamaları, fonksiyonlar ve tüm kod blokları öneren AI eş programcı"
+      },
+      "gemini": {
+        "name": "Gemini",
+        "description": "Metin, görüntü ve kodu anlama için çok modlu yeteneklere sahip, çeşitli görevlerde akıllı yardım sunan Google'ın gelişmiş AI modeli"
+      },
+      "grok": {
+        "name": "Grok",
+        "description": "Gerçek zamanlı bilgi erişimi, yaratıcı problem çözme ve benzersiz kişilikle ilgi çekici konuşmalar için xAI tarafından tasarlanmış AI asistanı"
+      },
+      "figma": {
+        "name": "Figma",
+        "description": "Kullanıcı arayüzleri, prototipler ve tasarım sistemleri oluşturmak için gerçek zamanlı işbirliğiyle çalışan tarayıcı tabanlı tasarım aracı"
+      },
+      "adobeXd": {
+        "name": "Adobe XD",
+        "description": "Kullanıcı deneyimleri, wireframe'ler ve etkileşimli prototipler oluşturmak için sorunsuz tasarım-kod iş akışıyla vektör tabanlı tasarım aracı"
+      },
+      "canva": {
+        "name": "Canva",
+        "description": "Sosyal medya grafikleri, sunumlar ve pazarlama materyalleri oluşturmak için sürükle-bırak arayüzüne sahip çevrimiçi grafik tasarım platformu"
+      },
+      "turkish": {
+        "name": "Türkçe",
+        "description": "Okuma, yazma ve konuşmada tam profesyonel yeterliliğe sahip ana dil konuşucusu"
+      },
+      "english": {
+        "name": "İngilizce",
+        "description": "Profesyonel yazılım geliştirme için güçlü teknik iletişim becerilerine sahip üst orta seviye"
+      },
+      "german": {
+        "name": "Almanca",
+        "description": "Temel konuşma ve okuma anlama becerilerine sahip başlangıç seviyesi"
+      }
+    }
+  },
+  "experience": {
+    "title": "Deneyim",
+    "description": "Profesyonel yolculuğum",
+    "workExperience": "İş Deneyimi",
+    "education": "Eğitim",
+    "duration": {
+      "year": "yıl",
+      "years": "yıl",
+      "month": "ay",
+      "months": "ay",
+      "present": "Devam Ediyor"
+    },
+    "workExperiences": [
+      {
+        "company": "Trendyol Go by Uber Eats",
+        "currentPosition": "Kıdemli Yazılım Mühendisi",
+        "period": "Temmuz 2025 - Devam Ediyor",
+        "location": "Uzaktan",
+        "description": "Yüksek performanslı teslimat platformu çözümlerini tasarlama ve uygulama. Çapraz platform mobil ve web geliştirme girişimlerine öncülük etme, mikro frontend mimarisi için en iyi uygulamaları belirleme ve birden fazla servis sınırı arasında sorunsuz entegrasyon sağlama. Sistem ölçeklenebilirliğini ve güvenilirliğini korurken gıda ve market teslimat teknolojisinde yenilik yapma.",
+        "technologies": [
+          "Vue",
+          "React",
+          "React Native",
+          "Astro",
+          "TypeScript",
+          "SCSS",
+          "BEM Metodolojisi",
+          "Tasarım Sistemi",
+          "Web Bileşenleri",
+          "Lit",
+          "Golang",
+          "Kotlin",
+          "Couchbase",
+          "PostgreSQL",
+          "Redis",
+          "Kafka",
+          "Mikroservis Mimarisi",
+          "Mikrofrontend Mimarisi",
+          "Docker",
+          "Kubernetes",
+          "Nginx",
+          "Gitlab",
+          "CI/CD",
+          "Cypress",
+          "Playwright",
+          "Jest",
+          "Vitest"
+        ]
+      },
+      {
+        "company": "Trendyol Group",
+        "currentPosition": "Kıdemli Yazılım Mühendisi",
+        "period": "Temmuz 2021 - Temmuz 2025",
+        "location": "Uzaktan",
+        "description": "Ölçeklenebilir yazılım çözümlerinin tasarımına ve geliştirilmesine öncülük etme, junior mühendislere mentorluk yapma ve platform performansı, güvenilirliği ve güvenliğini iyileştirmek için teknik girişimleri yönetme. Yüksek kaliteli kod sağlamak için çapraz fonksiyonel ekiplerle işbirliği yapma ve şirketin teknoloji stratejisini şekillendirmeye katkıda bulunma.",
+        "technologies": [
+          "Vue",
+          "React",
+          "React Native",
+          "Astro",
+          "TypeScript",
+          "SCSS",
+          "BEM Metodolojisi",
+          "Tasarım Sistemi",
+          "Web Bileşenleri",
+          "Lit",
+          "Golang",
+          "Kotlin",
+          "Couchbase",
+          "PostgreSQL",
+          "Redis",
+          "Kafka",
+          "Mikroservis Mimarisi",
+          "Mikrofrontend Mimarisi",
+          "Docker",
+          "Kubernetes",
+          "Nginx",
+          "Gitlab",
+          "CI/CD",
+          "Cypress",
+          "Playwright",
+          "Jest",
+          "Vitest"
+        ]
+      },
+      {
+        "company": "Mindbehind by Insider",
+        "currentPosition": "Yazılım Mühendisi",
+        "period": "Ekim 2019 - Temmuz 2021",
+        "location": "Hibrit",
+        "description": "Şirketin amiral gemisi ürününün yenilenmesi için frontend geliştirmeye öncülük etme. React Hooks, Redux ve Router kullanarak modern web geliştirme uygulamalarını hayata geçirme. WebView kullanarak iOS ve Android için çapraz platform mobil uygulamalar geliştirme.",
+        "technologies": [
+          "React",
+          "React Native",
+          "Java",
+          "AI Chatbot",
+          "Amazon Web Services",
+          "Spring Boot",
+          "Hizmet Olarak Yazılım"
+        ]
+      },
+      {
+        "company": "Yuxek Internet Technologies",
+        "currentPosition": "Web Uygulama Geliştiricisi",
+        "period": "Haziran 2019 - Ağustos 2019",
+        "location": "Yerinde",
+        "description": "Vue.js kullanarak web uygulamaları geliştirme konusunda deneyim kazandım.",
+        "technologies": ["Vue", "ASP.NET Core"]
+      },
+      {
+        "company": "Freelancer",
+        "currentPosition": "Frontend Geliştirici ve UI/UX Tasarımcısı",
+        "period": "Aralık 2017 - Ekim 2018",
+        "location": "Uzaktan",
+        "description": "Çeşitli müşteriler için duyarlı ve kullanıcı odaklı web uygulamaları geliştirdim. Kullanıcı etkileşimini artırmak için sezgisel UI/UX arayüzleri tasarladım.",
+        "technologies": [
+          "JavaScript",
+          "HTML",
+          "CSS",
+          "UI/UX Tasarımı",
+          "jQuery",
+          "Bootstrap",
+          "Wordpress",
+          "PHP",
+          "Kullanıcı Deneyimi Tasarımı (UED)",
+          "AJAX",
+          "MySQL"
+        ]
+      },
+      {
+        "company": "Mikrodev Information Technology and Electronics",
+        "currentPosition": "Stajyer",
+        "period": "Ağustos 2018 - Eylül 2018",
+        "location": "Yerinde",
+        "description": "Donanım ve yazılım çözümleri geliştirme konusunda deneyim kazandım.",
+        "technologies": ["Assembly", "C", "C++", "Bilgisayar Mimarisi"]
+      },
+      {
+        "company": "Otokar Automotive and Defense Industries",
+        "currentPosition": "Stajyer",
+        "period": "Temmuz 2017 - Ağustos 2017",
+        "location": "Yerinde",
+        "description": "Donanım ve yazılım çözümleri geliştirme konusunda deneyim kazandım.",
+        "technologies": ["C#", ".NET", "SQL", "MVC", "Entity Framework"]
+      }
+    ],
+    "educations": [
+      {
+        "school": "Muğla Sıtkı Koçman Üniversitesi",
+        "degree": "Yüksek Lisans",
+        "year": "2021 - Devam Ediyor",
+        "description": "Dijital Oyun Tasarımı ve Teknolojileri",
+        "achievements": [
+          "Oyun Tasarımı",
+          "Oyun Geliştirme",
+          "Oyun Programlama",
+          "Oyun Testi",
+          "Oyun Yönetimi",
+          "Oyun Pazarlama",
+          "Oyun Dağıtımı",
+          "Oyun Analitiği",
+          "Oyun Optimizasyonu",
+          "Oyun Yerelleştirme",
+          "Oyun Modlama"
+        ]
+      },
+      {
+        "school": "Anadolu Üniversitesi",
+        "degree": "Lisans",
+        "year": "2019 - Devam Ediyor",
+        "description": "Yönetim Bilişim Sistemleri ve Hizmetleri",
+        "achievements": [
+          "Yazılım Geliştirme",
+          "Proje Yönetimi",
+          "İş Zekası",
+          "Finansal Yönetim",
+          "Finansal Muhasebe",
+          "Yönetim Muhasebesi",
+          "İş Hukuku",
+          "İş Etiği",
+          "İş İletişimi",
+          "İş İngilizcesi"
+        ]
+      },
+      {
+        "school": "Sakarya Üniversitesi",
+        "degree": "Lisans",
+        "year": "2015 - 2019",
+        "description": "Bilgisayar Bilimleri ve Mühendisliği",
+        "achievements": [
+          "Bilgisayar Ağları",
+          "Yazılım Mühendisliği",
+          "Veritabanı Yönetimi",
+          "Yapay Zeka",
+          "Bilgisayar Grafikleri",
+          "Bilgisayar Görüşü",
+          "Makine Öğrenmesi",
+          "Veri Yapıları",
+          "Algoritmalar",
+          "İşletim Sistemleri",
+          "Bilgisayar Mimarisi",
+          "Yazılım Testi",
+          "Yazılım Kalite Güvencesi",
+          "Yazılım Proje Yönetimi",
+          "Yazılım Mühendisliği Etiği",
+          "Yazılım Mühendisliği Uygulamaları",
+          "Yazılım Mühendisliği İlkeleri",
+          "İnsan Bilgisayar Etkileşimi",
+          "Donanım Mimarisi",
+          "Bilgisayar Ağları",
+          "Bilgisayar Güvenliği",
+          "Bilgisayar Adli Bilişimi",
+          "Bilgisayar Etiği"
+        ]
+      },
+      {
+        "school": "Florya Tevfik Ercan Anadolu Lisesi",
+        "degree": "Lise",
+        "year": "2011 - 2015",
+        "description": "Matematik & Fen",
+        "achievements": [
+          "Matematik",
+          "Fizik",
+          "Kimya",
+          "Biyoloji",
+          "İngilizce",
+          "Türkçe",
+          "Tarih",
+          "Coğrafya",
+          "Vatandaşlık",
+          "Ekonomi",
+          "Bilgisayar Bilimi"
+        ]
+      }
+    ]
+  },
+  "currentVibes": {
+    "title": "Güncel Vibe'lar",
+    "description": "Şu anda nelere meraklıyım",
+    "cards": {
+      "game": {
+        "defaultTitle": "Oyun",
+        "currentlyPlaying": "Şu anda oynuyorum",
+        "recentlyCompleted": "Yakın zamanda tamamladım"
+      },
+      "music": {
+        "noSongPlaying": "Şarkı çalmıyor",
+        "listeningTo": "Dinliyorum"
+      },
+      "blog": {
+        "defaultTitle": "Blog Yazısı",
+        "latestPost": "Yazdığım en son blog yazısı"
+      },
+      "map": {
+        "title": "Gittiğim Yerler",
+        "category": "En büyük seyahat başarılarım"
+      },
+      "default": {
+        "title": "Kart",
+        "category": "İçerik"
+      },
+      "error": {
+        "title": "Hata",
+        "category": "Yüklenemedi"
+      },
+      "visit": "Ziyaret Et",
+      "hours": "saat",
+      "minRead": "dakika okuma süresi",
+      "cities": "Şehir",
+      "countries": "Ülke"
+    }
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "retry": "Tekrar Dene",
+    "swipe": "Sürükleyerek",
+    "scroll": "Kaydırarak",
+    "toSeeMore": "daha fazla görüntüleyebilirsin",
+    "scrollToSeeMore": "Kaydırmaya başlayın"
+  },
+  "footer": {
+    "copyright": {
+      "madeWith": "❤️ ile yapıldı."
+    },
+    "providers": {
+      "title": "Sağlayıcılar",
+      "howLongToBeat": {
+        "name": "HowLongToBeat",
+        "description": "Video oyunları bölümüm için veri sağlar."
+      },
+      "spotify": {
+        "name": "Spotify",
+        "description": "Müzik bölümüm için veri sağlar."
+      },
+      "rss2json": {
+        "name": "RSS2JSON",
+        "description": "Blog bölümüm için veri sağlar."
+      }
+    }
+  },
+  "adBlockWarning": {
+    "title": "Reklam Engelleyici Tespit Edildi",
+    "description": "Bir reklam engelleyici (AdGuard veya uBlock Origin gibi) kullandığınız görünüyor. Seçiminize saygı duyuyorum, ancak reklam engelleyicilerin bu sitede bazı işlevleri bozabileceğini lütfen unutmayın. En iyi deneyim için devre dışı bırakmayı düşünün."
+  },
+  "languageSwitch": {
+    "title": "Türkçe'ye geç?",
+    "description": "Türkçe dil ayarları kullandığınızı fark ettik. Türkçe'ye geçmek ister misiniz?",
+    "switch": "Türkçe'ye Geç",
+    "dismiss": "Kapat"
+  }
+}

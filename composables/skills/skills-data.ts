@@ -12,15 +12,25 @@ export interface SkillWithCategory extends Skill {
  * Composable for managing skills data and filtering
  */
 export const useSkillsData = (activeTab: Ref<string>) => {
+  const { t } = useI18n();
+
   const allSkills = computed<SkillWithCategory[]>(() => {
     const skills: SkillWithCategory[] = [];
 
     skillCategories.forEach((category) => {
+      const translatedCategoryName = t(category.name);
+      const normalizedCategoryName = normalizeCategoryName(
+        translatedCategoryName
+      );
+
       category.skills.forEach((skill) => {
         skills.push({
-          ...skill,
-          category: normalizeCategoryName(category.name),
-          originalCategory: category.name,
+          name: t(skill.name),
+          description: t(skill.description),
+          icon: skill.icon,
+          skillKey: skill.skillKey,
+          category: normalizedCategoryName,
+          originalCategory: translatedCategoryName,
         });
       });
     });
@@ -29,14 +39,17 @@ export const useSkillsData = (activeTab: Ref<string>) => {
   });
 
   const tabs = computed(() => {
-    const categoryNames = skillCategories.map((cat) =>
-      normalizeCategoryName(cat.name)
-    );
+    const categoryNames = skillCategories.map((cat) => {
+      const translatedName = t(cat.name);
+      return normalizeCategoryName(translatedName);
+    });
     return categoryNames;
   });
 
   const filteredSkills = computed<SkillWithCategory[]>(() => {
-    return allSkills.value.filter((skill) => skill.category === activeTab.value);
+    return allSkills.value.filter(
+      (skill) => skill.category === activeTab.value
+    );
   });
 
   return {
@@ -45,4 +58,3 @@ export const useSkillsData = (activeTab: Ref<string>) => {
     filteredSkills,
   };
 };
-

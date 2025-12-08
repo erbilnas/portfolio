@@ -8,12 +8,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import type { NavigationItem } from "./navbar.types";
+import { useI18n } from "#imports";
 
 interface Props {
   navigationItems: NavigationItem[];
 }
 
 defineProps<Props>();
+
+const { t } = useI18n();
 
 // Mouse tracking for DockIcon components
 const mouseX = ref(Infinity);
@@ -53,7 +56,7 @@ provide("distance", distance);
     >
       <TooltipProvider>
         <Tooltip
-          v-for="{ label, action, icon, badge } in navigationItems"
+          v-for="{ label, action, icon, badge, id } in navigationItems"
           :key="label"
         >
           <TooltipTrigger>
@@ -63,15 +66,21 @@ provide("distance", distance);
 
                 <span
                   v-if="badge"
-                  class="absolute -top-1 -right-1 flex h-2 min-w-2 rounded-full bg-primary animate-pulse"
+                  class="absolute -top-0.5 -right-0.5 flex h-3 w-3 rounded-full bg-primary border-2 border-background animate-pulse shadow-lg"
                 />
               </div>
             </DockIcon>
           </TooltipTrigger>
 
           <TooltipContent>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-col gap-1">
               <p>{{ label }}</p>
+              <p
+                v-if="id === 'settings'"
+                class="text-xs text-muted-foreground"
+              >
+                {{ t("nav.multipleLanguagesSupported") }}
+              </p>
             </div>
           </TooltipContent>
         </Tooltip>

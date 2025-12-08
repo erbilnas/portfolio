@@ -1,82 +1,109 @@
 import { parseDate } from "./date-parsing";
 
 /**
- * Calculate the duration between two dates in a period string
+ * Composable for calculating duration between two dates in a period string
  * Format: "Month YYYY - Month YYYY" or "Month YYYY - Present"
  */
-export function calculateYears(period: string): string {
-  const parts = period.split(" - ");
-  if (parts.length !== 2) return "";
+export function useCalculateYears() {
+  const { t } = useI18n();
 
-  const startStr = parts[0].trim();
-  const endStr = parts[1].trim();
+  return (period: string): string => {
+    const parts = period.split(" - ");
+    if (parts.length !== 2) return "";
 
-  // Parse start date
-  const startDate = parseDate(startStr);
-  if (!startDate) return "";
+    const startStr = parts[0].trim();
+    const endStr = parts[1].trim();
 
-  // Parse end date
-  let endDate: Date | null = null;
-  if (endStr.toLowerCase() === "present") {
-    endDate = new Date();
-  } else {
-    endDate = parseDate(endStr);
-  }
+    // Parse start date
+    const startDate = parseDate(startStr);
+    if (!startDate) return "";
 
-  if (!endDate) return "";
+    // Parse end date
+    let endDate: Date | null = null;
+    const presentText = t("experience.duration.present").toLowerCase();
+    if (
+      endStr.toLowerCase() === "present" ||
+      endStr.toLowerCase() === presentText
+    ) {
+      endDate = new Date();
+    } else {
+      endDate = parseDate(endStr);
+    }
 
-  // Calculate difference in years
-  const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-  const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
+    if (!endDate) return "";
 
-  if (diffYears < 1) {
-    const months = Math.round(diffYears * 12);
-    return months === 1 ? "1 month" : `${months} months`;
-  }
+    // Calculate difference in years
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
 
-  const years = Math.floor(diffYears);
-  const remainingMonths = Math.round((diffYears - years) * 12);
+    if (diffYears < 1) {
+      const months = Math.round(diffYears * 12);
+      return months === 1
+        ? `1 ${t("experience.duration.month")}`
+        : `${months} ${t("experience.duration.months")}`;
+    }
 
-  if (years === 0) {
-    return remainingMonths === 1 ? "1 month" : `${remainingMonths} months`;
-  }
+    const years = Math.floor(diffYears);
+    const remainingMonths = Math.round((diffYears - years) * 12);
 
-  if (remainingMonths === 0) {
-    return years === 1 ? "1 year" : `${years} years`;
-  }
+    if (years === 0) {
+      return remainingMonths === 1
+        ? `1 ${t("experience.duration.month")}`
+        : `${remainingMonths} ${t("experience.duration.months")}`;
+    }
 
-  return `${years} ${years === 1 ? "year" : "years"} ${remainingMonths} ${
-    remainingMonths === 1 ? "month" : "months"
-  }`;
+    if (remainingMonths === 0) {
+      return years === 1
+        ? `1 ${t("experience.duration.year")}`
+        : `${years} ${t("experience.duration.years")}`;
+    }
+
+    return `${years} ${
+      years === 1
+        ? t("experience.duration.year")
+        : t("experience.duration.years")
+    } ${remainingMonths} ${
+      remainingMonths === 1
+        ? t("experience.duration.month")
+        : t("experience.duration.months")
+    }`;
+  };
 }
 
 /**
- * Calculate the duration from a year string
+ * Composable for calculating the duration from a year string
  * Format: "YYYY - Present" or "YYYY - YYYY"
  */
-export function calculateYearsFromYear(yearStr: string): string {
-  const parts = yearStr.split(" - ");
-  if (parts.length !== 2) return "";
+export function useCalculateYearsFromYear() {
+  const { t } = useI18n();
 
-  const startYear = parseInt(parts[0].trim(), 10);
-  const endStr = parts[1].trim();
+  return (yearStr: string): string => {
+    const parts = yearStr.split(" - ");
+    if (parts.length !== 2) return "";
 
-  if (isNaN(startYear)) return "";
+    const startYear = parseInt(parts[0].trim(), 10);
+    const endStr = parts[1].trim();
 
-  let endYear: number;
-  if (endStr.toLowerCase() === "present") {
-    endYear = new Date().getFullYear();
-  } else {
-    endYear = parseInt(endStr, 10);
-    if (isNaN(endYear)) return "";
-  }
+    if (isNaN(startYear)) return "";
 
-  const diffYears = endYear - startYear + 1;
+    let endYear: number;
+    const presentText = t("experience.duration.present").toLowerCase();
+    if (
+      endStr.toLowerCase() === "present" ||
+      endStr.toLowerCase() === presentText
+    ) {
+      endYear = new Date().getFullYear();
+    } else {
+      endYear = parseInt(endStr, 10);
+      if (isNaN(endYear)) return "";
+    }
 
-  if (diffYears === 1) {
-    return "1 year";
-  }
+    const diffYears = endYear - startYear + 1;
 
-  return `${diffYears} years`;
+    if (diffYears === 1) {
+      return `1 ${t("experience.duration.year")}`;
+    }
+
+    return `${diffYears} ${t("experience.duration.years")}`;
+  };
 }
-

@@ -6,6 +6,7 @@ import {
   SkillsTabs,
 } from "~/components/skills";
 import { useCarouselScroll, useSkillsData } from "~/composables/skills";
+import { normalizeCategoryName } from "~/composables/skills/category-normalization";
 
 const sectionRef = ref<HTMLElement | null>(null);
 const carouselComponentRef = ref<InstanceType<typeof SkillsCarousel> | null>(
@@ -14,9 +15,29 @@ const carouselComponentRef = ref<InstanceType<typeof SkillsCarousel> | null>(
 
 useObserver("Skills", sectionRef);
 
-const activeTab = ref("Favorites");
+const { t, locale } = useI18n();
+
+// Initialize activeTab with translated "Favorites" category
+const activeTab = ref(normalizeCategoryName(t("skills.categories.favorites")));
 
 const { tabs, filteredSkills } = useSkillsData(activeTab);
+
+// Update activeTab when locale changes
+watch(
+  () => locale.value,
+  () => {
+    const currentTabIndex = tabs.value.findIndex(
+      (tab) => tab === activeTab.value
+    );
+    if (currentTabIndex >= 0) {
+      // Keep the same tab index
+      activeTab.value = tabs.value[currentTabIndex];
+    } else {
+      // Default to first tab if current tab doesn't match
+      activeTab.value = tabs.value[0];
+    }
+  }
+);
 
 const carouselRef = ref<HTMLDivElement | null>(null);
 let listenersSetup = false;
@@ -64,7 +85,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section id="skills" ref="sectionRef">
+  <section id="skills" ref="sectionRef" class="relative">
     <div
       class="overflow-hidden min-h-screen flex flex-col gap-12 py-20 items-center bg-white dark:bg-black px-6"
     >

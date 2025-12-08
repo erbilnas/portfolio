@@ -1,18 +1,25 @@
 import { computed, type ComputedRef, type Ref } from "vue";
-import { educationList, experiences } from "~/constants/experience";
 import type { TimelineItem } from "~/types/experience";
 import { parseDate, parseYear } from "./date-parsing";
+import {
+  useLocalizedEducationList,
+  useLocalizedWorkExperiences,
+} from "./use-localized-experiences";
 
 /**
  * Get the start date of a timeline item
  */
 function getStartDate(item: TimelineItem): Date | null {
   if (item.type === "experience") {
-    const parts = item.data.period.split(" - ");
+    const period = item.data.period;
+    if (typeof period !== "string") return null;
+    const parts = period.split(" - ");
     if (parts.length !== 2) return null;
     return parseDate(parts[0].trim());
   } else {
-    return parseYear(item.data.year);
+    const year = item.data.year;
+    if (typeof year !== "string") return null;
+    return parseYear(year);
   }
 }
 
@@ -20,8 +27,10 @@ function getStartDate(item: TimelineItem): Date | null {
  * Get sorted work experience items (most recent first)
  */
 export function useWorkExperienceItems() {
+  const experiences = useLocalizedWorkExperiences();
+  
   return computed<TimelineItem[]>(() => {
-    const items: TimelineItem[] = experiences.map((exp) => ({
+    const items: TimelineItem[] = experiences.value.map((exp) => ({
       type: "experience" as const,
       data: exp,
     }));
@@ -44,8 +53,10 @@ export function useWorkExperienceItems() {
  * Get sorted education items (most recent first)
  */
 export function useEducationItems() {
+  const educationList = useLocalizedEducationList();
+  
   return computed<TimelineItem[]>(() => {
-    const items: TimelineItem[] = educationList.map((edu) => ({
+    const items: TimelineItem[] = educationList.value.map((edu) => ({
       type: "education" as const,
       data: edu,
     }));
@@ -67,12 +78,12 @@ export function useEducationItems() {
 /**
  * Get timeline items based on active tab
  */
-export function useTimelineItems(activeTab: Ref<string>) {
+export function useTimelineItems(activeTabKey: Ref<"workExperience" | "education">) {
   const workExperienceItems = useWorkExperienceItems();
   const educationItems = useEducationItems();
 
   return computed<TimelineItem[]>(() => {
-    return activeTab.value === "Work Experience"
+    return activeTabKey.value === "workExperience"
       ? workExperienceItems.value
       : educationItems.value;
   });

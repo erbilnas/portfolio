@@ -1,5 +1,5 @@
 export { parseDate, parseYear } from "./date-parsing";
-export { calculateYears, calculateYearsFromYear } from "./duration-calculation";
+export { useCalculateYears, useCalculateYearsFromYear } from "./duration-calculation";
 export {
   useWorkExperienceItems,
   useEducationItems,

@@ -21,7 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type HTMLAttributes, onMounted, ref } from "vue";
+import {
+  computed,
+  type HTMLAttributes,
+  nextTick,
+  onMounted,
+  ref,
+  watch,
+} from "vue";
 
 import { cn } from "@/lib/utils";
 
@@ -45,10 +52,17 @@ const spanStyle = computed(() => ({
   transition: `opacity ${props.duration}s, filter ${props.duration}s`,
 }));
 
-onMounted(() => {
+function animateWords() {
   if (scope.value) {
     const spans = (scope.value as HTMLElement).querySelectorAll("span");
 
+    // Reset all spans to initial state
+    spans.forEach((span: HTMLElement) => {
+      span.style.opacity = "0";
+      span.style.filter = props.filter ? "blur(10px)" : "none";
+    });
+
+    // Animate them in
     setTimeout(() => {
       spans.forEach((span: HTMLElement, index: number) => {
         setTimeout(() => {
@@ -58,5 +72,21 @@ onMounted(() => {
       });
     }, props.delay);
   }
+}
+
+onMounted(() => {
+  nextTick(() => {
+    animateWords();
+  });
 });
+
+// Watch for changes in words prop and re-animate
+watch(
+  () => props.words,
+  () => {
+    nextTick(() => {
+      animateWords();
+    });
+  }
+);
 </script>

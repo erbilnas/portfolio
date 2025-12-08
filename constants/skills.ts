@@ -2,403 +2,410 @@ import type { SkillCategory } from "~/types/skills";
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: "Favorites",
+    name: "skills.categories.favorites",
+    categoryKey: "favorites",
     icon: "lucide:star",
     skills: [
       {
-        name: "Vue",
-        description:
-          "Progressive JavaScript framework for building user interfaces with reactive data binding and component-based architecture",
+        name: "skills.items.vue.name",
+        description: "skills.items.vue.description",
+        skillKey: "vue",
         icon: "simple-icons:vuedotjs",
       },
       {
-        name: "Nuxt",
-        description:
-          "Full-stack Vue framework providing SSR, SSG, and powerful features like auto-imports, file-based routing, and server API routes",
+        name: "skills.items.nuxt.name",
+        description: "skills.items.nuxt.description",
+        skillKey: "nuxt",
         icon: "simple-icons:nuxt",
       },
       {
-        name: "TypeScript",
-        description:
-          "Strongly typed programming language that builds on JavaScript, adding static type definitions for better code quality and developer experience",
+        name: "skills.items.typescript.name",
+        description: "skills.items.typescript.description",
+        skillKey: "typescript",
         icon: "simple-icons:typescript",
       },
       {
-        name: "Vite",
-        description:
-          "Next-generation frontend build tool that provides lightning-fast HMR and optimized production builds using native ES modules",
+        name: "skills.items.vite.name",
+        description: "skills.items.vite.description",
+        skillKey: "vite",
         icon: "simple-icons:vite",
       },
       {
-        name: "Bun",
-        description:
-          "Ultra-fast JavaScript runtime, bundler, and package manager all-in-one, built with Zig and designed for modern JavaScript development",
+        name: "skills.items.bun.name",
+        description: "skills.items.bun.description",
+        skillKey: "bun",
         icon: "simple-icons:bun",
       },
       {
-        name: "Lit",
-        description:
-          "Lightweight library for building fast, reusable web components using Web Components standards with a simple, expressive API",
+        name: "skills.items.lit.name",
+        description: "skills.items.lit.description",
+        skillKey: "lit",
         icon: "simple-icons:lit",
       },
       {
-        name: "BEM",
-        description:
-          "CSS methodology that provides a naming convention for classes, making styles more maintainable and scalable in large projects",
+        name: "skills.items.bem.name",
+        description: "skills.items.bem.description",
+        skillKey: "bem",
         icon: "simple-icons:bem",
       },
       {
-        name: "Hono",
-        description:
-          "Ultrafast web framework for the Edge, providing a minimal API with excellent performance and TypeScript support out of the box",
+        name: "skills.items.hono.name",
+        description: "skills.items.hono.description",
+        skillKey: "hono",
         icon: "simple-icons:hono",
       },
       {
-        name: "Supabase",
-        description:
-          "Open-source Firebase alternative providing PostgreSQL database, authentication, real-time subscriptions, and storage with a great developer experience",
+        name: "skills.items.supabase.name",
+        description: "skills.items.supabase.description",
+        skillKey: "supabase",
         icon: "simple-icons:supabase",
       },
       {
-        name: "Drizzle",
-        description:
-          "Lightweight TypeScript ORM with a focus on performance and type safety, providing a SQL-like query builder and migrations",
+        name: "skills.items.drizzle.name",
+        description: "skills.items.drizzle.description",
+        skillKey: "drizzle",
         icon: "simple-icons:drizzle",
       },
       {
-        name: "Cloudflare",
-        description:
-          "Global cloud platform offering CDN, DDoS protection, DNS, security services, and edge computing with Workers for serverless functions",
+        name: "skills.items.cloudflare.name",
+        description: "skills.items.cloudflare.description",
+        skillKey: "cloudflare",
         icon: "simple-icons:cloudflare",
       },
       {
-        name: "Vercel",
-        description:
-          "Platform for frontend frameworks providing zero-config deployments, edge functions, and automatic HTTPS with global CDN",
+        name: "skills.items.vercel.name",
+        description: "skills.items.vercel.description",
+        skillKey: "vercel",
         icon: "simple-icons:vercel",
       },
       {
-        name: "Vitest",
-        description:
-          "Blazing fast unit test framework powered by Vite, featuring native ESM support, HMR, and Jest-compatible API",
+        name: "skills.items.vitest.name",
+        description: "skills.items.vitest.description",
+        skillKey: "vitest",
         icon: "simple-icons:vitest",
       },
       {
-        name: "Cypress",
-        description:
-          "End-to-end testing framework that runs in the browser, providing real-time reloading, time-travel debugging, and automatic waiting",
+        name: "skills.items.cypress.name",
+        description: "skills.items.cypress.description",
+        skillKey: "cypress",
         icon: "simple-icons:cypress",
       },
     ],
   },
   {
-    name: "Frontend Development",
+    name: "skills.categories.frontendDevelopment",
+    categoryKey: "frontendDevelopment",
     icon: "lucide:panel-top",
     skills: [
       {
-        name: "Vue",
-        description:
-          "Progressive JavaScript framework for building user interfaces with reactive data binding and component-based architecture",
+        name: "skills.items.vue.name",
+        description: "skills.items.vue.description",
+        skillKey: "vue",
         icon: "simple-icons:vuedotjs",
       },
       {
-        name: "Nuxt",
-        description:
-          "Full-stack Vue framework providing SSR, SSG, and powerful features like auto-imports, file-based routing, and server API routes",
+        name: "skills.items.nuxt.name",
+        description: "skills.items.nuxt.description",
+        skillKey: "nuxt",
         icon: "simple-icons:nuxt",
       },
       {
-        name: "React",
-        description:
-          "Popular JavaScript library for building user interfaces using a component-based architecture with virtual DOM for efficient rendering",
+        name: "skills.items.react.name",
+        description: "skills.items.react.description",
+        skillKey: "react",
         icon: "simple-icons:react",
       },
       {
-        name: "Next",
-        description:
-          "Production-ready React framework with server-side rendering, static site generation, API routes, and optimized performance",
+        name: "skills.items.next.name",
+        description: "skills.items.next.description",
+        skillKey: "next",
         icon: "simple-icons:nextdotjs",
       },
       {
-        name: "TypeScript",
-        description:
-          "Strongly typed programming language that builds on JavaScript, adding static type definitions for better code quality and developer experience",
+        name: "skills.items.typescript.name",
+        description: "skills.items.typescript.description",
+        skillKey: "typescript",
         icon: "simple-icons:typescript",
       },
       {
-        name: "Tailwind",
-        description:
-          "Utility-first CSS framework that enables rapid UI development with low-level utility classes and customizable design system",
+        name: "skills.items.tailwind.name",
+        description: "skills.items.tailwind.description",
+        skillKey: "tailwind",
         icon: "simple-icons:tailwindcss",
       },
       {
-        name: "Styled Components",
-        description:
-          "CSS-in-JS library for React that enables component-scoped styling with JavaScript template literals and dynamic styling",
+        name: "skills.items.styledComponents.name",
+        description: "skills.items.styledComponents.description",
+        skillKey: "styledComponents",
         icon: "simple-icons:styledcomponents",
       },
       {
-        name: "BEM",
-        description:
-          "CSS methodology that provides a naming convention for classes, making styles more maintainable and scalable in large projects",
+        name: "skills.items.bem.name",
+        description: "skills.items.bem.description",
+        skillKey: "bem",
         icon: "simple-icons:bem",
       },
       {
-        name: "SASS",
-        description:
-          "CSS preprocessor that extends CSS with variables, nesting, mixins, and functions for more maintainable and powerful stylesheets",
+        name: "skills.items.sass.name",
+        description: "skills.items.sass.description",
+        skillKey: "sass",
         icon: "simple-icons:sass",
       },
       {
-        name: "Bun",
-        description:
-          "Ultra-fast JavaScript runtime, bundler, and package manager all-in-one, built with Zig and designed for modern JavaScript development",
+        name: "skills.items.bun.name",
+        description: "skills.items.bun.description",
+        skillKey: "bun",
         icon: "simple-icons:bun",
       },
       {
-        name: "pnpm",
-        description:
-          "Fast, disk space efficient package manager that uses hard links and symlinks to save disk space and improve installation speed",
+        name: "skills.items.pnpm.name",
+        description: "skills.items.pnpm.description",
+        skillKey: "pnpm",
         icon: "simple-icons:pnpm",
       },
       {
-        name: "Lit",
-        description:
-          "Lightweight library for building fast, reusable web components using Web Components standards with a simple, expressive API",
+        name: "skills.items.lit.name",
+        description: "skills.items.lit.description",
+        skillKey: "lit",
         icon: "simple-icons:lit",
       },
       {
-        name: "Vitest",
-        description:
-          "Blazing fast unit test framework powered by Vite, featuring native ESM support, HMR, and Jest-compatible API",
+        name: "skills.items.vitest.name",
+        description: "skills.items.vitest.description",
+        skillKey: "vitest",
         icon: "simple-icons:vitest",
       },
       {
-        name: "Jest",
-        description:
-          "Delightful JavaScript testing framework with a focus on simplicity, featuring snapshot testing and built-in code coverage",
+        name: "skills.items.jest.name",
+        description: "skills.items.jest.description",
+        skillKey: "jest",
         icon: "simple-icons:jest",
       },
       {
-        name: "Cypress",
-        description:
-          "End-to-end testing framework that runs in the browser, providing real-time reloading, time-travel debugging, and automatic waiting",
+        name: "skills.items.cypress.name",
+        description: "skills.items.cypress.description",
+        skillKey: "cypress",
         icon: "simple-icons:cypress",
       },
       {
-        name: "Playwright",
-        description:
-          "Reliable end-to-end testing framework for modern web apps, supporting multiple browsers and providing powerful automation capabilities",
+        name: "skills.items.playwright.name",
+        description: "skills.items.playwright.description",
+        skillKey: "playwright",
         icon: "simple-icons:playwright",
       },
     ],
   },
   {
-    name: "Backend Development",
+    name: "skills.categories.backendDevelopment",
+    categoryKey: "backendDevelopment",
     icon: "mdi:server",
     skills: [
       {
-        name: "Hono",
-        description:
-          "Ultrafast web framework for the Edge, providing a minimal API with excellent performance and TypeScript support out of the box",
+        name: "skills.items.hono.name",
+        description: "skills.items.hono.description",
+        skillKey: "hono",
         icon: "simple-icons:hono",
       },
       {
-        name: "Node.js",
-        description:
-          "JavaScript runtime built on Chrome's V8 engine, enabling server-side JavaScript development with non-blocking I/O and event-driven architecture",
+        name: "skills.items.nodejs.name",
+        description: "skills.items.nodejs.description",
+        skillKey: "nodejs",
         icon: "simple-icons:nodedotjs",
       },
       {
-        name: "Express",
-        description:
-          "Minimal and flexible Node.js web application framework providing robust features for building APIs and web applications",
+        name: "skills.items.express.name",
+        description: "skills.items.express.description",
+        skillKey: "express",
         icon: "simple-icons:express",
       },
       {
-        name: "MongoDB",
-        description:
-          "NoSQL document database that stores data in flexible JSON-like documents, ideal for scalable applications with dynamic schemas",
+        name: "skills.items.mongodb.name",
+        description: "skills.items.mongodb.description",
+        skillKey: "mongodb",
         icon: "simple-icons:mongodb",
       },
       {
-        name: "PostgreSQL",
-        description:
-          "Advanced open-source relational database with ACID compliance, extensibility, and support for complex queries and JSON data",
+        name: "skills.items.postgresql.name",
+        description: "skills.items.postgresql.description",
+        skillKey: "postgresql",
         icon: "simple-icons:postgresql",
       },
       {
-        name: "MySQL",
-        description:
-          "Popular open-source relational database management system known for reliability, performance, and ease of use in web applications",
+        name: "skills.items.mysql.name",
+        description: "skills.items.mysql.description",
+        skillKey: "mysql",
         icon: "simple-icons:mysql",
       },
       {
-        name: "Drizzle",
-        description:
-          "Lightweight TypeScript ORM with a focus on performance and type safety, providing a SQL-like query builder and migrations",
+        name: "skills.items.drizzle.name",
+        description: "skills.items.drizzle.description",
+        skillKey: "drizzle",
         icon: "simple-icons:drizzle",
       },
       {
-        name: "Go",
-        description:
-          "Statically typed, compiled programming language designed for simplicity, efficiency, and concurrency with excellent performance for backend services",
+        name: "skills.items.go.name",
+        description: "skills.items.go.description",
+        skillKey: "go",
         icon: "simple-icons:go",
       },
     ],
   },
   {
-    name: "DevOps",
+    name: "skills.categories.devops",
+    categoryKey: "devops",
     icon: "mdi:cloud",
     skills: [
       {
-        name: "Docker",
-        description:
-          "Platform for containerization that packages applications and dependencies into lightweight containers for consistent deployment across environments",
+        name: "skills.items.docker.name",
+        description: "skills.items.docker.description",
+        skillKey: "docker",
         icon: "simple-icons:docker",
       },
       {
-        name: "Nginx",
-        description:
-          "High-performance web server and reverse proxy server known for its stability, rich feature set, and low resource consumption",
+        name: "skills.items.nginx.name",
+        description: "skills.items.nginx.description",
+        skillKey: "nginx",
         icon: "simple-icons:nginx",
       },
       {
-        name: "Vercel",
-        description:
-          "Platform for frontend frameworks providing zero-config deployments, edge functions, and automatic HTTPS with global CDN",
+        name: "skills.items.vercel.name",
+        description: "skills.items.vercel.description",
+        skillKey: "vercel",
         icon: "simple-icons:vercel",
       },
       {
-        name: "Cloudflare",
-        description:
-          "Global cloud platform offering CDN, DDoS protection, DNS, security services, and edge computing with Workers for serverless functions",
+        name: "skills.items.cloudflare.name",
+        description: "skills.items.cloudflare.description",
+        skillKey: "cloudflare",
         icon: "simple-icons:cloudflare",
       },
       {
-        name: "Linux",
-        description:
-          "Open-source Unix-like operating system kernel powering servers, embedded systems, and cloud infrastructure worldwide",
+        name: "skills.items.linux.name",
+        description: "skills.items.linux.description",
+        skillKey: "linux",
         icon: "simple-icons:linux",
       },
       {
-        name: "Git",
-        description:
-          "Distributed version control system for tracking changes in source code, enabling collaboration and maintaining project history",
+        name: "skills.items.git.name",
+        description: "skills.items.git.description",
+        skillKey: "git",
         icon: "simple-icons:git",
       },
       {
-        name: "GitHub",
-        description:
-          "Web-based platform for version control and collaboration using Git, providing code hosting, issue tracking, and project management",
+        name: "skills.items.github.name",
+        description: "skills.items.github.description",
+        skillKey: "github",
         icon: "simple-icons:github",
       },
       {
-        name: "GitHub Actions",
-        description:
-          "CI/CD platform integrated with GitHub, enabling automated workflows for building, testing, and deploying code directly from repositories",
+        name: "skills.items.githubActions.name",
+        description: "skills.items.githubActions.description",
+        skillKey: "githubActions",
         icon: "simple-icons:githubactions",
       },
       {
-        name: "GitLab",
-        description:
-          "Complete DevOps platform providing Git repository management, CI/CD pipelines, issue tracking, and integrated project management tools",
+        name: "skills.items.gitlab.name",
+        description: "skills.items.gitlab.description",
+        skillKey: "gitlab",
         icon: "simple-icons:gitlab",
       },
     ],
   },
   {
-    name: "AI",
+    name: "skills.categories.ai",
+    categoryKey: "ai",
     icon: "lucide:brain",
     skills: [
       {
-        name: "ChatGPT",
-        description:
-          "Advanced AI language model by OpenAI for natural language understanding, code generation, and intelligent conversation assistance",
+        name: "skills.items.chatgpt.name",
+        description: "skills.items.chatgpt.description",
+        skillKey: "chatgpt",
         icon: "simple-icons:openai",
       },
       {
-        name: "Claude",
-        description:
-          "AI assistant by Anthropic designed for helpful, harmless, and honest interactions with advanced reasoning and coding capabilities",
+        name: "skills.items.claude.name",
+        description: "skills.items.claude.description",
+        skillKey: "claude",
         icon: "simple-icons:claude",
       },
       {
-        name: "Cursor",
-        description:
-          "AI-powered code editor that understands context and provides intelligent code completion, refactoring, and documentation generation",
+        name: "skills.items.cursor.name",
+        description: "skills.items.cursor.description",
+        skillKey: "cursor",
         icon: "lucide:brain",
       },
       {
-        name: "v0",
-        description:
-          "AI-powered UI component generator by Vercel that creates React components from text descriptions using advanced language models",
+        name: "skills.items.v0.name",
+        description: "skills.items.v0.description",
+        skillKey: "v0",
         icon: "simple-icons:v0",
       },
       {
-        name: "GitHub Copilot",
-        description:
-          "AI pair programmer that suggests code completions, functions, and entire code blocks based on context and comments",
+        name: "skills.items.githubCopilot.name",
+        description: "skills.items.githubCopilot.description",
+        skillKey: "githubCopilot",
         icon: "simple-icons:github",
       },
       {
-        name: "Gemini",
-        description:
-          "Advanced AI model by Google with multimodal capabilities for understanding text, images, and code, providing intelligent assistance across various tasks",
+        name: "skills.items.gemini.name",
+        description: "skills.items.gemini.description",
+        skillKey: "gemini",
         icon: "simple-icons:google",
       },
       {
-        name: "Grok",
-        description:
-          "AI assistant by xAI designed for real-time information access, creative problem-solving, and engaging conversations with a unique personality",
+        name: "skills.items.grok.name",
+        description: "skills.items.grok.description",
+        skillKey: "grok",
         icon: "simple-icons:x",
       },
     ],
   },
   {
-    name: "Design",
+    name: "skills.categories.design",
+    categoryKey: "design",
     icon: "lucide:palette",
     skills: [
       {
-        name: "Figma",
-        description:
-          "Collaborative browser-based design tool for creating user interfaces, prototypes, and design systems with real-time collaboration",
+        name: "skills.items.figma.name",
+        description: "skills.items.figma.description",
+        skillKey: "figma",
         icon: "simple-icons:figma",
       },
       {
-        name: "Adobe XD",
-        description:
-          "Vector-based design tool for creating user experiences, wireframes, and interactive prototypes with seamless design-to-code workflow",
+        name: "skills.items.adobeXd.name",
+        description: "skills.items.adobeXd.description",
+        skillKey: "adobeXd",
         icon: "simple-icons:adobexd",
       },
       {
-        name: "Canva",
-        description:
-          "Online graphic design platform with drag-and-drop interface for creating social media graphics, presentations, and marketing materials",
+        name: "skills.items.canva.name",
+        description: "skills.items.canva.description",
+        skillKey: "canva",
         icon: "simple-icons:canva",
       },
     ],
   },
   {
-    name: "Languages",
+    name: "skills.categories.languages",
+    categoryKey: "languages",
     icon: "lucide:earth",
     skills: [
       {
-        name: "Turkish",
-        description:
-          "Native speaker with full professional proficiency in reading, writing, and speaking",
+        name: "skills.items.turkish.name",
+        description: "skills.items.turkish.description",
+        skillKey: "turkish",
         icon: "circle-flags:tr",
       },
       {
-        name: "English",
-        description:
-          "Upper intermediate level with strong technical communication skills for professional software development",
+        name: "skills.items.english.name",
+        description: "skills.items.english.description",
+        skillKey: "english",
         icon: "circle-flags:us",
       },
       {
-        name: "German",
-        description:
-          "Elementary level with basic conversational and reading comprehension skills",
+        name: "skills.items.german.name",
+        description: "skills.items.german.description",
+        skillKey: "german",
         icon: "circle-flags:de",
       },
     ],
