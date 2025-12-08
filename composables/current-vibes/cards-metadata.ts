@@ -1,3 +1,4 @@
+import { useI18n } from "#imports";
 import type {
   MediumPost,
   MusicPlayerData,
@@ -57,13 +58,16 @@ const calculateReadTime = (description: string | undefined) => {
 /**
  * Format date string to readable format
  */
-const formatDate = (dateString: string | undefined) => {
+const formatDate = (dateString: string | undefined, locale: string) => {
   if (!dateString) return "";
-  return new Date(dateString).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  return new Date(dateString).toLocaleDateString(
+    locale === "tr" ? "tr-TR" : "en-US",
+    {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
 };
 
 /**
@@ -84,6 +88,7 @@ export const useCardsMetadata = () => {
   // Lazy get appConfig to avoid $r initialization errors
   // useAppConfig is safe, but deferring access ensures Vue is ready
   const getAppConfig = () => useAppConfig();
+  const { t, locale } = useI18n();
 
   /**
    * Get metadata for a card based on its type
@@ -103,11 +108,11 @@ export const useCardsMetadata = () => {
             platformParts.length > 0 ? platformParts.join(" / ") : undefined;
 
           const metadata = {
-            title: game?.title || "Game",
+            title: game?.title || t("currentVibes.cards.game.defaultTitle"),
             category:
               game?.status === "playing"
-                ? "I'm currently playing"
-                : "I recently completed",
+                ? t("currentVibes.cards.game.currentlyPlaying")
+                : t("currentVibes.cards.game.recentlyCompleted"),
             src: game?.image || "/images/blog-post-card-bg.jpg",
             progress: game?.progress,
             progressPercentage: calculateProgressPercentage(game),
@@ -122,8 +127,10 @@ export const useCardsMetadata = () => {
           const player = card.data as MusicPlayerData;
           const visitUrl = appConfig.socialLinks.spotify || undefined;
           return {
-            title: player?.name || "No song playing",
-            category: player?.album?.image ? "I'm listening to" : "",
+            title: player?.name || t("currentVibes.cards.music.noSongPlaying"),
+            category: player?.album?.image
+              ? t("currentVibes.cards.music.listeningTo")
+              : "",
             src: player?.album?.image || "/images/no-music-playing.jpg",
             artist: player?.artist,
             album: player?.album?.name,
@@ -134,11 +141,11 @@ export const useCardsMetadata = () => {
         case "blog": {
           const post = card.data as MediumPost;
           return {
-            title: post?.title || "Blog Post",
-            category: "The latest blog post I've written",
+            title: post?.title || t("currentVibes.cards.blog.defaultTitle"),
+            category: t("currentVibes.cards.blog.latestPost"),
             src: "/images/blog-post-card-bg.jpg",
             readTime: calculateReadTime(post?.description),
-            publishedDate: formatDate(post?.published_at),
+            publishedDate: formatDate(post?.published_at, locale.value),
             description: truncateDescription(post?.description),
             visitUrl: post?.link || appConfig.socialLinks.medium || undefined,
           };
@@ -151,8 +158,8 @@ export const useCardsMetadata = () => {
             ((Number(visitedCountries) || 0) / Number(totalCountries)) * 100
           );
           return {
-            title: "Places I've Been",
-            category: "Biggest travel achievements",
+            title: t("currentVibes.cards.map.title"),
+            category: t("currentVibes.cards.map.category"),
             src: "/images/map-card-bg.jpg",
             cities: Number(visitedCities) || undefined,
             countries: Number(visitedCountries) || undefined,
@@ -162,8 +169,8 @@ export const useCardsMetadata = () => {
         }
         default:
           return {
-            title: "Card",
-            category: "Content",
+            title: t("currentVibes.cards.default.title"),
+            category: t("currentVibes.cards.default.category"),
             src: "/images/blog-post-card-bg.jpg",
             visitUrl: undefined,
           };
@@ -171,8 +178,8 @@ export const useCardsMetadata = () => {
     } catch (error) {
       console.error("❌ [Metadata] Error generating metadata:", error);
       return {
-        title: "Error",
-        category: "Failed to load",
+        title: t("currentVibes.cards.error.title"),
+        category: t("currentVibes.cards.error.category"),
         src: "/images/error.jpg",
         visitUrl: undefined,
       };

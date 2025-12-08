@@ -55,22 +55,27 @@ const props = withDefaults(defineProps<Props>(), {
 
 defineEmits(["animationStart", "animationComplete"]);
 
-const currentWord = ref(props.words[0]);
+const currentWord = ref(props.words?.[0] || "");
 const isVisible = ref(true);
 const timeoutId = ref<number | null>(null);
 
 function startAnimation() {
+  if (!props.words || props.words.length === 0) return;
+  
   isVisible.value = false;
 
   setTimeout(() => {
     const currentIndex = props.words.indexOf(currentWord.value);
     const nextWord = props.words[currentIndex + 1] || props.words[0];
-    currentWord.value = nextWord;
+    currentWord.value = nextWord || "";
     isVisible.value = true;
   }, 600);
 }
 
 const splitWords = computed(() => {
+  if (!currentWord.value || typeof currentWord.value !== "string") {
+    return [];
+  }
   return currentWord.value.split(" ").map((word) => ({
     word,
     letters: word.split(""),
@@ -98,6 +103,12 @@ watch(isVisible, (newValue) => {
     startTimeout();
   }
 });
+
+watch(() => props.words, (newWords) => {
+  if (newWords && newWords.length > 0 && !currentWord.value) {
+    currentWord.value = newWords[0];
+  }
+}, { immediate: true });
 </script>
 
 <style>

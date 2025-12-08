@@ -11,7 +11,8 @@ const isMobile = useMediaQuery("(max-width: 768px)");
     <Icon name="ph:mouse-simple" :size="16" />
 
     <span class="text-sm font-light"
-      >{{ isMobile ? "Swipe" : "Scroll" }} to see more</span
+      >{{ isMobile ? $t("common.swipe") : $t("common.scroll") }}
+      {{ $t("common.toSeeMore") }}</span
     >
   </div>
 </template>

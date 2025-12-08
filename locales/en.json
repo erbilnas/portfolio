@@ -1,0 +1,580 @@
+{
+  "nav": {
+    "welcome": "Welcome",
+    "aboutMe": "About Me",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "currentVibes": "Current Vibes",
+    "settings": "Settings",
+    "multipleLanguagesSupported": "Multiple languages are supported"
+  },
+  "settings": {
+    "title": "Settings",
+    "disableCustomCursor": "Disable Custom Cursor",
+    "disableCustomCursorDescription": "Disable the custom cursor for better accessibility",
+    "theme": "Theme",
+    "language": "Language",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "welcome": {
+    "hello": "Hello",
+    "introduction": "It's me, {name}.",
+    "name": "Erbil",
+    "flippingWords": [
+      "an ever-learning technology enthusiast",
+      "a passionate software engineer",
+      "a dedicated team player",
+      "a problem solver",
+      "a quick learner",
+      "a creative thinker",
+      "vibe coding like a pro",
+      "playing games, just for fun"
+    ]
+  },
+  "aboutMe": {
+    "description": "I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm {age} years old, born and raised in Turkey."
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "A showcase of projects I've worked on, featuring innovative solutions and creative implementations",
+    "visit": "Visit",
+    "viewSource": "View Source",
+    "visitTitle": "Visit {name} - Live Demo",
+    "githubTitle": "View {name} source code on GitHub",
+    "items": {
+      "baklava": {
+        "description": "Baklava is a design system provided by Trendyol to create a consistent UI/UX for app users."
+      },
+      "spaceflash": {
+        "description": "Spaceflash is a wave-based shooter playable with a VR headset (Oculus, HTC, etc.) where you destroy endless enemies coming to defend your moon base."
+      },
+      "perfanalytics": {
+        "description": "A client-side library which collects some performance related key metrics from browser and sends to the API."
+      },
+      "crossingOfTheRhine": {
+        "description": "Crossing of the Rhine: A.D. 406 is a turn-based/RPG game based on a historical event and developed with Python."
+      }
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "description": "Technologies and tools I work with",
+    "categories": {
+      "favorites": "Favorites",
+      "frontendDevelopment": "Frontend Development",
+      "backendDevelopment": "Backend Development",
+      "devops": "DevOps",
+      "ai": "AI",
+      "design": "Design",
+      "languages": "Languages"
+    },
+    "items": {
+      "vue": {
+        "name": "Vue",
+        "description": "Progressive JavaScript framework for building user interfaces with reactive data binding and component-based architecture"
+      },
+      "nuxt": {
+        "name": "Nuxt",
+        "description": "Full-stack Vue framework providing SSR, SSG, and powerful features like auto-imports, file-based routing, and server API routes"
+      },
+      "typescript": {
+        "name": "TypeScript",
+        "description": "Strongly typed programming language that builds on JavaScript, adding static type definitions for better code quality and developer experience"
+      },
+      "vite": {
+        "name": "Vite",
+        "description": "Next-generation frontend build tool that provides lightning-fast HMR and optimized production builds using native ES modules"
+      },
+      "bun": {
+        "name": "Bun",
+        "description": "Ultra-fast JavaScript runtime, bundler, and package manager all-in-one, built with Zig and designed for modern JavaScript development"
+      },
+      "lit": {
+        "name": "Lit",
+        "description": "Lightweight library for building fast, reusable web components using Web Components standards with a simple, expressive API"
+      },
+      "bem": {
+        "name": "BEM",
+        "description": "CSS methodology that provides a naming convention for classes, making styles more maintainable and scalable in large projects"
+      },
+      "hono": {
+        "name": "Hono",
+        "description": "Ultrafast web framework for the Edge, providing a minimal API with excellent performance and TypeScript support out of the box"
+      },
+      "supabase": {
+        "name": "Supabase",
+        "description": "Open-source Firebase alternative providing PostgreSQL database, authentication, real-time subscriptions, and storage with a great developer experience"
+      },
+      "drizzle": {
+        "name": "Drizzle",
+        "description": "Lightweight TypeScript ORM with a focus on performance and type safety, providing a SQL-like query builder and migrations"
+      },
+      "cloudflare": {
+        "name": "Cloudflare",
+        "description": "Global cloud platform offering CDN, DDoS protection, DNS, security services, and edge computing with Workers for serverless functions"
+      },
+      "vercel": {
+        "name": "Vercel",
+        "description": "Platform for frontend frameworks providing zero-config deployments, edge functions, and automatic HTTPS with global CDN"
+      },
+      "vitest": {
+        "name": "Vitest",
+        "description": "Blazing fast unit test framework powered by Vite, featuring native ESM support, HMR, and Jest-compatible API"
+      },
+      "cypress": {
+        "name": "Cypress",
+        "description": "End-to-end testing framework that runs in the browser, providing real-time reloading, time-travel debugging, and automatic waiting"
+      },
+      "react": {
+        "name": "React",
+        "description": "Popular JavaScript library for building user interfaces using a component-based architecture with virtual DOM for efficient rendering"
+      },
+      "next": {
+        "name": "Next",
+        "description": "Production-ready React framework with server-side rendering, static site generation, API routes, and optimized performance"
+      },
+      "tailwind": {
+        "name": "Tailwind",
+        "description": "Utility-first CSS framework that enables rapid UI development with low-level utility classes and customizable design system"
+      },
+      "styledComponents": {
+        "name": "Styled Components",
+        "description": "CSS-in-JS library for React that enables component-scoped styling with JavaScript template literals and dynamic styling"
+      },
+      "sass": {
+        "name": "SASS",
+        "description": "CSS preprocessor that extends CSS with variables, nesting, mixins, and functions for more maintainable and powerful stylesheets"
+      },
+      "pnpm": {
+        "name": "pnpm",
+        "description": "Fast, disk space efficient package manager that uses hard links and symlinks to save disk space and improve installation speed"
+      },
+      "jest": {
+        "name": "Jest",
+        "description": "Delightful JavaScript testing framework with a focus on simplicity, featuring snapshot testing and built-in code coverage"
+      },
+      "playwright": {
+        "name": "Playwright",
+        "description": "Reliable end-to-end testing framework for modern web apps, supporting multiple browsers and providing powerful automation capabilities"
+      },
+      "nodejs": {
+        "name": "Node.js",
+        "description": "JavaScript runtime built on Chrome's V8 engine, enabling server-side JavaScript development with non-blocking I/O and event-driven architecture"
+      },
+      "express": {
+        "name": "Express",
+        "description": "Minimal and flexible Node.js web application framework providing robust features for building APIs and web applications"
+      },
+      "mongodb": {
+        "name": "MongoDB",
+        "description": "NoSQL document database that stores data in flexible JSON-like documents, ideal for scalable applications with dynamic schemas"
+      },
+      "postgresql": {
+        "name": "PostgreSQL",
+        "description": "Advanced open-source relational database with ACID compliance, extensibility, and support for complex queries and JSON data"
+      },
+      "mysql": {
+        "name": "MySQL",
+        "description": "Popular open-source relational database management system known for reliability, performance, and ease of use in web applications"
+      },
+      "go": {
+        "name": "Go",
+        "description": "Statically typed, compiled programming language designed for simplicity, efficiency, and concurrency with excellent performance for backend services"
+      },
+      "docker": {
+        "name": "Docker",
+        "description": "Platform for containerization that packages applications and dependencies into lightweight containers for consistent deployment across environments"
+      },
+      "nginx": {
+        "name": "Nginx",
+        "description": "High-performance web server and reverse proxy server known for its stability, rich feature set, and low resource consumption"
+      },
+      "linux": {
+        "name": "Linux",
+        "description": "Open-source Unix-like operating system kernel powering servers, embedded systems, and cloud infrastructure worldwide"
+      },
+      "git": {
+        "name": "Git",
+        "description": "Distributed version control system for tracking changes in source code, enabling collaboration and maintaining project history"
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "Web-based platform for version control and collaboration using Git, providing code hosting, issue tracking, and project management"
+      },
+      "githubActions": {
+        "name": "GitHub Actions",
+        "description": "CI/CD platform integrated with GitHub, enabling automated workflows for building, testing, and deploying code directly from repositories"
+      },
+      "gitlab": {
+        "name": "GitLab",
+        "description": "Complete DevOps platform providing Git repository management, CI/CD pipelines, issue tracking, and integrated project management tools"
+      },
+      "chatgpt": {
+        "name": "ChatGPT",
+        "description": "Advanced AI language model by OpenAI for natural language understanding, code generation, and intelligent conversation assistance"
+      },
+      "claude": {
+        "name": "Claude",
+        "description": "AI assistant by Anthropic designed for helpful, harmless, and honest interactions with advanced reasoning and coding capabilities"
+      },
+      "cursor": {
+        "name": "Cursor",
+        "description": "AI-powered code editor that understands context and provides intelligent code completion, refactoring, and documentation generation"
+      },
+      "v0": {
+        "name": "v0",
+        "description": "AI-powered UI component generator by Vercel that creates React components from text descriptions using advanced language models"
+      },
+      "githubCopilot": {
+        "name": "GitHub Copilot",
+        "description": "AI pair programmer that suggests code completions, functions, and entire code blocks based on context and comments"
+      },
+      "gemini": {
+        "name": "Gemini",
+        "description": "Advanced AI model by Google with multimodal capabilities for understanding text, images, and code, providing intelligent assistance across various tasks"
+      },
+      "grok": {
+        "name": "Grok",
+        "description": "AI assistant by xAI designed for real-time information access, creative problem-solving, and engaging conversations with a unique personality"
+      },
+      "figma": {
+        "name": "Figma",
+        "description": "Collaborative browser-based design tool for creating user interfaces, prototypes, and design systems with real-time collaboration"
+      },
+      "adobeXd": {
+        "name": "Adobe XD",
+        "description": "Vector-based design tool for creating user experiences, wireframes, and interactive prototypes with seamless design-to-code workflow"
+      },
+      "canva": {
+        "name": "Canva",
+        "description": "Online graphic design platform with drag-and-drop interface for creating social media graphics, presentations, and marketing materials"
+      },
+      "turkish": {
+        "name": "Turkish",
+        "description": "Native speaker with full professional proficiency in reading, writing, and speaking"
+      },
+      "english": {
+        "name": "English",
+        "description": "Upper intermediate level with strong technical communication skills for professional software development"
+      },
+      "german": {
+        "name": "German",
+        "description": "Elementary level with basic conversational and reading comprehension skills"
+      }
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "description": "My professional journey",
+    "workExperience": "Work Experience",
+    "education": "Education",
+    "duration": {
+      "year": "year",
+      "years": "years",
+      "month": "month",
+      "months": "months",
+      "present": "Present"
+    },
+    "workExperiences": [
+      {
+        "company": "Trendyol Go by Uber Eats",
+        "currentPosition": "Senior Software Engineer",
+        "period": "July 2025 - Present",
+        "location": "Remote",
+        "description": "Architecting and implementing high-performance delivery platform solutions. Spearheading cross-platform mobile and web development initiatives, establishing best practices for micro frontend architecture, and ensuring seamless integration across multiple service boundaries. Driving innovation in food and grocery delivery technology while maintaining system scalability and reliability.",
+        "technologies": [
+          "Vue",
+          "React",
+          "React Native",
+          "Astro",
+          "TypeScript",
+          "SCSS",
+          "BEM Methodology",
+          "Design System",
+          "Web Components",
+          "Lit",
+          "Golang",
+          "Kotlin",
+          "Couchbase",
+          "PostgreSQL",
+          "Redis",
+          "Kafka",
+          "Microservice Architecture",
+          "Microfrontend Architecture",
+          "Docker",
+          "Kubernetes",
+          "Nginx",
+          "Gitlab",
+          "CI/CD",
+          "Cypress",
+          "Playwright",
+          "Jest",
+          "Vitest"
+        ]
+      },
+      {
+        "company": "Trendyol Group",
+        "currentPosition": "Senior Software Engineer",
+        "period": "July 2021 - July 2025",
+        "location": "Remote",
+        "description": "Lead the design and development of scalable software solutions, mentor junior engineers, and drive technical initiatives to improve platform performance, reliability, and security. Collaborate with cross-functional teams to ensure high-quality code and contribute to shaping the company's technology strategy.",
+        "technologies": [
+          "Vue",
+          "React",
+          "React Native",
+          "Astro",
+          "TypeScript",
+          "SCSS",
+          "BEM Methodology",
+          "Design System",
+          "Web Components",
+          "Lit",
+          "Golang",
+          "Kotlin",
+          "Couchbase",
+          "PostgreSQL",
+          "Redis",
+          "Kafka",
+          "Microservice Architecture",
+          "Microfrontend Architecture",
+          "Docker",
+          "Kubernetes",
+          "Nginx",
+          "Gitlab",
+          "CI/CD",
+          "Cypress",
+          "Playwright",
+          "Jest",
+          "Vitest"
+        ]
+      },
+      {
+        "company": "Mindbehind by Insider",
+        "currentPosition": "Software Engineer",
+        "period": "October 2019 - July 2021",
+        "location": "Hybrid",
+        "description": "Lead the frontend development for the renewal of the company's flagship product. Implement modern web development practices using React Hooks, Redux, and Router. Deliver cross-platform mobile applications for iOS and Android using WebView.",
+        "technologies": [
+          "React",
+          "React Native",
+          "Java",
+          "AI Chatbot",
+          "Amazon Web Services",
+          "Spring Boot",
+          "Software as a Service"
+        ]
+      },
+      {
+        "company": "Yuxek Internet Technologies",
+        "currentPosition": "Web Application Developer",
+        "period": "June 2019 - August 2019",
+        "location": "On-site",
+        "description": "Gained experience in developing web applications using Vue.js.",
+        "technologies": ["Vue", "ASP.NET Core"]
+      },
+      {
+        "company": "Freelancer",
+        "currentPosition": "Frontend Developer and UI/UX Designer",
+        "period": "December 2017 - October 2018",
+        "location": "Remote",
+        "description": "Developed responsive and user-focused web applications for various clients. Designed intuitive UI/UX interfaces to improve user engagement.",
+        "technologies": [
+          "JavaScript",
+          "HTML",
+          "CSS",
+          "UI/UX Design",
+          "jQuery",
+          "Bootstrap",
+          "Wordpress",
+          "PHP",
+          "User Experience Design (UED)",
+          "AJAX",
+          "MySQL"
+        ]
+      },
+      {
+        "company": "Mikrodev Information Technology and Electronics",
+        "currentPosition": "Intern",
+        "period": "August 2018 - September 2018",
+        "location": "On-site",
+        "description": "Gained experience in developing hardware and software solutions.",
+        "technologies": ["Assembly", "C", "C++", "Computer Architecture"]
+      },
+      {
+        "company": "Otokar Automotive and Defense Industries",
+        "currentPosition": "Intern",
+        "period": "July 2017 - August 2017",
+        "location": "On-site",
+        "description": "Gained experience in developing hardware and software solutions.",
+        "technologies": ["C#", ".NET", "SQL", "MVC", "Entity Framework"]
+      }
+    ],
+    "educations": [
+      {
+        "school": "Mugla Sitki Kocman University",
+        "degree": "Master's Degree",
+        "year": "2021 - Present",
+        "description": "Digital Game Design and Technologies",
+        "achievements": [
+          "Game Design",
+          "Game Development",
+          "Game Programming",
+          "Game Testing",
+          "Game Management",
+          "Game Marketing",
+          "Game Distribution",
+          "Game Analytics",
+          "Game Optimization",
+          "Game Localization",
+          "Game Modding"
+        ]
+      },
+      {
+        "school": "Anadolu University",
+        "degree": "Bachelor's Degree",
+        "year": "2019 - Present",
+        "description": "Management Information Systems and Services",
+        "achievements": [
+          "Software Development",
+          "Project Management",
+          "Business Intelligence",
+          "Financial Management",
+          "Financial Accounting",
+          "Management Accounting",
+          "Business Law",
+          "Business Ethics",
+          "Business Communication",
+          "Business English"
+        ]
+      },
+      {
+        "school": "Sakarya University",
+        "degree": "Bachelor's Degree",
+        "year": "2015 - 2019",
+        "description": "Computer Science and Engineering",
+        "achievements": [
+          "Computer Networks",
+          "Software Engineering",
+          "Database Management",
+          "Artificial Intelligence",
+          "Computer Graphics",
+          "Computer Vision",
+          "Machine Learning",
+          "Data Structures",
+          "Algorithms",
+          "Operating Systems",
+          "Computer Architecture",
+          "Software Testing",
+          "Software Quality Assurance",
+          "Software Project Management",
+          "Software Engineering Ethics",
+          "Software Engineering Practices",
+          "Software Engineering Principles",
+          "Human Computer Interaction",
+          "Hardware Architecture",
+          "Computer Networks",
+          "Computer Security",
+          "Computer Forensics",
+          "Computer Ethics"
+        ]
+      },
+      {
+        "school": "Florya Tevfik Ercan Anatolian High School",
+        "degree": "High School",
+        "year": "2011 - 2015",
+        "description": "Mathematics & Science",
+        "achievements": [
+          "Mathematics",
+          "Physics",
+          "Chemistry",
+          "Biology",
+          "English",
+          "Turkish",
+          "History",
+          "Geography",
+          "Civics",
+          "Economics",
+          "Computer Science"
+        ]
+      }
+    ]
+  },
+  "currentVibes": {
+    "title": "Current Vibes",
+    "description": "What I'm currently up to",
+    "cards": {
+      "game": {
+        "defaultTitle": "Game",
+        "currentlyPlaying": "I'm currently playing",
+        "recentlyCompleted": "I recently completed"
+      },
+      "music": {
+        "noSongPlaying": "No song playing",
+        "listeningTo": "I'm listening to"
+      },
+      "blog": {
+        "defaultTitle": "Blog Post",
+        "latestPost": "The latest blog post I've written"
+      },
+      "map": {
+        "title": "Places I've Been",
+        "category": "Biggest travel achievements"
+      },
+      "default": {
+        "title": "Card",
+        "category": "Content"
+      },
+      "error": {
+        "title": "Error",
+        "category": "Failed to load"
+      },
+      "visit": "Visit",
+      "hours": "hours",
+      "minRead": "min read",
+      "cities": "Cities",
+      "countries": "Countries"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "swipe": "Swipe",
+    "scroll": "Scroll",
+    "toSeeMore": "to see more",
+    "scrollToSeeMore": "Scroll to see more"
+  },
+  "footer": {
+    "copyright": {
+      "madeWith": "Made with ❤️"
+    },
+    "providers": {
+      "title": "Providers",
+      "howLongToBeat": {
+        "name": "HowLongToBeat",
+        "description": "Provides data for my video games section."
+      },
+      "spotify": {
+        "name": "Spotify",
+        "description": "Provides data for my music section."
+      },
+      "rss2json": {
+        "name": "RSS2JSON",
+        "description": "Provides data for my blog section."
+      }
+    }
+  },
+  "adBlockWarning": {
+    "title": "AdBlocker Detected",
+    "description": "It looks like you're using an ad blocker (such as AdGuard or uBlock Origin). While I respect your choice, please note that ad blockers might break some functionality on this site. Consider disabling it for the best experience."
+  },
+  "languageSwitch": {
+    "title": "Türkçe'ye geçmek ister misiniz?",
+    "description": "Türkçe dil ayarları kullandığınızı fark ettik.",
+    "switch": "Türkçe'ye Geç",
+    "dismiss": "Kapat"
+  }
+}

@@ -32,7 +32,7 @@ const {
 // Update navigation items to include settings action
 const navigationItemsWithSettings = computed(() => {
   return navigationItems.value.map((item) => {
-    if (item.label === "Settings") {
+    if (item.id === "settings") {
       return {
         ...item,
         action: openSettingsDialog,

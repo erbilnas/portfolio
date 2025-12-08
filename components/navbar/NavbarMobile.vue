@@ -103,7 +103,7 @@ const emit = defineEmits<{
             <component :is="icon" class="size-6" />
             <span
               v-if="badge"
-              class="absolute -top-1 -right-1 flex h-2 min-w-2 rounded-full bg-primary animate-pulse"
+              class="absolute -top-0.5 -right-0.5 flex h-3 w-3 rounded-full bg-primary border-2 border-background animate-pulse shadow-lg"
             />
           </div>
           <span class="text-base font-medium">{{ label }}</span>

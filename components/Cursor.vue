@@ -2,11 +2,15 @@
   <div>
     <div
       ref="cursor"
-      class="fixed w-4 h-4 bg-white rounded-full mix-blend-difference select-none pointer-events-none z-[9999] hidden"
+      data-cursor
+      class="fixed w-4 h-4 bg-white rounded-full mix-blend-difference select-none pointer-events-none z-[99999] hidden"
+      style="z-index: 99999 !important;"
     />
     <div
       ref="follower"
-      class="fixed -top-3 -left-3 w-10 h-10 bg-white/[0.02] border border-white/[0.2] rounded-full select-none pointer-events-none z-[9999] hidden transition-[width,height] duration-200"
+      data-cursor
+      class="fixed -top-3 -left-3 w-10 h-10 bg-white/[0.02] border border-white/[0.2] rounded-full select-none pointer-events-none z-[99999] hidden transition-[width,height] duration-200"
+      style="z-index: 99999 !important;"
     />
   </div>
 </template>
@@ -311,3 +315,10 @@ watchEffect(() => {
   }
 });
 </script>
+
+<style scoped>
+/* Ensure cursor is always above Sonner toasts and other elements */
+div[data-cursor] {
+  z-index: 99999 !important;
+}
+</style>

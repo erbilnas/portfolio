@@ -71,7 +71,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section id="current-vibes" ref="sectionRef">
+  <section id="current-vibes" ref="sectionRef" class="relative">
     <div
       class="overflow-hidden min-h-screen flex flex-col gap-12 py-20 items-center bg-white dark:bg-black px-6"
     >
