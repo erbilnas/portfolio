@@ -22,7 +22,7 @@ const sectionRef = ref<HTMLElement | null>(null);
 useObserver("Current Vibes", sectionRef);
 
 // Data fetching
-const { cards } = useCurrentVibesData();
+const { cards, gameData } = useCurrentVibesData();
 
 // Card metadata
 const { getCardMetadata } = useCardsMetadata();
@@ -96,20 +96,21 @@ onUnmounted(() => {
           :hide-navigation="false"
           class="px-4 md:px-0"
         >
-          <AppleCarouselItem
+          <template
             v-for="(card, index) in cards"
-            :key="index"
-            :index="index"
+            :key="`${card.type}-${index}`"
           >
-            <CurrentVibesCard
-              :card="card"
-              :index="index"
-              :metadata="getCardMetadata(card, index)"
-              :contrast-class="cardContrast.get(index)?.textColorClass"
-              :is-light="cardContrast.get(index)?.isLight"
-              :is-dragging="isDragging"
-            />
-          </AppleCarouselItem>
+            <AppleCarouselItem :index="index">
+              <CurrentVibesCard
+                :card="card"
+                :index="index"
+                :metadata="getCardMetadata(card, index)"
+                :contrast-class="cardContrast.get(index)?.textColorClass"
+                :is-light="cardContrast.get(index)?.isLight"
+                :is-dragging="isDragging"
+              />
+            </AppleCarouselItem>
+          </template>
         </AppleCardCarousel>
       </div>
     </div>

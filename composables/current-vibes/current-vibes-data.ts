@@ -10,16 +10,46 @@ export interface CardData {
 }
 
 export const useCurrentVibesData = () => {
-  const { data: gameData } = useFetch<GameDetails>("/api/video-games");
+  const {
+    data: gameData,
+    pending: gamePending,
+    error: gameError,
+  } = useFetch<GameDetails | { status: number; message: string }>(
+    "/api/video-games"
+  );
   const { data: blogData } = useFetch<MediumPost>("/api/blog");
   const { data: musicData } = useFetch<MusicPlayer>("/api/music");
 
+  // Watch for data changes
+  watch(
+    [gameData, gamePending, gameError],
+    ([data, pending, error]) => {
+      // Data change monitoring (no logging)
+    },
+    { immediate: true }
+  );
+
   const cards = computed<CardData[]>(() => {
-    return [
-      {
-        type: "game",
-        data: gameData.value?.playing || gameData.value?.last_completed,
-      },
+    // Check if gameData is an error response
+    const isValidGameData = gameData.value && !("status" in gameData.value);
+    const gameDetails = isValidGameData
+      ? (gameData.value as GameDetails)
+      : null;
+
+    const gameCardData = gameDetails?.playing || gameDetails?.last_completed;
+
+    const cardArray: CardData[] = [];
+
+    // Add game card first if it exists
+    if (gameCardData) {
+      cardArray.push({
+        type: "game" as const,
+        data: gameCardData,
+      });
+    }
+
+    // Add other cards
+    cardArray.push(
       {
         type: "music",
         data: musicData.value?.player,
@@ -30,15 +60,24 @@ export const useCurrentVibesData = () => {
       },
       {
         type: "map",
-      },
-    ];
+      }
+    );
+
+    return cardArray;
+  });
+
+  // Computed property to filter out error responses
+  const validGameData = computed(() => {
+    if (!gameData.value || "status" in gameData.value) {
+      return null;
+    }
+    return gameData.value as GameDetails;
   });
 
   return {
     cards,
-    gameData,
+    gameData: validGameData,
     blogData,
     musicData,
   };
 };
-

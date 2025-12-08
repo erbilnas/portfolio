@@ -17,8 +17,8 @@ export interface SingleGameDetail {
 }
 
 export interface GameDetails {
-  playing: SingleGameDetail;
-  last_completed: SingleGameDetail;
+  playing: SingleGameDetail | null;
+  last_completed: SingleGameDetail | null;
 }
 
 export interface Album {

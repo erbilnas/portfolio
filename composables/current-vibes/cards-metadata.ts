@@ -88,78 +88,94 @@ export const useCardsMetadata = () => {
   /**
    * Get metadata for a card based on its type
    */
-  const getCardMetadata = (
-    card: CardData,
-    index: number
-  ): CardMetadata => {
-    const appConfig = getAppConfig();
-    switch (card.type) {
-      case "game": {
-        const game = card.data as SingleGameDetail;
-        const visitUrl = appConfig.socialLinks.howlongtobeat || undefined;
-        return {
-          title: game?.title || "Game",
-          category:
-            game?.status === "playing"
-              ? "I'm currently playing"
-              : "I recently completed",
-          src: game?.image || "/images/blog-post-card-bg.jpg",
-          progress: game?.progress,
-          progressPercentage: calculateProgressPercentage(game),
-          platform: game?.platform + " / " + game?.storefront,
-          description: game?.description,
-          visitUrl,
-        };
+  const getCardMetadata = (card: CardData, _index: number): CardMetadata => {
+    try {
+      const appConfig = getAppConfig();
+      switch (card.type) {
+        case "game": {
+          const game = card.data as SingleGameDetail;
+
+          const visitUrl = appConfig.socialLinks.howlongtobeat || undefined;
+          const platformParts = [game?.platform, game?.storefront].filter(
+            Boolean
+          );
+          const platform =
+            platformParts.length > 0 ? platformParts.join(" / ") : undefined;
+
+          const metadata = {
+            title: game?.title || "Game",
+            category:
+              game?.status === "playing"
+                ? "I'm currently playing"
+                : "I recently completed",
+            src: game?.image || "/images/blog-post-card-bg.jpg",
+            progress: game?.progress,
+            progressPercentage: calculateProgressPercentage(game),
+            platform,
+            description: game?.description,
+            visitUrl,
+          };
+
+          return metadata;
+        }
+        case "music": {
+          const player = card.data as MusicPlayerData;
+          const visitUrl = appConfig.socialLinks.spotify || undefined;
+          return {
+            title: player?.name || "No song playing",
+            category: player?.album?.image ? "I'm listening to" : "",
+            src: player?.album?.image || "/images/no-music-playing.jpg",
+            artist: player?.artist,
+            album: player?.album?.name,
+            isPlaying: !!player?.name,
+            visitUrl,
+          };
+        }
+        case "blog": {
+          const post = card.data as MediumPost;
+          return {
+            title: post?.title || "Blog Post",
+            category: "The latest blog post I've written",
+            src: "/images/blog-post-card-bg.jpg",
+            readTime: calculateReadTime(post?.description),
+            publishedDate: formatDate(post?.published_at),
+            description: truncateDescription(post?.description),
+            visitUrl: post?.link || appConfig.socialLinks.medium || undefined,
+          };
+        }
+        case "map": {
+          const visitedCountries = appConfig.maps?.countriesVisited;
+          const visitedCities = appConfig.maps?.citiesVisited;
+          const totalCountries = 195;
+          const completionPercentage = Math.round(
+            ((Number(visitedCountries) || 0) / Number(totalCountries)) * 100
+          );
+          return {
+            title: "Places I've Been",
+            category: "Biggest travel achievements",
+            src: "/images/map-card-bg.jpg",
+            cities: Number(visitedCities) || undefined,
+            countries: Number(visitedCountries) || undefined,
+            completionPercentage,
+            visitUrl: appConfig.maps?.placesBeen || undefined,
+          };
+        }
+        default:
+          return {
+            title: "Card",
+            category: "Content",
+            src: "/images/blog-post-card-bg.jpg",
+            visitUrl: undefined,
+          };
       }
-      case "music": {
-        const player = card.data as MusicPlayerData;
-        const visitUrl = appConfig.socialLinks.spotify || undefined;
-        return {
-          title: player?.name || "No song playing",
-          category: player?.album?.image ? "I'm listening to" : "",
-          src: player?.album?.image || "/images/no-music-playing.jpg",
-          artist: player?.artist,
-          album: player?.album?.name,
-          isPlaying: !!player?.name,
-          visitUrl,
-        };
-      }
-      case "blog": {
-        const post = card.data as MediumPost;
-        return {
-          title: post?.title || "Blog Post",
-          category: "The latest blog post I've written",
-          src: "/images/blog-post-card-bg.jpg",
-          readTime: calculateReadTime(post?.description),
-          publishedDate: formatDate(post?.published_at),
-          description: truncateDescription(post?.description),
-          visitUrl: post?.link || appConfig.socialLinks.medium || undefined,
-        };
-      }
-      case "map": {
-        const visitedCountries = appConfig.maps?.countriesVisited;
-        const visitedCities = appConfig.maps?.citiesVisited;
-        const totalCountries = 195;
-        const completionPercentage = Math.round(
-          ((Number(visitedCountries) || 0) / Number(totalCountries)) * 100
-        );
-        return {
-          title: "Places I've Been",
-          category: "Biggest travel achievements",
-          src: "/images/map-card-bg.jpg",
-          cities: visitedCities,
-          countries: visitedCountries,
-          completionPercentage,
-          visitUrl: appConfig.maps?.placesBeen || undefined,
-        };
-      }
-      default:
-        return {
-          title: "Card",
-          category: "Content",
-          src: "/images/blog-post-card-bg.jpg",
-          visitUrl: undefined,
-        };
+    } catch (error) {
+      console.error("❌ [Metadata] Error generating metadata:", error);
+      return {
+        title: "Error",
+        category: "Failed to load",
+        src: "/images/error.jpg",
+        visitUrl: undefined,
+      };
     }
   };
 
@@ -167,4 +183,3 @@ export const useCardsMetadata = () => {
     getCardMetadata,
   };
 };
-
