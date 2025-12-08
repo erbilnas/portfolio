@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { useI18n } from "#imports";
 import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
+import { MusicIcon } from "lucide-vue-next";
+import type { MusicPlayer } from "~/types/current-vibes";
 import type { NavigationItem } from "./navbar.types";
 
 interface Props {
@@ -15,6 +18,27 @@ const emit = defineEmits<{
   navItemClick: [action: () => void];
   overlayClick: [];
 }>();
+
+const { t } = useI18n();
+
+// Fetch music data for alt text
+const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+
+// Format music info for display
+const musicInfo = computed(() => {
+  const player = musicData.value?.player;
+  // Check if music is playing by checking if player data exists
+  if (!player?.name || !player?.artist) return null;
+  return `${player.name} - ${player.artist}`;
+});
+
+// Get aria-label for navigation items
+const getAriaLabel = (item: NavigationItem) => {
+  if (item.id === "current-vibes" && musicInfo.value) {
+    return `${item.label}: ${musicInfo.value}`;
+  }
+  return item.label;
+};
 </script>
 
 <template>
@@ -94,22 +118,37 @@ const emit = defineEmits<{
     >
       <nav class="flex flex-col gap-4">
         <button
-          v-for="{ label, action, icon, badge } in navigationItems"
-          :key="label"
-          @click.stop="emit('navItemClick', action)"
+          v-for="item in navigationItems"
+          :key="item.label"
+          @click.stop="emit('navItemClick', item.action)"
+          :aria-label="getAriaLabel(item)"
           class="flex items-center gap-4 p-4 rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 text-left"
         >
           <div class="relative flex-shrink-0">
-            <component :is="icon" class="size-6" />
+            <component :is="item.icon" class="size-6" />
             <span
-              v-if="badge"
+              v-if="item.badge"
               class="absolute -top-0.5 -right-0.5 flex h-3 w-3 rounded-full bg-primary border-2 border-background animate-pulse shadow-lg"
             />
           </div>
-          <span class="text-base font-medium">{{ label }}</span>
+          <div class="flex flex-col gap-1">
+            <span class="text-base font-medium">{{ item.label }}</span>
+            <span
+              v-if="item.id === 'settings'"
+              class="text-xs text-muted-foreground"
+            >
+              {{ t("nav.multipleLanguagesSupported") }}
+            </span>
+            <div
+              v-if="item.id === 'current-vibes' && musicInfo"
+              class="flex items-center gap-1.5 text-xs text-muted-foreground"
+            >
+              <MusicIcon class="h-3 w-3" />
+              <span>{{ musicInfo }}</span>
+            </div>
+          </div>
         </button>
       </nav>
     </LiquidGlass>
   </Transition>
 </template>
-

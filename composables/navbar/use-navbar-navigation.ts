@@ -84,6 +84,7 @@ export const useNavbarNavigation = () => {
       action: () => scrollToSection("projects"),
     },
     {
+      id: "current-vibes",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.FerrisWheelIcon)
       ),
