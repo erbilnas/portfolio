@@ -6,6 +6,7 @@
     "experience": "Experience",
     "projects": "Projects",
     "currentVibes": "Current Vibes",
+    "resume": "Resume",
     "settings": "Settings",
     "multipleLanguagesSupported": "Multiple languages are supported"
   },
@@ -551,7 +552,10 @@
     "swipe": "Swipe",
     "scroll": "Scroll",
     "toSeeMore": "to see more",
-    "scrollToSeeMore": "Scroll to see more"
+    "scrollToSeeMore": "Scroll to see more",
+    "downloadCv": "Download CV",
+    "showResume": "Show Resume",
+    "goBack": "Go Back"
   },
   "footer": {
     "copyright": {

@@ -6,6 +6,7 @@
     "experience": "Deneyim",
     "projects": "Projeler",
     "currentVibes": "Güncel Vibe'lar",
+    "resume": "Özgeçmiş",
     "settings": "Ayarlar",
     "multipleLanguagesSupported": "Çoklu dil desteği mevcuttur"
   },
@@ -550,7 +551,10 @@
     "swipe": "Sürükleyerek",
     "scroll": "Kaydırarak",
     "toSeeMore": "daha fazla görüntüleyebilirsin",
-    "scrollToSeeMore": "Kaydırmaya başlayın"
+    "scrollToSeeMore": "Kaydırmaya başlayın",
+    "downloadCv": "CV İndir",
+    "showResume": "Özgeçmişi Görüntüle",
+    "goBack": "Geri Dön"
   },
   "footer": {
     "copyright": {

@@ -21,6 +21,7 @@ const appConfig = {
   flippingWords: process.env.FLIPPING_WORDS,
 
   version: process.env.npm_package_version || "Unknown",
+  resumePdfUrl: process.env.RESUME_PDF_URL,
 };
 
 const runtimeConfig = {

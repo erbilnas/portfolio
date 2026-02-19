@@ -14,7 +14,7 @@ const age = computed(() => lifetimeStats.value?.age ?? 0);
 
 const { t } = useI18n();
 const text = computed(() => {
-  return t('aboutMe.description', { age: age.value });
+  return t("aboutMe.description", { age: age.value });
 });
 
 useObserver("About Me", sectionRef);
@@ -25,7 +25,7 @@ useObserver("About Me", sectionRef);
     <div
       class="bg-white dark:bg-black flex min-h-screen items-center justify-center px-6 py-32"
     >
-      <div class="max-w-4xl w-full">
+      <div class="max-w-4xl w-full flex flex-col items-center gap-8">
         <TextScrollReveal
           :text
           class="text-2xl md:text-4xl font-light leading-relaxed text-gray-900 dark:text-white tracking-tight"
