@@ -9,14 +9,13 @@ const Projects = defineAsyncComponent(() => import("./projects"));
 const Skills = defineAsyncComponent(() => import("./skills"));
 const Welcome = defineAsyncComponent(() => import("./welcome"));
 
-useHead({
+useSeoMeta({
   title: "Erbil Nas",
+  description:
+    "Welcome to my personal website. I am a Software Engineer passionate about creating innovative solutions and sharing knowledge.",
+});
+useHead({
   meta: [
-    {
-      name: "description",
-      content:
-        "Welcome to my personal website. I am a Software Engineer passionate about creating innovative solutions and sharing knowledge.",
-    },
     {
       name: "keywords",
       content:

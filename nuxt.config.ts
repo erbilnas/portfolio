@@ -25,6 +25,12 @@ const appConfig = {
 };
 
 const runtimeConfig = {
+  public: {
+    siteUrl: process.env.NUXT_APP_URL || "https://erbilnas.com",
+    siteDescription:
+      process.env.NUXT_APP_DESCRIPTION ||
+      "The digital showcase about me, a passionate software engineer with a love for video games, technology, and insightful writing.",
+  },
   howlongtobeat: {
     api: process.env.HOWLONGTOBEAT_API_URL,
   },
@@ -62,7 +68,11 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
     "@nuxt/icon",
     "@nuxtjs/i18n",
+    "@nuxtjs/sitemap",
   ],
+  site: {
+    url: process.env.NUXT_APP_URL || "https://erbilnas.com",
+  },
   appConfig,
   runtimeConfig,
   app: {
@@ -99,6 +109,35 @@ export default defineNuxtConfig({
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: process.env.NUXT_APP_URL },
+        {
+          property: "og:image",
+          content:
+            process.env.NUXT_APP_OG_IMAGE ||
+            `${process.env.NUXT_APP_URL || "https://erbilnas.com"}/og-image.png`,
+        },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        {
+          property: "og:site_name",
+          content: process.env.NUXT_APP_TITLE || "Erbil Nas",
+        },
+        { name: "twitter:card", content: "summary_large_image" },
+        {
+          name: "twitter:title",
+          content: process.env.NUXT_APP_TITLE || "Erbil Nas",
+        },
+        {
+          name: "twitter:description",
+          content:
+            process.env.NUXT_APP_DESCRIPTION ||
+            "The digital showcase about me, a passionate software engineer with a love for video games, technology, and insightful writing.",
+        },
+        {
+          name: "twitter:image",
+          content:
+            process.env.NUXT_APP_OG_IMAGE ||
+            `${process.env.NUXT_APP_URL || "https://erbilnas.com"}/og-image.png`,
+        },
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },

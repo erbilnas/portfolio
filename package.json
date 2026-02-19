@@ -18,6 +18,7 @@
     "@nuxt/icon": "1.10.3",
     "@nuxtjs/color-mode": "3.5.2",
     "@nuxtjs/i18n": "^10.2.1",
+    "@nuxtjs/sitemap": "7.6.0",
     "@nuxtjs/tailwindcss": "6.12.2",
     "@types/gsap": "^3.0.0",
     "@vercel/analytics": "^1.1.3",

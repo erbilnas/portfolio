@@ -1,4 +1,5 @@
 import { onMounted, onUnmounted, watch, type Ref } from "vue";
+import { sectionMeta } from "~/seo/sections";
 
 const observerOptions: IntersectionObserverInit = {
   root: null,
@@ -6,11 +7,16 @@ const observerOptions: IntersectionObserverInit = {
 };
 
 export const useObserver = (section: string, ref: Ref<HTMLElement | null>) => {
+  const meta = sectionMeta[section] ?? {
+    title: `${section} | Erbil Nas`,
+  };
+
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        useHead({
-          titleTemplate: `${section} | Erbil Nas`,
+        useSeoMeta({
+          title: meta.title,
+          description: meta.description,
         });
       }
     });

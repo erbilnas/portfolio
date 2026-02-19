@@ -5,15 +5,16 @@ const resumeUrl = computed(
   () => (appConfig.resumePdfUrl as string | undefined) ?? "/resume.pdf",
 );
 
-useHead({
+useSeoMeta({
   title: "Resume - Erbil Nas",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Download or view Erbil Nas's resume and professional experience.",
-    },
-  ],
+  description:
+    "Download or view Erbil Nas's resume and professional experience.",
+  ogTitle: "Resume - Erbil Nas",
+  ogDescription:
+    "Download or view Erbil Nas's resume and professional experience.",
+  twitterTitle: "Resume - Erbil Nas",
+  twitterDescription:
+    "Download or view Erbil Nas's resume and professional experience.",
 });
 
 definePageMeta({
