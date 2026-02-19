@@ -36,3 +36,12 @@ export interface MusicPlayerData {
 export interface MusicPlayer {
   player: MusicPlayerData;
 }
+
+export interface GitHubStats {
+  username: string;
+  publicRepos: number;
+  totalContributions: number;
+  commits: number;
+  pullRequests: number;
+  issues: number;
+}

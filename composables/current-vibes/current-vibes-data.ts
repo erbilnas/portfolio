@@ -1,11 +1,12 @@
 import type {
   GameDetails,
+  GitHubStats,
   MediumPost,
   MusicPlayer,
 } from "~/types/current-vibes";
 
 export interface CardData {
-  type: "game" | "music" | "blog" | "map";
+  type: "game" | "music" | "blog" | "map" | "github";
   data?: unknown;
 }
 
@@ -19,6 +20,9 @@ export const useCurrentVibesData = () => {
   );
   const { data: blogData } = useFetch<MediumPost>("/api/blog");
   const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+  const { data: githubData } = useFetch<
+    GitHubStats | { status: number; message: string }
+  >("/api/github");
 
   // Watch for data changes
   watch(
@@ -57,11 +61,22 @@ export const useCurrentVibesData = () => {
       {
         type: "blog",
         data: blogData.value || undefined,
-      },
-      {
-        type: "map",
       }
     );
+
+    // Add GitHub card if data is valid
+    const isValidGithubData =
+      githubData.value && !("status" in githubData.value);
+    if (isValidGithubData) {
+      cardArray.push({
+        type: "github" as const,
+        data: githubData.value as GitHubStats,
+      });
+    }
+
+    cardArray.push({
+      type: "map",
+    });
 
     return cardArray;
   });

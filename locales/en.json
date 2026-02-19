@@ -40,24 +40,15 @@
   "projects": {
     "title": "Projects",
     "description": "A showcase of projects I've worked on, featuring innovative solutions and creative implementations",
+    "speed": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
     "visit": "Visit",
     "viewSource": "View Source",
     "visitTitle": "Visit {name} - Live Demo",
     "githubTitle": "View {name} source code on GitHub",
-    "items": {
-      "baklava": {
-        "description": "Baklava is a design system provided by Trendyol to create a consistent UI/UX for app users."
-      },
-      "spaceflash": {
-        "description": "Spaceflash is a wave-based shooter playable with a VR headset (Oculus, HTC, etc.) where you destroy endless enemies coming to defend your moon base."
-      },
-      "perfanalytics": {
-        "description": "A client-side library which collects some performance related key metrics from browser and sends to the API."
-      },
-      "crossingOfTheRhine": {
-        "description": "Crossing of the Rhine: A.D. 406 is a turn-based/RPG game based on a historical event and developed with Python."
-      }
-    }
+    "items": {}
   },
   "skills": {
     "title": "Skills",
@@ -523,6 +514,15 @@
         "title": "Places I've Been",
         "category": "Biggest travel achievements"
       },
+      "github": {
+        "title": "GitHub Stats",
+        "category": "My coding activity",
+        "commits": "commits",
+        "repos": "repositories",
+        "contributions": "contributions",
+        "pullRequests": "pull requests",
+        "issues": "issues"
+      },
       "default": {
         "title": "Card",
         "category": "Content"
@@ -564,6 +564,10 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Provides data for my blog section."
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "Provides data for my GitHub stats card."
       }
     }
   },

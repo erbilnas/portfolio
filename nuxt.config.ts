@@ -39,6 +39,10 @@ const runtimeConfig = {
     birthday: process.env.MY_BIRTHDAY_DATE,
     first_work_experience: process.env.FIRST_WORK_EXPERIENCE_DATE,
   },
+  github: {
+    username: process.env.GITHUB_USERNAME,
+    token: process.env.GITHUB_TOKEN,
+  },
 };
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
