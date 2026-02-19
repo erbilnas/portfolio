@@ -1,3 +1,11 @@
+# [6.3.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.2.0...v6.3.0-preview.1) (2026-02-19)
+
+
+### Features
+
+* add github stats card and change the source data of projects as github ([a59c8ad](https://github.com/erbilnas/portfolio/commit/a59c8adc917717acd1a89af2fc9346a8ab33cc78))
+* **projects:** add speed control for marquee ([196efcf](https://github.com/erbilnas/portfolio/commit/196efcf312cf191d48c80621003603a5818619ef))
+
 # [6.2.0](https://github.com/erbilnas/portfolio/compare/v6.1.3...v6.2.0) (2025-12-08)
 
 

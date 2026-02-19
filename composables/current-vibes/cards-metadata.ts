@@ -1,5 +1,6 @@
 import { useI18n } from "#imports";
 import type {
+  GitHubStats,
   MediumPost,
   MusicPlayerData,
   SingleGameDetail,
@@ -32,6 +33,12 @@ export interface CardMetadata {
   watchedDate?: string;
   mediaType?: "movie" | "episode";
   subtitle?: string;
+  // GitHub specific
+  commits?: number;
+  repos?: number;
+  contributions?: number;
+  pullRequests?: number;
+  issues?: number;
 }
 
 /**
@@ -166,6 +173,20 @@ export const useCardsMetadata = () => {
             mediaType: trakt?.type,
             subtitle: trakt?.subtitle,
             visitUrl,
+          };
+        }
+        case "github": {
+          const stats = card.data as GitHubStats;
+          return {
+            title: t("currentVibes.cards.github.title"),
+            category: t("currentVibes.cards.github.category"),
+            src: "/images/github-stats-bg.png",
+            visitUrl: appConfig.socialLinks?.github || undefined,
+            commits: stats?.commits,
+            repos: stats?.publicRepos,
+            contributions: stats?.totalContributions,
+            pullRequests: stats?.pullRequests,
+            issues: stats?.issues,
           };
         }
         case "map": {

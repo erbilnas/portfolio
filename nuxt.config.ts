@@ -45,6 +45,10 @@ const runtimeConfig = {
     clientSecret: process.env.TRAKT_CLIENT_SECRET,
     username: process.env.TRAKT_USERNAME,
   },
+  github: {
+    username: process.env.GITHUB_USERNAME,
+    token: process.env.GITHUB_TOKEN,
+  },
 };
 
 // https://nuxt.com/docs/api/configuration/nuxt-config

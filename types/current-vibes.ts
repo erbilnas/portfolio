@@ -46,3 +46,12 @@ export interface TraktWatchedDetail {
   ids: { trakt?: number; slug?: string; imdb?: string; tmdb?: number };
   watched_at: string;
 }
+
+export interface GitHubStats {
+  username: string;
+  publicRepos: number;
+  totalContributions: number;
+  commits: number;
+  pullRequests: number;
+  issues: number;
+}

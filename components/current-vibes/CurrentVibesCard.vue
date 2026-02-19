@@ -3,12 +3,16 @@ import { useI18n } from "#imports";
 import {
   BookOpenIcon,
   CalendarIcon,
+  CircleAlertIcon,
   ClockIcon,
   Disc3Icon,
   ExternalLinkIcon,
   FilmIcon,
   FlagIcon,
+  FolderOpenIcon,
   Gamepad2Icon,
+  GitCommitIcon,
+  GitPullRequestIcon,
   GlobeIcon,
   MapPinIcon,
   MicVocalIcon,
@@ -216,6 +220,72 @@ const { t } = useI18n();
             ]"
           >
             {{ metadata.subtitle }}
+          </div>
+        </template>
+
+        <!-- GitHub Details -->
+        <template v-if="card.type === 'github'">
+          <div
+            v-if="metadata.commits !== undefined"
+            class="flex items-center gap-2"
+          >
+            <GitCommitIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span
+              >{{ metadata.commits }}
+              {{ t("currentVibes.cards.github.commits") }}</span
+            >
+          </div>
+          <div
+            v-if="metadata.repos !== undefined"
+            class="flex items-center gap-2"
+          >
+            <FolderOpenIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span
+              >{{ metadata.repos }}
+              {{ t("currentVibes.cards.github.repos") }}</span
+            >
+          </div>
+          <div
+            v-if="metadata.contributions !== undefined"
+            class="flex items-center gap-2"
+          >
+            <GlobeIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span
+              >{{ metadata.contributions }}
+              {{ t("currentVibes.cards.github.contributions") }}</span
+            >
+          </div>
+          <div
+            v-if="
+              metadata.pullRequests !== undefined && metadata.pullRequests > 0
+            "
+            class="flex items-center gap-2"
+          >
+            <GitPullRequestIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span
+              >{{ metadata.pullRequests }}
+              {{ t("currentVibes.cards.github.pullRequests") }}</span
+            >
+          </div>
+          <div
+            v-if="metadata.issues !== undefined && metadata.issues > 0"
+            class="flex items-center gap-2"
+          >
+            <CircleAlertIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span
+              >{{ metadata.issues }}
+              {{ t("currentVibes.cards.github.issues") }}</span
+            >
           </div>
         </template>
 
