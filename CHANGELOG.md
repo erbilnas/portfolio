@@ -1,3 +1,10 @@
+# [6.3.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.2...v6.3.0-preview.3) (2026-02-19)
+
+
+### Bug Fixes
+
+* fix duplication of map card ([0e90767](https://github.com/erbilnas/portfolio/commit/0e90767285b0d1d6b50659f039b7c5191345f5ce))
+
 # [6.3.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.1...v6.3.0-preview.2) (2026-02-19)
 
 
