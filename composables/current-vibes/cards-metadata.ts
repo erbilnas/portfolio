@@ -4,6 +4,7 @@ import type {
   MediumPost,
   MusicPlayerData,
   SingleGameDetail,
+  TraktWatchedDetail,
 } from "~/types/current-vibes";
 import type { CardData } from "./current-vibes-data";
 
@@ -28,6 +29,10 @@ export interface CardMetadata {
   cities?: number;
   countries?: number;
   completionPercentage?: number;
+  // Trakt specific
+  watchedDate?: string;
+  mediaType?: "movie" | "episode";
+  subtitle?: string;
   // GitHub specific
   commits?: number;
   repos?: number;
@@ -155,6 +160,19 @@ export const useCardsMetadata = () => {
             publishedDate: formatDate(post?.published_at, locale.value),
             description: truncateDescription(post?.description),
             visitUrl: post?.link || appConfig.socialLinks.medium || undefined,
+          };
+        }
+        case "trakt": {
+          const trakt = card.data as TraktWatchedDetail;
+          const visitUrl = appConfig.socialLinks.trakt || undefined;
+          return {
+            title: trakt?.title || t("currentVibes.cards.trakt.defaultTitle"),
+            category: t("currentVibes.cards.trakt.lastWatched"),
+            src: trakt?.image || "/images/trakt-card-bg.png",
+            watchedDate: formatDate(trakt?.watched_at, locale.value),
+            mediaType: trakt?.type,
+            subtitle: trakt?.subtitle,
+            visitUrl,
           };
         }
         case "github": {

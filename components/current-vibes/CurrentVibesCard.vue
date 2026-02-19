@@ -7,6 +7,7 @@ import {
   ClockIcon,
   Disc3Icon,
   ExternalLinkIcon,
+  FilmIcon,
   FlagIcon,
   FolderOpenIcon,
   Gamepad2Icon,
@@ -15,6 +16,7 @@ import {
   GlobeIcon,
   MapPinIcon,
   MicVocalIcon,
+  TvIcon,
 } from "lucide-vue-next";
 import { AppleBlurImage } from "~/components/ui/apple-card-carousel";
 import type { CardMetadata } from "~/composables/current-vibes/cards-metadata";
@@ -184,6 +186,40 @@ const { t } = useI18n();
             ]"
           >
             {{ metadata.description }}
+          </div>
+        </template>
+
+        <!-- Trakt Details -->
+        <template v-if="card.type === 'trakt'">
+          <div v-if="metadata.mediaType" class="flex items-center gap-2">
+            <FilmIcon
+              v-if="metadata.mediaType === 'movie'"
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <TvIcon
+              v-else
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span>{{
+              metadata.mediaType === "movie"
+                ? t("currentVibes.cards.trakt.movie")
+                : t("currentVibes.cards.trakt.episode")
+            }}</span>
+          </div>
+          <div v-if="metadata.watchedDate" class="flex items-center gap-2">
+            <CalendarIcon
+              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
+            />
+            <span>{{ metadata.watchedDate }}</span>
+          </div>
+          <div
+            v-if="metadata.subtitle"
+            :class="[
+              'line-clamp-2 mt-1 drop-shadow-sm',
+              isLight ? 'text-gray-800' : 'text-white/95',
+            ]"
+          >
+            {{ metadata.subtitle }}
           </div>
         </template>
 

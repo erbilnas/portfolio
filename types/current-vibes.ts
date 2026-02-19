@@ -37,6 +37,16 @@ export interface MusicPlayer {
   player: MusicPlayerData;
 }
 
+export interface TraktWatchedDetail {
+  type: "movie" | "episode";
+  title: string;
+  subtitle?: string;
+  year: number | null;
+  image: string;
+  ids: { trakt?: number; slug?: string; imdb?: string; tmdb?: number };
+  watched_at: string;
+}
+
 export interface GitHubStats {
   username: string;
   publicRepos: number;

@@ -514,6 +514,12 @@
         "title": "Places I've Been",
         "category": "Biggest travel achievements"
       },
+      "trakt": {
+        "defaultTitle": "Movie or TV Show",
+        "lastWatched": "I recently watched",
+        "movie": "Movie",
+        "episode": "TV Episode"
+      },
       "github": {
         "title": "GitHub Stats",
         "category": "My coding activity",
@@ -564,6 +570,10 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Provides data for my blog section."
+      },
+      "trakt": {
+        "name": "Trakt.tv",
+        "description": "Provides data for my watched history."
       },
       "github": {
         "name": "GitHub",
