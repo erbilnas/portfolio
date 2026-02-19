@@ -1,3 +1,10 @@
+# [6.3.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.1...v6.3.0-preview.2) (2026-02-19)
+
+
+### Features
+
+* **current-vibes:** add trakt card ([214421a](https://github.com/erbilnas/portfolio/commit/214421a145a76f3b81f9af19bcde4e3f52dd71c6))
+
 # [6.3.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.2.0...v6.3.0-preview.1) (2026-02-19)
 
 
