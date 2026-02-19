@@ -1,3 +1,11 @@
+# [6.3.0-preview.4](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.3...v6.3.0-preview.4) (2026-02-19)
+
+
+### Features
+
+* **resume:** add resume viewer ([94180e5](https://github.com/erbilnas/portfolio/commit/94180e55c270694a0c3c129244eb98b2f3b48ba4))
+* **seo:** increase seo effiency ([a30eee7](https://github.com/erbilnas/portfolio/commit/a30eee7f1b365155a6c40ce38cc67a804377a679))
+
 # [6.3.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.2...v6.3.0-preview.3) (2026-02-19)
 
 
