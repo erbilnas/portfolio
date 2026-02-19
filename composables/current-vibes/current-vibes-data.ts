@@ -74,9 +74,6 @@ export const useCurrentVibesData = () => {
         type: "blog",
         data: blogData.value || undefined,
       },
-      {
-        type: "map",
-      },
     );
 
     // Add GitHub card if data is valid

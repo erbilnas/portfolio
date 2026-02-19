@@ -22,7 +22,7 @@ const sectionRef = ref<HTMLElement | null>(null);
 useObserver("Current Vibes", sectionRef);
 
 // Data fetching
-const { cards, gameData } = useCurrentVibesData();
+const { cards } = useCurrentVibesData();
 
 // Card metadata
 const { getCardMetadata } = useCardsMetadata();
