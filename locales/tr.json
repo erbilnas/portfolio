@@ -522,6 +522,12 @@
         "title": "Gittiğim Yerler",
         "category": "En büyük seyahat başarılarım"
       },
+      "trakt": {
+        "defaultTitle": "Film veya Dizi",
+        "lastWatched": "Yakın zamanda izledim",
+        "movie": "Film",
+        "episode": "Dizi Bölümü"
+      },
       "default": {
         "title": "Kart",
         "category": "İçerik"
@@ -563,6 +569,10 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Blog bölümüm için veri sağlar."
+      },
+      "trakt": {
+        "name": "Trakt.tv",
+        "description": "İzleme geçmişim için veri sağlar."
       }
     }
   },

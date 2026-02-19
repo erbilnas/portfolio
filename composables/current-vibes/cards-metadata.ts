@@ -3,6 +3,7 @@ import type {
   MediumPost,
   MusicPlayerData,
   SingleGameDetail,
+  TraktWatchedDetail,
 } from "~/types/current-vibes";
 import type { CardData } from "./current-vibes-data";
 
@@ -27,6 +28,10 @@ export interface CardMetadata {
   cities?: number;
   countries?: number;
   completionPercentage?: number;
+  // Trakt specific
+  watchedDate?: string;
+  mediaType?: "movie" | "episode";
+  subtitle?: string;
 }
 
 /**
@@ -66,7 +71,7 @@ const formatDate = (dateString: string | undefined, locale: string) => {
       month: "long",
       day: "numeric",
       year: "numeric",
-    }
+    },
   );
 };
 
@@ -75,7 +80,7 @@ const formatDate = (dateString: string | undefined, locale: string) => {
  */
 const truncateDescription = (
   description: string | undefined,
-  maxLength = 150
+  maxLength = 150,
 ) => {
   if (!description) return "";
   const strippedText = description.replace(/<[^>]*>/g, "");
@@ -102,7 +107,7 @@ export const useCardsMetadata = () => {
 
           const visitUrl = appConfig.socialLinks.howlongtobeat || undefined;
           const platformParts = [game?.platform, game?.storefront].filter(
-            Boolean
+            Boolean,
           );
           const platform =
             platformParts.length > 0 ? platformParts.join(" / ") : undefined;
@@ -150,12 +155,25 @@ export const useCardsMetadata = () => {
             visitUrl: post?.link || appConfig.socialLinks.medium || undefined,
           };
         }
+        case "trakt": {
+          const trakt = card.data as TraktWatchedDetail;
+          const visitUrl = appConfig.socialLinks.trakt || undefined;
+          return {
+            title: trakt?.title || t("currentVibes.cards.trakt.defaultTitle"),
+            category: t("currentVibes.cards.trakt.lastWatched"),
+            src: trakt?.image || "/images/trakt-card-bg.png",
+            watchedDate: formatDate(trakt?.watched_at, locale.value),
+            mediaType: trakt?.type,
+            subtitle: trakt?.subtitle,
+            visitUrl,
+          };
+        }
         case "map": {
           const visitedCountries = appConfig.maps?.countriesVisited;
           const visitedCities = appConfig.maps?.citiesVisited;
           const totalCountries = 195;
           const completionPercentage = Math.round(
-            ((Number(visitedCountries) || 0) / Number(totalCountries)) * 100
+            ((Number(visitedCountries) || 0) / Number(totalCountries)) * 100,
           );
           return {
             title: t("currentVibes.cards.map.title"),

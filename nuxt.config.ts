@@ -11,6 +11,7 @@ const appConfig = {
     twitch: process.env.TWITCH_PROFILE_URL,
     youtube: process.env.YOUTUBE_PROFILE_URL,
     medium: process.env.MEDIUM_PROFILE_URL,
+    trakt: process.env.TRAKT_PROFILE_URL,
   },
   maps: {
     placesBeen: process.env.PLACES_BEEN_URL,
@@ -38,6 +39,11 @@ const runtimeConfig = {
   lifetime_stats: {
     birthday: process.env.MY_BIRTHDAY_DATE,
     first_work_experience: process.env.FIRST_WORK_EXPERIENCE_DATE,
+  },
+  trakt: {
+    clientId: process.env.TRAKT_CLIENT_ID,
+    clientSecret: process.env.TRAKT_CLIENT_SECRET,
+    username: process.env.TRAKT_USERNAME,
   },
 };
 

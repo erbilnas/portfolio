@@ -2,10 +2,11 @@ import type {
   GameDetails,
   MediumPost,
   MusicPlayer,
+  TraktWatchedDetail,
 } from "~/types/current-vibes";
 
 export interface CardData {
-  type: "game" | "music" | "blog" | "map";
+  type: "game" | "music" | "blog" | "map" | "trakt";
   data?: unknown;
 }
 
@@ -15,10 +16,13 @@ export const useCurrentVibesData = () => {
     pending: gamePending,
     error: gameError,
   } = useFetch<GameDetails | { status: number; message: string }>(
-    "/api/video-games"
+    "/api/video-games",
   );
   const { data: blogData } = useFetch<MediumPost>("/api/blog");
   const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+  const { data: traktData } = useFetch<TraktWatchedDetail | null>(
+    "/api/trakt/history",
+  );
 
   // Watch for data changes
   watch(
@@ -26,7 +30,7 @@ export const useCurrentVibesData = () => {
     ([data, pending, error]) => {
       // Data change monitoring (no logging)
     },
-    { immediate: true }
+    { immediate: true },
   );
 
   const cards = computed<CardData[]>(() => {
@@ -48,6 +52,14 @@ export const useCurrentVibesData = () => {
       });
     }
 
+    // Add trakt card if history exists
+    if (traktData.value) {
+      cardArray.push({
+        type: "trakt" as const,
+        data: traktData.value,
+      });
+    }
+
     // Add other cards
     cardArray.push(
       {
@@ -60,7 +72,7 @@ export const useCurrentVibesData = () => {
       },
       {
         type: "map",
-      }
+      },
     );
 
     return cardArray;
