@@ -1,12 +1,24 @@
 <script lang="ts" setup>
 import { useI18n, useObserver } from "#imports";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
 import { useProjectsData } from "~/composables/use-projects-data";
 
 const { t } = useI18n();
 const sectionRef = ref<HTMLElement | null>(null);
+const marqueeDuration = ref(75);
 const { projects, pending, error } = useProjectsData();
+
+const speedLabel = computed(() => {
+  if (marqueeDuration.value <= 45) return t("projects.speedFast");
+  if (marqueeDuration.value <= 85) return t("projects.speedMedium");
+  return t("projects.speedSlow");
+});
+
+const speedSlider = computed({
+  get: () => 145 - marqueeDuration.value,
+  set: (v) => { marqueeDuration.value = 145 - v; },
+});
 
 // Setup observer
 useObserver("Projects", sectionRef);
@@ -50,12 +62,33 @@ useObserver("Projects", sectionRef);
           {{ t("common.error") }}
         </div>
 
-        <Marquee
-          v-else
-          :pause-on-hover="true"
-          :repeat="2"
-          style="--duration: 75s"
-        >
+        <div v-else class="space-y-6">
+          <div
+            class="flex items-center justify-center gap-2"
+            :title="t('projects.speed')"
+          >
+            <Icon
+              name="mdi:speedometer"
+              class="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0"
+            />
+            <input
+              v-model.number="speedSlider"
+              type="range"
+              min="25"
+              max="120"
+              class="w-32 h-1.5 rounded-full appearance-none bg-gray-200 dark:bg-gray-700 accent-gray-600 dark:accent-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-black"
+            />
+            <span
+              class="min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400"
+            >
+              {{ speedLabel }}
+            </span>
+          </div>
+          <Marquee
+            :pause-on-hover="true"
+            :repeat="2"
+            :style="{ '--duration': `${marqueeDuration}s` }"
+          >
           <div
             v-for="project in projects"
             :key="project.key"
@@ -126,19 +159,10 @@ useObserver("Projects", sectionRef);
               >
                 {{ project.description }}
               </p>
-
-              <div class="flex flex-wrap gap-2">
-                <span
-                  v-for="tech in project.tech"
-                  :key="tech"
-                  class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
-                >
-                  {{ tech }}
-                </span>
-              </div>
             </div>
           </div>
         </Marquee>
+        </div>
       </div>
     </div>
   </section>

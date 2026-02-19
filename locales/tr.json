@@ -39,24 +39,15 @@
   "projects": {
     "title": "Projeler",
     "description": "Üzerinde çalıştığım projelerin bir vitrini, yenilikçi çözümler ve yaratıcı uygulamalar içeriyor",
+    "speed": "Hız",
+    "speedSlow": "Yavaş",
+    "speedMedium": "Orta",
+    "speedFast": "Hızlı",
     "visit": "Ziyaret Et",
     "viewSource": "Kaynağı Görüntüle",
     "visitTitle": "{name} - Canlı Demo'yu Ziyaret Et",
     "githubTitle": "{name} kaynak kodunu GitHub'da görüntüle",
-    "items": {
-      "baklava": {
-        "description": "Baklava, Trendyol tarafından uygulama kullanıcıları için tutarlı bir UI/UX oluşturmak amacıyla sağlanan bir tasarım sistemidir."
-      },
-      "spaceflash": {
-        "description": "Spaceflash, ay üssünüzü savunmak için gelen sonsuz düşmanları yok ettiğiniz, VR başlığı (Oculus, HTC vb.) ile oynanabilen dalga tabanlı bir nişancı oyunudur."
-      },
-      "perfanalytics": {
-        "description": "Tarayıcıdan performansla ilgili bazı önemli metrikleri toplayan ve API'ye gönderen bir istemci tarafı kütüphanesidir."
-      },
-      "crossingOfTheRhine": {
-        "description": "Ren Geçişi: M.S. 406, tarihsel bir olaya dayanan ve Python ile geliştirilmiş sıra tabanlı/RPG bir oyundur."
-      }
-    }
+    "items": {}
   },
   "skills": {
     "title": "Yetenekler",
