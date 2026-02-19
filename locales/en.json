@@ -523,6 +523,15 @@
         "title": "Places I've Been",
         "category": "Biggest travel achievements"
       },
+      "github": {
+        "title": "GitHub Stats",
+        "category": "My coding activity",
+        "commits": "commits",
+        "repos": "repositories",
+        "contributions": "contributions",
+        "pullRequests": "pull requests",
+        "issues": "issues"
+      },
       "default": {
         "title": "Card",
         "category": "Content"
@@ -564,6 +573,10 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Provides data for my blog section."
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "Provides data for my GitHub stats card."
       }
     }
   },

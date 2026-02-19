@@ -522,6 +522,15 @@
         "title": "Gittiğim Yerler",
         "category": "En büyük seyahat başarılarım"
       },
+      "github": {
+        "title": "GitHub İstatistikleri",
+        "category": "Kodlama aktivitem",
+        "commits": "commit",
+        "repos": "depo",
+        "contributions": "katkı",
+        "pullRequests": "pull request",
+        "issues": "issue"
+      },
       "default": {
         "title": "Kart",
         "category": "İçerik"
@@ -563,6 +572,10 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Blog bölümüm için veri sağlar."
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "GitHub istatistikleri kartım için veri sağlar."
       }
     }
   },

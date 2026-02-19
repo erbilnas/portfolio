@@ -73,6 +73,7 @@ The digital showcase about me, a passionate software engineer with a love for vi
 - [HowLongToBeat API](https://github.com/ckatzorke/howlongtobeat) - Game completion time data
 - Spotify API - Music player integration
 - RSS2JSON API - Blog feed parsing
+- GitHub API - Contribution stats (requires `GITHUB_USERNAME` or `GITHUB_PROFILE_URL`; optional `GITHUB_TOKEN` for higher rate limits)
 
 #### Analytics & Monitoring
 

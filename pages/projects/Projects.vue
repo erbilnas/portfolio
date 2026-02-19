@@ -2,10 +2,11 @@
 import { useI18n, useObserver } from "#imports";
 import { ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
-import { projectsList } from "~/constants/projects";
+import { useProjectsData } from "~/composables/use-projects-data";
 
 const { t } = useI18n();
 const sectionRef = ref<HTMLElement | null>(null);
+const { projects, pending, error } = useProjectsData();
 
 // Setup observer
 useObserver("Projects", sectionRef);
@@ -30,10 +31,34 @@ useObserver("Projects", sectionRef);
           </p>
         </div>
 
-        <Marquee :pause-on-hover="true" :repeat="2" style="--duration: 15s">
+        <div
+          v-if="pending"
+          class="flex justify-center items-center gap-2 py-16"
+        >
+          <span
+            class="inline-block w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"
+          />
+          <span class="text-gray-600 dark:text-gray-400">{{
+            t("common.loading")
+          }}</span>
+        </div>
+
+        <div
+          v-else-if="error"
+          class="text-center py-16 text-gray-600 dark:text-gray-400"
+        >
+          {{ t("common.error") }}
+        </div>
+
+        <Marquee
+          v-else
+          :pause-on-hover="true"
+          :repeat="2"
+          style="--duration: 75s"
+        >
           <div
-            v-for="(project, index) in projectsList"
-            :key="index"
+            v-for="project in projects"
+            :key="project.key"
             class="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-950/[.1] bg-gray-950/[.01] p-6 hover:bg-gray-950/[.05] dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
           >
             <div class="flex flex-col gap-4">
@@ -99,7 +124,7 @@ useObserver("Projects", sectionRef);
               <p
                 class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed"
               >
-                {{ t(`projects.items.${project.key}.description`) }}
+                {{ project.description }}
               </p>
 
               <div class="flex flex-wrap gap-2">
