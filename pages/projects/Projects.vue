@@ -4,11 +4,18 @@ import { computed, ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
 import { useProjectsData } from "~/composables/use-projects-data";
 import { useSettings } from "~/composables/settings";
+import type { MarqueeSpeed } from "~/composables/settings";
 
 const { t } = useI18n();
 const sectionRef = ref<HTMLElement | null>(null);
 const { projects, pending, error } = useProjectsData();
-const { marqueeSpeed } = useSettings();
+const { marqueeSpeed, setMarqueeSpeed } = useSettings();
+
+const speedOptions: { value: MarqueeSpeed; labelKey: string }[] = [
+  { value: "slow", labelKey: "projects.speedSlow" },
+  { value: "medium", labelKey: "projects.speedMedium" },
+  { value: "fast", labelKey: "projects.speedFast" },
+];
 
 // Map marquee speed to duration: slow=120s, medium=75s, fast=45s
 const marqueeDuration = computed(() => {
@@ -20,12 +27,6 @@ const marqueeDuration = computed(() => {
     default:
       return 75;
   }
-});
-
-const speedLabel = computed(() => {
-  if (marqueeSpeed.value === "fast") return t("projects.speedFast");
-  if (marqueeSpeed.value === "medium") return t("projects.speedMedium");
-  return t("projects.speedSlow");
 });
 
 // Setup observer
@@ -72,18 +73,26 @@ useObserver("Projects", sectionRef);
 
         <div v-else class="space-y-6">
           <div
-            class="flex items-center justify-center gap-2"
-            :title="t('projects.speed')"
+            class="flex items-center justify-center gap-1.5 text-xs text-gray-500 dark:text-gray-400"
+            role="group"
+            :aria-label="t('projects.speed')"
           >
-            <Icon
-              name="mdi:speedometer"
-              class="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0"
-            />
-            <span
-              class="min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400"
-            >
-              {{ speedLabel }}
-            </span>
+            <template v-for="(opt, i) in speedOptions" :key="opt.value">
+              <button
+                type="button"
+                :class="[
+                  'transition-colors',
+                  marqueeSpeed === opt.value
+                    ? 'text-gray-900 dark:text-white font-medium'
+                    : 'hover:text-gray-700 dark:hover:text-gray-300',
+                ]"
+                :aria-pressed="marqueeSpeed === opt.value"
+                @click="setMarqueeSpeed(opt.value)"
+              >
+                {{ t(opt.labelKey) }}
+              </button>
+              <span v-if="i < speedOptions.length - 1" class="opacity-40 select-none">·</span>
+            </template>
           </div>
           <Marquee
             :pause-on-hover="true"

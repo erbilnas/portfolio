@@ -22,7 +22,6 @@ const {
   cursorDisabled,
   theme,
   reducedMotion,
-  marqueeSpeed,
   fontSize,
   disableCardHoverEffects,
   analyticsEnabled,
@@ -34,7 +33,6 @@ const {
   setSystemTheme,
   handleToggleCursor,
   handleToggleReducedMotion,
-  handleSetMarqueeSpeed,
   handleSetFontSize,
   handleToggleCardHoverEffects,
   handleToggleAnalytics,
@@ -94,7 +92,6 @@ onUnmounted(() => {
     :cursor-disabled="cursorDisabled"
     :theme="theme"
     :reduced-motion="reducedMotion"
-    :marquee-speed="marqueeSpeed"
     :font-size="fontSize"
     :disable-card-hover-effects="disableCardHoverEffects"
     :analytics-enabled="analyticsEnabled"
@@ -104,7 +101,6 @@ onUnmounted(() => {
     :on-set-dark-theme="setDarkTheme"
     :on-set-system-theme="setSystemTheme"
     :on-toggle-reduced-motion="handleToggleReducedMotion"
-    :on-set-marquee-speed="handleSetMarqueeSpeed"
     :on-set-font-size="handleSetFontSize"
     :on-toggle-card-hover-effects="handleToggleCardHoverEffects"
     :on-toggle-analytics="handleToggleAnalytics"

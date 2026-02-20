@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from "#imports";
-import { useSettings } from "~/composables/settings";
 import {
   BarChart3Icon,
   BookOpenIcon,
@@ -25,6 +24,7 @@ import {
 import { AppleBlurImage } from "~/components/ui/apple-card-carousel";
 import type { CardMetadata } from "~/composables/current-vibes/cards-metadata";
 import type { CardData } from "~/composables/current-vibes/current-vibes-data";
+import { useSettings } from "~/composables/settings";
 
 interface Props {
   card: CardData;
@@ -119,7 +119,9 @@ const gradientBottomHoverClasses = computed(() => {
     />
 
     <!-- Content -->
-    <div class="relative z-40 p-8 flex flex-col h-full justify-end gap-4">
+    <div
+      class="relative z-40 p-8 flex flex-col h-full min-h-0 overflow-y-auto overscroll-contain justify-end gap-4"
+    >
       <div>
         <div
           :class="[
@@ -230,7 +232,7 @@ const gradientBottomHoverClasses = computed(() => {
             {{ metadata.description }}
           </div>
 
-          <!-- HLTB stats – pill cards -->
+          <!-- HLTB stats – pill cards (minimalist on mobile) -->
           <template
             v-if="
               metadata.totalHours !== undefined ||
@@ -239,26 +241,30 @@ const gradientBottomHoverClasses = computed(() => {
               metadata.gamesCompleted !== undefined
             "
           >
-            <div :class="['mt-4 flex flex-wrap gap-2']">
+            <div
+              :class="[
+                'mt-4 flex flex-wrap gap-1.5 md:gap-2',
+              ]"
+            >
               <div
                 v-if="metadata.platforms?.length"
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <Gamepad2Icon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-violet-600' : 'text-violet-400',
                   ]"
                 />
                 <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -266,7 +272,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -280,22 +286,22 @@ const gradientBottomHoverClasses = computed(() => {
                   metadata.gamesPlayed !== undefined
                 "
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <TrophyIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-amber-500' : 'text-amber-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -303,15 +309,15 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
-                    {{ metadata.gamesCompleted }} / {{ metadata.gamesPlayed }}
+                    {{ metadata.gamesCompleted }}/{{ metadata.gamesPlayed }}
                     <span
                       v-if="metadata.completionRate !== undefined"
                       :class="[
-                        'text-[11px] font-medium',
+                        'text-[10px] font-medium md:text-[11px]',
                         isLight ? 'text-gray-600' : 'text-white/80',
                       ]"
                     >
@@ -323,22 +329,22 @@ const gradientBottomHoverClasses = computed(() => {
               <div
                 v-else-if="metadata.gamesCompleted !== undefined"
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <TrophyIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-amber-500' : 'text-amber-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -346,7 +352,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -354,7 +360,7 @@ const gradientBottomHoverClasses = computed(() => {
                     <span
                       v-if="metadata.completionRate !== undefined"
                       :class="[
-                        'text-[11px] font-medium',
+                        'text-[10px] font-medium md:text-[11px]',
                         isLight ? 'text-gray-600' : 'text-white/80',
                       ]"
                     >
@@ -366,22 +372,22 @@ const gradientBottomHoverClasses = computed(() => {
               <div
                 v-if="metadata.totalHours !== undefined"
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <ClockIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-sky-600' : 'text-sky-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -389,7 +395,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -400,14 +406,14 @@ const gradientBottomHoverClasses = computed(() => {
             </div>
           </template>
 
-          <!-- Games by release year – stacked bar + legend -->
+          <!-- Games by release year – stacked bar + legend (compact on mobile) -->
           <div
             v-if="metadata.releaseByYear && metadata.releaseByYear.length > 0"
-            class="mt-4"
+            class="mt-3 md:mt-4"
           >
             <div
               :class="[
-                'mb-2 text-[10px] font-semibold uppercase tracking-wider',
+                'mb-1.5 text-[9px] font-semibold uppercase tracking-wider md:mb-2 md:text-[10px]',
                 isLight ? 'text-gray-600' : 'text-white/70',
               ]"
             >
@@ -415,7 +421,7 @@ const gradientBottomHoverClasses = computed(() => {
             </div>
             <div
               :class="[
-                'flex h-3 w-full overflow-hidden rounded-full',
+                'flex h-2 w-full overflow-hidden rounded-full md:h-3',
                 isLight ? 'bg-gray-200' : 'bg-white/15',
               ]"
             >
@@ -455,15 +461,15 @@ const gradientBottomHoverClasses = computed(() => {
                 }"
               />
             </div>
-            <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            <div class="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 md:mt-2 md:gap-x-3 md:gap-y-1">
               <div
                 v-for="(item, i) in metadata.releaseByYear"
                 :key="i"
-                class="flex items-center gap-1.5"
+                class="flex items-center gap-1 md:gap-1.5"
               >
                 <span
                   :class="[
-                    'h-1.5 w-1.5 shrink-0 rounded-full',
+                    'h-1 w-1 shrink-0 rounded-full md:h-1.5 md:w-1.5',
                     isLight
                       ? [
                           'bg-violet-400',
@@ -481,7 +487,7 @@ const gradientBottomHoverClasses = computed(() => {
                 />
                 <span
                   :class="[
-                    'text-[11px]',
+                    'text-[10px] md:text-[11px]',
                     isLight ? 'text-gray-600' : 'text-white/80',
                   ]"
                 >
@@ -489,7 +495,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-[11px] font-semibold tabular-nums',
+                    'text-[10px] font-semibold tabular-nums md:text-[11px]',
                     isLight ? 'text-gray-700' : 'text-white/90',
                   ]"
                 >
@@ -500,59 +506,59 @@ const gradientBottomHoverClasses = computed(() => {
           </div>
         </template>
 
-        <!-- Music Details (HLTB-style pill cards) -->
+        <!-- Music Details (compact on mobile) -->
         <template v-if="card.type === 'music'">
           <!-- Artist & album info row -->
-          <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-            <div v-if="metadata.artist" class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 md:gap-x-4 md:gap-y-1.5">
+            <div v-if="metadata.artist" class="flex items-center gap-1.5 md:gap-2">
               <div
                 :class="[
-                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg',
+                  'flex h-5 w-5 shrink-0 items-center justify-center rounded-md md:h-7 md:w-7 md:rounded-lg',
                   isLight ? 'bg-gray-200/80' : 'bg-white/15',
                 ]"
               >
                 <MicVocalIcon
                   :class="[
-                    'h-3.5 w-3.5',
+                    'h-2.5 w-2.5 md:h-3.5 md:w-3.5',
                     isLight ? 'text-gray-700' : 'text-white/95',
                   ]"
                 />
               </div>
-              <span class="truncate font-medium">{{ metadata.artist }}</span>
+              <span class="truncate text-xs font-medium md:text-base">{{ metadata.artist }}</span>
             </div>
-            <div v-if="metadata.album" class="flex items-center gap-2">
+            <div v-if="metadata.album" class="flex items-center gap-1.5 md:gap-2">
               <div
                 :class="[
-                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg',
+                  'flex h-5 w-5 shrink-0 items-center justify-center rounded-md md:h-7 md:w-7 md:rounded-lg',
                   isLight ? 'bg-gray-200/80' : 'bg-white/15',
                 ]"
               >
                 <Disc3Icon
                   :class="[
-                    'h-3.5 w-3.5',
+                    'h-2.5 w-2.5 md:h-3.5 md:w-3.5',
                     isLight ? 'text-gray-700' : 'text-white/95',
                   ]"
                 />
               </div>
-              <span class="truncate">{{ metadata.album }}</span>
+              <span class="truncate text-xs md:text-base">{{ metadata.album }}</span>
             </div>
           </div>
 
-          <!-- Top artists & tracks list (compact) -->
+          <!-- Top artists & tracks list (compact on mobile) -->
           <template
             v-if="
               metadata.topArtistsByMonth?.length ||
               metadata.topTracksByMonth?.length
             "
           >
-            <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-6">
+            <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:gap-6 md:mt-4 md:gap-3">
               <div
                 v-if="metadata.topArtistsByMonth?.length"
                 class="min-w-0 flex-1"
               >
                 <div
                   :class="[
-                    'mb-1.5 text-[10px] font-semibold uppercase tracking-wider',
+                    'mb-1 text-[9px] font-semibold uppercase tracking-wider md:mb-1.5 md:text-[10px]',
                     isLight ? 'text-gray-600' : 'text-white/70',
                   ]"
                 >
@@ -562,11 +568,11 @@ const gradientBottomHoverClasses = computed(() => {
                   <div
                     v-for="(item, i) in metadata.topArtistsByMonth"
                     :key="`artist-${i}`"
-                    class="flex items-center gap-2"
+                    class="flex items-center gap-1.5 md:gap-2"
                   >
                     <span
                       :class="[
-                        'w-4 shrink-0 text-[10px] tabular-nums',
+                        'w-3 shrink-0 text-[9px] tabular-nums md:w-4 md:text-[10px]',
                         isLight ? 'text-gray-500' : 'text-white/50',
                       ]"
                     >
@@ -574,7 +580,7 @@ const gradientBottomHoverClasses = computed(() => {
                     </span>
                     <span
                       :class="[
-                        'min-w-0 truncate text-xs',
+                        'min-w-0 truncate text-[11px] md:text-xs',
                         isLight ? 'text-gray-800' : 'text-white/95',
                       ]"
                     >
@@ -589,7 +595,7 @@ const gradientBottomHoverClasses = computed(() => {
               >
                 <div
                   :class="[
-                    'mb-1.5 text-[10px] font-semibold uppercase tracking-wider',
+                    'mb-1 text-[9px] font-semibold uppercase tracking-wider md:mb-1.5 md:text-[10px]',
                     isLight ? 'text-gray-600' : 'text-white/70',
                   ]"
                 >
@@ -599,11 +605,11 @@ const gradientBottomHoverClasses = computed(() => {
                   <div
                     v-for="(item, i) in metadata.topTracksByMonth"
                     :key="`track-${i}`"
-                    class="flex items-center gap-2"
+                    class="flex items-center gap-1.5 md:gap-2"
                   >
                     <span
                       :class="[
-                        'w-4 shrink-0 text-[10px] tabular-nums',
+                        'w-3 shrink-0 text-[9px] tabular-nums md:w-4 md:text-[10px]',
                         isLight ? 'text-gray-500' : 'text-white/50',
                       ]"
                     >
@@ -611,7 +617,7 @@ const gradientBottomHoverClasses = computed(() => {
                     </span>
                     <span
                       :class="[
-                        'min-w-0 truncate text-xs',
+                        'min-w-0 truncate text-[11px] md:text-xs',
                         isLight ? 'text-gray-800' : 'text-white/95',
                       ]"
                     >
@@ -624,28 +630,28 @@ const gradientBottomHoverClasses = computed(() => {
           </template>
         </template>
 
-        <!-- Blog Details (HLTB-style pill cards) -->
+        <!-- Blog Details (compact pills on mobile) -->
         <template v-if="card.type === 'blog'">
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-1.5 md:gap-2">
             <div
               v-if="metadata.publishedDate"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <CalendarIcon
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-amber-600' : 'text-amber-400',
                 ]"
               />
-              <div class="flex flex-col">
+              <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -653,7 +659,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold',
+                    'text-xs font-semibold md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >
@@ -664,22 +670,22 @@ const gradientBottomHoverClasses = computed(() => {
             <div
               v-if="metadata.readTime"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <BookOpenIcon
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-teal-600' : 'text-teal-400',
                 ]"
               />
-              <div class="flex flex-col">
+              <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -687,7 +693,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold tabular-nums',
+                    'text-xs font-semibold tabular-nums md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >
@@ -699,7 +705,7 @@ const gradientBottomHoverClasses = computed(() => {
           <div
             v-if="metadata.description"
             :class="[
-              'line-clamp-2 mt-3 text-[13px] leading-relaxed drop-shadow-sm',
+              'line-clamp-2 mt-2 text-[12px] leading-relaxed drop-shadow-sm md:mt-3 md:text-[13px]',
               isLight ? 'text-gray-700' : 'text-white/90',
             ]"
           >
@@ -707,36 +713,36 @@ const gradientBottomHoverClasses = computed(() => {
           </div>
         </template>
 
-        <!-- Trakt Details (HLTB-style pill cards) -->
+        <!-- Trakt Details (compact pills on mobile) -->
         <template v-if="card.type === 'trakt'">
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-1.5 md:gap-2">
             <div
               v-if="metadata.mediaType"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <FilmIcon
                 v-if="metadata.mediaType === 'movie'"
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-rose-600' : 'text-rose-400',
                 ]"
               />
               <TvIcon
                 v-else
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-rose-600' : 'text-rose-400',
                 ]"
               />
               <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -744,7 +750,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold',
+                    'text-xs font-semibold md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >
@@ -759,22 +765,22 @@ const gradientBottomHoverClasses = computed(() => {
             <div
               v-if="metadata.watchedDate"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <CalendarIcon
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-amber-600' : 'text-amber-400',
                 ]"
               />
-              <div class="flex flex-col">
+              <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -782,7 +788,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold',
+                    'text-xs font-semibold md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >
@@ -794,7 +800,7 @@ const gradientBottomHoverClasses = computed(() => {
           <div
             v-if="metadata.subtitle"
             :class="[
-              'line-clamp-2 mt-3 text-[13px] leading-relaxed drop-shadow-sm',
+              'line-clamp-2 mt-2 text-[12px] leading-relaxed drop-shadow-sm md:mt-3 md:text-[13px]',
               isLight ? 'text-gray-700' : 'text-white/90',
             ]"
           >
@@ -802,13 +808,13 @@ const gradientBottomHoverClasses = computed(() => {
           </div>
         </template>
 
-        <!-- GitHub Details (HLTB-style pill cards) -->
+        <!-- GitHub Details (compact pills on mobile) -->
         <template v-if="card.type === 'github'">
           <template v-if="metadata.contributions !== undefined">
             <div
               v-if="metadata.statsCategory"
               :class="[
-                'mb-2 text-[10px] font-semibold uppercase tracking-wider',
+                'mb-1.5 text-[9px] font-semibold uppercase tracking-wider md:mb-2 md:text-[10px]',
                 isLight ? 'text-gray-600' : 'text-white/70',
               ]"
             >
@@ -818,25 +824,25 @@ const gradientBottomHoverClasses = computed(() => {
               >
             </div>
             <!-- GitHub stats – pill cards -->
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-1.5 md:gap-2">
               <div
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <GlobeIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-emerald-600' : 'text-emerald-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -844,7 +850,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -855,22 +861,22 @@ const gradientBottomHoverClasses = computed(() => {
               <div
                 v-if="metadata.commits !== undefined"
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <GitCommitIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-sky-600' : 'text-sky-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -878,7 +884,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -889,22 +895,22 @@ const gradientBottomHoverClasses = computed(() => {
               <div
                 v-if="metadata.repos !== undefined"
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <FolderOpenIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-violet-600' : 'text-violet-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -912,7 +918,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -926,22 +932,22 @@ const gradientBottomHoverClasses = computed(() => {
                   metadata.pullRequests > 0
                 "
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <GitPullRequestIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-teal-600' : 'text-teal-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -949,7 +955,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -963,22 +969,22 @@ const gradientBottomHoverClasses = computed(() => {
                   metadata.pullRequestReviews > 0
                 "
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <MessageSquareIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-amber-600' : 'text-amber-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -986,7 +992,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -997,22 +1003,22 @@ const gradientBottomHoverClasses = computed(() => {
               <div
                 v-if="metadata.issues !== undefined && metadata.issues > 0"
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <CircleAlertIcon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-rose-600' : 'text-rose-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -1020,7 +1026,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -1034,22 +1040,22 @@ const gradientBottomHoverClasses = computed(() => {
                   metadata.reposContributedTo > 0
                 "
                 :class="[
-                  'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                  'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                   isLight
-                    ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                    : 'bg-white/10 ring-1 ring-white/20',
+                    ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                    : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
                 ]"
               >
                 <BarChart3Icon
                   :class="[
-                    'h-4 w-4 shrink-0',
+                    'h-3 w-3 shrink-0 md:h-4 md:w-4',
                     isLight ? 'text-indigo-600' : 'text-indigo-400',
                   ]"
                 />
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                   <span
                     :class="[
-                      'text-[10px] font-medium uppercase tracking-wider',
+                      'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                       isLight ? 'text-gray-500' : 'text-white/60',
                     ]"
                   >
@@ -1057,7 +1063,7 @@ const gradientBottomHoverClasses = computed(() => {
                   </span>
                   <span
                     :class="[
-                      'text-sm font-semibold tabular-nums',
+                      'text-xs font-semibold tabular-nums md:text-sm',
                       isLight ? 'text-gray-900' : 'text-white',
                     ]"
                   >
@@ -1068,17 +1074,17 @@ const gradientBottomHoverClasses = computed(() => {
             </div>
           </template>
 
-          <!-- Contributions by month – stacked bar + legend (like HLTB games by year) -->
+          <!-- Contributions by month – stacked bar + legend (compact on mobile) -->
           <div
             v-if="
               metadata.contributionsByMonth &&
               metadata.contributionsByMonth.length > 0
             "
-            class="mt-4"
+            class="mt-3 md:mt-4"
           >
             <div
               :class="[
-                'mb-2 text-[10px] font-semibold uppercase tracking-wider',
+                'mb-1.5 text-[9px] font-semibold uppercase tracking-wider md:mb-2 md:text-[10px]',
                 isLight ? 'text-gray-600' : 'text-white/70',
               ]"
             >
@@ -1086,7 +1092,7 @@ const gradientBottomHoverClasses = computed(() => {
             </div>
             <div
               :class="[
-                'flex h-3 w-full overflow-hidden rounded-full',
+                'flex h-2 w-full overflow-hidden rounded-full md:h-3',
                 isLight ? 'bg-gray-200' : 'bg-white/15',
               ]"
             >
@@ -1127,15 +1133,15 @@ const gradientBottomHoverClasses = computed(() => {
                 }"
               />
             </div>
-            <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            <div class="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 md:mt-2 md:gap-x-3 md:gap-y-1">
               <div
                 v-for="(item, i) in metadata.contributionsByMonth"
                 :key="i"
-                class="flex items-center gap-1.5"
+                class="flex items-center gap-1 md:gap-1.5"
               >
                 <span
                   :class="[
-                    'h-1.5 w-1.5 shrink-0 rounded-full',
+                    'h-1 w-1 shrink-0 rounded-full md:h-1.5 md:w-1.5',
                     isLight
                       ? [
                           'bg-emerald-400',
@@ -1153,7 +1159,7 @@ const gradientBottomHoverClasses = computed(() => {
                 />
                 <span
                   :class="[
-                    'text-[11px]',
+                    'text-[10px] md:text-[11px]',
                     isLight ? 'text-gray-600' : 'text-white/80',
                   ]"
                 >
@@ -1161,7 +1167,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-[11px] font-semibold tabular-nums',
+                    'text-[10px] font-semibold tabular-nums md:text-[11px]',
                     isLight ? 'text-gray-700' : 'text-white/90',
                   ]"
                 >
@@ -1172,28 +1178,28 @@ const gradientBottomHoverClasses = computed(() => {
           </div>
         </template>
 
-        <!-- Map Details (HLTB-style pill cards) -->
+        <!-- Map Details (compact pills on mobile) -->
         <template v-if="card.type === 'map'">
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-1.5 md:gap-2">
             <div
               v-if="metadata.cities !== undefined"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <MapPinIcon
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-rose-600' : 'text-rose-400',
                 ]"
               />
-              <div class="flex flex-col">
+              <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -1201,7 +1207,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold tabular-nums',
+                    'text-xs font-semibold tabular-nums md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >
@@ -1212,22 +1218,22 @@ const gradientBottomHoverClasses = computed(() => {
             <div
               v-if="metadata.countries !== undefined"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <FlagIcon
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-indigo-600' : 'text-indigo-400',
                 ]"
               />
-              <div class="flex flex-col">
+              <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -1235,7 +1241,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold tabular-nums',
+                    'text-xs font-semibold tabular-nums md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >
@@ -1246,22 +1252,22 @@ const gradientBottomHoverClasses = computed(() => {
             <div
               v-if="metadata.completionPercentage !== undefined"
               :class="[
-                'flex items-center gap-2 rounded-xl px-3 py-2 backdrop-blur-sm transition-all',
+                'flex items-center gap-1.5 rounded-lg px-2 py-1 md:gap-2 md:rounded-xl md:px-3 md:py-2 backdrop-blur-sm transition-all',
                 isLight
-                  ? 'bg-white/70 shadow-sm ring-1 ring-gray-200/50'
-                  : 'bg-white/10 ring-1 ring-white/20',
+                  ? 'bg-white/60 md:bg-white/70 md:shadow-sm md:ring-1 md:ring-gray-200/50'
+                  : 'bg-white/5 md:bg-white/10 md:ring-1 md:ring-white/20',
               ]"
             >
               <GlobeIcon
                 :class="[
-                  'h-4 w-4 shrink-0',
+                  'h-3 w-3 shrink-0 md:h-4 md:w-4',
                   isLight ? 'text-sky-600' : 'text-sky-400',
                 ]"
               />
-              <div class="flex flex-col">
+              <div class="flex flex-col min-w-0">
                 <span
                   :class="[
-                    'text-[10px] font-medium uppercase tracking-wider',
+                    'hidden text-[10px] font-medium uppercase tracking-wider md:block',
                     isLight ? 'text-gray-500' : 'text-white/60',
                   ]"
                 >
@@ -1269,7 +1275,7 @@ const gradientBottomHoverClasses = computed(() => {
                 </span>
                 <span
                   :class="[
-                    'text-sm font-semibold tabular-nums',
+                    'text-xs font-semibold tabular-nums md:text-sm',
                     isLight ? 'text-gray-900' : 'text-white',
                   ]"
                 >

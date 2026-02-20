@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { Locale } from "~/types/i18n";
-import type { MarqueeSpeed } from "@/composables/settings";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +13,6 @@ import {
   Sun,
   Moon,
   Monitor,
-  Gauge,
   Type,
   RotateCcw,
   Keyboard,
@@ -29,7 +27,6 @@ interface Props {
   cursorDisabled: boolean;
   theme: "light" | "dark" | "system";
   reducedMotion: boolean;
-  marqueeSpeed: MarqueeSpeed;
   fontSize: "default" | "large" | "xlarge";
   disableCardHoverEffects: boolean;
   analyticsEnabled: boolean;
@@ -39,7 +36,6 @@ interface Props {
   onSetDarkTheme: () => void;
   onSetSystemTheme: () => void;
   onToggleReducedMotion: () => void;
-  onSetMarqueeSpeed: (speed: MarqueeSpeed) => void;
   onSetFontSize: (size: "default" | "large" | "xlarge") => void;
   onToggleCardHoverEffects: () => void;
   onToggleAnalytics: () => void;
@@ -95,12 +91,6 @@ const themeOptions = [
   { value: "light" as const, labelKey: "settings.light", icon: Sun, handler: () => props.onSetLightTheme() },
   { value: "dark" as const, labelKey: "settings.dark", icon: Moon, handler: () => props.onSetDarkTheme() },
   { value: "system" as const, labelKey: "settings.system", icon: Monitor, handler: () => props.onSetSystemTheme() },
-];
-
-const marqueeOptions: { value: MarqueeSpeed; labelKey: string }[] = [
-  { value: "slow", labelKey: "projects.speedSlow" },
-  { value: "medium", labelKey: "projects.speedMedium" },
-  { value: "fast", labelKey: "projects.speedFast" },
 ];
 
 const fontSizeOptions: { value: "default" | "large" | "xlarge"; labelKey: string }[] = [
@@ -246,26 +236,6 @@ const handleReset = async () => {
           >
             {{ t("common.loading") }}
           </p>
-        </div>
-
-        <!-- Marquee Speed -->
-        <div class="flex flex-col gap-2">
-          <label id="marquee-label" class="text-sm font-medium">
-            {{ t("settings.marqueeSpeed") }}
-          </label>
-          <div class="flex gap-2" role="group" aria-labelledby="marquee-label">
-            <Button
-              v-for="opt in marqueeOptions"
-              :key="opt.value"
-              variant="outline"
-              :class="getOptionButtonClass(marqueeSpeed === opt.value)"
-              :aria-pressed="marqueeSpeed === opt.value"
-              @click="onSetMarqueeSpeed(opt.value)"
-            >
-              <Gauge class="size-4 shrink-0" />
-              {{ t(opt.labelKey) }}
-            </Button>
-          </div>
         </div>
 
         <!-- Font Size -->

@@ -1,4 +1,3 @@
-import type { MarqueeSpeed } from "@/composables/settings";
 import { useSettings } from "@/composables/settings";
 
 export const useNavbarSettings = () => {
@@ -6,7 +5,6 @@ export const useNavbarSettings = () => {
   const cursorDisabled = ref(false);
   const theme = ref<"light" | "dark" | "system">("system");
   const reducedMotion = ref(false);
-  const marqueeSpeed = ref<MarqueeSpeed>("medium");
   const fontSize = ref<"default" | "large" | "xlarge">("default");
   const disableCardHoverEffects = ref(false);
   const analyticsEnabled = ref(true);
@@ -42,7 +40,6 @@ export const useNavbarSettings = () => {
           (v) => v === "light" || v === "dark" || v === "system"
         );
         reducedMotion.value = settings.reducedMotion.value;
-        marqueeSpeed.value = settings.marqueeSpeed.value;
         fontSize.value = settings.fontSize.value;
         disableCardHoverEffects.value = settings.disableCardHoverEffects.value;
         analyticsEnabled.value = settings.analyticsEnabled.value;
@@ -70,11 +67,6 @@ export const useNavbarSettings = () => {
         watch(
           settings.reducedMotion,
           (newValue) => { reducedMotion.value = newValue; },
-          { immediate: true }
-        );
-        watch(
-          settings.marqueeSpeed,
-          (newValue) => { marqueeSpeed.value = newValue; },
           { immediate: true }
         );
         watch(
@@ -119,7 +111,6 @@ export const useNavbarSettings = () => {
   const handleToggleCursor = () => toggleCursor?.();
 
   const handleToggleReducedMotion = () => settingsComposable?.toggleReducedMotion();
-  const handleSetMarqueeSpeed = (speed: MarqueeSpeed) => settingsComposable?.setMarqueeSpeed(speed);
   const handleSetFontSize = (size: "default" | "large" | "xlarge") => settingsComposable?.setFontSize(size);
   const handleToggleCardHoverEffects = () => settingsComposable?.toggleCardHoverEffects();
   const handleToggleAnalytics = () => settingsComposable?.toggleAnalytics();
@@ -131,7 +122,6 @@ export const useNavbarSettings = () => {
     cursorDisabled,
     theme,
     reducedMotion,
-    marqueeSpeed,
     fontSize,
     disableCardHoverEffects,
     analyticsEnabled,
@@ -144,7 +134,6 @@ export const useNavbarSettings = () => {
     setSystemTheme,
     handleToggleCursor,
     handleToggleReducedMotion,
-    handleSetMarqueeSpeed,
     handleSetFontSize,
     handleToggleCardHoverEffects,
     handleToggleAnalytics,

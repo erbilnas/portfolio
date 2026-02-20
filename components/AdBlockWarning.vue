@@ -6,6 +6,32 @@ const { t } = useI18n();
 
 const AD_DETECTION_DELAY = 100;
 const AD_BLOCKER_CHECK_DELAY = 1000;
+const ADBLOCK_COOKIE_NAME = "adblock-warning-shown";
+const ADBLOCK_COOKIE_MAX_AGE_DAYS = 30;
+
+const getCookie = (key: string): string | null => {
+  if (typeof document === "undefined") return null;
+  const cookies = document.cookie.split(";").reduce<Record<string, string>>((acc, cookie) => {
+    const [k, v] = cookie.trim().split("=");
+    if (k && v) acc[k] = decodeURIComponent(v);
+    return acc;
+  }, {});
+  return cookies[key] ?? null;
+};
+
+const setCookie = (key: string, value: string, maxAgeSeconds: number) => {
+  if (typeof document === "undefined") return;
+  document.cookie = `${key}=${encodeURIComponent(value)}; path=/; max-age=${maxAgeSeconds}; SameSite=Lax`;
+};
+
+const shouldShowAdblockWarning = (): boolean => {
+  const value = getCookie(ADBLOCK_COOKIE_NAME);
+  if (!value) return true;
+  const timestamp = parseInt(value, 10);
+  if (Number.isNaN(timestamp)) return true;
+  const thirtyDaysAgo = Date.now() - ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+  return timestamp < thirtyDaysAgo;
+};
 
 const AD_TEST_CLASSES = [
   "adsbygoogle",
@@ -101,12 +127,16 @@ const detectAdBlocker = async () => {
     const hasBlockedElement = testElements.some(isElementBlocked);
     const hasBlockedScript = testScripts.some(isScriptBlocked);
 
-    if (hasBlockedElement || hasBlockedScript) {
+    if ((hasBlockedElement || hasBlockedScript) && shouldShowAdblockWarning()) {
+      setCookie(ADBLOCK_COOKIE_NAME, String(Date.now()), ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60);
       isDialogOpen.value = true;
     }
   } catch (e) {
     console.error("Error during ad blocker detection:", e);
-    isDialogOpen.value = true;
+    if (shouldShowAdblockWarning()) {
+      setCookie(ADBLOCK_COOKIE_NAME, String(Date.now()), ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60);
+      isDialogOpen.value = true;
+    }
   } finally {
     cleanupElements([...testElements, ...testScripts]);
   }
