@@ -6,6 +6,7 @@
     "experience": "Experience",
     "projects": "Projects",
     "currentVibes": "Current Vibes",
+    "resume": "Resume",
     "settings": "Settings",
     "multipleLanguagesSupported": "Multiple languages are supported"
   },
@@ -17,7 +18,32 @@
     "language": "Language",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "languageSwitchError": "Failed to switch language. Please try again.",
+    "reducedMotion": "Reduce Motion",
+    "reducedMotionDescription": "Minimize animations for better accessibility",
+    "marqueeSpeed": "Projects Marquee Speed",
+    "fontSize": "Font Size",
+    "fontSizeDefault": "Default",
+    "fontSizeLarge": "Large",
+    "fontSizeXLarge": "Extra Large",
+    "disableCardHoverEffects": "Disable Card Hover Effects",
+    "disableCardHoverEffectsDescription": "Reduce blur and scale effects on Current Vibes cards",
+    "analyticsEnabled": "Analytics",
+    "analyticsEnabledDescription": "Allow performance and usage analytics",
+    "highContrast": "High Contrast",
+    "highContrastDescription": "Increase contrast for better visibility",
+    "resetToDefaults": "Reset to Defaults",
+    "resetToDefaultsDescription": "Restore all settings to their default values",
+    "resetSuccess": "Settings reset successfully",
+    "keyboardShortcuts": "Keyboard Shortcuts",
+    "keyboardShortcutsDescription": "View available keyboard shortcuts",
+    "shortcutTheme": "Toggle theme",
+    "shortcutSettings": "Open settings",
+    "shortcutScrollToTop": "Scroll to top",
+    "about": "About",
+    "builtWith": "Built with Vue, Nuxt, and Tailwind CSS",
+    "version": "Version"
   },
   "welcome": {
     "hello": "Hello",
@@ -40,24 +66,15 @@
   "projects": {
     "title": "Projects",
     "description": "A showcase of projects I've worked on, featuring innovative solutions and creative implementations",
+    "speed": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
     "visit": "Visit",
     "viewSource": "View Source",
     "visitTitle": "Visit {name} - Live Demo",
     "githubTitle": "View {name} source code on GitHub",
-    "items": {
-      "baklava": {
-        "description": "Baklava is a design system provided by Trendyol to create a consistent UI/UX for app users."
-      },
-      "spaceflash": {
-        "description": "Spaceflash is a wave-based shooter playable with a VR headset (Oculus, HTC, etc.) where you destroy endless enemies coming to defend your moon base."
-      },
-      "perfanalytics": {
-        "description": "A client-side library which collects some performance related key metrics from browser and sends to the API."
-      },
-      "crossingOfTheRhine": {
-        "description": "Crossing of the Rhine: A.D. 406 is a turn-based/RPG game based on a historical event and developed with Python."
-      }
-    }
+    "items": {}
   },
   "skills": {
     "title": "Skills",
@@ -511,17 +528,64 @@
         "currentlyPlaying": "I'm currently playing",
         "recentlyCompleted": "I recently completed"
       },
+      "gameStats": {
+        "statsTitle": "My Gaming Stats",
+        "statsCategory": "HowLongToBeat summary",
+        "totalHours": "Total hours",
+        "platforms": "Platforms",
+        "gamesCompleted": "games completed",
+        "complete": "complete",
+        "completionRate": "completion rate",
+        "gamesByYear": "Games by release year",
+        "pre1990": "Pre-1990",
+        "year1990s": "1990-1999",
+        "year2000s": "2000-2009",
+        "year2010s": "2010+"
+      },
       "music": {
         "noSongPlaying": "No song playing",
         "listeningTo": "I'm listening to"
       },
       "blog": {
         "defaultTitle": "Blog Post",
-        "latestPost": "The latest blog post I've written"
+        "latestPost": "The latest blog post I've written",
+        "published": "Published",
+        "readTime": "Read time"
       },
       "map": {
         "title": "Places I've Been",
-        "category": "Biggest travel achievements"
+        "category": "Biggest travel achievements",
+        "completion": "World explored"
+      },
+      "trakt": {
+        "defaultTitle": "Movie or TV Show",
+        "lastWatched": "I recently watched",
+        "movie": "Movie",
+        "episode": "TV Episode",
+        "type": "Type",
+        "watched": "Watched"
+      },
+      "github": {
+        "title": "GitHub Stats",
+        "category": "My coding activity",
+        "commits": "commits",
+        "repos": "repositories",
+        "contributions": "contributions",
+        "pullRequests": "pull requests",
+        "issues": "issues"
+      },
+      "githubStats": {
+        "statsCategory": "GitHub activity this year",
+        "pullRequestReviews": "PR reviews",
+        "reposContributedTo": "repos contributed to",
+        "contributionsByMonth": "Contributions by month"
+      },
+      "spotifyStats": {
+        "statsCategory": "Top artists this month",
+        "topArtists": "top artists",
+        "topTracks": "top tracks",
+        "topArtistsChart": "Top artists",
+        "topTracksChart": "Top tracks"
       },
       "default": {
         "title": "Card",
@@ -545,7 +609,10 @@
     "swipe": "Swipe",
     "scroll": "Scroll",
     "toSeeMore": "to see more",
-    "scrollToSeeMore": "Scroll to see more"
+    "scrollToSeeMore": "Scroll to see more",
+    "downloadCv": "Download CV",
+    "showResume": "Show Resume",
+    "goBack": "Go Back"
   },
   "footer": {
     "copyright": {
@@ -564,6 +631,14 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Provides data for my blog section."
+      },
+      "trakt": {
+        "name": "Trakt.tv",
+        "description": "Provides data for my watched history."
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "Provides data for my GitHub stats card."
       }
     }
   },

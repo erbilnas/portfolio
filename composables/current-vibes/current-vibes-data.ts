@@ -1,11 +1,13 @@
 import type {
   GameDetails,
+  GitHubStats,
   MediumPost,
   MusicPlayer,
+  TraktWatchedDetail,
 } from "~/types/current-vibes";
 
 export interface CardData {
-  type: "game" | "music" | "blog" | "map";
+  type: "game" | "music" | "blog" | "map" | "trakt" | "github";
   data?: unknown;
 }
 
@@ -15,10 +17,16 @@ export const useCurrentVibesData = () => {
     pending: gamePending,
     error: gameError,
   } = useFetch<GameDetails | { status: number; message: string }>(
-    "/api/video-games"
+    "/api/video-games",
   );
   const { data: blogData } = useFetch<MediumPost>("/api/blog");
   const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+  const { data: traktData } = useFetch<TraktWatchedDetail | null>(
+    "/api/trakt/history",
+  );
+  const { data: githubData } = useFetch<
+    GitHubStats | { status: number; message: string }
+  >("/api/github");
 
   // Watch for data changes
   watch(
@@ -26,7 +34,7 @@ export const useCurrentVibesData = () => {
     ([data, pending, error]) => {
       // Data change monitoring (no logging)
     },
-    { immediate: true }
+    { immediate: true },
   );
 
   const cards = computed<CardData[]>(() => {
@@ -40,11 +48,22 @@ export const useCurrentVibesData = () => {
 
     const cardArray: CardData[] = [];
 
-    // Add game card first if it exists
+    // Add game card (with merged stats when available)
     if (gameCardData) {
       cardArray.push({
         type: "game" as const,
-        data: gameCardData,
+        data: {
+          ...gameCardData,
+          stats: gameDetails?.stats ?? null,
+        },
+      });
+    }
+
+    // Add trakt card if history exists
+    if (traktData.value) {
+      cardArray.push({
+        type: "trakt" as const,
+        data: traktData.value,
       });
     }
 
@@ -58,10 +77,21 @@ export const useCurrentVibesData = () => {
         type: "blog",
         data: blogData.value || undefined,
       },
-      {
-        type: "map",
-      }
     );
+
+    // Add GitHub card if data is valid
+    const isValidGithubData =
+      githubData.value && !("status" in githubData.value);
+    if (isValidGithubData) {
+      cardArray.push({
+        type: "github" as const,
+        data: githubData.value as GitHubStats,
+      });
+    }
+
+    cardArray.push({
+      type: "map",
+    });
 
     return cardArray;
   });

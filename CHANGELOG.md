@@ -1,3 +1,55 @@
+# [6.3.0-preview.10](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.9...v6.3.0-preview.10) (2026-02-20)
+
+# [6.3.0-preview.9](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.8...v6.3.0-preview.9) (2026-02-20)
+
+# [6.3.0-preview.8](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.7...v6.3.0-preview.8) (2026-02-20)
+
+
+### Bug Fixes
+
+* fix chunk seperation ([2ce80b8](https://github.com/erbilnas/portfolio/commit/2ce80b89a75fed4929c6caabff3a64442822935e))
+
+# [6.3.0-preview.7](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.6...v6.3.0-preview.7) (2026-02-20)
+
+# [6.3.0-preview.6](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.5...v6.3.0-preview.6) (2026-02-20)
+
+
+### Bug Fixes
+
+* fix chunk size error ([4e04b7d](https://github.com/erbilnas/portfolio/commit/4e04b7d6ea0844942cb006c71ac3690570d22291))
+
+# [6.3.0-preview.5](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.4...v6.3.0-preview.5) (2026-02-20)
+
+# [6.3.0-preview.4](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.3...v6.3.0-preview.4) (2026-02-19)
+
+
+### Features
+
+* **resume:** add resume viewer ([94180e5](https://github.com/erbilnas/portfolio/commit/94180e55c270694a0c3c129244eb98b2f3b48ba4))
+* **seo:** increase seo effiency ([a30eee7](https://github.com/erbilnas/portfolio/commit/a30eee7f1b365155a6c40ce38cc67a804377a679))
+
+# [6.3.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.2...v6.3.0-preview.3) (2026-02-19)
+
+
+### Bug Fixes
+
+* fix duplication of map card ([0e90767](https://github.com/erbilnas/portfolio/commit/0e90767285b0d1d6b50659f039b7c5191345f5ce))
+
+# [6.3.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.1...v6.3.0-preview.2) (2026-02-19)
+
+
+### Features
+
+* **current-vibes:** add trakt card ([214421a](https://github.com/erbilnas/portfolio/commit/214421a145a76f3b81f9af19bcde4e3f52dd71c6))
+
+# [6.3.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.2.0...v6.3.0-preview.1) (2026-02-19)
+
+
+### Features
+
+* add github stats card and change the source data of projects as github ([a59c8ad](https://github.com/erbilnas/portfolio/commit/a59c8adc917717acd1a89af2fc9346a8ab33cc78))
+* **projects:** add speed control for marquee ([196efcf](https://github.com/erbilnas/portfolio/commit/196efcf312cf191d48c80621003603a5818619ef))
+
 # [6.2.0](https://github.com/erbilnas/portfolio/compare/v6.1.3...v6.2.0) (2025-12-08)
 
 

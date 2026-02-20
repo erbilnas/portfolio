@@ -56,6 +56,7 @@ useObserver("Welcome", sectionRef);
         />
       </div>
 
+      <DownloadCvButton />
       <SocialLinks />
       <ScrollReminder />
     </div>

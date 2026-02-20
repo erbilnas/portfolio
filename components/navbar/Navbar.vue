@@ -21,12 +21,25 @@ const {
   settingsDialogOpen,
   cursorDisabled,
   theme,
+  reducedMotion,
+  marqueeSpeed,
+  fontSize,
+  disableCardHoverEffects,
+  analyticsEnabled,
+  highContrast,
   initializeSettings,
   openSettingsDialog,
   setLightTheme,
   setDarkTheme,
   setSystemTheme,
   handleToggleCursor,
+  handleToggleReducedMotion,
+  handleSetMarqueeSpeed,
+  handleSetFontSize,
+  handleToggleCardHoverEffects,
+  handleToggleAnalytics,
+  handleToggleHighContrast,
+  handleResetToDefaults,
 } = useNavbarSettings();
 
 // Update navigation items to include settings action
@@ -80,10 +93,23 @@ onUnmounted(() => {
     v-model:open="settingsDialogOpen"
     :cursor-disabled="cursorDisabled"
     :theme="theme"
+    :reduced-motion="reducedMotion"
+    :marquee-speed="marqueeSpeed"
+    :font-size="fontSize"
+    :disable-card-hover-effects="disableCardHoverEffects"
+    :analytics-enabled="analyticsEnabled"
+    :high-contrast="highContrast"
     :on-toggle-cursor="handleToggleCursor"
     :on-set-light-theme="setLightTheme"
     :on-set-dark-theme="setDarkTheme"
     :on-set-system-theme="setSystemTheme"
+    :on-toggle-reduced-motion="handleToggleReducedMotion"
+    :on-set-marquee-speed="handleSetMarqueeSpeed"
+    :on-set-font-size="handleSetFontSize"
+    :on-toggle-card-hover-effects="handleToggleCardHoverEffects"
+    :on-toggle-analytics="handleToggleAnalytics"
+    :on-toggle-high-contrast="handleToggleHighContrast"
+    :on-reset-to-defaults="handleResetToDefaults"
   />
 </template>
 

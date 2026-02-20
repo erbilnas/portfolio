@@ -2,6 +2,26 @@ import { useColorMode } from "#imports";
 import { ref, watch, computed } from "vue";
 import type { Locale } from "~/types/i18n";
 
+export type MarqueeSpeed = "slow" | "medium" | "fast";
+export type FontSize = "default" | "large" | "xlarge";
+
+const DEFAULT_THEME = "system" as const;
+const DEFAULT_CURSOR_DISABLED = false;
+const DEFAULT_LANGUAGE: Locale = "en";
+const DEFAULT_MARQUEE_SPEED: MarqueeSpeed = "medium";
+const DEFAULT_FONT_SIZE: FontSize = "default";
+const DEFAULT_REDUCED_MOTION = false;
+const DEFAULT_DISABLE_CARD_HOVER = false;
+const DEFAULT_ANALYTICS_ENABLED = true;
+const DEFAULT_HIGH_CONTRAST = false;
+
+function getPrefersReducedMotion(): boolean {
+  if (process.client && typeof window !== "undefined" && window.matchMedia) {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+  return false;
+}
+
 // Helper to set cookie (works on client side)
 function setCookie(key: string, value: string, maxAge: number = 31536000) {
   if (process.client && typeof document !== "undefined") {
@@ -45,6 +65,13 @@ function useLocalStorage<T>(key: string, defaultValue: T) {
             storedValue.value = JSON.parse(item);
           }
         }
+      } else if (key === "settings-reduced-motion") {
+        const item = window.localStorage.getItem(key);
+        if (item !== null) {
+          storedValue.value = JSON.parse(item) as T;
+        } else {
+          storedValue.value = getPrefersReducedMotion() as T;
+        }
       } else {
         const item = window.localStorage.getItem(key);
         if (item !== null) {
@@ -87,8 +114,14 @@ let settingsInstance: ReturnType<typeof createSettings> | null = null;
 
 function createSettings() {
   const colorMode = useColorMode();
-  const cursorDisabled = useLocalStorage("settings-cursor-disabled", false);
-  const language = useLocalStorage<Locale>("settings-language", "en");
+  const cursorDisabled = useLocalStorage("settings-cursor-disabled", DEFAULT_CURSOR_DISABLED);
+  const language = useLocalStorage<Locale>("settings-language", DEFAULT_LANGUAGE);
+  const reducedMotion = useLocalStorage("settings-reduced-motion", DEFAULT_REDUCED_MOTION);
+  const marqueeSpeed = useLocalStorage<MarqueeSpeed>("settings-marquee-speed", DEFAULT_MARQUEE_SPEED);
+  const fontSize = useLocalStorage<FontSize>("settings-font-size", DEFAULT_FONT_SIZE);
+  const disableCardHoverEffects = useLocalStorage("settings-disable-card-hover", DEFAULT_DISABLE_CARD_HOVER);
+  const analyticsEnabled = useLocalStorage("settings-analytics-enabled", DEFAULT_ANALYTICS_ENABLED);
+  const highContrast = useLocalStorage("settings-high-contrast", DEFAULT_HIGH_CONTRAST);
 
   const toggleCursor = () => {
     cursorDisabled.value = !cursorDisabled.value;
@@ -102,6 +135,51 @@ function createSettings() {
     language.value = lang;
   };
 
+  const toggleReducedMotion = () => {
+    reducedMotion.value = !reducedMotion.value;
+  };
+
+  const setMarqueeSpeed = (speed: MarqueeSpeed) => {
+    marqueeSpeed.value = speed;
+  };
+
+  const setFontSize = (size: FontSize) => {
+    fontSize.value = size;
+  };
+
+  const toggleCardHoverEffects = () => {
+    disableCardHoverEffects.value = !disableCardHoverEffects.value;
+  };
+
+  const toggleAnalytics = () => {
+    analyticsEnabled.value = !analyticsEnabled.value;
+  };
+
+  const toggleHighContrast = () => {
+    highContrast.value = !highContrast.value;
+  };
+
+  const resetToDefaults = () => {
+    cursorDisabled.value = DEFAULT_CURSOR_DISABLED;
+    if (process.client && typeof window !== "undefined" && window.localStorage) {
+      try {
+        const prefersReduced = getPrefersReducedMotion();
+        reducedMotion.value = prefersReduced;
+      } catch {
+        reducedMotion.value = DEFAULT_REDUCED_MOTION;
+      }
+    } else {
+      reducedMotion.value = DEFAULT_REDUCED_MOTION;
+    }
+    colorMode.preference = DEFAULT_THEME;
+    language.value = DEFAULT_LANGUAGE;
+    marqueeSpeed.value = DEFAULT_MARQUEE_SPEED;
+    fontSize.value = DEFAULT_FONT_SIZE;
+    disableCardHoverEffects.value = DEFAULT_DISABLE_CARD_HOVER;
+    analyticsEnabled.value = DEFAULT_ANALYTICS_ENABLED;
+    highContrast.value = DEFAULT_HIGH_CONTRAST;
+  };
+
   return {
     cursorDisabled: computed(() => cursorDisabled.value),
     toggleCursor,
@@ -109,6 +187,19 @@ function createSettings() {
     setTheme,
     language: computed(() => language.value),
     setLanguage,
+    reducedMotion: computed(() => reducedMotion.value),
+    toggleReducedMotion,
+    marqueeSpeed: computed(() => marqueeSpeed.value),
+    setMarqueeSpeed,
+    fontSize: computed(() => fontSize.value),
+    setFontSize,
+    disableCardHoverEffects: computed(() => disableCardHoverEffects.value),
+    toggleCardHoverEffects,
+    analyticsEnabled: computed(() => analyticsEnabled.value),
+    toggleAnalytics,
+    highContrast: computed(() => highContrast.value),
+    toggleHighContrast,
+    resetToDefaults,
   };
 }
 

@@ -6,6 +6,7 @@
     "experience": "Deneyim",
     "projects": "Projeler",
     "currentVibes": "Güncel Vibe'lar",
+    "resume": "Özgeçmiş",
     "settings": "Ayarlar",
     "multipleLanguagesSupported": "Çoklu dil desteği mevcuttur"
   },
@@ -17,7 +18,32 @@
     "language": "Dil",
     "light": "Açık",
     "dark": "Koyu",
-    "system": "Sistem"
+    "system": "Sistem",
+    "languageSwitchError": "Dil değiştirilemedi. Lütfen tekrar deneyin.",
+    "reducedMotion": "Hareketi Azalt",
+    "reducedMotionDescription": "Daha iyi erişilebilirlik için animasyonları en aza indir",
+    "marqueeSpeed": "Projeler Marquee Hızı",
+    "fontSize": "Yazı Boyutu",
+    "fontSizeDefault": "Varsayılan",
+    "fontSizeLarge": "Büyük",
+    "fontSizeXLarge": "Çok Büyük",
+    "disableCardHoverEffects": "Kart Hover Efektlerini Devre Dışı Bırak",
+    "disableCardHoverEffectsDescription": "Current Vibes kartlarındaki bulanıklık ve ölçek efektlerini azalt",
+    "analyticsEnabled": "Analitik",
+    "analyticsEnabledDescription": "Performans ve kullanım analitiğine izin ver",
+    "highContrast": "Yüksek Kontrast",
+    "highContrastDescription": "Daha iyi görünürlük için kontrastı artır",
+    "resetToDefaults": "Varsayılana Sıfırla",
+    "resetToDefaultsDescription": "Tüm ayarları varsayılan değerlerine geri yükle",
+    "resetSuccess": "Ayarlar başarıyla sıfırlandı",
+    "keyboardShortcuts": "Klavye Kısayolları",
+    "keyboardShortcutsDescription": "Mevcut klavye kısayollarını görüntüle",
+    "shortcutTheme": "Temayı değiştir",
+    "shortcutSettings": "Ayarları aç",
+    "shortcutScrollToTop": "En üste kaydır",
+    "about": "Hakkında",
+    "builtWith": "Vue, Nuxt ve Tailwind CSS ile geliştirildi",
+    "version": "Sürüm"
   },
   "welcome": {
     "hello": "Merhaba",
@@ -39,24 +65,15 @@
   "projects": {
     "title": "Projeler",
     "description": "Üzerinde çalıştığım projelerin bir vitrini, yenilikçi çözümler ve yaratıcı uygulamalar içeriyor",
+    "speed": "Hız",
+    "speedSlow": "Yavaş",
+    "speedMedium": "Orta",
+    "speedFast": "Hızlı",
     "visit": "Ziyaret Et",
     "viewSource": "Kaynağı Görüntüle",
     "visitTitle": "{name} - Canlı Demo'yu Ziyaret Et",
     "githubTitle": "{name} kaynak kodunu GitHub'da görüntüle",
-    "items": {
-      "baklava": {
-        "description": "Baklava, Trendyol tarafından uygulama kullanıcıları için tutarlı bir UI/UX oluşturmak amacıyla sağlanan bir tasarım sistemidir."
-      },
-      "spaceflash": {
-        "description": "Spaceflash, ay üssünüzü savunmak için gelen sonsuz düşmanları yok ettiğiniz, VR başlığı (Oculus, HTC vb.) ile oynanabilen dalga tabanlı bir nişancı oyunudur."
-      },
-      "perfanalytics": {
-        "description": "Tarayıcıdan performansla ilgili bazı önemli metrikleri toplayan ve API'ye gönderen bir istemci tarafı kütüphanesidir."
-      },
-      "crossingOfTheRhine": {
-        "description": "Ren Geçişi: M.S. 406, tarihsel bir olaya dayanan ve Python ile geliştirilmiş sıra tabanlı/RPG bir oyundur."
-      }
-    }
+    "items": {}
   },
   "skills": {
     "title": "Yetenekler",
@@ -510,17 +527,64 @@
         "currentlyPlaying": "Şu anda oynuyorum",
         "recentlyCompleted": "Yakın zamanda tamamladım"
       },
+      "gameStats": {
+        "statsTitle": "Oyun İstatistiklerim",
+        "statsCategory": "HowLongToBeat özeti",
+        "totalHours": "Toplam saat",
+        "platforms": "Platformlar",
+        "gamesCompleted": "tamamlanan oyun",
+        "complete": "tamamlandı",
+        "completionRate": "tamamlama oranı",
+        "gamesByYear": "Çıkış yılına göre oyunlar",
+        "pre1990": "1990 öncesi",
+        "year1990s": "1990-1999",
+        "year2000s": "2000-2009",
+        "year2010s": "2010+"
+      },
       "music": {
         "noSongPlaying": "Şarkı çalmıyor",
         "listeningTo": "Dinliyorum"
       },
       "blog": {
         "defaultTitle": "Blog Yazısı",
-        "latestPost": "Yazdığım en son blog yazısı"
+        "latestPost": "Yazdığım en son blog yazısı",
+        "published": "Yayın tarihi",
+        "readTime": "Okuma süresi"
       },
       "map": {
         "title": "Gittiğim Yerler",
-        "category": "En büyük seyahat başarılarım"
+        "category": "En büyük seyahat başarılarım",
+        "completion": "Keşfedilen dünya"
+      },
+      "trakt": {
+        "defaultTitle": "Film veya Dizi",
+        "lastWatched": "Yakın zamanda izledim",
+        "movie": "Film",
+        "episode": "Dizi Bölümü",
+        "type": "Tür",
+        "watched": "İzlenme"
+      },
+      "github": {
+        "title": "GitHub İstatistikleri",
+        "category": "Kodlama aktivitem",
+        "commits": "commit",
+        "repos": "depo",
+        "contributions": "katkı",
+        "pullRequests": "pull request",
+        "issues": "issue"
+      },
+      "githubStats": {
+        "statsCategory": "Bu yılki GitHub aktivitesi",
+        "pullRequestReviews": "PR incelemeleri",
+        "reposContributedTo": "katkıda bulunulan depo",
+        "contributionsByMonth": "Aylara göre katkılar"
+      },
+      "spotifyStats": {
+        "statsCategory": "Bu ayın en çok dinlenen sanatçıları",
+        "topArtists": "en çok dinlenen sanatçı",
+        "topTracks": "en çok dinlenen şarkı",
+        "topArtistsChart": "En çok dinlenen sanatçılar",
+        "topTracksChart": "En çok dinlenen şarkılar"
       },
       "default": {
         "title": "Kart",
@@ -544,7 +608,10 @@
     "swipe": "Sürükleyerek",
     "scroll": "Kaydırarak",
     "toSeeMore": "daha fazla görüntüleyebilirsin",
-    "scrollToSeeMore": "Kaydırmaya başlayın"
+    "scrollToSeeMore": "Kaydırmaya başlayın",
+    "downloadCv": "CV İndir",
+    "showResume": "Özgeçmişi Görüntüle",
+    "goBack": "Geri Dön"
   },
   "footer": {
     "copyright": {
@@ -563,6 +630,14 @@
       "rss2json": {
         "name": "RSS2JSON",
         "description": "Blog bölümüm için veri sağlar."
+      },
+      "trakt": {
+        "name": "Trakt.tv",
+        "description": "İzleme geçmişim için veri sağlar."
+      },
+      "github": {
+        "name": "GitHub",
+        "description": "GitHub istatistikleri kartım için veri sağlar."
       }
     }
   },

@@ -19,6 +19,14 @@ const providers = computed<Provider[]>(() => [
     name: t("footer.providers.rss2json.name"),
     description: t("footer.providers.rss2json.description"),
   },
+  {
+    name: t("footer.providers.trakt.name"),
+    description: t("footer.providers.trakt.description"),
+  },
+  {
+    name: t("footer.providers.github.name"),
+    description: t("footer.providers.github.description"),
+  },
 ]);
 </script>
 

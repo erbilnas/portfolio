@@ -160,4 +160,15 @@ useHead({
     lang: locale,
   },
 });
+
+// JSON-LD Person schema for search engines
+const personJsonLd = usePersonJsonLd();
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify(personJsonLd),
+    },
+  ],
+});
 </script>

@@ -92,6 +92,14 @@ export const useNavbarNavigation = () => {
       action: () => scrollToSection("current-vibes"),
     },
     {
+      id: "resume",
+      icon: defineAsyncComponent(() =>
+        import("lucide-vue-next").then((m) => m.FileTextIcon)
+      ),
+      label: t("nav.resume"),
+      action: () => navigateTo("/resume"),
+    },
+    {
       id: "settings",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.SettingsIcon)

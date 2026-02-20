@@ -1,11 +1,32 @@
 <script lang="ts" setup>
 import { useI18n, useObserver } from "#imports";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
-import { projectsList } from "~/constants/projects";
+import { useProjectsData } from "~/composables/use-projects-data";
+import { useSettings } from "~/composables/settings";
 
 const { t } = useI18n();
 const sectionRef = ref<HTMLElement | null>(null);
+const { projects, pending, error } = useProjectsData();
+const { marqueeSpeed } = useSettings();
+
+// Map marquee speed to duration: slow=120s, medium=75s, fast=45s
+const marqueeDuration = computed(() => {
+  switch (marqueeSpeed.value) {
+    case "slow":
+      return 120;
+    case "fast":
+      return 45;
+    default:
+      return 75;
+  }
+});
+
+const speedLabel = computed(() => {
+  if (marqueeSpeed.value === "fast") return t("projects.speedFast");
+  if (marqueeSpeed.value === "medium") return t("projects.speedMedium");
+  return t("projects.speedSlow");
+});
 
 // Setup observer
 useObserver("Projects", sectionRef);
@@ -30,10 +51,48 @@ useObserver("Projects", sectionRef);
           </p>
         </div>
 
-        <Marquee :pause-on-hover="true" :repeat="2" style="--duration: 15s">
+        <div
+          v-if="pending"
+          class="flex justify-center items-center gap-2 py-16"
+        >
+          <span
+            class="inline-block w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"
+          />
+          <span class="text-gray-600 dark:text-gray-400">{{
+            t("common.loading")
+          }}</span>
+        </div>
+
+        <div
+          v-else-if="error"
+          class="text-center py-16 text-gray-600 dark:text-gray-400"
+        >
+          {{ t("common.error") }}
+        </div>
+
+        <div v-else class="space-y-6">
           <div
-            v-for="(project, index) in projectsList"
-            :key="index"
+            class="flex items-center justify-center gap-2"
+            :title="t('projects.speed')"
+          >
+            <Icon
+              name="mdi:speedometer"
+              class="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0"
+            />
+            <span
+              class="min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400"
+            >
+              {{ speedLabel }}
+            </span>
+          </div>
+          <Marquee
+            :pause-on-hover="true"
+            :repeat="2"
+            :style="{ '--duration': `${marqueeDuration}s` }"
+          >
+          <div
+            v-for="project in projects"
+            :key="project.key"
             class="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-950/[.1] bg-gray-950/[.01] p-6 hover:bg-gray-950/[.05] dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
           >
             <div class="flex flex-col gap-4">
@@ -99,21 +158,12 @@ useObserver("Projects", sectionRef);
               <p
                 class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed"
               >
-                {{ t(`projects.items.${project.key}.description`) }}
+                {{ project.description }}
               </p>
-
-              <div class="flex flex-wrap gap-2">
-                <span
-                  v-for="tech in project.tech"
-                  :key="tech"
-                  class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
-                >
-                  {{ tech }}
-                </span>
-              </div>
             </div>
           </div>
         </Marquee>
+        </div>
       </div>
     </div>
   </section>

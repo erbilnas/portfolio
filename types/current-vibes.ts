@@ -16,9 +16,24 @@ export interface SingleGameDetail {
   status: "playing" | "completed";
 }
 
+export interface ReleaseByYear {
+  label: string;
+  count: number;
+}
+
+export interface HLTBStats {
+  totalHours: number;
+  gamesPlayed: number;
+  gamesCompleted: number;
+  completionRate: number;
+  platforms: string[];
+  releaseByYear: ReleaseByYear[];
+}
+
 export interface GameDetails {
   playing: SingleGameDetail | null;
   last_completed: SingleGameDetail | null;
+  stats?: HLTBStats | null;
 }
 
 export interface Album {
@@ -26,13 +41,48 @@ export interface Album {
   image: string;
 }
 
+export interface SpotifyStats {
+  topArtistsByMonth: { label: string; count: number }[];
+  topTracksByMonth?: { label: string; count: number }[];
+  topTracksCount?: number;
+}
+
 export interface MusicPlayerData {
   album: Album;
   artist: string;
   name: string;
   is_playing: boolean;
+  stats?: SpotifyStats;
 }
 
 export interface MusicPlayer {
   player: MusicPlayerData;
+}
+
+export interface TraktWatchedDetail {
+  type: "movie" | "episode";
+  title: string;
+  subtitle?: string;
+  year: number | null;
+  image: string;
+  ids: { trakt?: number; slug?: string; imdb?: string; tmdb?: number };
+  watched_at: string;
+}
+
+export interface ContributionsByMonth {
+  label: string;
+  count: number;
+}
+
+export interface GitHubStats {
+  username: string;
+  publicRepos: number;
+  totalContributions: number;
+  commits: number;
+  pullRequests: number;
+  issues: number;
+  pullRequestReviews?: number;
+  reposContributedTo?: number;
+  year?: number;
+  contributionsByMonth?: ContributionsByMonth[];
 }
