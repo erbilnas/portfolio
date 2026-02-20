@@ -1,6 +1,9 @@
 export default defineNuxtPlugin(() => {
   if (!process.client) return;
 
+  const config = useRuntimeConfig();
+  const showErrorsInPreview = config.public.showErrorsInPreview as boolean;
+
   // Enhanced error logging with better formatting for production
   const logError = (type: string, errorData: any) => {
     const errorInfo = {
@@ -28,6 +31,21 @@ export default defineNuxtPlugin(() => {
     
     // Also log a simple one-liner for quick scanning
     console.error(`[${type}] ${errorData.message || errorData.reason || 'Unknown error'}`);
+
+    // In preview: show toast overlay for visibility
+    if (showErrorsInPreview) {
+      const message =
+        errorData.message ||
+        (errorData.reason instanceof Error
+          ? errorData.reason.message
+          : String(errorData.reason ?? "Unknown error"));
+      import("vue-sonner").then(({ toast }) => {
+        toast.error(`[${type}] ${message}`, {
+          duration: 10000,
+          description: "Check console for full details",
+        });
+      });
+    }
   };
 
   // Global error handler for unhandled errors

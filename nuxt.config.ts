@@ -1,3 +1,6 @@
+const isPreview =
+  process.env.VERCEL_ENV === "preview" || process.env.NUXT_PREVIEW === "true";
+
 const appConfig = {
   socialLinks: {
     linkedin: process.env.LINKEDIN_PROFILE_URL,
@@ -26,6 +29,7 @@ const appConfig = {
 
 const runtimeConfig = {
   public: {
+    showErrorsInPreview: isPreview,
     siteUrl: process.env.NUXT_APP_URL || "https://erbilnas.com",
     siteDescription:
       process.env.NUXT_APP_DESCRIPTION ||
@@ -153,16 +157,16 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  // Logging: Disable logs in production, 'verbose' in development
-  logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
-  // Disable sourcemaps in production for smaller bundle size
+  // Logging: Verbose in preview/development, silent in production
+  logLevel: isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
+  // Enable sourcemaps in preview/development for readable stack traces
   sourcemap: {
-    server: process.env.NODE_ENV !== "production",
-    client: process.env.NODE_ENV !== "production",
+    server: isPreview || process.env.NODE_ENV !== "production",
+    client: isPreview || process.env.NODE_ENV !== "production",
   },
   nitro: {
-    logLevel: process.env.NODE_ENV === "production" ? "silent" : "verbose",
-    sourceMap: process.env.NODE_ENV !== "production",
+    logLevel: isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
+    sourceMap: isPreview || process.env.NODE_ENV !== "production",
     // Log errors with full details
     experimental: {
       wasm: true,
@@ -204,7 +208,7 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      sourcemap: process.env.NODE_ENV !== "production",
+      sourcemap: isPreview || process.env.NODE_ENV !== "production",
       minify: "esbuild",
       rollupOptions: {
         output: {
@@ -216,7 +220,7 @@ export default defineNuxtConfig({
       },
       chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
     },
-    logLevel: process.env.NODE_ENV === "production" ? "silent" : "info",
+    logLevel: isPreview || process.env.NODE_ENV !== "production" ? "info" : "silent",
   },
   // Apply manualChunks ONLY to client build to prevent "Cannot access before initialization" errors.
   // When manualChunks is in vite.build.rollupOptions, it affects both client and server builds,
