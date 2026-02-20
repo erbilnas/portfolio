@@ -212,14 +212,28 @@ export default defineNuxtConfig({
           sourcemapPathTransform: (relativeSourcePath) => {
             return relativeSourcePath;
           },
-          manualChunks: (id) => {
+        },
+      },
+      chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
+    },
+    logLevel: process.env.NODE_ENV === "production" ? "silent" : "info",
+  },
+  // Apply manualChunks ONLY to client build to prevent "Cannot access before initialization" errors.
+  // When manualChunks is in vite.build.rollupOptions, it affects both client and server builds,
+  // causing circular dependency/initialization order issues. See: nuxt/nuxt#22127, #21354
+  hooks: {
+    "vite:extendConfig"(config, { isClient }) {
+      if (isClient && config.build?.rollupOptions?.output) {
+        const output = config.build.rollupOptions.output;
+        const outputConfig = Array.isArray(output) ? output[0] : output;
+        if (outputConfig) {
+          outputConfig.manualChunks = (id: string) => {
             // Only process node_modules dependencies
             if (!id.includes("node_modules")) {
               return;
             }
 
             // CRITICAL: Never split Nuxt core components - they must load synchronously
-            // This prevents "Cannot access before initialization" errors in production
             if (
               id.includes(".nuxt") ||
               id.includes("nuxt/dist") ||
@@ -284,11 +298,9 @@ export default defineNuxtConfig({
 
             // Default vendor chunk for other node_modules
             return "vendor";
-          },
-        },
-      },
-      chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
+          };
+        }
+      }
     },
-    logLevel: process.env.NODE_ENV === "production" ? "silent" : "info",
   },
 });
