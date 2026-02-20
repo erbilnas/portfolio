@@ -1,3 +1,10 @@
+# [6.3.0-preview.8](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.7...v6.3.0-preview.8) (2026-02-20)
+
+
+### Bug Fixes
+
+* fix chunk seperation ([2ce80b8](https://github.com/erbilnas/portfolio/commit/2ce80b89a75fed4929c6caabff3a64442822935e))
+
 # [6.3.0-preview.7](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.6...v6.3.0-preview.7) (2026-02-20)
 
 # [6.3.0-preview.6](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.5...v6.3.0-preview.6) (2026-02-20)
