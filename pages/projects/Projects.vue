@@ -3,21 +3,29 @@ import { useI18n, useObserver } from "#imports";
 import { computed, ref } from "vue";
 import { Marquee } from "~/components/ui/marquee";
 import { useProjectsData } from "~/composables/use-projects-data";
+import { useSettings } from "~/composables/settings";
 
 const { t } = useI18n();
 const sectionRef = ref<HTMLElement | null>(null);
-const marqueeDuration = ref(75);
 const { projects, pending, error } = useProjectsData();
+const { marqueeSpeed } = useSettings();
 
-const speedLabel = computed(() => {
-  if (marqueeDuration.value <= 45) return t("projects.speedFast");
-  if (marqueeDuration.value <= 85) return t("projects.speedMedium");
-  return t("projects.speedSlow");
+// Map marquee speed to duration: slow=120s, medium=75s, fast=45s
+const marqueeDuration = computed(() => {
+  switch (marqueeSpeed.value) {
+    case "slow":
+      return 120;
+    case "fast":
+      return 45;
+    default:
+      return 75;
+  }
 });
 
-const speedSlider = computed({
-  get: () => 145 - marqueeDuration.value,
-  set: (v) => { marqueeDuration.value = 145 - v; },
+const speedLabel = computed(() => {
+  if (marqueeSpeed.value === "fast") return t("projects.speedFast");
+  if (marqueeSpeed.value === "medium") return t("projects.speedMedium");
+  return t("projects.speedSlow");
 });
 
 // Setup observer
@@ -70,13 +78,6 @@ useObserver("Projects", sectionRef);
             <Icon
               name="mdi:speedometer"
               class="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0"
-            />
-            <input
-              v-model.number="speedSlider"
-              type="range"
-              min="25"
-              max="120"
-              class="w-32 h-1.5 rounded-full appearance-none bg-gray-200 dark:bg-gray-700 accent-gray-600 dark:accent-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-black"
             />
             <span
               class="min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400"

@@ -139,7 +139,7 @@ const getBuildId = async (): Promise<string | null> => {
 };
 
 const fetchGameDetailsFromHTML = async (
-  gameId: number
+  gameId: number,
 ): Promise<{
   imageUrl?: string;
   description?: string;
@@ -158,7 +158,7 @@ const fetchGameDetailsFromHTML = async (
 
     if (!response.ok) {
       console.warn(
-        `HTML fetch returned status ${response.status} for game_id ${gameId}`
+        `HTML fetch returned status ${response.status} for game_id ${gameId}`,
       );
       return null;
     }
@@ -167,7 +167,7 @@ const fetchGameDetailsFromHTML = async (
 
     // Extract __NEXT_DATA__ from HTML
     const nextDataMatch = html.match(
-      /<script id="__NEXT_DATA__"[^>]*>(.*?)<\/script>/
+      /<script id="__NEXT_DATA__"[^>]*>(.*?)<\/script>/,
     );
     if (!nextDataMatch) {
       console.warn("Could not find __NEXT_DATA__ in HTML");
@@ -180,7 +180,7 @@ const fetchGameDetailsFromHTML = async (
   } catch (error) {
     console.warn(
       `Failed to fetch game details from HTML for game_id ${gameId}:`,
-      error
+      error,
     );
     if (error instanceof Error) {
       console.warn(`Error message: ${error.message}`);
@@ -190,7 +190,7 @@ const fetchGameDetailsFromHTML = async (
 };
 
 const fetchGameDetailsFromAPI = async (
-  gameId: number
+  gameId: number,
 ): Promise<{
   imageUrl?: string;
   description?: string;
@@ -218,7 +218,7 @@ const fetchGameDetailsFromAPI = async (
 
     if (!response.ok) {
       console.warn(
-        `API returned status ${response.status} for game_id ${gameId}`
+        `API returned status ${response.status} for game_id ${gameId}`,
       );
 
       // If 404, try with a fresh build ID fetch
@@ -262,7 +262,7 @@ const fetchGameDetailsFromAPI = async (
 };
 
 const extractGameData = (
-  data: any
+  data: any,
 ): {
   imageUrl?: string;
   description?: string;
@@ -505,7 +505,7 @@ const extractGameData = (
 
 const getGameDetails = async (
   item: GameItem,
-  status: GameStatus
+  status: GameStatus,
 ): Promise<GameDetails> => {
   try {
     const { game_id, custom_title, platform, play_storefront } = item;
@@ -579,17 +579,42 @@ interface ReleaseByYear {
 
 interface HLTBStats {
   totalHours: number;
+  gamesPlayed: number;
   gamesCompleted: number;
   completionRate: number;
+  platforms: string[];
   releaseByYear: ReleaseByYear[];
 }
+
+const fetchUniquePlatforms = async (): Promise<string[]> => {
+  try {
+    const [playingRes, completedRes] = await Promise.all([
+      fetchGames({ status: "playing", sortBy: "date_updated" }),
+      fetchGames({ status: "completed", sortBy: "date_complete" }),
+    ]);
+
+    const platforms = new Set<string>();
+    for (const item of playingRes?.data?.gamesList ?? []) {
+      if (item.platform?.trim()) platforms.add(item.platform.trim());
+    }
+    for (const item of completedRes?.data?.gamesList ?? []) {
+      if (item.platform?.trim()) platforms.add(item.platform.trim());
+    }
+    return Array.from(platforms).sort();
+  } catch (error) {
+    console.error("Error fetching platforms:", error);
+    return [];
+  }
+};
 
 const fetchUserStats = async (): Promise<HLTBStats | null> => {
   try {
     const hltbConfig = howlongtobeat as { api?: string; statsApi?: string };
     const statsApi =
       hltbConfig.statsApi ||
-      (hltbConfig.api ? hltbConfig.api.replace("/games/list", "/stats") : null) ||
+      (hltbConfig.api
+        ? hltbConfig.api.replace("/games/list", "/stats")
+        : null) ||
       "https://howlongtobeat.com/api/user/82755/stats";
 
     const response = await fetch(statsApi, {
@@ -621,10 +646,10 @@ const fetchUserStats = async (): Promise<HLTBStats | null> => {
     const totalHours = Math.round(totalSeconds / 3600);
 
     const gamesCompleted = summary.playthroughCount?.totalCompletions ?? 0;
-    const platformTotal = summary.platformTotal ?? 0;
+    const gamesPlayed = summary.platformTotal ?? 0;
     const completionRate =
-      platformTotal > 0
-        ? Math.round((gamesCompleted / platformTotal) * 100)
+      gamesPlayed > 0
+        ? Math.round((gamesCompleted / gamesPlayed) * 100)
         : 0;
 
     let releaseByYear: ReleaseByYear[] = [];
@@ -636,10 +661,14 @@ const fetchUserStats = async (): Promise<HLTBStats | null> => {
       }));
     }
 
+    const platforms = await fetchUniquePlatforms();
+
     return {
       totalHours,
+      gamesPlayed,
       gamesCompleted,
       completionRate,
+      platforms,
       releaseByYear,
     };
   } catch (error) {
@@ -665,8 +694,7 @@ export default defineEventHandler(async (event) => {
         lastCompletedResult.status === "fulfilled"
           ? lastCompletedResult.value
           : null,
-      stats:
-        statsResult.status === "fulfilled" ? statsResult.value : null,
+      stats: statsResult.status === "fulfilled" ? statsResult.value : null,
     };
 
     return response;

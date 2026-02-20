@@ -24,6 +24,7 @@ export interface CardMetadata {
   album?: string;
   isPlaying?: boolean;
   topArtistsByMonth?: { label: string; count: number }[];
+  topTracksByMonth?: { label: string; count: number }[];
   topTracksCount?: number;
   // Blog specific
   readTime?: number;
@@ -49,8 +50,10 @@ export interface CardMetadata {
   statsCategory?: string;
   // Game stats specific
   totalHours?: number;
+  gamesPlayed?: number;
   gamesCompleted?: number;
   completionRate?: number;
+  platforms?: string[];
   releaseByYear?: { label: string; count: number }[];
 }
 
@@ -149,8 +152,10 @@ export const useCardsMetadata = () => {
             description: game?.description,
             visitUrl,
             totalHours: stats?.totalHours,
+            gamesPlayed: stats?.gamesPlayed,
             gamesCompleted: stats?.gamesCompleted,
             completionRate: stats?.completionRate,
+            platforms: stats?.platforms ?? [],
             releaseByYear: stats?.releaseByYear ?? [],
           };
 
@@ -162,6 +167,7 @@ export const useCardsMetadata = () => {
           const stats = player?.stats;
           const hasStats =
             (stats?.topArtistsByMonth?.length ?? 0) > 0 ||
+            (stats?.topTracksByMonth?.length ?? 0) > 0 ||
             stats?.topTracksCount !== undefined;
           return {
             title: player?.name || t("currentVibes.cards.music.noSongPlaying"),
@@ -174,6 +180,7 @@ export const useCardsMetadata = () => {
             isPlaying: !!player?.name,
             visitUrl,
             topArtistsByMonth: stats?.topArtistsByMonth ?? [],
+            topTracksByMonth: stats?.topTracksByMonth ?? [],
             topTracksCount: stats?.topTracksCount,
             statsCategory: hasStats
               ? t("currentVibes.cards.spotifyStats.statsCategory")

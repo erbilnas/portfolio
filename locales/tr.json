@@ -18,7 +18,32 @@
     "language": "Dil",
     "light": "Açık",
     "dark": "Koyu",
-    "system": "Sistem"
+    "system": "Sistem",
+    "languageSwitchError": "Dil değiştirilemedi. Lütfen tekrar deneyin.",
+    "reducedMotion": "Hareketi Azalt",
+    "reducedMotionDescription": "Daha iyi erişilebilirlik için animasyonları en aza indir",
+    "marqueeSpeed": "Projeler Marquee Hızı",
+    "fontSize": "Yazı Boyutu",
+    "fontSizeDefault": "Varsayılan",
+    "fontSizeLarge": "Büyük",
+    "fontSizeXLarge": "Çok Büyük",
+    "disableCardHoverEffects": "Kart Hover Efektlerini Devre Dışı Bırak",
+    "disableCardHoverEffectsDescription": "Current Vibes kartlarındaki bulanıklık ve ölçek efektlerini azalt",
+    "analyticsEnabled": "Analitik",
+    "analyticsEnabledDescription": "Performans ve kullanım analitiğine izin ver",
+    "highContrast": "Yüksek Kontrast",
+    "highContrastDescription": "Daha iyi görünürlük için kontrastı artır",
+    "resetToDefaults": "Varsayılana Sıfırla",
+    "resetToDefaultsDescription": "Tüm ayarları varsayılan değerlerine geri yükle",
+    "resetSuccess": "Ayarlar başarıyla sıfırlandı",
+    "keyboardShortcuts": "Klavye Kısayolları",
+    "keyboardShortcutsDescription": "Mevcut klavye kısayollarını görüntüle",
+    "shortcutTheme": "Temayı değiştir",
+    "shortcutSettings": "Ayarları aç",
+    "shortcutScrollToTop": "En üste kaydır",
+    "about": "Hakkında",
+    "builtWith": "Vue, Nuxt ve Tailwind CSS ile geliştirildi",
+    "version": "Sürüm"
   },
   "welcome": {
     "hello": "Merhaba",
@@ -506,7 +531,9 @@
         "statsTitle": "Oyun İstatistiklerim",
         "statsCategory": "HowLongToBeat özeti",
         "totalHours": "Toplam saat",
+        "platforms": "Platformlar",
         "gamesCompleted": "tamamlanan oyun",
+        "complete": "tamamlandı",
         "completionRate": "tamamlama oranı",
         "gamesByYear": "Çıkış yılına göre oyunlar",
         "pre1990": "1990 öncesi",
@@ -520,17 +547,22 @@
       },
       "blog": {
         "defaultTitle": "Blog Yazısı",
-        "latestPost": "Yazdığım en son blog yazısı"
+        "latestPost": "Yazdığım en son blog yazısı",
+        "published": "Yayın tarihi",
+        "readTime": "Okuma süresi"
       },
       "map": {
         "title": "Gittiğim Yerler",
-        "category": "En büyük seyahat başarılarım"
+        "category": "En büyük seyahat başarılarım",
+        "completion": "Keşfedilen dünya"
       },
       "trakt": {
         "defaultTitle": "Film veya Dizi",
         "lastWatched": "Yakın zamanda izledim",
         "movie": "Film",
-        "episode": "Dizi Bölümü"
+        "episode": "Dizi Bölümü",
+        "type": "Tür",
+        "watched": "İzlenme"
       },
       "github": {
         "title": "GitHub İstatistikleri",
@@ -551,7 +583,8 @@
         "statsCategory": "Bu ayın en çok dinlenen sanatçıları",
         "topArtists": "en çok dinlenen sanatçı",
         "topTracks": "en çok dinlenen şarkı",
-        "topArtistsChart": "En çok dinlenen sanatçılar"
+        "topArtistsChart": "En çok dinlenen sanatçılar",
+        "topTracksChart": "En çok dinlenen şarkılar"
       },
       "default": {
         "title": "Kart",

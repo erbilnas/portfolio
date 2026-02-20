@@ -23,8 +23,10 @@ export interface ReleaseByYear {
 
 export interface HLTBStats {
   totalHours: number;
+  gamesPlayed: number;
   gamesCompleted: number;
   completionRate: number;
+  platforms: string[];
   releaseByYear: ReleaseByYear[];
 }
 
@@ -41,6 +43,7 @@ export interface Album {
 
 export interface SpotifyStats {
   topArtistsByMonth: { label: string; count: number }[];
+  topTracksByMonth?: { label: string; count: number }[];
   topTracksCount?: number;
 }
 

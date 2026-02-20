@@ -60,6 +60,7 @@ const runtimeConfig = {
     clientId: process.env.TRAKT_CLIENT_ID,
     clientSecret: process.env.TRAKT_CLIENT_SECRET,
     username: process.env.TRAKT_USERNAME,
+    tmdbApiKey: process.env.TMDB_API_KEY,
   },
   github: {
     username: process.env.GITHUB_USERNAME,

@@ -18,7 +18,32 @@
     "language": "Language",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "languageSwitchError": "Failed to switch language. Please try again.",
+    "reducedMotion": "Reduce Motion",
+    "reducedMotionDescription": "Minimize animations for better accessibility",
+    "marqueeSpeed": "Projects Marquee Speed",
+    "fontSize": "Font Size",
+    "fontSizeDefault": "Default",
+    "fontSizeLarge": "Large",
+    "fontSizeXLarge": "Extra Large",
+    "disableCardHoverEffects": "Disable Card Hover Effects",
+    "disableCardHoverEffectsDescription": "Reduce blur and scale effects on Current Vibes cards",
+    "analyticsEnabled": "Analytics",
+    "analyticsEnabledDescription": "Allow performance and usage analytics",
+    "highContrast": "High Contrast",
+    "highContrastDescription": "Increase contrast for better visibility",
+    "resetToDefaults": "Reset to Defaults",
+    "resetToDefaultsDescription": "Restore all settings to their default values",
+    "resetSuccess": "Settings reset successfully",
+    "keyboardShortcuts": "Keyboard Shortcuts",
+    "keyboardShortcutsDescription": "View available keyboard shortcuts",
+    "shortcutTheme": "Toggle theme",
+    "shortcutSettings": "Open settings",
+    "shortcutScrollToTop": "Scroll to top",
+    "about": "About",
+    "builtWith": "Built with Vue, Nuxt, and Tailwind CSS",
+    "version": "Version"
   },
   "welcome": {
     "hello": "Hello",
@@ -507,7 +532,9 @@
         "statsTitle": "My Gaming Stats",
         "statsCategory": "HowLongToBeat summary",
         "totalHours": "Total hours",
+        "platforms": "Platforms",
         "gamesCompleted": "games completed",
+        "complete": "complete",
         "completionRate": "completion rate",
         "gamesByYear": "Games by release year",
         "pre1990": "Pre-1990",
@@ -521,17 +548,22 @@
       },
       "blog": {
         "defaultTitle": "Blog Post",
-        "latestPost": "The latest blog post I've written"
+        "latestPost": "The latest blog post I've written",
+        "published": "Published",
+        "readTime": "Read time"
       },
       "map": {
         "title": "Places I've Been",
-        "category": "Biggest travel achievements"
+        "category": "Biggest travel achievements",
+        "completion": "World explored"
       },
       "trakt": {
         "defaultTitle": "Movie or TV Show",
         "lastWatched": "I recently watched",
         "movie": "Movie",
-        "episode": "TV Episode"
+        "episode": "TV Episode",
+        "type": "Type",
+        "watched": "Watched"
       },
       "github": {
         "title": "GitHub Stats",
@@ -552,7 +584,8 @@
         "statsCategory": "Top artists this month",
         "topArtists": "top artists",
         "topTracks": "top tracks",
-        "topArtistsChart": "Top artists"
+        "topArtistsChart": "Top artists",
+        "topTracksChart": "Top tracks"
       },
       "default": {
         "title": "Card",

@@ -103,8 +103,14 @@ const getTopTracks = async (
       return null;
     }
 
-    const data = (await response.json()) as { items?: unknown[] };
-    return data?.items?.length ?? 0;
+    const data = (await response.json()) as {
+      items?: { name: string; artists?: { name: string }[] }[];
+    };
+    const items = data?.items ?? [];
+    return items.map((track, i) => ({
+      label: track.name,
+      count: 5 - i,
+    }));
   } catch (err) {
     console.error("[Spotify] getTopTracks error:", err);
     return null;
@@ -121,7 +127,7 @@ export default defineEventHandler(async (event) => {
       throw new Error("Spotify authentication failed");
     }
 
-    const [song, topArtistsInitial, topTracksCountInitial] = await Promise.all([
+    const [song, topArtistsInitial, topTracksInitial] = await Promise.all([
       getCurrentlyPlayingSong(access_token),
       getTopArtists(access_token, 5, "short_term"),
       getTopTracks(access_token, 5, "short_term"),
@@ -132,9 +138,9 @@ export default defineEventHandler(async (event) => {
       topArtistsInitial && topArtistsInitial.length > 0
         ? topArtistsInitial
         : await getTopArtists(access_token, 5, "medium_term");
-    const topTracksCount =
-      topTracksCountInitial !== null && topTracksCountInitial > 0
-        ? topTracksCountInitial
+    const topTracks =
+      topTracksInitial && topTracksInitial.length > 0
+        ? topTracksInitial
         : await getTopTracks(access_token, 5, "medium_term");
 
     const { item, is_playing } = song;
@@ -149,10 +155,11 @@ export default defineEventHandler(async (event) => {
     };
 
     const stats =
-      topArtists || topTracksCount !== null
+      topArtists || topTracks
         ? {
             topArtistsByMonth: topArtists ?? [],
-            topTracksCount: topTracksCount ?? undefined,
+            topTracksByMonth: topTracks ?? [],
+            topTracksCount: topTracks?.length ?? undefined,
           }
         : undefined;
 

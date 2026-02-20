@@ -1,14 +1,32 @@
+import type { MarqueeSpeed } from "@/composables/settings";
 import { useSettings } from "@/composables/settings";
 
 export const useNavbarSettings = () => {
   const settingsDialogOpen = ref(false);
   const cursorDisabled = ref(false);
   const theme = ref<"light" | "dark" | "system">("system");
-  
+  const reducedMotion = ref(false);
+  const marqueeSpeed = ref<MarqueeSpeed>("medium");
+  const fontSize = ref<"default" | "large" | "xlarge">("default");
+  const disableCardHoverEffects = ref(false);
+  const analyticsEnabled = ref(true);
+  const highContrast = ref(false);
+
   // Lazy load settings to avoid initialization order issues
   let settingsComposable: ReturnType<typeof useSettings> | null = null;
   let toggleCursor: (() => void) | null = null;
   let setTheme: ((theme: "light" | "dark" | "system") => void) | null = null;
+
+  const syncSetting = <T>(
+    settingsGetter: () => T,
+    localRef: { value: T },
+    validator?: (v: T) => boolean
+  ) => {
+    const val = settingsGetter();
+    if (validator ? validator(val) : true) {
+      localRef.value = val;
+    }
+  };
 
   // Initialize settings after mount to avoid initialization order issues
   const initializeSettings = () => {
@@ -18,22 +36,25 @@ export const useNavbarSettings = () => {
         const settings = settingsComposable;
         // Sync initial values
         cursorDisabled.value = settings.cursorDisabled.value;
-        const initialTheme = settings.theme.value;
-        theme.value =
-          initialTheme === "light" ||
-          initialTheme === "dark" ||
-          initialTheme === "system"
-            ? initialTheme
-            : "system";
+        syncSetting(
+          () => settings.theme.value,
+          theme,
+          (v) => v === "light" || v === "dark" || v === "system"
+        );
+        reducedMotion.value = settings.reducedMotion.value;
+        marqueeSpeed.value = settings.marqueeSpeed.value;
+        fontSize.value = settings.fontSize.value;
+        disableCardHoverEffects.value = settings.disableCardHoverEffects.value;
+        analyticsEnabled.value = settings.analyticsEnabled.value;
+        highContrast.value = settings.highContrast.value;
+
         toggleCursor = settings.toggleCursor;
         setTheme = settings.setTheme;
 
         // Watch for changes
         watch(
           settings.cursorDisabled,
-          (newValue) => {
-            cursorDisabled.value = newValue;
-          },
+          (newValue) => { cursorDisabled.value = newValue; },
           { immediate: true }
         );
         watch(
@@ -44,6 +65,36 @@ export const useNavbarSettings = () => {
                 ? newValue
                 : "system";
           },
+          { immediate: true }
+        );
+        watch(
+          settings.reducedMotion,
+          (newValue) => { reducedMotion.value = newValue; },
+          { immediate: true }
+        );
+        watch(
+          settings.marqueeSpeed,
+          (newValue) => { marqueeSpeed.value = newValue; },
+          { immediate: true }
+        );
+        watch(
+          settings.fontSize,
+          (newValue) => { fontSize.value = newValue; },
+          { immediate: true }
+        );
+        watch(
+          settings.disableCardHoverEffects,
+          (newValue) => { disableCardHoverEffects.value = newValue; },
+          { immediate: true }
+        );
+        watch(
+          settings.analyticsEnabled,
+          (newValue) => { analyticsEnabled.value = newValue; },
+          { immediate: true }
+        );
+        watch(
+          settings.highContrast,
+          (newValue) => { highContrast.value = newValue; },
           { immediate: true }
         );
       } catch (error) {
@@ -61,34 +112,30 @@ export const useNavbarSettings = () => {
     settingsDialogOpen.value = false;
   };
 
-  const setLightTheme = () => {
-    if (setTheme) {
-      setTheme("light");
-    }
-  };
+  const setLightTheme = () => setTheme?.("light");
+  const setDarkTheme = () => setTheme?.("dark");
+  const setSystemTheme = () => setTheme?.("system");
 
-  const setDarkTheme = () => {
-    if (setTheme) {
-      setTheme("dark");
-    }
-  };
+  const handleToggleCursor = () => toggleCursor?.();
 
-  const setSystemTheme = () => {
-    if (setTheme) {
-      setTheme("system");
-    }
-  };
-
-  const handleToggleCursor = () => {
-    if (toggleCursor) {
-      toggleCursor();
-    }
-  };
+  const handleToggleReducedMotion = () => settingsComposable?.toggleReducedMotion();
+  const handleSetMarqueeSpeed = (speed: MarqueeSpeed) => settingsComposable?.setMarqueeSpeed(speed);
+  const handleSetFontSize = (size: "default" | "large" | "xlarge") => settingsComposable?.setFontSize(size);
+  const handleToggleCardHoverEffects = () => settingsComposable?.toggleCardHoverEffects();
+  const handleToggleAnalytics = () => settingsComposable?.toggleAnalytics();
+  const handleToggleHighContrast = () => settingsComposable?.toggleHighContrast();
+  const handleResetToDefaults = () => settingsComposable?.resetToDefaults();
 
   return {
     settingsDialogOpen,
     cursorDisabled,
     theme,
+    reducedMotion,
+    marqueeSpeed,
+    fontSize,
+    disableCardHoverEffects,
+    analyticsEnabled,
+    highContrast,
     initializeSettings,
     openSettingsDialog,
     closeSettingsDialog,
@@ -96,6 +143,13 @@ export const useNavbarSettings = () => {
     setDarkTheme,
     setSystemTheme,
     handleToggleCursor,
+    handleToggleReducedMotion,
+    handleSetMarqueeSpeed,
+    handleSetFontSize,
+    handleToggleCardHoverEffects,
+    handleToggleAnalytics,
+    handleToggleHighContrast,
+    handleResetToDefaults,
   };
 };
 
