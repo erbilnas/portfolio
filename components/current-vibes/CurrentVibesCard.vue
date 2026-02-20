@@ -241,11 +241,7 @@ const gradientBottomHoverClasses = computed(() => {
               metadata.gamesCompleted !== undefined
             "
           >
-            <div
-              :class="[
-                'mt-4 flex flex-wrap gap-1.5 md:gap-2',
-              ]"
-            >
+            <div :class="['mt-4 flex flex-wrap gap-1.5 md:gap-2']">
               <div
                 v-if="metadata.platforms?.length"
                 :class="[
@@ -461,7 +457,9 @@ const gradientBottomHoverClasses = computed(() => {
                 }"
               />
             </div>
-            <div class="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 md:mt-2 md:gap-x-3 md:gap-y-1">
+            <div
+              class="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 md:mt-2 md:gap-x-3 md:gap-y-1"
+            >
               <div
                 v-for="(item, i) in metadata.releaseByYear"
                 :key="i"
@@ -509,8 +507,13 @@ const gradientBottomHoverClasses = computed(() => {
         <!-- Music Details (compact on mobile) -->
         <template v-if="card.type === 'music'">
           <!-- Artist & album info row -->
-          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 md:gap-x-4 md:gap-y-1.5">
-            <div v-if="metadata.artist" class="flex items-center gap-1.5 md:gap-2">
+          <div
+            class="flex flex-wrap items-center gap-x-3 gap-y-1 md:gap-x-4 md:gap-y-1.5"
+          >
+            <div
+              v-if="metadata.artist"
+              class="flex items-center gap-1.5 md:gap-2"
+            >
               <div
                 :class="[
                   'flex h-5 w-5 shrink-0 items-center justify-center rounded-md md:h-7 md:w-7 md:rounded-lg',
@@ -524,9 +527,14 @@ const gradientBottomHoverClasses = computed(() => {
                   ]"
                 />
               </div>
-              <span class="truncate text-xs font-medium md:text-base">{{ metadata.artist }}</span>
+              <span class="truncate text-xs font-medium md:text-base">{{
+                metadata.artist
+              }}</span>
             </div>
-            <div v-if="metadata.album" class="flex items-center gap-1.5 md:gap-2">
+            <div
+              v-if="metadata.album"
+              class="flex items-center gap-1.5 md:gap-2"
+            >
               <div
                 :class="[
                   'flex h-5 w-5 shrink-0 items-center justify-center rounded-md md:h-7 md:w-7 md:rounded-lg',
@@ -540,7 +548,9 @@ const gradientBottomHoverClasses = computed(() => {
                   ]"
                 />
               </div>
-              <span class="truncate text-xs md:text-base">{{ metadata.album }}</span>
+              <span class="truncate text-xs md:text-base">{{
+                metadata.album
+              }}</span>
             </div>
           </div>
 
@@ -551,7 +561,9 @@ const gradientBottomHoverClasses = computed(() => {
               metadata.topTracksByMonth?.length
             "
           >
-            <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:gap-6 md:mt-4 md:gap-3">
+            <div
+              class="mt-3 flex flex-col gap-2 sm:flex-row sm:gap-6 md:mt-4 md:gap-3"
+            >
               <div
                 v-if="metadata.topArtistsByMonth?.length"
                 class="min-w-0 flex-1"
@@ -1133,7 +1145,9 @@ const gradientBottomHoverClasses = computed(() => {
                 }"
               />
             </div>
-            <div class="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 md:mt-2 md:gap-x-3 md:gap-y-1">
+            <div
+              class="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 md:mt-2 md:gap-x-3 md:gap-y-1"
+            >
               <div
                 v-for="(item, i) in metadata.contributionsByMonth"
                 :key="i"
