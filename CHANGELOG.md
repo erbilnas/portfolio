@@ -1,3 +1,12 @@
+## [6.3.1-preview.1](https://github.com/erbilnas/portfolio/compare/v6.3.0...v6.3.1-preview.1) (2026-02-20)
+
+
+### Bug Fixes
+
+* fix various bugs ([b8a1379](https://github.com/erbilnas/portfolio/commit/b8a13793f8db7bfc05675324ff5364503a14a88a))
+* fix various bugs ([66cbfee](https://github.com/erbilnas/portfolio/commit/66cbfeec90e30ae2a5d16618d1dd31a32e0a9913))
+* fix various bugs ([7a234aa](https://github.com/erbilnas/portfolio/commit/7a234aa5c29a10e8eaac8b6405cbfe75e5b6d546))
+
 # [6.3.0](https://github.com/erbilnas/portfolio/compare/v6.2.0...v6.3.0) (2026-02-20)
 
 ### Bug Fixes
