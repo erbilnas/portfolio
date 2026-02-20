@@ -1,3 +1,10 @@
+# [6.3.0-preview.6](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.5...v6.3.0-preview.6) (2026-02-20)
+
+
+### Bug Fixes
+
+* fix chunk size error ([4e04b7d](https://github.com/erbilnas/portfolio/commit/4e04b7d6ea0844942cb006c71ac3690570d22291))
+
 # [6.3.0-preview.5](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.4...v6.3.0-preview.5) (2026-02-20)
 
 # [6.3.0-preview.4](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.3...v6.3.0-preview.4) (2026-02-19)
