@@ -1,2 +1,2 @@
-export type Locale = "en" | "tr";
+export type Locale = "en" | "tr" | "ja";
 

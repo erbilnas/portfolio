@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { Locale } from "~/types/i18n";
-import type { MarqueeSpeed } from "@/composables/settings";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +13,6 @@ import {
   Sun,
   Moon,
   Monitor,
-  Gauge,
   Type,
   RotateCcw,
   Keyboard,
@@ -29,21 +27,23 @@ interface Props {
   cursorDisabled: boolean;
   theme: "light" | "dark" | "system";
   reducedMotion: boolean;
-  marqueeSpeed: MarqueeSpeed;
   fontSize: "default" | "large" | "xlarge";
+  fontFamily: "sans" | "serif" | "mono";
   disableCardHoverEffects: boolean;
   analyticsEnabled: boolean;
   highContrast: boolean;
+  languageSwitchToastEnabled: boolean;
   onToggleCursor: () => void;
   onSetLightTheme: () => void;
   onSetDarkTheme: () => void;
   onSetSystemTheme: () => void;
   onToggleReducedMotion: () => void;
-  onSetMarqueeSpeed: (speed: MarqueeSpeed) => void;
   onSetFontSize: (size: "default" | "large" | "xlarge") => void;
+  onSetFontFamily: (family: "sans" | "serif" | "mono") => void;
   onToggleCardHoverEffects: () => void;
   onToggleAnalytics: () => void;
   onToggleHighContrast: () => void;
+  onToggleLanguageSwitchToast: () => void;
   onResetToDefaults: () => void;
 }
 
@@ -53,9 +53,8 @@ const emit = defineEmits<{
   "update:open": [value: boolean];
 }>();
 
-const { t } = useI18n();
-const { locale, currentLocale, availableLocales, switchLocale } =
-  useI18nLocale();
+const { t, locales } = useI18n();
+const { locale, switchLocale } = useI18nLocale();
 const isSwitchingLocale = ref(false);
 const shortcutsOpen = ref(false);
 
@@ -85,11 +84,7 @@ const handleLocaleChange = async (newLocale: string) => {
   }
 };
 
-const allLocales = computed(() => {
-  const current = currentLocale.value;
-  const others = availableLocales.value;
-  return current ? [current, ...others] : others;
-});
+const allLocales = computed(() => locales.value);
 
 const themeOptions = [
   { value: "light" as const, labelKey: "settings.light", icon: Sun, handler: () => props.onSetLightTheme() },
@@ -97,16 +92,16 @@ const themeOptions = [
   { value: "system" as const, labelKey: "settings.system", icon: Monitor, handler: () => props.onSetSystemTheme() },
 ];
 
-const marqueeOptions: { value: MarqueeSpeed; labelKey: string }[] = [
-  { value: "slow", labelKey: "projects.speedSlow" },
-  { value: "medium", labelKey: "projects.speedMedium" },
-  { value: "fast", labelKey: "projects.speedFast" },
-];
-
 const fontSizeOptions: { value: "default" | "large" | "xlarge"; labelKey: string }[] = [
   { value: "default", labelKey: "settings.fontSizeDefault" },
   { value: "large", labelKey: "settings.fontSizeLarge" },
   { value: "xlarge", labelKey: "settings.fontSizeXLarge" },
+];
+
+const fontFamilyOptions: { value: "sans" | "serif" | "mono"; labelKey: string }[] = [
+  { value: "sans", labelKey: "settings.fontSans" },
+  { value: "serif", labelKey: "settings.fontSerif" },
+  { value: "mono", labelKey: "settings.fontMono" },
 ];
 
 const getOptionButtonClass = (isActive: boolean, isDisabled?: boolean) =>
@@ -139,7 +134,7 @@ const handleReset = async () => {
 
 <template>
   <Dialog v-model:open="isOpen">
-    <DialogContent class="sm:max-w-md max-h-[90vh] overflow-y-auto">
+    <DialogContent class="sm:max-w-md max-h-[90vh] overflow-y-auto scrollbar-thin">
       <DialogHeader>
         <DialogTitle>{{ t("settings.title") }}</DialogTitle>
       </DialogHeader>
@@ -240,32 +235,25 @@ const handleReset = async () => {
               {{ loc.name }}
             </Button>
           </div>
+          <NavbarSettingsRow
+            :label="t('settings.languageSwitchToast')"
+            :description="t('settings.languageSwitchToastDescription')"
+            label-id="language-switch-toast-label"
+            description-id="language-switch-toast-description"
+          >
+            <Switch
+              :model-value="props.languageSwitchToastEnabled"
+              aria-labelledby="language-switch-toast-label"
+              aria-describedby="language-switch-toast-description"
+              @update:model-value="(v) => handleSwitchChange(v, props.languageSwitchToastEnabled, props.onToggleLanguageSwitchToast)"
+            />
+          </NavbarSettingsRow>
           <p
             v-if="isSwitchingLocale"
             class="text-xs text-muted-foreground"
           >
             {{ t("common.loading") }}
           </p>
-        </div>
-
-        <!-- Marquee Speed -->
-        <div class="flex flex-col gap-2">
-          <label id="marquee-label" class="text-sm font-medium">
-            {{ t("settings.marqueeSpeed") }}
-          </label>
-          <div class="flex gap-2" role="group" aria-labelledby="marquee-label">
-            <Button
-              v-for="opt in marqueeOptions"
-              :key="opt.value"
-              variant="outline"
-              :class="getOptionButtonClass(marqueeSpeed === opt.value)"
-              :aria-pressed="marqueeSpeed === opt.value"
-              @click="onSetMarqueeSpeed(opt.value)"
-            >
-              <Gauge class="size-4 shrink-0" />
-              {{ t(opt.labelKey) }}
-            </Button>
-          </div>
         </div>
 
         <!-- Font Size -->
@@ -283,6 +271,25 @@ const handleReset = async () => {
               @click="onSetFontSize(opt.value)"
             >
               <Type class="size-4 shrink-0" />
+              {{ t(opt.labelKey) }}
+            </Button>
+          </div>
+        </div>
+
+        <!-- Font Family -->
+        <div class="flex flex-col gap-2">
+          <label id="font-family-label" class="text-sm font-medium">
+            {{ t("settings.fontFamily") }}
+          </label>
+          <div class="flex gap-2" role="group" aria-labelledby="font-family-label">
+            <Button
+              v-for="opt in fontFamilyOptions"
+              :key="opt.value"
+              variant="outline"
+              :class="getOptionButtonClass(fontFamily === opt.value)"
+              :aria-pressed="fontFamily === opt.value"
+              @click="onSetFontFamily(opt.value)"
+            >
               {{ t(opt.labelKey) }}
             </Button>
           </div>

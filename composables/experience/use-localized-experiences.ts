@@ -1,6 +1,7 @@
 import type { Education, WorkExperience } from "~/types/experience";
 import enLocale from "~/locales/en.json";
 import trLocale from "~/locales/tr.json";
+import jaLocale from "~/locales/ja.json";
 
 /**
  * Extract value from Vue i18n message object
@@ -124,7 +125,12 @@ export function useLocalizedWorkExperiences() {
       
       // Approach 3: Fallback to direct import (for development/debugging)
       if (!experienceMessages || typeof experienceMessages !== "object") {
-        const fallbackMessages = locale.value === "tr" ? trLocale : enLocale;
+        const fallbackMessages =
+          locale.value === "tr"
+            ? trLocale
+            : locale.value === "ja"
+              ? jaLocale
+              : enLocale;
         experienceMessages = (fallbackMessages as any).experience;
       }
       
@@ -181,7 +187,12 @@ export function useLocalizedEducationList() {
       
       // Approach 3: Fallback to direct import (for development/debugging)
       if (!experienceMessages || typeof experienceMessages !== "object") {
-        const fallbackMessages = locale.value === "tr" ? trLocale : enLocale;
+        const fallbackMessages =
+          locale.value === "tr"
+            ? trLocale
+            : locale.value === "ja"
+              ? jaLocale
+              : enLocale;
         experienceMessages = (fallbackMessages as any).experience;
       }
       

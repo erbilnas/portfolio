@@ -22,11 +22,12 @@ const {
   cursorDisabled,
   theme,
   reducedMotion,
-  marqueeSpeed,
   fontSize,
+  fontFamily,
   disableCardHoverEffects,
   analyticsEnabled,
   highContrast,
+  languageSwitchToastEnabled,
   initializeSettings,
   openSettingsDialog,
   setLightTheme,
@@ -34,11 +35,12 @@ const {
   setSystemTheme,
   handleToggleCursor,
   handleToggleReducedMotion,
-  handleSetMarqueeSpeed,
   handleSetFontSize,
+  handleSetFontFamily,
   handleToggleCardHoverEffects,
   handleToggleAnalytics,
   handleToggleHighContrast,
+  handleToggleLanguageSwitchToast,
   handleResetToDefaults,
 } = useNavbarSettings();
 
@@ -94,21 +96,23 @@ onUnmounted(() => {
     :cursor-disabled="cursorDisabled"
     :theme="theme"
     :reduced-motion="reducedMotion"
-    :marquee-speed="marqueeSpeed"
     :font-size="fontSize"
+    :font-family="fontFamily"
     :disable-card-hover-effects="disableCardHoverEffects"
     :analytics-enabled="analyticsEnabled"
     :high-contrast="highContrast"
+    :language-switch-toast-enabled="languageSwitchToastEnabled"
     :on-toggle-cursor="handleToggleCursor"
     :on-set-light-theme="setLightTheme"
     :on-set-dark-theme="setDarkTheme"
     :on-set-system-theme="setSystemTheme"
     :on-toggle-reduced-motion="handleToggleReducedMotion"
-    :on-set-marquee-speed="handleSetMarqueeSpeed"
     :on-set-font-size="handleSetFontSize"
+    :on-set-font-family="handleSetFontFamily"
     :on-toggle-card-hover-effects="handleToggleCardHoverEffects"
     :on-toggle-analytics="handleToggleAnalytics"
     :on-toggle-high-contrast="handleToggleHighContrast"
+    :on-toggle-language-switch-toast="handleToggleLanguageSwitchToast"
     :on-reset-to-defaults="handleResetToDefaults"
   />
 </template>

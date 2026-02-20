@@ -174,6 +174,25 @@ export default {
             display: "none",
           },
         },
+        ".scrollbar-thin": {
+          /* Firefox */
+          "scrollbar-width": "thin",
+          "scrollbar-color": "hsl(var(--muted-foreground) / 0.4) transparent",
+          /* Webkit (Chrome, Safari, Edge) */
+          "&::-webkit-scrollbar": {
+            width: "6px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            "background-color": "hsl(var(--muted-foreground) / 0.3)",
+            "border-radius": "3px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            "background-color": "hsl(var(--muted-foreground) / 0.5)",
+          },
+        },
       });
     }),
   ],

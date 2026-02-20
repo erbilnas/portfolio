@@ -1,4 +1,3 @@
-import type { MarqueeSpeed } from "@/composables/settings";
 import { useSettings } from "@/composables/settings";
 
 export const useNavbarSettings = () => {
@@ -6,11 +5,12 @@ export const useNavbarSettings = () => {
   const cursorDisabled = ref(false);
   const theme = ref<"light" | "dark" | "system">("system");
   const reducedMotion = ref(false);
-  const marqueeSpeed = ref<MarqueeSpeed>("medium");
   const fontSize = ref<"default" | "large" | "xlarge">("default");
+  const fontFamily = ref<"sans" | "serif" | "mono">("sans");
   const disableCardHoverEffects = ref(false);
   const analyticsEnabled = ref(true);
   const highContrast = ref(false);
+  const languageSwitchToastEnabled = ref(true);
 
   // Lazy load settings to avoid initialization order issues
   let settingsComposable: ReturnType<typeof useSettings> | null = null;
@@ -42,11 +42,12 @@ export const useNavbarSettings = () => {
           (v) => v === "light" || v === "dark" || v === "system"
         );
         reducedMotion.value = settings.reducedMotion.value;
-        marqueeSpeed.value = settings.marqueeSpeed.value;
         fontSize.value = settings.fontSize.value;
+        fontFamily.value = settings.fontFamily.value;
         disableCardHoverEffects.value = settings.disableCardHoverEffects.value;
         analyticsEnabled.value = settings.analyticsEnabled.value;
         highContrast.value = settings.highContrast.value;
+        languageSwitchToastEnabled.value = settings.languageSwitchToastEnabled.value;
 
         toggleCursor = settings.toggleCursor;
         setTheme = settings.setTheme;
@@ -73,13 +74,13 @@ export const useNavbarSettings = () => {
           { immediate: true }
         );
         watch(
-          settings.marqueeSpeed,
-          (newValue) => { marqueeSpeed.value = newValue; },
+          settings.fontSize,
+          (newValue) => { fontSize.value = newValue; },
           { immediate: true }
         );
         watch(
-          settings.fontSize,
-          (newValue) => { fontSize.value = newValue; },
+          settings.fontFamily,
+          (newValue) => { fontFamily.value = newValue; },
           { immediate: true }
         );
         watch(
@@ -95,6 +96,11 @@ export const useNavbarSettings = () => {
         watch(
           settings.highContrast,
           (newValue) => { highContrast.value = newValue; },
+          { immediate: true }
+        );
+        watch(
+          settings.languageSwitchToastEnabled,
+          (newValue) => { languageSwitchToastEnabled.value = newValue; },
           { immediate: true }
         );
       } catch (error) {
@@ -119,11 +125,13 @@ export const useNavbarSettings = () => {
   const handleToggleCursor = () => toggleCursor?.();
 
   const handleToggleReducedMotion = () => settingsComposable?.toggleReducedMotion();
-  const handleSetMarqueeSpeed = (speed: MarqueeSpeed) => settingsComposable?.setMarqueeSpeed(speed);
   const handleSetFontSize = (size: "default" | "large" | "xlarge") => settingsComposable?.setFontSize(size);
+  const handleSetFontFamily = (family: "sans" | "serif" | "mono") => settingsComposable?.setFontFamily(family);
   const handleToggleCardHoverEffects = () => settingsComposable?.toggleCardHoverEffects();
   const handleToggleAnalytics = () => settingsComposable?.toggleAnalytics();
   const handleToggleHighContrast = () => settingsComposable?.toggleHighContrast();
+  const handleToggleLanguageSwitchToast = () =>
+    settingsComposable?.toggleLanguageSwitchToast();
   const handleResetToDefaults = () => settingsComposable?.resetToDefaults();
 
   return {
@@ -131,11 +139,12 @@ export const useNavbarSettings = () => {
     cursorDisabled,
     theme,
     reducedMotion,
-    marqueeSpeed,
     fontSize,
+    fontFamily,
     disableCardHoverEffects,
     analyticsEnabled,
     highContrast,
+    languageSwitchToastEnabled,
     initializeSettings,
     openSettingsDialog,
     closeSettingsDialog,
@@ -144,11 +153,12 @@ export const useNavbarSettings = () => {
     setSystemTheme,
     handleToggleCursor,
     handleToggleReducedMotion,
-    handleSetMarqueeSpeed,
     handleSetFontSize,
+    handleSetFontFamily,
     handleToggleCardHoverEffects,
     handleToggleAnalytics,
     handleToggleHighContrast,
+    handleToggleLanguageSwitchToast,
     handleResetToDefaults,
   };
 };

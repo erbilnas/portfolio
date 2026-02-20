@@ -16,6 +16,8 @@
     "disableCustomCursorDescription": "Daha iyi erişilebilirlik için özel imleci devre dışı bırak",
     "theme": "Tema",
     "language": "Dil",
+    "languageSwitchToast": "Tarayıcıya göre dil öner",
+    "languageSwitchToastDescription": "Tarayıcınız Türkçe veya Japonca olarak ayarlandığında dil değiştirme önerisi göster",
     "light": "Açık",
     "dark": "Koyu",
     "system": "Sistem",
@@ -27,6 +29,10 @@
     "fontSizeDefault": "Varsayılan",
     "fontSizeLarge": "Büyük",
     "fontSizeXLarge": "Çok Büyük",
+    "fontFamily": "Yazı Tipi",
+    "fontSans": "Sans",
+    "fontSerif": "Serif",
+    "fontMono": "Mono",
     "disableCardHoverEffects": "Kart Hover Efektlerini Devre Dışı Bırak",
     "disableCardHoverEffectsDescription": "Current Vibes kartlarındaki bulanıklık ve ölçek efektlerini azalt",
     "analyticsEnabled": "Analitik",
@@ -646,9 +652,17 @@
     "description": "Bir reklam engelleyici (AdGuard veya uBlock Origin gibi) kullandığınız görünüyor. Seçiminize saygı duyuyorum, ancak reklam engelleyicilerin bu sitede bazı işlevleri bozabileceğini lütfen unutmayın. En iyi deneyim için devre dışı bırakmayı düşünün."
   },
   "languageSwitch": {
-    "title": "Türkçe'ye geç?",
-    "description": "Türkçe dil ayarları kullandığınızı fark ettik. Türkçe'ye geçmek ister misiniz?",
-    "switch": "Türkçe'ye Geç",
-    "dismiss": "Kapat"
+    "tr": {
+      "title": "Türkçe'ye geç?",
+      "description": "Türkçe dil ayarları kullandığınızı fark ettik. Türkçe'ye geçmek ister misiniz?",
+      "switch": "Türkçe'ye Geç",
+      "dismiss": "Kapat"
+    },
+    "ja": {
+      "title": "日本語に切り替えますか？",
+      "description": "お使いのブラウザは日本語が設定されています。",
+      "switch": "日本語に切り替える",
+      "dismiss": "閉じる"
+    }
   }
 }
