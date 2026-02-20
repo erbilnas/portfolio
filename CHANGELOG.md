@@ -1,3 +1,10 @@
+# [6.4.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.3.1-preview.1...v6.4.0-preview.1) (2026-02-20)
+
+
+### Features
+
+* add japanese localization and font settings ([50b1cdd](https://github.com/erbilnas/portfolio/commit/50b1cddddf9b3c8b9fa1aaff9d8a9afd24c73641))
+
 ## [6.3.1-preview.1](https://github.com/erbilnas/portfolio/compare/v6.3.0...v6.3.1-preview.1) (2026-02-20)
 
 
