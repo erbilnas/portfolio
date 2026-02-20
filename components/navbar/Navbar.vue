@@ -23,9 +23,11 @@ const {
   theme,
   reducedMotion,
   fontSize,
+  fontFamily,
   disableCardHoverEffects,
   analyticsEnabled,
   highContrast,
+  languageSwitchToastEnabled,
   initializeSettings,
   openSettingsDialog,
   setLightTheme,
@@ -34,9 +36,11 @@ const {
   handleToggleCursor,
   handleToggleReducedMotion,
   handleSetFontSize,
+  handleSetFontFamily,
   handleToggleCardHoverEffects,
   handleToggleAnalytics,
   handleToggleHighContrast,
+  handleToggleLanguageSwitchToast,
   handleResetToDefaults,
 } = useNavbarSettings();
 
@@ -93,18 +97,22 @@ onUnmounted(() => {
     :theme="theme"
     :reduced-motion="reducedMotion"
     :font-size="fontSize"
+    :font-family="fontFamily"
     :disable-card-hover-effects="disableCardHoverEffects"
     :analytics-enabled="analyticsEnabled"
     :high-contrast="highContrast"
+    :language-switch-toast-enabled="languageSwitchToastEnabled"
     :on-toggle-cursor="handleToggleCursor"
     :on-set-light-theme="setLightTheme"
     :on-set-dark-theme="setDarkTheme"
     :on-set-system-theme="setSystemTheme"
     :on-toggle-reduced-motion="handleToggleReducedMotion"
     :on-set-font-size="handleSetFontSize"
+    :on-set-font-family="handleSetFontFamily"
     :on-toggle-card-hover-effects="handleToggleCardHoverEffects"
     :on-toggle-analytics="handleToggleAnalytics"
     :on-toggle-high-contrast="handleToggleHighContrast"
+    :on-toggle-language-switch-toast="handleToggleLanguageSwitchToast"
     :on-reset-to-defaults="handleResetToDefaults"
   />
 </template>

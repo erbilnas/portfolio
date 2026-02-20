@@ -4,16 +4,19 @@ import type { Locale } from "~/types/i18n";
 
 export type MarqueeSpeed = "slow" | "medium" | "fast";
 export type FontSize = "default" | "large" | "xlarge";
+export type FontFamily = "sans" | "serif" | "mono";
 
 const DEFAULT_THEME = "system" as const;
 const DEFAULT_CURSOR_DISABLED = false;
 const DEFAULT_LANGUAGE: Locale = "en";
 const DEFAULT_MARQUEE_SPEED: MarqueeSpeed = "medium";
 const DEFAULT_FONT_SIZE: FontSize = "default";
+const DEFAULT_FONT_FAMILY: FontFamily = "sans";
 const DEFAULT_REDUCED_MOTION = false;
 const DEFAULT_DISABLE_CARD_HOVER = false;
 const DEFAULT_ANALYTICS_ENABLED = true;
 const DEFAULT_HIGH_CONTRAST = false;
+const DEFAULT_LANGUAGE_SWITCH_TOAST_ENABLED = true;
 
 function getPrefersReducedMotion(): boolean {
   if (process.client && typeof window !== "undefined" && window.matchMedia) {
@@ -119,9 +122,14 @@ function createSettings() {
   const reducedMotion = useLocalStorage("settings-reduced-motion", DEFAULT_REDUCED_MOTION);
   const marqueeSpeed = useLocalStorage<MarqueeSpeed>("settings-marquee-speed", DEFAULT_MARQUEE_SPEED);
   const fontSize = useLocalStorage<FontSize>("settings-font-size", DEFAULT_FONT_SIZE);
+  const fontFamily = useLocalStorage<FontFamily>("settings-font-family", DEFAULT_FONT_FAMILY);
   const disableCardHoverEffects = useLocalStorage("settings-disable-card-hover", DEFAULT_DISABLE_CARD_HOVER);
   const analyticsEnabled = useLocalStorage("settings-analytics-enabled", DEFAULT_ANALYTICS_ENABLED);
   const highContrast = useLocalStorage("settings-high-contrast", DEFAULT_HIGH_CONTRAST);
+  const languageSwitchToastEnabled = useLocalStorage(
+    "settings-language-switch-toast-enabled",
+    DEFAULT_LANGUAGE_SWITCH_TOAST_ENABLED
+  );
 
   const toggleCursor = () => {
     cursorDisabled.value = !cursorDisabled.value;
@@ -147,6 +155,10 @@ function createSettings() {
     fontSize.value = size;
   };
 
+  const setFontFamily = (family: FontFamily) => {
+    fontFamily.value = family;
+  };
+
   const toggleCardHoverEffects = () => {
     disableCardHoverEffects.value = !disableCardHoverEffects.value;
   };
@@ -159,8 +171,13 @@ function createSettings() {
     highContrast.value = !highContrast.value;
   };
 
+  const toggleLanguageSwitchToast = () => {
+    languageSwitchToastEnabled.value = !languageSwitchToastEnabled.value;
+  };
+
   const resetToDefaults = () => {
     cursorDisabled.value = DEFAULT_CURSOR_DISABLED;
+    languageSwitchToastEnabled.value = DEFAULT_LANGUAGE_SWITCH_TOAST_ENABLED;
     if (process.client && typeof window !== "undefined" && window.localStorage) {
       try {
         const prefersReduced = getPrefersReducedMotion();
@@ -175,6 +192,7 @@ function createSettings() {
     language.value = DEFAULT_LANGUAGE;
     marqueeSpeed.value = DEFAULT_MARQUEE_SPEED;
     fontSize.value = DEFAULT_FONT_SIZE;
+    fontFamily.value = DEFAULT_FONT_FAMILY;
     disableCardHoverEffects.value = DEFAULT_DISABLE_CARD_HOVER;
     analyticsEnabled.value = DEFAULT_ANALYTICS_ENABLED;
     highContrast.value = DEFAULT_HIGH_CONTRAST;
@@ -193,12 +211,16 @@ function createSettings() {
     setMarqueeSpeed,
     fontSize: computed(() => fontSize.value),
     setFontSize,
+    fontFamily: computed(() => fontFamily.value),
+    setFontFamily,
     disableCardHoverEffects: computed(() => disableCardHoverEffects.value),
     toggleCardHoverEffects,
     analyticsEnabled: computed(() => analyticsEnabled.value),
     toggleAnalytics,
     highContrast: computed(() => highContrast.value),
     toggleHighContrast,
+    languageSwitchToastEnabled: computed(() => languageSwitchToastEnabled.value),
+    toggleLanguageSwitchToast,
     resetToDefaults,
   };
 }

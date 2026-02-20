@@ -3,6 +3,7 @@ import { computed } from "vue";
 
 import enLocale from "~/locales/en.json";
 import trLocale from "~/locales/tr.json";
+import jaLocale from "~/locales/ja.json";
 import IntroductionText from "./IntroductionText.vue";
 import ScrollReminder from "./ScrollReminder.vue";
 import SocialLinks from "./SocialLinks.vue";
@@ -15,7 +16,12 @@ const words = computed(() => {
   const currentLocale = locale.value;
 
   // Use direct imports - same pattern as experience composable
-  const fallbackMessages = currentLocale === "tr" ? trLocale : enLocale;
+  const fallbackMessages =
+    currentLocale === "tr"
+      ? trLocale
+      : currentLocale === "ja"
+        ? jaLocale
+        : enLocale;
   const flippingWords = (fallbackMessages as any).welcome?.flippingWords;
 
   // Ensure we have an array of strings

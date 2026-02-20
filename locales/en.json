@@ -16,6 +16,8 @@
     "disableCustomCursorDescription": "Disable the custom cursor for better accessibility",
     "theme": "Theme",
     "language": "Language",
+    "languageSwitchToast": "Suggest language based on browser",
+    "languageSwitchToastDescription": "Show a prompt to switch language when your browser is set to Turkish or Japanese",
     "light": "Light",
     "dark": "Dark",
     "system": "System",
@@ -27,6 +29,10 @@
     "fontSizeDefault": "Default",
     "fontSizeLarge": "Large",
     "fontSizeXLarge": "Extra Large",
+    "fontFamily": "Font",
+    "fontSans": "Sans",
+    "fontSerif": "Serif",
+    "fontMono": "Mono",
     "disableCardHoverEffects": "Disable Card Hover Effects",
     "disableCardHoverEffectsDescription": "Reduce blur and scale effects on Current Vibes cards",
     "analyticsEnabled": "Analytics",
@@ -647,9 +653,17 @@
     "description": "It looks like you're using an ad blocker (such as AdGuard or uBlock Origin). While I respect your choice, please note that ad blockers might break some functionality on this site. Consider disabling it for the best experience."
   },
   "languageSwitch": {
-    "title": "Türkçe'ye geçmek ister misiniz?",
-    "description": "Türkçe dil ayarları kullandığınızı fark ettik.",
-    "switch": "Türkçe'ye Geç",
-    "dismiss": "Kapat"
+    "tr": {
+      "title": "Türkçe'ye geçmek ister misiniz?",
+      "description": "Türkçe dil ayarları kullandığınızı fark ettik.",
+      "switch": "Türkçe'ye Geç",
+      "dismiss": "Kapat"
+    },
+    "ja": {
+      "title": "日本語に切り替えますか？",
+      "description": "お使いのブラウザは日本語が設定されています。",
+      "switch": "日本語に切り替える",
+      "dismiss": "閉じる"
+    }
   }
 }

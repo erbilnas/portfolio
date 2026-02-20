@@ -15,6 +15,7 @@ import { Sonner } from "@/components/ui/sonner";
 import { toast } from "vue-sonner";
 import "vue-sonner/style.css";
 import { useI18nLocale } from "~/composables/use-i18n-locale";
+import { useSettings } from "~/composables/settings";
 
 // Use a ref to ensure reactivity and avoid initialization order issues
 const isClient = ref(false);
@@ -23,6 +24,9 @@ const toastShown = ref(false); // Guard to prevent duplicate toasts
 // Get i18n composables
 const { locale, t, setLocale } = useI18n();
 const { switchLocale } = useI18nLocale();
+const settings = useSettings();
+
+const VALID_LOCALES = ["en", "tr", "ja"] as const;
 
 // Helper to parse cookie string
 const parseCookies = (cookieString: string): Record<string, string> => {
@@ -46,7 +50,7 @@ onServerPrefetch(async () => {
       const cookies = parseCookies(cookieHeader);
       
       // Check for i18n cookie first (used by @nuxtjs/i18n)
-      if (cookies.i18n_redirected && (cookies.i18n_redirected === "en" || cookies.i18n_redirected === "tr")) {
+      if (cookies.i18n_redirected && VALID_LOCALES.includes(cookies.i18n_redirected as any)) {
         await setLocale(cookies.i18n_redirected);
         return;
       }
@@ -54,12 +58,12 @@ onServerPrefetch(async () => {
       if (cookies["settings-language"]) {
         try {
           const parsed = JSON.parse(cookies["settings-language"]);
-          if (parsed === "en" || parsed === "tr") {
+          if (VALID_LOCALES.includes(parsed)) {
             await setLocale(parsed);
             return;
           }
         } catch {
-          if (cookies["settings-language"] === "en" || cookies["settings-language"] === "tr") {
+          if (VALID_LOCALES.includes(cookies["settings-language"] as any)) {
             await setLocale(cookies["settings-language"]);
             return;
           }
@@ -75,7 +79,7 @@ onBeforeMount(async () => {
     const cookies = parseCookies(document.cookie);
     
     // Check for i18n cookie first
-    if (cookies.i18n_redirected && (cookies.i18n_redirected === "en" || cookies.i18n_redirected === "tr")) {
+    if (cookies.i18n_redirected && VALID_LOCALES.includes(cookies.i18n_redirected as any)) {
       if (cookies.i18n_redirected !== locale.value) {
         await setLocale(cookies.i18n_redirected);
       }
@@ -88,7 +92,7 @@ onBeforeMount(async () => {
         const storedLanguage = localStorage.getItem("settings-language");
         if (storedLanguage) {
           const parsedLanguage = JSON.parse(storedLanguage);
-          if (parsedLanguage === "en" || parsedLanguage === "tr") {
+          if (VALID_LOCALES.includes(parsedLanguage)) {
             // Set cookies for future requests
             document.cookie = `i18n_redirected=${parsedLanguage}; path=/; max-age=31536000; SameSite=Lax`;
             document.cookie = `settings-language=${JSON.stringify(parsedLanguage)}; path=/; max-age=31536000; SameSite=Lax`;
@@ -119,32 +123,41 @@ onMounted(async () => {
   // Additional delay to ensure toast component is fully mounted and CSS is loaded
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // Check if user's browser language is Turkish
+  // Check if user's browser language matches an available locale (Turkish or Japanese)
   if (typeof navigator !== "undefined") {
     const browserLanguage =
       navigator.language || (navigator as any).userLanguage;
-    const isTurkishBrowser = browserLanguage.startsWith("tr");
+    const browserLang = browserLanguage.startsWith("ja")
+      ? "ja"
+      : browserLanguage.startsWith("tr")
+        ? "tr"
+        : null;
 
     // Show toast if:
-    // 1. Browser language is Turkish
+    // 1. Browser language is Turkish or Japanese
     // 2. Current locale is English (default)
-    if (isTurkishBrowser && locale.value === "en") {
-      // Ensure Toaster is ready by waiting a bit more
+    // 3. User has not disabled the language switch toast in settings
+    if (
+      browserLang &&
+      locale.value === "en" &&
+      settings.languageSwitchToastEnabled.value
+    ) {
+      const targetLocale = browserLang;
       setTimeout(() => {
         try {
-          toast(t("languageSwitch.title"), {
-            id: "language-switch-toast", // Unique ID to prevent duplicates
-            description: t("languageSwitch.description"),
+          toast(t(`languageSwitch.${targetLocale}.title`), {
+            id: "language-switch-toast",
+            description: t(`languageSwitch.${targetLocale}.description`),
             action: {
-              label: t("languageSwitch.switch"),
+              label: t(`languageSwitch.${targetLocale}.switch`),
               onClick: () => {
-                switchLocale("tr");
+                switchLocale(targetLocale);
               },
             },
             cancel: {
-              label: t("languageSwitch.dismiss"),
+              label: t(`languageSwitch.${targetLocale}.dismiss`),
             },
-            duration: 10000, // Show for 10 seconds
+            duration: 10000,
           });
         } catch (error) {
           console.error("Error showing toast:", error);

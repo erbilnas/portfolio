@@ -88,8 +88,13 @@ const calculateReadTime = (description: string | undefined) => {
  */
 const formatDate = (dateString: string | undefined, locale: string) => {
   if (!dateString) return "";
+  const localeMap: Record<string, string> = {
+    tr: "tr-TR",
+    ja: "ja-JP",
+    en: "en-US",
+  };
   return new Date(dateString).toLocaleDateString(
-    locale === "tr" ? "tr-TR" : "en-US",
+    localeMap[locale] || "en-US",
     {
       month: "long",
       day: "numeric",

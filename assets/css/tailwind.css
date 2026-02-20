@@ -94,6 +94,18 @@
     font-size: 125%;
   }
 
+  /* Font family settings */
+  html.font-family-sans body,
+  html:not(.font-family-serif):not(.font-family-mono) body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  html.font-family-serif body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  html.font-family-mono body {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  }
+
   /* High contrast mode */
   html.high-contrast {
     filter: contrast(1.15);
@@ -110,7 +122,6 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-feature-settings: 'kern' 1;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.01em;
