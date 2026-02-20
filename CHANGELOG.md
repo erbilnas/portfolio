@@ -1,3 +1,10 @@
+# [6.3.0-preview.11](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.10...v6.3.0-preview.11) (2026-02-20)
+
+
+### Bug Fixes
+
+* fix various bugs ([7a234aa](https://github.com/erbilnas/portfolio/commit/7a234aa5c29a10e8eaac8b6405cbfe75e5b6d546))
+
 # [6.3.0-preview.10](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.9...v6.3.0-preview.10) (2026-02-20)
 
 # [6.3.0-preview.9](https://github.com/erbilnas/portfolio/compare/v6.3.0-preview.8...v6.3.0-preview.9) (2026-02-20)
