@@ -547,6 +547,12 @@
         "reposContributedTo": "katkıda bulunulan depo",
         "contributionsByMonth": "Aylara göre katkılar"
       },
+      "spotifyStats": {
+        "statsCategory": "Bu ayın en çok dinlenen sanatçıları",
+        "topArtists": "en çok dinlenen sanatçı",
+        "topTracks": "en çok dinlenen şarkı",
+        "topArtistsChart": "En çok dinlenen sanatçılar"
+      },
       "default": {
         "title": "Kart",
         "category": "İçerik"

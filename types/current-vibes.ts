@@ -39,11 +39,17 @@ export interface Album {
   image: string;
 }
 
+export interface SpotifyStats {
+  topArtistsByMonth: { label: string; count: number }[];
+  topTracksCount?: number;
+}
+
 export interface MusicPlayerData {
   album: Album;
   artist: string;
   name: string;
   is_playing: boolean;
+  stats?: SpotifyStats;
 }
 
 export interface MusicPlayer {

@@ -199,9 +199,7 @@ const { t } = useI18n();
             </div>
           </template>
           <div
-            v-if="
-              metadata.releaseByYear && metadata.releaseByYear.length > 0
-            "
+            v-if="metadata.releaseByYear && metadata.releaseByYear.length > 0"
             class="mt-3 space-y-2"
           >
             <div
@@ -232,17 +230,15 @@ const { t } = useI18n();
                     isLight ? 'bg-gray-300' : 'bg-white/40',
                   ]"
                   :style="{
-                    width: `${
-                      Math.max(
-                        (item.count /
-                          Math.max(
-                            ...metadata.releaseByYear!.map((r) => r.count),
-                            1
-                          )) *
-                          100,
-                        2
-                      )
-                    }%`,
+                    width: `${Math.max(
+                      (item.count /
+                        Math.max(
+                          ...metadata.releaseByYear!.map((r) => r.count),
+                          1,
+                        )) *
+                        100,
+                      2,
+                    )}%`,
                   }"
                 />
                 <span
@@ -258,7 +254,7 @@ const { t } = useI18n();
           </div>
         </template>
 
-        <!-- Music Details -->
+        <!-- Music Details (with HLTB-style stats) -->
         <template v-if="card.type === 'music'">
           <div v-if="metadata.artist" class="flex items-center gap-2">
             <MicVocalIcon
@@ -271,6 +267,117 @@ const { t } = useI18n();
               :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
             />
             <span>{{ metadata.album }}</span>
+          </div>
+          <!-- Stats block (merged when available) -->
+          <template
+            v-if="
+              metadata.topArtistsByMonth?.length ||
+              metadata.topTracksCount !== undefined
+            "
+          >
+            <div
+              v-if="metadata.statsCategory"
+              :class="[
+                'text-xs font-medium mb-1',
+                isLight ? 'text-gray-700' : 'text-white/90',
+              ]"
+            >
+              {{ metadata.statsCategory }}
+            </div>
+            <div
+              :class="[
+                'pt-3 border-t flex flex-wrap gap-x-4 gap-y-1',
+                isLight ? 'border-gray-300' : 'border-white/20',
+              ]"
+            >
+              <div
+                v-if="metadata.topArtistsByMonth?.length"
+                class="flex items-center gap-2"
+              >
+                <MicVocalIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.topArtistsByMonth.length }}
+                  {{ t("currentVibes.cards.spotifyStats.topArtists") }}</span
+                >
+              </div>
+              <div
+                v-if="metadata.topTracksCount !== undefined"
+                class="flex items-center gap-2"
+              >
+                <Disc3Icon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.topTracksCount.toLocaleString() }}
+                  {{ t("currentVibes.cards.spotifyStats.topTracks") }}</span
+                >
+              </div>
+            </div>
+          </template>
+          <div
+            v-if="
+              metadata.topArtistsByMonth &&
+              metadata.topArtistsByMonth.length > 0
+            "
+            class="mt-3 space-y-2"
+          >
+            <div
+              :class="[
+                'text-xs font-medium',
+                isLight ? 'text-gray-700' : 'text-white/90',
+              ]"
+            >
+              {{ t("currentVibes.cards.spotifyStats.topArtistsChart") }}
+            </div>
+            <div class="space-y-1.5">
+              <div
+                v-for="(item, i) in metadata.topArtistsByMonth"
+                :key="i"
+                class="flex items-center gap-2"
+              >
+                <span
+                  :class="[
+                    'w-16 shrink-0 text-xs truncate',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                >
+                  {{ item.label }}
+                </span>
+                <div
+                  :class="[
+                    'h-2 min-w-[2px] rounded-full transition-all flex-1 max-w-24',
+                    isLight ? 'bg-gray-300' : 'bg-white/40',
+                  ]"
+                  :style="{
+                    width: `${Math.max(
+                      (item.count /
+                        Math.max(
+                          ...metadata.topArtistsByMonth!.map((r) => r.count),
+                          1,
+                        )) *
+                        100,
+                      2,
+                    )}%`,
+                  }"
+                />
+                <span
+                  :class="[
+                    'text-xs tabular-nums',
+                    isLight ? 'text-gray-600' : 'text-white/70',
+                  ]"
+                >
+                  #{{ i + 1 }}
+                </span>
+              </div>
+            </div>
           </div>
         </template>
 
@@ -432,7 +539,9 @@ const { t } = useI18n();
                 />
                 <span
                   >{{ metadata.pullRequestReviews }}
-                  {{ t("currentVibes.cards.githubStats.pullRequestReviews") }}</span
+                  {{
+                    t("currentVibes.cards.githubStats.pullRequestReviews")
+                  }}</span
                 >
               </div>
               <div
@@ -465,7 +574,9 @@ const { t } = useI18n();
                 />
                 <span
                   >{{ metadata.reposContributedTo }}
-                  {{ t("currentVibes.cards.githubStats.reposContributedTo") }}</span
+                  {{
+                    t("currentVibes.cards.githubStats.reposContributedTo")
+                  }}</span
                 >
               </div>
             </div>
@@ -505,19 +616,15 @@ const { t } = useI18n();
                     isLight ? 'bg-gray-300' : 'bg-white/40',
                   ]"
                   :style="{
-                    width: `${
-                      Math.max(
-                        (item.count /
-                          Math.max(
-                            ...metadata.contributionsByMonth!.map(
-                              (r) => r.count,
-                            ),
-                            1,
-                          )) *
-                          100,
-                        2,
-                      )
-                    }%`,
+                    width: `${Math.max(
+                      (item.count /
+                        Math.max(
+                          ...metadata.contributionsByMonth!.map((r) => r.count),
+                          1,
+                        )) *
+                        100,
+                      2,
+                    )}%`,
                   }"
                 />
                 <span

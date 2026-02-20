@@ -23,6 +23,8 @@ export interface CardMetadata {
   artist?: string;
   album?: string;
   isPlaying?: boolean;
+  topArtistsByMonth?: { label: string; count: number }[];
+  topTracksCount?: number;
   // Blog specific
   readTime?: number;
   publishedDate?: string;
@@ -157,6 +159,10 @@ export const useCardsMetadata = () => {
         case "music": {
           const player = card.data as MusicPlayerData;
           const visitUrl = appConfig.socialLinks.spotify || undefined;
+          const stats = player?.stats;
+          const hasStats =
+            (stats?.topArtistsByMonth?.length ?? 0) > 0 ||
+            stats?.topTracksCount !== undefined;
           return {
             title: player?.name || t("currentVibes.cards.music.noSongPlaying"),
             category: player?.album?.image
@@ -167,6 +173,11 @@ export const useCardsMetadata = () => {
             album: player?.album?.name,
             isPlaying: !!player?.name,
             visitUrl,
+            topArtistsByMonth: stats?.topArtistsByMonth ?? [],
+            topTracksCount: stats?.topTracksCount,
+            statsCategory: hasStats
+              ? t("currentVibes.cards.spotifyStats.statsCategory")
+              : undefined,
           };
         }
         case "blog": {

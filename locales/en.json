@@ -548,6 +548,12 @@
         "reposContributedTo": "repos contributed to",
         "contributionsByMonth": "Contributions by month"
       },
+      "spotifyStats": {
+        "statsCategory": "Top artists this month",
+        "topArtists": "top artists",
+        "topTracks": "top tracks",
+        "topArtistsChart": "Top artists"
+      },
       "default": {
         "title": "Card",
         "category": "Content"
