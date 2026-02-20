@@ -158,14 +158,16 @@ export default defineNuxtConfig({
     enabled: true,
   },
   // Logging: Verbose in preview/development, silent in production
-  logLevel: isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
+  logLevel:
+    isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
   // Enable sourcemaps in preview/development for readable stack traces
   sourcemap: {
     server: isPreview || process.env.NODE_ENV !== "production",
     client: isPreview || process.env.NODE_ENV !== "production",
   },
   nitro: {
-    logLevel: isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
+    logLevel:
+      isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
     sourceMap: isPreview || process.env.NODE_ENV !== "production",
     // Log errors with full details
     experimental: {
@@ -218,106 +220,8 @@ export default defineNuxtConfig({
           },
         },
       },
-      chunkSizeWarningLimit: 600, // Increase limit slightly to reduce warnings for acceptable chunks
     },
-    logLevel: isPreview || process.env.NODE_ENV !== "production" ? "info" : "silent",
-  },
-  // Apply manualChunks ONLY to client build to prevent "Cannot access before initialization" errors.
-  // When manualChunks is in vite.build.rollupOptions, it affects both client and server builds,
-  // causing circular dependency/initialization order issues. See: nuxt/nuxt#22127, #21354
-  hooks: {
-    "vite:extendConfig"(config, { isClient }) {
-      if (isClient && config.build?.rollupOptions?.output) {
-        const output = config.build.rollupOptions.output;
-        const outputConfig = Array.isArray(output) ? output[0] : output;
-        if (outputConfig) {
-          outputConfig.manualChunks = (id: string) => {
-            // Only process node_modules dependencies
-            if (!id.includes("node_modules")) {
-              return;
-            }
-
-            // CRITICAL: Never split Nuxt core components - they must load synchronously
-            if (
-              id.includes(".nuxt") ||
-              id.includes("nuxt/dist") ||
-              id.includes("#app") ||
-              id.includes("#components")
-            ) {
-              return;
-            }
-
-            // CRITICAL: Never split motion-v and its dependencies - they must load synchronously
-            // motion-v has internal circular dependencies that break when split into async chunks
-            if (
-              id.includes("motion-v") ||
-              id.includes("motion-dom") ||
-              id.includes("framer-motion")
-            ) {
-              return;
-            }
-
-            // CRITICAL: Never split Vue core (@vue/shared, @vue/reactivity, @vue/runtime-core)
-            // defineComponent uses isFunction from @vue/shared - splitting causes
-            // "Cannot access 'te' before initialization" (te = isFunction minified)
-            if (id.includes("@vue/")) {
-              return;
-            }
-
-            // CRITICAL: Never split vue-router - it depends on @vue/runtime-core
-            // and defineComponent; splitting causes "Cannot access before initialization"
-            if (id.includes("vue-router")) {
-              return;
-            }
-
-            // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
-            if (id.includes("gsap") || id.includes("@vueuse/motion")) {
-              return "vendor-animations";
-            }
-
-            // Heavy 3D/visual libraries
-            if (id.includes("cobe") || id.includes("canvas-confetti")) {
-              return "vendor-visual";
-            }
-
-            // UI component libraries (Radix Vue, Shadcn)
-            if (id.includes("radix-vue") || id.includes("shadcn-nuxt")) {
-              return "vendor-ui";
-            }
-
-            // VueUse core utilities
-            if (id.includes("@vueuse/core")) {
-              return "vendor-vueuse";
-            }
-
-            // Icon libraries (can be large)
-            if (id.includes("lucide-vue-next") || id.includes("@nuxt/icon")) {
-              return "vendor-icons";
-            }
-
-            // Vercel analytics (lightweight, but separate for clarity)
-            if (id.includes("@vercel")) {
-              return "vendor-analytics";
-            }
-
-            // Nuxt modules (framework-specific) - but exclude core Nuxt runtime
-            if (
-              id.includes("@nuxt/") ||
-              (id.includes("@nuxtjs/") && !id.includes(".nuxt"))
-            ) {
-              return "vendor-nuxt";
-            }
-
-            // Vue core and related
-            if (id.includes("vue") && !id.includes("node_modules/vue/")) {
-              return "vendor-vue";
-            }
-
-            // Default vendor chunk for other node_modules
-            return "vendor";
-          };
-        }
-      }
-    },
+    logLevel:
+      isPreview || process.env.NODE_ENV !== "production" ? "info" : "silent",
   },
 });
