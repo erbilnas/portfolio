@@ -264,6 +264,12 @@ export default defineNuxtConfig({
               return;
             }
 
+            // CRITICAL: Never split vue-router - it depends on @vue/runtime-core
+            // and defineComponent; splitting causes "Cannot access before initialization"
+            if (id.includes("vue-router")) {
+              return;
+            }
+
             // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
             if (id.includes("gsap") || id.includes("@vueuse/motion")) {
               return "vendor-animations";
