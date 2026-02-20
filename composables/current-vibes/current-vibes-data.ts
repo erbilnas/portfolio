@@ -48,11 +48,14 @@ export const useCurrentVibesData = () => {
 
     const cardArray: CardData[] = [];
 
-    // Add game card first if it exists
+    // Add game card (with merged stats when available)
     if (gameCardData) {
       cardArray.push({
         type: "game" as const,
-        data: gameCardData,
+        data: {
+          ...gameCardData,
+          stats: gameDetails?.stats ?? null,
+        },
       });
     }
 

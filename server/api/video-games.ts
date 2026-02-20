@@ -32,6 +32,24 @@ interface GameRequestParams {
   sortBy: GameSortBy;
 }
 
+const RELEASE_CHART_LABELS = [
+  "Pre-1990",
+  "1990-1999",
+  "2000-2009",
+  "2010+",
+] as const;
+
+interface HLTBStatsResponse {
+  userStatsSummary?: {
+    investedSpAll?: number;
+    investedCoAll?: number;
+    investedMpAll?: number;
+    playthroughCount?: { totalCompletions?: number };
+    platformTotal?: number;
+    releaseChart?: number[];
+  };
+}
+
 const { howlongtobeat } = useRuntimeConfig();
 
 const headers = {
@@ -554,14 +572,91 @@ const getLastCompletedGame = async (): Promise<GameDetails | null> => {
   }
 };
 
+interface ReleaseByYear {
+  label: string;
+  count: number;
+}
+
+interface HLTBStats {
+  totalHours: number;
+  gamesCompleted: number;
+  completionRate: number;
+  releaseByYear: ReleaseByYear[];
+}
+
+const fetchUserStats = async (): Promise<HLTBStats | null> => {
+  try {
+    const hltbConfig = howlongtobeat as { api?: string; statsApi?: string };
+    const statsApi =
+      hltbConfig.statsApi ||
+      (hltbConfig.api ? hltbConfig.api.replace("/games/list", "/stats") : null) ||
+      "https://howlongtobeat.com/api/user/82755/stats";
+
+    const response = await fetch(statsApi, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        category: "user_catalog",
+        platform: "",
+        storefront: "",
+        year: "",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = (await response.json()) as HLTBStatsResponse;
+    const summary = data?.userStatsSummary;
+
+    if (!summary) {
+      return null;
+    }
+
+    const investedSp = summary.investedSpAll ?? 0;
+    const investedCo = summary.investedCoAll ?? 0;
+    const investedMp = summary.investedMpAll ?? 0;
+    const totalSeconds = investedSp + investedCo + investedMp;
+    const totalHours = Math.round(totalSeconds / 3600);
+
+    const gamesCompleted = summary.playthroughCount?.totalCompletions ?? 0;
+    const platformTotal = summary.platformTotal ?? 0;
+    const completionRate =
+      platformTotal > 0
+        ? Math.round((gamesCompleted / platformTotal) * 100)
+        : 0;
+
+    let releaseByYear: ReleaseByYear[] = [];
+    const releaseChart = summary.releaseChart;
+    if (Array.isArray(releaseChart) && releaseChart.length === 4) {
+      releaseByYear = RELEASE_CHART_LABELS.map((label, i) => ({
+        label,
+        count: typeof releaseChart[i] === "number" ? releaseChart[i] : 0,
+      }));
+    }
+
+    return {
+      totalHours,
+      gamesCompleted,
+      completionRate,
+      releaseByYear,
+    };
+  } catch (error) {
+    console.error("Error fetching user stats:", error);
+    return null;
+  }
+};
+
 export default defineEventHandler(async (event) => {
   try {
     const results = await Promise.allSettled([
       getCurrentlyPlayingGame(),
       getLastCompletedGame(),
+      fetchUserStats(),
     ]);
 
-    const [playingResult, lastCompletedResult] = results;
+    const [playingResult, lastCompletedResult, statsResult] = results;
 
     const response = {
       playing:
@@ -570,6 +665,8 @@ export default defineEventHandler(async (event) => {
         lastCompletedResult.status === "fulfilled"
           ? lastCompletedResult.value
           : null,
+      stats:
+        statsResult.status === "fulfilled" ? statsResult.value : null,
     };
 
     return response;

@@ -16,9 +16,22 @@ export interface SingleGameDetail {
   status: "playing" | "completed";
 }
 
+export interface ReleaseByYear {
+  label: string;
+  count: number;
+}
+
+export interface HLTBStats {
+  totalHours: number;
+  gamesCompleted: number;
+  completionRate: number;
+  releaseByYear: ReleaseByYear[];
+}
+
 export interface GameDetails {
   playing: SingleGameDetail | null;
   last_completed: SingleGameDetail | null;
+  stats?: HLTBStats | null;
 }
 
 export interface Album {

@@ -503,6 +503,18 @@
         "currentlyPlaying": "I'm currently playing",
         "recentlyCompleted": "I recently completed"
       },
+      "gameStats": {
+        "statsTitle": "My Gaming Stats",
+        "statsCategory": "HowLongToBeat summary",
+        "totalHours": "Total hours",
+        "gamesCompleted": "games completed",
+        "completionRate": "completion rate",
+        "gamesByYear": "Games by release year",
+        "pre1990": "Pre-1990",
+        "year1990s": "1990-1999",
+        "year2000s": "2000-2009",
+        "year2010s": "2010+"
+      },
       "music": {
         "noSongPlaying": "No song playing",
         "listeningTo": "I'm listening to"

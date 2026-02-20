@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "#imports";
 import {
+  BarChart3Icon,
   BookOpenIcon,
   CalendarIcon,
   CircleAlertIcon,
@@ -16,6 +17,7 @@ import {
   GlobeIcon,
   MapPinIcon,
   MicVocalIcon,
+  TrophyIcon,
   TvIcon,
 } from "lucide-vue-next";
 import { AppleBlurImage } from "~/components/ui/apple-card-carousel";
@@ -118,7 +120,7 @@ const { t } = useI18n();
           isLight ? 'text-gray-900' : 'text-white',
         ]"
       >
-        <!-- Game Details -->
+        <!-- Game Details (with merged stats) -->
         <template v-if="card.type === 'game'">
           <div v-if="metadata.progress" class="flex items-center gap-2">
             <ClockIcon
@@ -142,6 +144,116 @@ const { t } = useI18n();
             ]"
           >
             {{ metadata.description }}
+          </div>
+          <!-- Stats block (merged when available) -->
+          <template v-if="metadata.totalHours !== undefined">
+            <div
+              :class="[
+                'mt-3 pt-3 border-t flex flex-wrap gap-x-4 gap-y-1',
+                isLight ? 'border-gray-300' : 'border-white/20',
+              ]"
+            >
+              <div class="flex items-center gap-2">
+                <ClockIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.totalHours.toLocaleString() }}
+                  {{ t("currentVibes.cards.hours") }}</span
+                >
+              </div>
+              <div
+                v-if="metadata.gamesCompleted !== undefined"
+                class="flex items-center gap-2"
+              >
+                <TrophyIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.gamesCompleted }}
+                  {{ t("currentVibes.cards.gameStats.gamesCompleted") }}</span
+                >
+              </div>
+              <div
+                v-if="metadata.completionRate !== undefined"
+                class="flex items-center gap-2"
+              >
+                <BarChart3Icon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.completionRate }}%
+                  {{ t("currentVibes.cards.gameStats.completionRate") }}</span
+                >
+              </div>
+            </div>
+          </template>
+          <div
+            v-if="
+              metadata.releaseByYear && metadata.releaseByYear.length > 0
+            "
+            class="mt-3 space-y-2"
+          >
+            <div
+              :class="[
+                'text-xs font-medium',
+                isLight ? 'text-gray-700' : 'text-white/90',
+              ]"
+            >
+              {{ t("currentVibes.cards.gameStats.gamesByYear") }}
+            </div>
+            <div class="space-y-1.5">
+              <div
+                v-for="(item, i) in metadata.releaseByYear"
+                :key="i"
+                class="flex items-center gap-2"
+              >
+                <span
+                  :class="[
+                    'w-16 shrink-0 text-xs',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                >
+                  {{ item.label }}
+                </span>
+                <div
+                  :class="[
+                    'h-2 min-w-[2px] rounded-full transition-all',
+                    isLight ? 'bg-gray-300' : 'bg-white/40',
+                  ]"
+                  :style="{
+                    width: `${
+                      Math.max(
+                        (item.count /
+                          Math.max(
+                            ...metadata.releaseByYear!.map((r) => r.count),
+                            1
+                          )) *
+                          100,
+                        2
+                      )
+                    }%`,
+                  }"
+                />
+                <span
+                  :class="[
+                    'text-xs tabular-nums',
+                    isLight ? 'text-gray-600' : 'text-white/70',
+                  ]"
+                >
+                  {{ item.count }}
+                </span>
+              </div>
+            </div>
           </div>
         </template>
 

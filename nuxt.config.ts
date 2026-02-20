@@ -33,6 +33,11 @@ const runtimeConfig = {
   },
   howlongtobeat: {
     api: process.env.HOWLONGTOBEAT_API_URL,
+    statsApi:
+      process.env.HOWLONGTOBEAT_STATS_API_URL ||
+      (process.env.HOWLONGTOBEAT_API_URL
+        ? process.env.HOWLONGTOBEAT_API_URL.replace("/games/list", "/stats")
+        : "https://howlongtobeat.com/api/user/82755/stats"),
   },
   rss2json: {
     api: process.env.RSS2JSON_API_URL,

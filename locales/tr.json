@@ -502,6 +502,18 @@
         "currentlyPlaying": "Şu anda oynuyorum",
         "recentlyCompleted": "Yakın zamanda tamamladım"
       },
+      "gameStats": {
+        "statsTitle": "Oyun İstatistiklerim",
+        "statsCategory": "HowLongToBeat özeti",
+        "totalHours": "Toplam saat",
+        "gamesCompleted": "tamamlanan oyun",
+        "completionRate": "tamamlama oranı",
+        "gamesByYear": "Çıkış yılına göre oyunlar",
+        "pre1990": "1990 öncesi",
+        "year1990s": "1990-1999",
+        "year2000s": "2000-2009",
+        "year2010s": "2010+"
+      },
       "music": {
         "noSongPlaying": "Şarkı çalmıyor",
         "listeningTo": "Dinliyorum"

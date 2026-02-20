@@ -1,6 +1,7 @@
 import { useI18n } from "#imports";
 import type {
   GitHubStats,
+  HLTBStats,
   MediumPost,
   MusicPlayerData,
   SingleGameDetail,
@@ -39,6 +40,11 @@ export interface CardMetadata {
   contributions?: number;
   pullRequests?: number;
   issues?: number;
+  // Game stats specific
+  totalHours?: number;
+  gamesCompleted?: number;
+  completionRate?: number;
+  releaseByYear?: { label: string; count: number }[];
 }
 
 /**
@@ -110,7 +116,11 @@ export const useCardsMetadata = () => {
       const appConfig = getAppConfig();
       switch (card.type) {
         case "game": {
-          const game = card.data as SingleGameDetail;
+          const gameData = card.data as SingleGameDetail & {
+            stats?: HLTBStats | null;
+          };
+          const game = gameData as SingleGameDetail;
+          const stats = gameData?.stats;
 
           const visitUrl = appConfig.socialLinks.howlongtobeat || undefined;
           const platformParts = [game?.platform, game?.storefront].filter(
@@ -131,6 +141,10 @@ export const useCardsMetadata = () => {
             platform,
             description: game?.description,
             visitUrl,
+            totalHours: stats?.totalHours,
+            gamesCompleted: stats?.gamesCompleted,
+            completionRate: stats?.completionRate,
+            releaseByYear: stats?.releaseByYear ?? [],
           };
 
           return metadata;
