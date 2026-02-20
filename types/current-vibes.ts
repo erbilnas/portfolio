@@ -60,6 +60,11 @@ export interface TraktWatchedDetail {
   watched_at: string;
 }
 
+export interface ContributionsByMonth {
+  label: string;
+  count: number;
+}
+
 export interface GitHubStats {
   username: string;
   publicRepos: number;
@@ -67,4 +72,8 @@ export interface GitHubStats {
   commits: number;
   pullRequests: number;
   issues: number;
+  pullRequestReviews?: number;
+  reposContributedTo?: number;
+  year?: number;
+  contributionsByMonth?: ContributionsByMonth[];
 }

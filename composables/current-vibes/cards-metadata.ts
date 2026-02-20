@@ -40,6 +40,11 @@ export interface CardMetadata {
   contributions?: number;
   pullRequests?: number;
   issues?: number;
+  pullRequestReviews?: number;
+  reposContributedTo?: number;
+  year?: number;
+  contributionsByMonth?: { label: string; count: number }[];
+  statsCategory?: string;
   // Game stats specific
   totalHours?: number;
   gamesCompleted?: number;
@@ -201,6 +206,11 @@ export const useCardsMetadata = () => {
             contributions: stats?.totalContributions,
             pullRequests: stats?.pullRequests,
             issues: stats?.issues,
+            pullRequestReviews: stats?.pullRequestReviews,
+            reposContributedTo: stats?.reposContributedTo,
+            year: stats?.year,
+            contributionsByMonth: stats?.contributionsByMonth ?? [],
+            statsCategory: t("currentVibes.cards.githubStats.statsCategory"),
           };
         }
         case "map": {

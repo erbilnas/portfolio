@@ -253,6 +253,13 @@ export default defineNuxtConfig({
               return;
             }
 
+            // CRITICAL: Never split Vue core (@vue/shared, @vue/reactivity, @vue/runtime-core)
+            // defineComponent uses isFunction from @vue/shared - splitting causes
+            // "Cannot access 'te' before initialization" (te = isFunction minified)
+            if (id.includes("@vue/")) {
+              return;
+            }
+
             // Animation libraries (GSAP, VueUse Motion) - check first as they're heavy
             if (id.includes("gsap") || id.includes("@vueuse/motion")) {
               return "vendor-animations";

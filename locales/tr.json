@@ -541,6 +541,12 @@
         "pullRequests": "pull request",
         "issues": "issue"
       },
+      "githubStats": {
+        "statsCategory": "Bu yılki GitHub aktivitesi",
+        "pullRequestReviews": "PR incelemeleri",
+        "reposContributedTo": "katkıda bulunulan depo",
+        "contributionsByMonth": "Aylara göre katkılar"
+      },
       "default": {
         "title": "Kart",
         "category": "İçerik"

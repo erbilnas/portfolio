@@ -16,6 +16,7 @@ import {
   GitPullRequestIcon,
   GlobeIcon,
   MapPinIcon,
+  MessageSquareIcon,
   MicVocalIcon,
   TrophyIcon,
   TvIcon,
@@ -335,69 +336,200 @@ const { t } = useI18n();
           </div>
         </template>
 
-        <!-- GitHub Details -->
+        <!-- GitHub Details (HLTB-style stats block) -->
         <template v-if="card.type === 'github'">
-          <div
-            v-if="metadata.commits !== undefined"
-            class="flex items-center gap-2"
-          >
-            <GitCommitIcon
-              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
-            />
-            <span
-              >{{ metadata.commits }}
-              {{ t("currentVibes.cards.github.commits") }}</span
+          <template v-if="metadata.contributions !== undefined">
+            <div
+              v-if="metadata.statsCategory"
+              :class="[
+                'text-xs font-medium mb-1',
+                isLight ? 'text-gray-700' : 'text-white/90',
+              ]"
             >
-          </div>
-          <div
-            v-if="metadata.repos !== undefined"
-            class="flex items-center gap-2"
-          >
-            <FolderOpenIcon
-              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
-            />
-            <span
-              >{{ metadata.repos }}
-              {{ t("currentVibes.cards.github.repos") }}</span
+              {{ metadata.statsCategory }}
+              <span v-if="metadata.year" class="opacity-80"
+                >({{ metadata.year }})</span
+              >
+            </div>
+            <div
+              :class="[
+                'pt-3 border-t flex flex-wrap gap-x-4 gap-y-1',
+                isLight ? 'border-gray-300' : 'border-white/20',
+              ]"
             >
-          </div>
-          <div
-            v-if="metadata.contributions !== undefined"
-            class="flex items-center gap-2"
-          >
-            <GlobeIcon
-              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
-            />
-            <span
-              >{{ metadata.contributions }}
-              {{ t("currentVibes.cards.github.contributions") }}</span
-            >
-          </div>
+              <div class="flex items-center gap-2">
+                <GlobeIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.contributions.toLocaleString() }}
+                  {{ t("currentVibes.cards.github.contributions") }}</span
+                >
+              </div>
+              <div
+                v-if="metadata.commits !== undefined"
+                class="flex items-center gap-2"
+              >
+                <GitCommitIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.commits.toLocaleString() }}
+                  {{ t("currentVibes.cards.github.commits") }}</span
+                >
+              </div>
+              <div
+                v-if="metadata.repos !== undefined"
+                class="flex items-center gap-2"
+              >
+                <FolderOpenIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.repos }}
+                  {{ t("currentVibes.cards.github.repos") }}</span
+                >
+              </div>
+              <div
+                v-if="
+                  metadata.pullRequests !== undefined &&
+                  metadata.pullRequests > 0
+                "
+                class="flex items-center gap-2"
+              >
+                <GitPullRequestIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.pullRequests }}
+                  {{ t("currentVibes.cards.github.pullRequests") }}</span
+                >
+              </div>
+              <div
+                v-if="
+                  metadata.pullRequestReviews !== undefined &&
+                  metadata.pullRequestReviews > 0
+                "
+                class="flex items-center gap-2"
+              >
+                <MessageSquareIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.pullRequestReviews }}
+                  {{ t("currentVibes.cards.githubStats.pullRequestReviews") }}</span
+                >
+              </div>
+              <div
+                v-if="metadata.issues !== undefined && metadata.issues > 0"
+                class="flex items-center gap-2"
+              >
+                <CircleAlertIcon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.issues }}
+                  {{ t("currentVibes.cards.github.issues") }}</span
+                >
+              </div>
+              <div
+                v-if="
+                  metadata.reposContributedTo !== undefined &&
+                  metadata.reposContributedTo > 0
+                "
+                class="flex items-center gap-2"
+              >
+                <BarChart3Icon
+                  :class="[
+                    'h-4 w-4',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                />
+                <span
+                  >{{ metadata.reposContributedTo }}
+                  {{ t("currentVibes.cards.githubStats.reposContributedTo") }}</span
+                >
+              </div>
+            </div>
+          </template>
           <div
             v-if="
-              metadata.pullRequests !== undefined && metadata.pullRequests > 0
+              metadata.contributionsByMonth &&
+              metadata.contributionsByMonth.length > 0
             "
-            class="flex items-center gap-2"
+            class="mt-3 space-y-2"
           >
-            <GitPullRequestIcon
-              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
-            />
-            <span
-              >{{ metadata.pullRequests }}
-              {{ t("currentVibes.cards.github.pullRequests") }}</span
+            <div
+              :class="[
+                'text-xs font-medium',
+                isLight ? 'text-gray-700' : 'text-white/90',
+              ]"
             >
-          </div>
-          <div
-            v-if="metadata.issues !== undefined && metadata.issues > 0"
-            class="flex items-center gap-2"
-          >
-            <CircleAlertIcon
-              :class="['h-4 w-4', isLight ? 'text-gray-700' : 'text-white/90']"
-            />
-            <span
-              >{{ metadata.issues }}
-              {{ t("currentVibes.cards.github.issues") }}</span
-            >
+              {{ t("currentVibes.cards.githubStats.contributionsByMonth") }}
+            </div>
+            <div class="space-y-1.5">
+              <div
+                v-for="(item, i) in metadata.contributionsByMonth"
+                :key="i"
+                class="flex items-center gap-2"
+              >
+                <span
+                  :class="[
+                    'w-16 shrink-0 text-xs',
+                    isLight ? 'text-gray-700' : 'text-white/90',
+                  ]"
+                >
+                  {{ item.label }}
+                </span>
+                <div
+                  :class="[
+                    'h-2 min-w-[2px] rounded-full transition-all',
+                    isLight ? 'bg-gray-300' : 'bg-white/40',
+                  ]"
+                  :style="{
+                    width: `${
+                      Math.max(
+                        (item.count /
+                          Math.max(
+                            ...metadata.contributionsByMonth!.map(
+                              (r) => r.count,
+                            ),
+                            1,
+                          )) *
+                          100,
+                        2,
+                      )
+                    }%`,
+                  }"
+                />
+                <span
+                  :class="[
+                    'text-xs tabular-nums',
+                    isLight ? 'text-gray-600' : 'text-white/70',
+                  ]"
+                >
+                  {{ item.count }}
+                </span>
+              </div>
+            </div>
           </div>
         </template>
 

@@ -3,6 +3,15 @@ interface GitHubUserResponse {
   public_repos: number;
 }
 
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
 interface ContributionsCollectionResponse {
   data?: {
     user?: {
@@ -10,14 +19,42 @@ interface ContributionsCollectionResponse {
         totalCommitContributions: number;
         totalPullRequestContributions: number;
         totalIssueContributions: number;
+        totalPullRequestReviewContributions: number;
+        totalRepositoriesWithContributedCommits: number;
         contributionCalendar: {
           totalContributions: number;
+          weeks: ContributionWeek[];
         };
       };
     };
   };
   errors?: Array<{ message: string }>;
 }
+
+const aggregateContributionsByMonth = (
+  weeks: ContributionWeek[] | undefined,
+): { label: string; count: number }[] => {
+  if (!weeks?.length) return [];
+  const monthCounts: Record<string, number> = {};
+  const monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
+  for (const week of weeks) {
+    for (const day of week.contributionDays ?? []) {
+      if (!day?.date) continue;
+      const monthKey = day.date.slice(0, 7);
+      monthCounts[monthKey] = (monthCounts[monthKey] ?? 0) + (day.contributionCount ?? 0);
+    }
+  }
+  return Object.entries(monthCounts)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([ym, count]) => {
+      const [y, m] = ym.split("-");
+      const label = `${monthNames[parseInt(m, 10) - 1]} ${y}`;
+      return { label, count };
+    });
+};
 
 const parseUsernameFromUrl = (url: string | undefined): string | null => {
   if (!url) return null;
@@ -87,8 +124,16 @@ export default defineEventHandler(async (event) => {
               totalCommitContributions
               totalPullRequestContributions
               totalIssueContributions
+              totalPullRequestReviewContributions
+              totalRepositoriesWithContributedCommits
               contributionCalendar {
                 totalContributions
+                weeks {
+                  contributionDays {
+                    contributionCount
+                    date
+                  }
+                }
               }
             }
           }
@@ -127,15 +172,21 @@ export default defineEventHandler(async (event) => {
     }
 
     const collection = graphqlData.data?.user?.contributionsCollection ?? null;
+    const calendar = collection?.contributionCalendar;
+    const weeks = calendar?.weeks ?? [];
+    const contributionsByMonth = aggregateContributionsByMonth(weeks);
 
     return {
       username: userData.login,
       publicRepos: userData.public_repos,
-      totalContributions:
-        collection?.contributionCalendar?.totalContributions ?? 0,
+      totalContributions: calendar?.totalContributions ?? 0,
       commits: collection?.totalCommitContributions ?? 0,
       pullRequests: collection?.totalPullRequestContributions ?? 0,
       issues: collection?.totalIssueContributions ?? 0,
+      pullRequestReviews: collection?.totalPullRequestReviewContributions ?? 0,
+      reposContributedTo: collection?.totalRepositoriesWithContributedCommits ?? 0,
+      year: now.getFullYear(),
+      contributionsByMonth,
     };
   } catch (error) {
     console.error("Error fetching GitHub stats:", error);
