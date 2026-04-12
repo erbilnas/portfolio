@@ -12,7 +12,7 @@ FROM node:20-bookworm-slim
 WORKDIR /app
 COPY --from=build /app/.output/ ./
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3002
 ENV HOST=0.0.0.0
 EXPOSE 3002
 CMD ["node", "server/index.mjs"]
