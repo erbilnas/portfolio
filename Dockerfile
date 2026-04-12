@@ -1,14 +1,16 @@
-FROM node:24 AS build
+FROM oven/bun:1 AS build
 WORKDIR /app
-COPY package.json package-lock.json\* ./
-RUN npm ci
+COPY package.json bun.lock* ./
+RUN bun install --frozen-lockfile
 COPY . .
-RUN npm run build
+ENV NODE_ENV=production
+RUN bun run build
 
-FROM node:24
+FROM oven/bun:1
 WORKDIR /app
 COPY --from=build /app/.output/ ./
+ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
 EXPOSE 3000
-CMD ["node", "/app/server/index.mjs"]
+CMD ["bun", "run", "server/index.mjs"]
