@@ -186,6 +186,9 @@ export default defineNuxtConfig({
     watcher: "chokidar",
   },
   compatibilityDate: "2025-01-02",
+  image: {
+    domains: ["conceptnest.com.tr"],
+  },
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",

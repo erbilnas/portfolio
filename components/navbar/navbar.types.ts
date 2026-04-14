@@ -1,6 +1,7 @@
 export type NavbarSection =
   | "welcome"
   | "about-me"
+  | "sponsored-by-me"
   | "skills"
   | "experience"
   | "projects"
