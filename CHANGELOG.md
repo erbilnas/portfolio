@@ -1,3 +1,11 @@
+# [6.5.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.4.0...v6.5.0-preview.1) (2026-04-14)
+
+
+### Features
+
+* add sponsored by me section to promote by own app ([3e1bf96](https://github.com/erbilnas/portfolio/commit/3e1bf96cd42839e0c316a6ad91627bafe307390a))
+* remove vercel technologies from app ([52f432a](https://github.com/erbilnas/portfolio/commit/52f432a0c9f83dc413336b2391790c41a58a3aff))
+
 # [6.4.0](https://github.com/erbilnas/portfolio/compare/v6.3.0...v6.4.0) (2026-02-20)
 
 
