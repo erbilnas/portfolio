@@ -60,5 +60,5 @@
   "engines": {
     "node": ">=19.0.0"
   },
-  "version": "6.5.0-preview.2"
+  "version": "6.5.0"
 }

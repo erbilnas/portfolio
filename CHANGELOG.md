@@ -1,3 +1,16 @@
+# [6.5.0](https://github.com/erbilnas/portfolio/compare/v6.4.0...v6.5.0) (2026-04-14)
+
+
+### Bug Fixes
+
+* fix sponsored section cards background for light theme ([22de4da](https://github.com/erbilnas/portfolio/commit/22de4da10f91142be5f78b8b64ac91f8f030f888))
+
+
+### Features
+
+* add sponsored by me section to promote by own app ([3e1bf96](https://github.com/erbilnas/portfolio/commit/3e1bf96cd42839e0c316a6ad91627bafe307390a))
+* remove vercel technologies from app ([52f432a](https://github.com/erbilnas/portfolio/commit/52f432a0c9f83dc413336b2391790c41a58a3aff))
+
 # [6.5.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.5.0-preview.1...v6.5.0-preview.2) (2026-04-14)
 
 
