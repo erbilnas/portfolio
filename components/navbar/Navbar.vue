@@ -25,7 +25,6 @@ const {
   fontSize,
   fontFamily,
   disableCardHoverEffects,
-  analyticsEnabled,
   highContrast,
   languageSwitchToastEnabled,
   initializeSettings,
@@ -38,7 +37,6 @@ const {
   handleSetFontSize,
   handleSetFontFamily,
   handleToggleCardHoverEffects,
-  handleToggleAnalytics,
   handleToggleHighContrast,
   handleToggleLanguageSwitchToast,
   handleResetToDefaults,
@@ -99,7 +97,6 @@ onUnmounted(() => {
     :font-size="fontSize"
     :font-family="fontFamily"
     :disable-card-hover-effects="disableCardHoverEffects"
-    :analytics-enabled="analyticsEnabled"
     :high-contrast="highContrast"
     :language-switch-toast-enabled="languageSwitchToastEnabled"
     :on-toggle-cursor="handleToggleCursor"
@@ -110,7 +107,6 @@ onUnmounted(() => {
     :on-set-font-size="handleSetFontSize"
     :on-set-font-family="handleSetFontFamily"
     :on-toggle-card-hover-effects="handleToggleCardHoverEffects"
-    :on-toggle-analytics="handleToggleAnalytics"
     :on-toggle-high-contrast="handleToggleHighContrast"
     :on-toggle-language-switch-toast="handleToggleLanguageSwitchToast"
     :on-reset-to-defaults="handleResetToDefaults"

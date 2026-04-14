@@ -36,8 +36,6 @@
     "fontMono": "等幅",
     "disableCardHoverEffects": "カードホバー効果を無効にする",
     "disableCardHoverEffectsDescription": "Current Vibesカードのぼかしとスケール効果を減らします",
-    "analyticsEnabled": "アナリティクス",
-    "analyticsEnabledDescription": "パフォーマンスと使用状況の分析を許可します",
     "highContrast": "ハイコントラスト",
     "highContrastDescription": "視認性向上のためコントラストを高めます",
     "resetToDefaults": "デフォルトに戻す",

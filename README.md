@@ -75,12 +75,8 @@ The digital showcase about me, a passionate software engineer with a love for vi
 - RSS2JSON API - Blog feed parsing
 - GitHub API - Contribution stats (requires `GITHUB_USERNAME` or `GITHUB_PROFILE_URL`; optional `GITHUB_TOKEN` for higher rate limits)
 
-#### Analytics & Monitoring
-
-- [@vercel/analytics](https://vercel.com/analytics) - Web analytics
-- [@vercel/speed-insights](https://vercel.com/docs/speed-insights) - Performance monitoring
-
 #### Deployment & CI/CD
 
-- [Vercel](https://vercel.com/) - Deployment platform
+- [Hetzner Cloud](https://www.hetzner.com/cloud) - VPS hosting
+- [Coolify](https://coolify.io/) - Self-hosted deployment platform (Docker-based apps and CI)
 - [semantic-release](https://semantic-release.gitbook.io/) - Automated version management

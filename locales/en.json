@@ -36,8 +36,6 @@
     "fontMono": "Mono",
     "disableCardHoverEffects": "Disable Card Hover Effects",
     "disableCardHoverEffectsDescription": "Reduce blur and scale effects on Current Vibes cards",
-    "analyticsEnabled": "Analytics",
-    "analyticsEnabledDescription": "Allow performance and usage analytics",
     "highContrast": "High Contrast",
     "highContrastDescription": "Increase contrast for better visibility",
     "resetToDefaults": "Reset to Defaults",

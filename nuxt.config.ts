@@ -1,5 +1,4 @@
-const isPreview =
-  process.env.VERCEL_ENV === "preview" || process.env.NUXT_PREVIEW === "true";
+const isPreview = process.env.NUXT_PREVIEW === "true";
 
 const appConfig = {
   socialLinks: {

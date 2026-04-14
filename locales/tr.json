@@ -36,8 +36,6 @@
     "fontMono": "Mono",
     "disableCardHoverEffects": "Kart Hover Efektlerini Devre Dışı Bırak",
     "disableCardHoverEffectsDescription": "Current Vibes kartlarındaki bulanıklık ve ölçek efektlerini azalt",
-    "analyticsEnabled": "Analitik",
-    "analyticsEnabledDescription": "Performans ve kullanım analitiğine izin ver",
     "highContrast": "Yüksek Kontrast",
     "highContrastDescription": "Daha iyi görünürlük için kontrastı artır",
     "resetToDefaults": "Varsayılana Sıfırla",
