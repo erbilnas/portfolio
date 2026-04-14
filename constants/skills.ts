@@ -73,10 +73,16 @@ export const skillCategories: SkillCategory[] = [
         icon: "simple-icons:cloudflare",
       },
       {
-        name: "skills.items.vercel.name",
-        description: "skills.items.vercel.description",
-        skillKey: "vercel",
-        icon: "simple-icons:vercel",
+        name: "skills.items.coolify.name",
+        description: "skills.items.coolify.description",
+        skillKey: "coolify",
+        icon: "simple-icons:coolify",
+      },
+      {
+        name: "skills.items.hetznerCloud.name",
+        description: "skills.items.hetznerCloud.description",
+        skillKey: "hetznerCloud",
+        icon: "simple-icons:hetzner",
       },
       {
         name: "skills.items.vitest.name",
@@ -272,6 +278,18 @@ export const skillCategories: SkillCategory[] = [
         description: "skills.items.vercel.description",
         skillKey: "vercel",
         icon: "simple-icons:vercel",
+      },
+      {
+        name: "skills.items.coolify.name",
+        description: "skills.items.coolify.description",
+        skillKey: "coolify",
+        icon: "simple-icons:coolify",
+      },
+      {
+        name: "skills.items.hetznerCloud.name",
+        description: "skills.items.hetznerCloud.description",
+        skillKey: "hetznerCloud",
+        icon: "simple-icons:hetzner",
       },
       {
         name: "skills.items.cloudflare.name",

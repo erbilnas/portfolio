@@ -23,9 +23,14 @@ export const technologies: Technologies[] = [
     icon: "simple-icons:shadcnui",
   },
   {
-    name: "Vercel",
-    url: "https://vercel.com",
-    icon: "simple-icons:vercel",
+    name: "Coolify",
+    url: "https://coolify.io",
+    icon: "simple-icons:coolify",
+  },
+  {
+    name: "Hetzner Cloud",
+    url: "https://www.hetzner.com/cloud",
+    icon: "simple-icons:hetzner",
   },
   {
     name: "Lucide",

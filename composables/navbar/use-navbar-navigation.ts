@@ -64,6 +64,13 @@ export const useNavbarNavigation = () => {
     },
     {
       icon: defineAsyncComponent(() =>
+        import("lucide-vue-next").then((m) => m.SparklesIcon)
+      ),
+      label: t("nav.sponsoredByMe"),
+      action: () => scrollToSection("sponsored-by-me"),
+    },
+    {
+      icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.CodeIcon)
       ),
       label: t("nav.skills"),

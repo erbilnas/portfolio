@@ -8,7 +8,6 @@ export const useNavbarSettings = () => {
   const fontSize = ref<"default" | "large" | "xlarge">("default");
   const fontFamily = ref<"sans" | "serif" | "mono">("sans");
   const disableCardHoverEffects = ref(false);
-  const analyticsEnabled = ref(true);
   const highContrast = ref(false);
   const languageSwitchToastEnabled = ref(true);
 
@@ -45,7 +44,6 @@ export const useNavbarSettings = () => {
         fontSize.value = settings.fontSize.value;
         fontFamily.value = settings.fontFamily.value;
         disableCardHoverEffects.value = settings.disableCardHoverEffects.value;
-        analyticsEnabled.value = settings.analyticsEnabled.value;
         highContrast.value = settings.highContrast.value;
         languageSwitchToastEnabled.value = settings.languageSwitchToastEnabled.value;
 
@@ -89,11 +87,6 @@ export const useNavbarSettings = () => {
           { immediate: true }
         );
         watch(
-          settings.analyticsEnabled,
-          (newValue) => { analyticsEnabled.value = newValue; },
-          { immediate: true }
-        );
-        watch(
           settings.highContrast,
           (newValue) => { highContrast.value = newValue; },
           { immediate: true }
@@ -128,7 +121,6 @@ export const useNavbarSettings = () => {
   const handleSetFontSize = (size: "default" | "large" | "xlarge") => settingsComposable?.setFontSize(size);
   const handleSetFontFamily = (family: "sans" | "serif" | "mono") => settingsComposable?.setFontFamily(family);
   const handleToggleCardHoverEffects = () => settingsComposable?.toggleCardHoverEffects();
-  const handleToggleAnalytics = () => settingsComposable?.toggleAnalytics();
   const handleToggleHighContrast = () => settingsComposable?.toggleHighContrast();
   const handleToggleLanguageSwitchToast = () =>
     settingsComposable?.toggleLanguageSwitchToast();
@@ -142,7 +134,6 @@ export const useNavbarSettings = () => {
     fontSize,
     fontFamily,
     disableCardHoverEffects,
-    analyticsEnabled,
     highContrast,
     languageSwitchToastEnabled,
     initializeSettings,
@@ -156,7 +147,6 @@ export const useNavbarSettings = () => {
     handleSetFontSize,
     handleSetFontFamily,
     handleToggleCardHoverEffects,
-    handleToggleAnalytics,
     handleToggleHighContrast,
     handleToggleLanguageSwitchToast,
     handleResetToDefaults,

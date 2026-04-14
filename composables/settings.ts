@@ -14,7 +14,6 @@ const DEFAULT_FONT_SIZE: FontSize = "default";
 const DEFAULT_FONT_FAMILY: FontFamily = "sans";
 const DEFAULT_REDUCED_MOTION = false;
 const DEFAULT_DISABLE_CARD_HOVER = false;
-const DEFAULT_ANALYTICS_ENABLED = true;
 const DEFAULT_HIGH_CONTRAST = false;
 const DEFAULT_LANGUAGE_SWITCH_TOAST_ENABLED = true;
 
@@ -124,7 +123,6 @@ function createSettings() {
   const fontSize = useLocalStorage<FontSize>("settings-font-size", DEFAULT_FONT_SIZE);
   const fontFamily = useLocalStorage<FontFamily>("settings-font-family", DEFAULT_FONT_FAMILY);
   const disableCardHoverEffects = useLocalStorage("settings-disable-card-hover", DEFAULT_DISABLE_CARD_HOVER);
-  const analyticsEnabled = useLocalStorage("settings-analytics-enabled", DEFAULT_ANALYTICS_ENABLED);
   const highContrast = useLocalStorage("settings-high-contrast", DEFAULT_HIGH_CONTRAST);
   const languageSwitchToastEnabled = useLocalStorage(
     "settings-language-switch-toast-enabled",
@@ -163,10 +161,6 @@ function createSettings() {
     disableCardHoverEffects.value = !disableCardHoverEffects.value;
   };
 
-  const toggleAnalytics = () => {
-    analyticsEnabled.value = !analyticsEnabled.value;
-  };
-
   const toggleHighContrast = () => {
     highContrast.value = !highContrast.value;
   };
@@ -194,7 +188,6 @@ function createSettings() {
     fontSize.value = DEFAULT_FONT_SIZE;
     fontFamily.value = DEFAULT_FONT_FAMILY;
     disableCardHoverEffects.value = DEFAULT_DISABLE_CARD_HOVER;
-    analyticsEnabled.value = DEFAULT_ANALYTICS_ENABLED;
     highContrast.value = DEFAULT_HIGH_CONTRAST;
   };
 
@@ -215,8 +208,6 @@ function createSettings() {
     setFontFamily,
     disableCardHoverEffects: computed(() => disableCardHoverEffects.value),
     toggleCardHoverEffects,
-    analyticsEnabled: computed(() => analyticsEnabled.value),
-    toggleAnalytics,
     highContrast: computed(() => highContrast.value),
     toggleHighContrast,
     languageSwitchToastEnabled: computed(() => languageSwitchToastEnabled.value),

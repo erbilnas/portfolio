@@ -1,5 +1,4 @@
-const isPreview =
-  process.env.VERCEL_ENV === "preview" || process.env.NUXT_PREVIEW === "true";
+const isPreview = process.env.NUXT_PREVIEW === "true";
 
 const appConfig = {
   socialLinks: {
@@ -186,6 +185,9 @@ export default defineNuxtConfig({
     watcher: "chokidar",
   },
   compatibilityDate: "2025-01-02",
+  image: {
+    domains: ["conceptnest.com.tr"],
+  },
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
