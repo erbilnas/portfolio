@@ -1,3 +1,10 @@
+# [6.5.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.5.0-preview.1...v6.5.0-preview.2) (2026-04-14)
+
+
+### Bug Fixes
+
+* fix sponsored section cards background for light theme ([22de4da](https://github.com/erbilnas/portfolio/commit/22de4da10f91142be5f78b8b64ac91f8f030f888))
+
 # [6.5.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.4.0...v6.5.0-preview.1) (2026-04-14)
 
 
