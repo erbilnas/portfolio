@@ -6,6 +6,7 @@ const CurrentVibes = defineAsyncComponent(() => import("./current-vibes"));
 const Experience = defineAsyncComponent(() => import("./experience"));
 const FooterComponent = defineAsyncComponent(() => import("./footer"));
 const Projects = defineAsyncComponent(() => import("./projects"));
+const SponsoredByMe = defineAsyncComponent(() => import("./sponsored-by-me"));
 const Skills = defineAsyncComponent(() => import("./skills"));
 const Welcome = defineAsyncComponent(() => import("./welcome"));
 
@@ -28,6 +29,7 @@ useHead({
 <template>
   <Welcome />
   <AboutMe />
+  <SponsoredByMe />
   <Skills />
   <Experience />
   <Projects />

@@ -2,6 +2,7 @@
   "nav": {
     "welcome": "Welcome",
     "aboutMe": "About Me",
+    "sponsoredByMe": "Sponsored (by me)",
     "skills": "Skills",
     "experience": "Experience",
     "projects": "Projects",
@@ -35,8 +36,6 @@
     "fontMono": "Mono",
     "disableCardHoverEffects": "Disable Card Hover Effects",
     "disableCardHoverEffectsDescription": "Reduce blur and scale effects on Current Vibes cards",
-    "analyticsEnabled": "Analytics",
-    "analyticsEnabledDescription": "Allow performance and usage analytics",
     "highContrast": "High Contrast",
     "highContrastDescription": "Increase contrast for better visibility",
     "resetToDefaults": "Reset to Defaults",
@@ -68,6 +67,32 @@
   },
   "aboutMe": {
     "description": "I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm {age} years old, born and raised in Turkey."
+  },
+  "sponsoredByMe": {
+    "title": "Sponsored (by me)",
+    "description": "Products and apps I build, maintain, and ship.",
+    "empty": "Add entries in constants/sponsored-apps.ts and optional screenshots under public/sponsored/.",
+    "visitExternal": "Visit",
+    "visitInternal": "Open",
+    "cardAriaLabel": "{name}: {tagline}",
+    "apps": {
+      "farkle": {
+        "name": "Farkle",
+        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer."
+      },
+      "baklavue": {
+        "name": "BaklaVue",
+        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables."
+      },
+      "nestConcept": {
+        "name": "Nest Concept",
+        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions."
+      },
+      "dontBeAfk": {
+        "name": "Don't Be AFK",
+        "tagline": "Bash CLI and macOS UI that automates clicks at custom coordinates on an interval — keep your Mac from going idle during long tasks, screen savers, or \"online\" status."
+      }
+    }
   },
   "projects": {
     "title": "Projects",
@@ -138,6 +163,14 @@
       "cloudflare": {
         "name": "Cloudflare",
         "description": "Global cloud platform offering CDN, DDoS protection, DNS, security services, and edge computing with Workers for serverless functions"
+      },
+      "coolify": {
+        "name": "Coolify",
+        "description": "Open-source, self-hostable platform-as-a-service for deploying applications, databases, and services on your own infrastructure"
+      },
+      "hetznerCloud": {
+        "name": "Hetzner Cloud",
+        "description": "European cloud provider offering scalable virtual machines, volumes, load balancers, and networking with transparent pricing"
       },
       "vercel": {
         "name": "Vercel",

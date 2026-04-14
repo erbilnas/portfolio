@@ -30,7 +30,6 @@ interface Props {
   fontSize: "default" | "large" | "xlarge";
   fontFamily: "sans" | "serif" | "mono";
   disableCardHoverEffects: boolean;
-  analyticsEnabled: boolean;
   highContrast: boolean;
   languageSwitchToastEnabled: boolean;
   onToggleCursor: () => void;
@@ -41,7 +40,6 @@ interface Props {
   onSetFontSize: (size: "default" | "large" | "xlarge") => void;
   onSetFontFamily: (family: "sans" | "serif" | "mono") => void;
   onToggleCardHoverEffects: () => void;
-  onToggleAnalytics: () => void;
   onToggleHighContrast: () => void;
   onToggleLanguageSwitchToast: () => void;
   onResetToDefaults: () => void;
@@ -307,21 +305,6 @@ const handleReset = async () => {
             aria-labelledby="card-hover-label"
             aria-describedby="card-hover-description"
             @update:model-value="(v) => handleSwitchChange(v, disableCardHoverEffects, onToggleCardHoverEffects)"
-          />
-        </NavbarSettingsRow>
-
-        <!-- Analytics Toggle -->
-        <NavbarSettingsRow
-          :label="t('settings.analyticsEnabled')"
-          :description="t('settings.analyticsEnabledDescription')"
-          label-id="analytics-label"
-          description-id="analytics-description"
-        >
-          <Switch
-            :model-value="analyticsEnabled"
-            aria-labelledby="analytics-label"
-            aria-describedby="analytics-description"
-            @update:model-value="(v) => handleSwitchChange(v, analyticsEnabled, onToggleAnalytics)"
           />
         </NavbarSettingsRow>
 

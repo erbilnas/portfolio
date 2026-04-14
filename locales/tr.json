@@ -2,6 +2,7 @@
   "nav": {
     "welcome": "Hoş Geldiniz",
     "aboutMe": "Hakkımda",
+    "sponsoredByMe": "Sponsorlu (benden)",
     "skills": "Yetenekler",
     "experience": "Deneyim",
     "projects": "Projeler",
@@ -35,8 +36,6 @@
     "fontMono": "Mono",
     "disableCardHoverEffects": "Kart Hover Efektlerini Devre Dışı Bırak",
     "disableCardHoverEffectsDescription": "Current Vibes kartlarındaki bulanıklık ve ölçek efektlerini azalt",
-    "analyticsEnabled": "Analitik",
-    "analyticsEnabledDescription": "Performans ve kullanım analitiğine izin ver",
     "highContrast": "Yüksek Kontrast",
     "highContrastDescription": "Daha iyi görünürlük için kontrastı artır",
     "resetToDefaults": "Varsayılana Sıfırla",
@@ -67,6 +66,32 @@
   },
   "aboutMe": {
     "description": "Geleceğini sıfırlar ve birlerle inşa etmeye tutkulu, sürekli öğrenmeye meraklı bir yazılım mühendisiyim. Şu anda {age} yaşındayım, Türkiye'de doğdum ve büyüdüm."
+  },
+  "sponsoredByMe": {
+    "title": "Sponsorlu (benden)",
+    "description": "Geliştirdiğim, sürdürdüğüm ve yayınladığım ürünler ve uygulamalar.",
+    "empty": "Kayıtları constants/sponsored-apps.ts dosyasına ekleyin; isteğe bağlı görselleri public/sponsored/ altına koyun.",
+    "visitExternal": "Ziyaret et",
+    "visitInternal": "Aç",
+    "cardAriaLabel": "{name}: {tagline}",
+    "apps": {
+      "farkle": {
+        "name": "Farkle",
+        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın."
+      },
+      "baklavue": {
+        "name": "BaklaVue",
+        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler."
+      },
+      "nestConcept": {
+        "name": "Nest Concept",
+        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin."
+      },
+      "dontBeAfk": {
+        "name": "Don't Be AFK",
+        "tagline": "Bash CLI ve macOS arayüzü — özel aralıklarla belirli koordinatlarda tıklamaları otomatikleştirir; uzun görevlerde, ekran koruyucusunda veya çevrimiçi durumunda Mac'inizin uykuya geçmesini engeller."
+      }
+    }
   },
   "projects": {
     "title": "Projeler",
@@ -137,6 +162,14 @@
       "cloudflare": {
         "name": "Cloudflare",
         "description": "CDN, DDoS koruması, DNS, güvenlik hizmetleri ve sunucusuz fonksiyonlar için Workers ile edge computing sunan küresel bulut platformu"
+      },
+      "coolify": {
+        "name": "Coolify",
+        "description": "Uygulamaları, veritabanlarını ve hizmetleri kendi altyapınızda dağıtmak için açık kaynak, kendi sunucunuzda barındırılabilen platform-as-a-service"
+      },
+      "hetznerCloud": {
+        "name": "Hetzner Cloud",
+        "description": "Ölçeklenebilir sanal makineler, birimler, yük dengeleyiciler ve şeffaf fiyatlandırmalı ağ sunan Avrupa bulut sağlayıcısı"
       },
       "vercel": {
         "name": "Vercel",

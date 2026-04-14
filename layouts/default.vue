@@ -9,10 +9,6 @@
   />
 
   <main>
-    <ClientOnly>
-      <SpeedInsights v-if="analyticsEnabled" />
-    </ClientOnly>
-
     <AdBlockWarning />
     <slot />
   </main>
@@ -30,10 +26,7 @@
 
 <script setup lang="ts">
 import { ScrollIsland } from "@/components/ui/scroll-island";
-import { SpeedInsights } from "@vercel/speed-insights/vue";
-import { useSettings } from "~/composables/settings";
 
-const { analyticsEnabled } = useSettings();
 const scrollProgress = ref(0);
 const lastScrollPosition = ref(0);
 const isNavbarHidden = ref(false);
