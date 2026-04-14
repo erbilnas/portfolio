@@ -162,6 +162,10 @@ export default {
   plugins: [
     animate,
     setupInspiraUI,
+    plugin(function ({ addVariant }) {
+      /** Sponsored gallery: base = dark (original), `light:` = html:not(.dark) overrides */
+      addVariant("light", "html:not(.dark) &");
+    }),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".scrollbar-hide": {
