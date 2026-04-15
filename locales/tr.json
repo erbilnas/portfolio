@@ -74,22 +74,35 @@
     "visitExternal": "Ziyaret et",
     "visitInternal": "Aç",
     "cardAriaLabel": "{name}: {tagline}",
+    "enterFullscreen": "Izgara görünümünü tam ekranda aç",
+    "exitFullscreen": "Tam ekrandan çık",
+    "hintGrid": "Tüm alanı görmek için izgarayı sürükleyerek gezinin (karolar tekrar eder) — bir karo tıklayınca o proje açılır. Daha geniş görünüm için tam ekranı kullanın.",
+    "hintReducedMotion": "Tüm projeler aşağıdaki sıradadır. Kartın üzerine gelin veya odaklayın, tagline’ı okuyun, ardından bağlantıyı açın.",
     "apps": {
       "farkle": {
         "name": "Farkle",
-        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın."
+        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın.",
+        "gridDescription": "Çevrimiçi Farkle — iki oyuncu, altı zar, odalar ve bilgisayara karşı solo."
       },
       "baklavue": {
         "name": "BaklaVue",
-        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler."
+        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler.",
+        "gridDescription": "Baklava için Vue 3 arayüz kiti — tip güvenli bileşenler, v-model, slot ve composable'lar."
       },
       "nestConcept": {
         "name": "Nest Concept",
-        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin."
+        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin.",
+        "gridDescription": "Mimarlık, peyzaj, yapı ve inşaat — modern ve yenilikçi çözümler."
       },
       "dontBeAfk": {
         "name": "Don't Be AFK",
-        "tagline": "Bash CLI ve macOS arayüzü — özel aralıklarla belirli koordinatlarda tıklamaları otomatikleştirir; uzun görevlerde, ekran koruyucusunda veya çevrimiçi durumunda Mac'inizin uykuya geçmesini engeller."
+        "tagline": "Bash CLI ve macOS arayüzü — özel aralıklarla belirli koordinatlarda tıklamaları otomatikleştirir; uzun görevlerde, ekran koruyucusunda veya çevrimiçi durumunda Mac'inizin uykuya geçmesini engeller.",
+        "gridDescription": "Bash CLI ve macOS arayüzü — aralıklı otomatik tıklama ile uykuya geçmeyi önleme."
+      },
+      "readMyScreen": {
+        "name": "Read My Screen",
+        "tagline": "Ekran görüntüleri, panodaki görseller, dosyalar ve aktif tarayıcı sekmesini OpenAI (GPT-4o ve daha fazlası), Anthropic Claude veya Google Gemini ile yapay zekâ destekli açıklamalara dönüştüren bir Raycast uzantısı.",
+        "gridDescription": "Raycast uzantısı — ekran görüntüsü, pano, dosyalar ve sekme için OpenAI, Claude veya Gemini ile açıklama."
       }
     }
   },

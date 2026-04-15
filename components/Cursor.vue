@@ -55,6 +55,11 @@ const isDesktop = useMediaQuery("(min-width: 768px)");
 // Lazy load settings to avoid initialization order issues
 // Initialize as a ref that will be set after mount
 const cursorDisabled = ref(false);
+/** Set by SponsoredAppsInfiniteGrid when its WebGL area is in fullscreen (native cursor works better). */
+const sponsoredInfiniteGridFullscreen = useState(
+  "sponsored-infinite-grid-fullscreen",
+  () => false,
+);
 let settingsComposable: ReturnType<typeof useSettings> | null = null;
 
 // Initialize settings after mount to avoid initialization order issues
@@ -281,7 +286,11 @@ const removeListeners = () => {
 const shouldEnableCursor = () => {
   // Use fallback if media query hasn't initialized yet
   const desktop = isDesktop.value || isDesktopFallback.value;
-  return desktop && !cursorDisabled.value;
+  return (
+    desktop &&
+    !cursorDisabled.value &&
+    !sponsoredInfiniteGridFullscreen.value
+  );
 };
 
 // Lifecycle hooks

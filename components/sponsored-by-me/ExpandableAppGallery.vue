@@ -12,7 +12,7 @@ const { reducedMotion } = useSettings();
 const durationClass = computed(() =>
   reducedMotion.value
     ? "duration-0"
-    : "duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+    : "duration-500 ease-sponsored-card",
 );
 
 const imageHoverClass = computed(() =>

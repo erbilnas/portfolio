@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import ExpandableAppGallery from "~/components/sponsored-by-me/ExpandableAppGallery.vue";
+import SponsoredAppsInfiniteGrid from "~/components/sponsored-by-me/SponsoredAppsInfiniteGrid.vue";
+import { useSettings } from "~/composables/settings";
 import { sponsoredApps } from "~/constants/sponsored-apps";
 
 const sectionRef = ref<HTMLElement | null>(null);
@@ -7,6 +8,13 @@ const sectionRef = ref<HTMLElement | null>(null);
 useObserver("Sponsored (by me)", sectionRef);
 
 const { t } = useI18n();
+const { reducedMotion } = useSettings();
+
+const interactionHint = computed(() =>
+  reducedMotion.value
+    ? t("sponsoredByMe.hintReducedMotion")
+    : t("sponsoredByMe.hintGrid"),
+);
 </script>
 
 <template>
@@ -38,9 +46,15 @@ const { t } = useI18n();
         >
           {{ t("sponsoredByMe.description") }}
         </p>
+        <p
+          v-if="sponsoredApps.length > 0"
+          class="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-500 dark:text-gray-400 md:mt-5"
+        >
+          {{ interactionHint }}
+        </p>
       </div>
 
-      <ExpandableAppGallery v-if="sponsoredApps.length > 0" :items="sponsoredApps" />
+      <SponsoredAppsInfiniteGrid v-if="sponsoredApps.length > 0" />
 
       <p
         v-else
