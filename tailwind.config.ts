@@ -71,6 +71,9 @@ export default {
         wider: "0.025em",
         widest: "0.05em",
       },
+      transitionTimingFunction: {
+        "sponsored-card": "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
       animation: {
         "pulse-subtle": "pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "card-enter": "card-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1)",

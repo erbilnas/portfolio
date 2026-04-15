@@ -680,22 +680,35 @@
     "visitExternal": "サイトへ",
     "visitInternal": "開く",
     "cardAriaLabel": "{name}：{tagline}",
+    "enterFullscreen": "グリッドを全画面表示",
+    "exitFullscreen": "全画面を終了",
+    "hintGrid": "ドラッグでグリッドをパンできます（タイルは繰り返し表示されます）。タイルをクリックするとそのプロジェクトが開きます。広く見る場合は全画面をご利用ください。",
+    "hintReducedMotion": "プロジェクトは下の一列に並んでいます。カードにホバーまたはフォーカスしてタグラインを読み、リンクから開いてください。",
     "apps": {
       "farkle": {
         "name": "Farkle",
-        "tagline": "オンラインでファークルをプレイ — 2人、6つのサイコロ、中世風の賭け。ルームを作成して友達を招待するか、コンピュータとソロ対戦できます。"
+        "tagline": "オンラインでファークルをプレイ — 2人、6つのサイコロ、中世風の賭け。ルームを作成して友達を招待するか、コンピュータとソロ対戦できます。",
+        "gridDescription": "オンラインのファークル — 2人・6個のサイコロ・ルーム作成とソロ対コンピュータ。"
       },
       "baklavue": {
         "name": "BaklaVue",
-        "tagline": "Trendyol Baklava 向けの Vue 3 UI キット。Baklava の Web コンポーネントと Vue のリアクティブなエコシステムをつなぎ、v-model・スロット・コンポーザブルで型安全なコンポーネントを実現します。"
+        "tagline": "Trendyol Baklava 向けの Vue 3 UI キット。Baklava の Web コンポーネントと Vue のリアクティブなエコシステムをつなぎ、v-model・スロット・コンポーザブルで型安全なコンポーネントを実現します。",
+        "gridDescription": "Baklava 向け Vue 3 UI キット — 型安全コンポーネント、v-model、スロット、コンポーザブル。"
       },
       "nestConcept": {
         "name": "Nest Concept",
-        "tagline": "建築・ランドスケープ・構造・建設の各分野でプロフェッショナルなサービスを提供。モダンで革新的なソリューションのご相談はお問い合わせください。"
+        "tagline": "建築・ランドスケープ・構造・建設の各分野でプロフェッショナルなサービスを提供。モダンで革新的なソリューションのご相談はお問い合わせください。",
+        "gridDescription": "建築・ランドスケープ・構造・建設 — モダンで革新的なソリューション。"
       },
       "dontBeAfk": {
         "name": "Don't Be AFK",
-        "tagline": "Bash CLI と macOS 用 UI。指定した間隔で任意座標を自動クリックし、長時間作業やスクリーンセーバー、「オンライン」表示中でも Mac がアイドルにならないようにします。"
+        "tagline": "Bash CLI と macOS 用 UI。指定した間隔で任意座標を自動クリックし、長時間作業やスクリーンセーバー、「オンライン」表示中でも Mac がアイドルにならないようにします。",
+        "gridDescription": "Bash CLI と macOS UI — 間隔で自動クリックし、アイドル状態を防ぐ。"
+      },
+      "readMyScreen": {
+        "name": "Read My Screen",
+        "tagline": "スクリーンショット、クリップボードの画像、画像ファイル、アクティブなブラウザタブを、OpenAI（GPT-4o など）、Anthropic Claude、Google Gemini による AI 解説に変える Raycast 拡張機能。",
+        "gridDescription": "Raycast 拡張 — スクリーンショット・クリップボード・ファイル・タブを OpenAI / Claude / Gemini で解説。"
       }
     }
   }

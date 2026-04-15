@@ -75,22 +75,35 @@
     "visitExternal": "Visit",
     "visitInternal": "Open",
     "cardAriaLabel": "{name}: {tagline}",
+    "enterFullscreen": "Show grid in fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "hintGrid": "Drag to pan the grid (tiles repeat) — click a tile to open that project. Use fullscreen for a larger view.",
+    "hintReducedMotion": "All projects are in the row below. Hover or focus a card to read the tagline, then open the link.",
     "apps": {
       "farkle": {
         "name": "Farkle",
-        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer."
+        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer.",
+        "gridDescription": "Online Farkle — two players, six dice, rooms and solo vs computer."
       },
       "baklavue": {
         "name": "BaklaVue",
-        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables."
+        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables.",
+        "gridDescription": "Vue 3 UI kit for Baklava — type-safe components, v-model, slots, composables."
       },
       "nestConcept": {
         "name": "Nest Concept",
-        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions."
+        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions.",
+        "gridDescription": "Architecture, landscape, structure, and construction — modern, innovative solutions."
       },
       "dontBeAfk": {
         "name": "Don't Be AFK",
-        "tagline": "Bash CLI and macOS UI that automates clicks at custom coordinates on an interval — keep your Mac from going idle during long tasks, screen savers, or \"online\" status."
+        "tagline": "Bash CLI and macOS UI that automates clicks at custom coordinates on an interval — keep your Mac from going idle during long tasks, screen savers, or \"online\" status.",
+        "gridDescription": "Bash CLI and macOS UI — automated clicks on an interval to avoid idle lock-in."
+      },
+      "readMyScreen": {
+        "name": "Read My Screen",
+        "tagline": "A Raycast extension that turns screenshots, clipboard images, image files, and the active browser tab into AI-powered explanations, using OpenAI (GPT-4o and more), Anthropic Claude, or Google Gemini.",
+        "gridDescription": "Raycast extension — screenshots, clipboard, files, and browser tab to AI explanations via OpenAI, Claude, or Gemini."
       }
     }
   },
