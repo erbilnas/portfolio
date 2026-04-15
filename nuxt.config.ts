@@ -69,10 +69,33 @@ const runtimeConfig = {
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  /** Only register `.vue` files; `components/ui` comes from shadcn `addComponent` only. */
+  components: [
+    {
+      path: "~/components",
+      extensions: [".vue"],
+      ignore: ["**/ui/**"],
+    },
+  ],
   modules: [
     "@nuxt/image",
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
+    /** Runs after shadcn-nuxt: drop its raw `components/ui` dir scan (keeps `addComponent` from `index.ts` only). */
+    function shadcnUiDirDedupe(_options, nuxt) {
+      nuxt.hook("components:dirs", (dirs) => {
+        for (let i = dirs.length - 1; i >= 0; i--) {
+          const entry = dirs[i];
+          if (!entry || typeof entry !== "object" || !("path" in entry)) {
+            continue;
+          }
+          const p = String((entry as { path: string }).path).replace(/\\/g, "/");
+          if (p.endsWith("/components/ui")) {
+            dirs.splice(i, 1);
+          }
+        }
+      });
+    },
     "@nuxtjs/color-mode",
     "@vueuse/motion/nuxt",
     "@nuxt/icon",

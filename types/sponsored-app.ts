@@ -20,4 +20,10 @@ export interface SponsoredApp {
    * Horizontal wordmarks: wider top-left slot and slightly shorter max height so the mark reads clearly.
    */
   logoLayout?: "wide";
+  /**
+   * Infinite Grid footer: `date` here; card blurb is `sponsoredByMe.apps.<id>.gridDescription` in locales.
+   */
+  grid: {
+    date: string;
+  };
 }

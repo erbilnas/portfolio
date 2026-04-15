@@ -2,6 +2,9 @@
   "name": "erbilnas-com",
   "type": "module",
   "private": true,
+  "imports": {
+    "#internal/nuxt/paths": "./internal/nuxt/paths.mjs"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -36,6 +39,7 @@
     "motion-v": "^1.7.4",
     "nuxt": "^3.10.1",
     "ofetch": "^1.5.1",
+    "ogl": "^1.0.11",
     "radix-vue": "^1.9.12",
     "reka-ui": "^2.8.0",
     "serve-static": "^1.15.0",
@@ -55,6 +59,7 @@
     "@semantic-release/npm": "^11.0.2",
     "@semantic-release/release-notes-generator": "^12.1.0",
     "@types/canvas-confetti": "^1.9.0",
+    "baseline-browser-mapping": "^2.10.19",
     "semantic-release": "^23.0.2"
   },
   "engines": {
