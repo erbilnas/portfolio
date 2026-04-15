@@ -31,7 +31,9 @@ function setBodyScrollLocked(locked: boolean) {
   if (!import.meta.client) {
     return;
   }
-  document.body.style.overflow = locked ? "hidden" : "";
+  const overflow = locked ? "hidden" : "";
+  document.documentElement.style.overflow = overflow;
+  document.body.style.overflow = overflow;
 }
 
 async function toggleFullscreen() {
@@ -140,49 +142,78 @@ function onTileClicked(detail: TileClickEventDetail) {
     navigateTo(url);
   }
 }
+
+/**
+ * Inline card vs fullscreen: pseudo-fullscreen is teleported to `body` so it is
+ * not clipped or inset by section padding (`px-6`) or `overflow-hidden`.
+ * Shell is a flex column so the WebGL layer gets a real height (100% chain).
+ */
+const shellClass = computed(() => {
+  const base = "bg-neutral-950 overflow-hidden";
+  if (!inFullscreen.value) {
+    return [
+      base,
+      "relative w-full max-w-6xl rounded-2xl border border-neutral-800/80 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)] ring-1 ring-white/10 light:border-neutral-200 light:bg-neutral-950 light:ring-black/10",
+    ];
+  }
+  const fullBleed =
+    "flex min-h-0 w-full max-w-none flex-col border-0 bg-neutral-950 shadow-none ring-0 rounded-none";
+  if (pseudoFullscreen.value) {
+    return [
+      base,
+      fullBleed,
+      /* `w-screen` (100vw) overflows on mobile; `inset-0` + `w-full` = true device width */
+      "fixed inset-0 z-[9998] box-border overscroll-none",
+      "h-[100dvh] min-h-[100dvh] w-full",
+    ];
+  }
+  return [
+    base,
+    fullBleed,
+    "h-full min-h-0 w-full max-w-none",
+    "max-h-[100dvh]",
+  ];
+});
 </script>
 
 <template>
   <ExpandableAppGallery v-if="reducedMotion" :items="sponsoredApps" />
   <ClientOnly v-else>
-    <div
-      ref="fullscreenRef"
-      :class="[
-        'relative overflow-hidden rounded-2xl border border-neutral-800/80 bg-neutral-950 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)] ring-1 ring-white/10 light:border-neutral-200 light:bg-neutral-950 light:ring-black/10',
-        inFullscreen
-          ? pseudoFullscreen
-            ? 'fixed inset-0 z-[9998] h-[100dvh] max-h-[100dvh] w-screen max-w-none rounded-none'
-            : 'h-screen max-h-[100dvh] w-screen max-w-none rounded-none'
-          : 'w-full max-w-6xl',
-      ]"
-    >
-      <button
-        type="button"
-        class="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 bg-black/55 text-white shadow-lg backdrop-blur-md transition hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 light:border-white/25 light:bg-white/90 light:text-neutral-900 light:hover:bg-white light:focus-visible:ring-neutral-400 light:focus-visible:ring-offset-white md:right-4 md:top-4"
-        :aria-label="
-          inFullscreen
-            ? t('sponsoredByMe.exitFullscreen')
-            : t('sponsoredByMe.enterFullscreen')
-        "
-        :aria-pressed="inFullscreen"
-        @click="toggleFullscreen()"
-      >
-        <Minimize2 v-if="inFullscreen" class="h-5 w-5" aria-hidden="true" />
-        <Maximize2 v-else class="h-5 w-5" aria-hidden="true" />
-      </button>
-      <div
-        :class="[
-          'w-full',
-          inFullscreen ? 'h-full min-h-0' : 'h-[min(70vh,560px)] md:h-[min(70vh,640px)]',
-        ]"
-      >
-        <InfiniteGrid
-          :card-data="cardData"
-          :options="gridOptions"
-          @tile-clicked="onTileClicked"
-        />
+    <Teleport to="body" :disabled="!pseudoFullscreen">
+      <div ref="fullscreenRef" :class="shellClass">
+        <button
+          type="button"
+          class="absolute z-20 flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 bg-black/55 text-white shadow-lg backdrop-blur-md transition hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 light:border-white/25 light:bg-white/90 light:text-neutral-900 light:hover:bg-white light:focus-visible:ring-neutral-400 light:focus-visible:ring-offset-white"
+          :class="
+            inFullscreen
+              ? 'right-[max(0.75rem,env(safe-area-inset-right))] top-[max(0.75rem,env(safe-area-inset-top))]'
+              : 'right-3 top-3 md:right-4 md:top-4'
+          "
+          :aria-label="
+            inFullscreen
+              ? t('sponsoredByMe.exitFullscreen')
+              : t('sponsoredByMe.enterFullscreen')
+          "
+          :aria-pressed="inFullscreen"
+          @click="toggleFullscreen()"
+        >
+          <Minimize2 v-if="inFullscreen" class="h-5 w-5" aria-hidden="true" />
+          <Maximize2 v-else class="h-5 w-5" aria-hidden="true" />
+        </button>
+        <div
+          :class="[
+            'min-h-0 w-full',
+            inFullscreen ? 'min-h-0 flex-1' : 'h-[min(70vh,560px)] md:h-[min(70vh,640px)]',
+          ]"
+        >
+          <InfiniteGrid
+            :card-data="cardData"
+            :options="gridOptions"
+            @tile-clicked="onTileClicked"
+          />
+        </div>
       </div>
-    </div>
+    </Teleport>
     <template #fallback>
       <div
         class="h-[min(70vh,560px)] w-full max-w-6xl rounded-2xl border border-neutral-800/80 bg-neutral-950 md:h-[min(70vh,640px)] light:border-neutral-200 light:bg-neutral-950"
