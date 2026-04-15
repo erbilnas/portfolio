@@ -1,3 +1,10 @@
+# [6.6.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.6.0-preview.1...v6.6.0-preview.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* **sponsored:** pseudo-fullscreen fallback on mobile when API unsupported ([6c321eb](https://github.com/erbilnas/portfolio/commit/6c321eb1b14b65105655f32cf8498b57cb899b77))
+
 # [6.6.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.5.0...v6.6.0-preview.1) (2026-04-15)
 
 
