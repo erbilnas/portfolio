@@ -1,3 +1,10 @@
+# [6.6.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.6.0-preview.2...v6.6.0-preview.3) (2026-04-15)
+
+
+### Bug Fixes
+
+* **sponsored:** mobile pseudo-fullscreen fills viewport via body teleport ([9f072de](https://github.com/erbilnas/portfolio/commit/9f072de9aa0595abcca47c6feee049c43cb9d893))
+
 # [6.6.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.6.0-preview.1...v6.6.0-preview.2) (2026-04-15)
 
 
