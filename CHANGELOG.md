@@ -1,3 +1,16 @@
+# [6.6.0](https://github.com/erbilnas/portfolio/compare/v6.5.0...v6.6.0) (2026-04-15)
+
+
+### Bug Fixes
+
+* **sponsored:** mobile pseudo-fullscreen fills viewport via body teleport ([9f072de](https://github.com/erbilnas/portfolio/commit/9f072de9aa0595abcca47c6feee049c43cb9d893))
+* **sponsored:** pseudo-fullscreen fallback on mobile when API unsupported ([6c321eb](https://github.com/erbilnas/portfolio/commit/6c321eb1b14b65105655f32cf8498b57cb899b77))
+
+
+### Features
+
+* **sponsored-by-me:** OGL infinite grid, i18n, assets, cursor off in fullscreen ([a18d19a](https://github.com/erbilnas/portfolio/commit/a18d19a50cf85f2d594ed93d220f7db8dae0470d))
+
 # [6.6.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.6.0-preview.2...v6.6.0-preview.3) (2026-04-15)
 
 
