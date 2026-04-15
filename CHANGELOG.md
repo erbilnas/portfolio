@@ -1,3 +1,10 @@
+# [6.6.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.5.0...v6.6.0-preview.1) (2026-04-15)
+
+
+### Features
+
+* **sponsored-by-me:** OGL infinite grid, i18n, assets, cursor off in fullscreen ([a18d19a](https://github.com/erbilnas/portfolio/commit/a18d19a50cf85f2d594ed93d220f7db8dae0470d))
+
 # [6.5.0](https://github.com/erbilnas/portfolio/compare/v6.4.0...v6.5.0) (2026-04-14)
 
 
