@@ -1,5 +1,6 @@
 <template>
   <Cursor v-if="isClient" />
+  <PointerGlow v-if="isClient" />
 
   <NuxtLayout>
     <NuxtPage />

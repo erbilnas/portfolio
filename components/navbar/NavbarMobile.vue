@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { useI18n } from "#imports";
 import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
-import { MusicIcon } from "lucide-vue-next";
-import type { MusicPlayer } from "~/types/current-vibes";
+import { useNavbarVibesPreview } from "@/composables/navbar";
+import { useSettings } from "@/composables/settings";
+import NavbarVibesDockMark from "./NavbarVibesDockMark.vue";
+import NavbarVibesPreviewBlock from "./NavbarVibesPreviewBlock.vue";
 import type { NavigationItem } from "./navbar.types";
 
 interface Props {
@@ -11,7 +13,7 @@ interface Props {
   mobileMenuOpen: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const emit = defineEmits<{
   toggleMenu: [];
@@ -20,22 +22,13 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const { preview: vibesPreview } = useNavbarVibesPreview();
+const { reducedMotion } = useSettings();
 
-// Fetch music data for alt text
-const { data: musicData } = useFetch<MusicPlayer>("/api/music");
-
-// Format music info for display
-const musicInfo = computed(() => {
-  const player = musicData.value?.player;
-  // Check if music is playing by checking if player data exists
-  if (!player?.name || !player?.artist) return null;
-  return `${player.name} - ${player.artist}`;
-});
-
-// Get aria-label for navigation items
 const getAriaLabel = (item: NavigationItem) => {
-  if (item.id === "current-vibes" && musicInfo.value) {
-    return `${item.label}: ${musicInfo.value}`;
+  if (item.id === "current-vibes" && vibesPreview.value) {
+    const live = vibesPreview.value.isLive ? `${t("nav.vibesLive")}: ` : "";
+    return `${item.label}: ${live}${vibesPreview.value.category} ${vibesPreview.value.title}`;
   }
   return item.label;
 };
@@ -80,6 +73,11 @@ const getAriaLabel = (item: NavigationItem) => {
             mobileMenuOpen ? '-rotate-45 -translate-y-2' : '',
           ]"
         />
+        <NavbarVibesDockMark
+          v-if="vibesPreview && !mobileMenuOpen"
+          :preview="vibesPreview"
+          size="md"
+        />
       </button>
     </LiquidGlass>
   </Transition>
@@ -120,9 +118,10 @@ const getAriaLabel = (item: NavigationItem) => {
         <button
           v-for="item in navigationItems"
           :key="item.label"
+          type="button"
           @click.stop="emit('navItemClick', item.action)"
           :aria-label="getAriaLabel(item)"
-          class="flex items-center gap-4 p-4 rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 text-left"
+          class="flex items-center gap-4 p-4 rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 text-left active:scale-[0.96]"
         >
           <div class="relative flex-shrink-0">
             <component :is="item.icon" class="size-6" />
@@ -130,8 +129,12 @@ const getAriaLabel = (item: NavigationItem) => {
               v-if="item.badge"
               class="absolute -top-0.5 -right-0.5 flex h-3 w-3 rounded-full bg-primary border-2 border-background animate-pulse shadow-lg"
             />
+            <NavbarVibesDockMark
+              v-else-if="item.id === 'current-vibes' && vibesPreview"
+              :preview="vibesPreview"
+            />
           </div>
-          <div class="flex flex-col gap-1">
+          <div class="flex min-w-0 flex-1 flex-col gap-1.5">
             <span class="text-base font-medium">{{ item.label }}</span>
             <span
               v-if="item.id === 'settings'"
@@ -139,13 +142,34 @@ const getAriaLabel = (item: NavigationItem) => {
             >
               {{ t("nav.multipleLanguagesSupported") }}
             </span>
-            <div
-              v-if="item.id === 'current-vibes' && musicInfo"
-              class="flex items-center gap-1.5 text-xs text-muted-foreground"
+            <Transition
+              mode="out-in"
+              :enter-active-class="
+                reducedMotion ? '' : 'transition duration-200 ease-out'
+              "
+              :enter-from-class="
+                reducedMotion ? '' : 'opacity-0 translate-y-1'
+              "
+              :enter-to-class="
+                reducedMotion ? '' : 'opacity-100 translate-y-0'
+              "
+              :leave-active-class="
+                reducedMotion ? '' : 'transition duration-150 ease-in'
+              "
+              :leave-from-class="
+                reducedMotion ? '' : 'opacity-100 translate-y-0'
+              "
+              :leave-to-class="
+                reducedMotion ? '' : 'opacity-0 -translate-y-0.5'
+              "
             >
-              <MusicIcon class="h-3 w-3" />
-              <span>{{ musicInfo }}</span>
-            </div>
+              <NavbarVibesPreviewBlock
+                v-if="item.id === 'current-vibes' && vibesPreview"
+                :key="`${vibesPreview.kind}-${vibesPreview.title}`"
+                :preview="vibesPreview"
+                compact
+              />
+            </Transition>
           </div>
         </button>
       </nav>

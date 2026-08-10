@@ -1,13 +1,12 @@
 import { useSettings } from "@/composables/settings";
 
 export const useNavbarSettings = () => {
-  const settingsDialogOpen = ref(false);
+  const settingsDrawerOpen = ref(false);
   const cursorDisabled = ref(false);
   const theme = ref<"light" | "dark" | "system">("system");
   const reducedMotion = ref(false);
   const fontSize = ref<"default" | "large" | "xlarge">("default");
   const fontFamily = ref<"sans" | "serif" | "mono">("sans");
-  const disableCardHoverEffects = ref(false);
   const highContrast = ref(false);
   const languageSwitchToastEnabled = ref(true);
 
@@ -43,7 +42,6 @@ export const useNavbarSettings = () => {
         reducedMotion.value = settings.reducedMotion.value;
         fontSize.value = settings.fontSize.value;
         fontFamily.value = settings.fontFamily.value;
-        disableCardHoverEffects.value = settings.disableCardHoverEffects.value;
         highContrast.value = settings.highContrast.value;
         languageSwitchToastEnabled.value = settings.languageSwitchToastEnabled.value;
 
@@ -82,11 +80,6 @@ export const useNavbarSettings = () => {
           { immediate: true }
         );
         watch(
-          settings.disableCardHoverEffects,
-          (newValue) => { disableCardHoverEffects.value = newValue; },
-          { immediate: true }
-        );
-        watch(
           settings.highContrast,
           (newValue) => { highContrast.value = newValue; },
           { immediate: true }
@@ -103,12 +96,12 @@ export const useNavbarSettings = () => {
     return settingsComposable;
   };
 
-  const openSettingsDialog = () => {
-    settingsDialogOpen.value = true;
+  const openSettingsDrawer = () => {
+    settingsDrawerOpen.value = true;
   };
 
-  const closeSettingsDialog = () => {
-    settingsDialogOpen.value = false;
+  const closeSettingsDrawer = () => {
+    settingsDrawerOpen.value = false;
   };
 
   const setLightTheme = () => setTheme?.("light");
@@ -120,25 +113,23 @@ export const useNavbarSettings = () => {
   const handleToggleReducedMotion = () => settingsComposable?.toggleReducedMotion();
   const handleSetFontSize = (size: "default" | "large" | "xlarge") => settingsComposable?.setFontSize(size);
   const handleSetFontFamily = (family: "sans" | "serif" | "mono") => settingsComposable?.setFontFamily(family);
-  const handleToggleCardHoverEffects = () => settingsComposable?.toggleCardHoverEffects();
   const handleToggleHighContrast = () => settingsComposable?.toggleHighContrast();
   const handleToggleLanguageSwitchToast = () =>
     settingsComposable?.toggleLanguageSwitchToast();
   const handleResetToDefaults = () => settingsComposable?.resetToDefaults();
 
   return {
-    settingsDialogOpen,
+    settingsDrawerOpen,
     cursorDisabled,
     theme,
     reducedMotion,
     fontSize,
     fontFamily,
-    disableCardHoverEffects,
     highContrast,
     languageSwitchToastEnabled,
     initializeSettings,
-    openSettingsDialog,
-    closeSettingsDialog,
+    openSettingsDrawer,
+    closeSettingsDrawer,
     setLightTheme,
     setDarkTheme,
     setSystemTheme,
@@ -146,10 +137,8 @@ export const useNavbarSettings = () => {
     handleToggleReducedMotion,
     handleSetFontSize,
     handleSetFontFamily,
-    handleToggleCardHoverEffects,
     handleToggleHighContrast,
     handleToggleLanguageSwitchToast,
     handleResetToDefaults,
   };
 };
-

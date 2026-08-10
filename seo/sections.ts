@@ -16,11 +16,6 @@ export const sectionMeta: Record<string, SectionMeta> = {
     description:
       "Learn more about Erbil Nas - a software engineer passionate about building with zeros and ones. Born and raised in Turkey.",
   },
-  "Sponsored (by me)": {
-    title: `${SITE_NAME} | Sponsored (by me)`,
-    description:
-      "Apps and products I build and ship — my own work, highlighted in one place.",
-  },
   Skills: {
     title: `${SITE_NAME} | Skills`,
     description:
@@ -34,7 +29,7 @@ export const sectionMeta: Record<string, SectionMeta> = {
   Projects: {
     title: `${SITE_NAME} | Projects`,
     description:
-      "A showcase of projects I've worked on, featuring innovative solutions and creative implementations.",
+      "Products and apps I ship, plus open-source work on GitHub.",
   },
   "Current Vibes": {
     title: `${SITE_NAME} | Current Vibes`,

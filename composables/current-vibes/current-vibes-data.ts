@@ -1,13 +1,14 @@
 import type {
   GameDetails,
   GitHubStats,
+  GoodreadsBook,
   MediumPost,
   MusicPlayer,
   TraktWatchedDetail,
 } from "~/types/current-vibes";
 
 export interface CardData {
-  type: "game" | "music" | "blog" | "map" | "trakt" | "github";
+  type: "game" | "music" | "blog" | "map" | "trakt" | "github" | "reading";
   data?: unknown;
 }
 
@@ -24,6 +25,9 @@ export const useCurrentVibesData = () => {
   const { data: traktData } = useFetch<TraktWatchedDetail | null>(
     "/api/trakt/history",
   );
+  const { data: readingData } = useFetch<
+    GoodreadsBook | { status: number; message: string } | null
+  >("/api/goodreads");
   const { data: githubData } = useFetch<
     GitHubStats | { status: number; message: string }
   >("/api/github");
@@ -64,6 +68,21 @@ export const useCurrentVibesData = () => {
       cardArray.push({
         type: "trakt" as const,
         data: traktData.value,
+      });
+    }
+
+    const readingBook =
+      readingData.value &&
+      typeof readingData.value === "object" &&
+      "title" in readingData.value &&
+      typeof (readingData.value as GoodreadsBook).title === "string" &&
+      !("message" in readingData.value)
+        ? (readingData.value as GoodreadsBook)
+        : null;
+    if (readingBook) {
+      cardArray.push({
+        type: "reading" as const,
+        data: readingBook,
       });
     }
 

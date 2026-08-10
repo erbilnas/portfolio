@@ -2,11 +2,11 @@
   "nav": {
     "welcome": "Hoş Geldiniz",
     "aboutMe": "Hakkımda",
-    "sponsoredByMe": "Sponsorlu (benden)",
     "skills": "Yetenekler",
     "experience": "Deneyim",
     "projects": "Projeler",
     "currentVibes": "Güncel Vibe'lar",
+    "vibesLive": "Canlı",
     "resume": "Özgeçmiş",
     "settings": "Ayarlar",
     "multipleLanguagesSupported": "Çoklu dil desteği mevcuttur"
@@ -14,32 +14,33 @@
   "settings": {
     "title": "Ayarlar",
     "disableCustomCursor": "Özel İmleci Devre Dışı Bırak",
-    "disableCustomCursorDescription": "Daha iyi erişilebilirlik için özel imleci devre dışı bırak",
+    "disableCustomCursorDescription": "Sistem imlecini kullan",
     "theme": "Tema",
+    "themeDescription": "Açık, koyu veya sistem",
     "language": "Dil",
+    "languageDescription": "Site dili",
     "languageSwitchToast": "Tarayıcıya göre dil öner",
-    "languageSwitchToastDescription": "Tarayıcınız Türkçe veya Japonca olarak ayarlandığında dil değiştirme önerisi göster",
+    "languageSwitchToastDescription": "Tarayıcı Türkçe veya Japoncaysa öner",
     "light": "Açık",
     "dark": "Koyu",
     "system": "Sistem",
     "languageSwitchError": "Dil değiştirilemedi. Lütfen tekrar deneyin.",
     "reducedMotion": "Hareketi Azalt",
-    "reducedMotionDescription": "Daha iyi erişilebilirlik için animasyonları en aza indir",
-    "marqueeSpeed": "Projeler Marquee Hızı",
+    "reducedMotionDescription": "Animasyonları yumuşat",
     "fontSize": "Yazı Boyutu",
+    "fontSizeDescription": "Temel yazı ölçeği",
     "fontSizeDefault": "Varsayılan",
     "fontSizeLarge": "Büyük",
     "fontSizeXLarge": "Çok Büyük",
     "fontFamily": "Yazı Tipi",
+    "fontFamilyDescription": "Site yazı tipi",
     "fontSans": "Sans",
     "fontSerif": "Serif",
     "fontMono": "Mono",
-    "disableCardHoverEffects": "Kart Hover Efektlerini Devre Dışı Bırak",
-    "disableCardHoverEffectsDescription": "Current Vibes kartlarındaki bulanıklık ve ölçek efektlerini azalt",
     "highContrast": "Yüksek Kontrast",
-    "highContrastDescription": "Daha iyi görünürlük için kontrastı artır",
+    "highContrastDescription": "Daha güçlü metin kontrastı",
     "resetToDefaults": "Varsayılana Sıfırla",
-    "resetToDefaultsDescription": "Tüm ayarları varsayılan değerlerine geri yükle",
+    "resetToDefaultsDescription": "Varsayılan ayarlara dön",
     "resetSuccess": "Ayarlar başarıyla sıfırlandı",
     "keyboardShortcuts": "Klavye Kısayolları",
     "keyboardShortcutsDescription": "Mevcut klavye kısayollarını görüntüle",
@@ -48,76 +49,75 @@
     "shortcutScrollToTop": "En üste kaydır",
     "about": "Hakkında",
     "builtWith": "Vue, Nuxt ve Tailwind CSS ile geliştirildi",
-    "version": "Sürüm"
+    "version": "Sürüm",
+    "sources": "Kaynaklar"
   },
   "welcome": {
     "hello": "Merhaba",
     "introduction": "Ben {name}.",
     "name": "Erbil",
+    "socialMore": "Daha fazla",
     "flippingWords": [
-      "teknoloji meraklısı",
-      "yazılım mühendisi",
-      "takım oyuncusu",
-      "problem çözücü",
-      "sürekli öğrenen",
-      "yaratıcı düşünen",
-      "oyun oynamaktan keyif alan"
+      "pro gibi vibe coding",
+      "sadece eğlencesine oyun oynayan",
+      "gerçekten yayınladığım uygulamalar yapan",
+      "daha iyi sıfırlar ve birler peşinde",
+      "hâlâ öğrenen, hâlâ meraklı"
     ]
   },
   "aboutMe": {
     "description": "Geleceğini sıfırlar ve birlerle inşa etmeye tutkulu, sürekli öğrenmeye meraklı bir yazılım mühendisiyim. Şu anda {age} yaşındayım, Türkiye'de doğdum ve büyüdüm."
   },
-  "sponsoredByMe": {
-    "title": "Sponsorlu (benden)",
+  "projects": {
+    "title": "Projeler",
     "description": "Geliştirdiğim, sürdürdüğüm ve yayınladığım ürünler ve uygulamalar.",
     "empty": "Kayıtları constants/sponsored-apps.ts dosyasına ekleyin; isteğe bağlı görselleri public/sponsored/ altına koyun.",
     "visitExternal": "Ziyaret et",
     "visitInternal": "Aç",
     "cardAriaLabel": "{name}: {tagline}",
-    "enterFullscreen": "Izgara görünümünü tam ekranda aç",
-    "exitFullscreen": "Tam ekrandan çık",
-    "hintGrid": "Tüm alanı görmek için izgarayı sürükleyerek gezinin (karolar tekrar eder) — bir karo tıklayınca o proje açılır. Daha geniş görünüm için tam ekranı kullanın.",
-    "hintReducedMotion": "Tüm projeler aşağıdaki sıradadır. Kartın üzerine gelin veya odaklayın, tagline’ı okuyun, ardından bağlantıyı açın.",
-    "apps": {
-      "farkle": {
-        "name": "Farkle",
-        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın.",
-        "gridDescription": "Çevrimiçi Farkle — iki oyuncu, altı zar, odalar ve bilgisayara karşı solo."
-      },
-      "baklavue": {
-        "name": "BaklaVue",
-        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler.",
-        "gridDescription": "Baklava için Vue 3 arayüz kiti — tip güvenli bileşenler, v-model, slot ve composable'lar."
-      },
-      "nestConcept": {
-        "name": "Nest Concept",
-        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin.",
-        "gridDescription": "Mimarlık, peyzaj, yapı ve inşaat — modern ve yenilikçi çözümler."
-      },
-      "dontBeAfk": {
-        "name": "Don't Be AFK",
-        "tagline": "Bash CLI ve macOS arayüzü — özel aralıklarla belirli koordinatlarda tıklamaları otomatikleştirir; uzun görevlerde, ekran koruyucusunda veya çevrimiçi durumunda Mac'inizin uykuya geçmesini engeller.",
-        "gridDescription": "Bash CLI ve macOS arayüzü — aralıklı otomatik tıklama ile uykuya geçmeyi önleme."
-      },
-      "readMyScreen": {
-        "name": "Read My Screen",
-        "tagline": "Ekran görüntüleri, panodaki görseller, dosyalar ve aktif tarayıcı sekmesini OpenAI (GPT-4o ve daha fazlası), Anthropic Claude veya Google Gemini ile yapay zekâ destekli açıklamalara dönüştüren bir Raycast uzantısı.",
-        "gridDescription": "Raycast uzantısı — ekran görüntüsü, pano, dosyalar ve sekme için OpenAI, Claude veya Gemini ile açıklama."
-      }
-    }
-  },
-  "projects": {
-    "title": "Projeler",
-    "description": "Üzerinde çalıştığım projelerin bir vitrini, yenilikçi çözümler ve yaratıcı uygulamalar içeriyor",
-    "speed": "Hız",
-    "speedSlow": "Yavaş",
-    "speedMedium": "Orta",
-    "speedFast": "Hızlı",
+    "openSource": "Açık kaynak",
     "visit": "Ziyaret Et",
     "viewSource": "Kaynağı Görüntüle",
     "visitTitle": "{name} - Canlı Demo'yu Ziyaret Et",
     "githubTitle": "{name} kaynak kodunu GitHub'da görüntüle",
-    "items": {}
+    "apps": {
+      "farkle": {
+        "name": "Farkle",
+        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın."
+      },
+      "baklavue": {
+        "name": "BaklaVue",
+        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler."
+      },
+      "nestConcept": {
+        "name": "Nest Concept",
+        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin."
+      },
+      "dontBeAfk": {
+        "name": "Don't Be AFK",
+        "tagline": "Durumunuzu aktif tutun, asla boşta kalmayın. Global kısayol, başlangıçta otomatik açılış ve günlük aktivite istatistikleriyle özelleştirilebilir fare hareketi ve tıklamalar."
+      },
+      "gitPersona": {
+        "name": "Git Persona",
+        "tagline": "Depoya göre git kimlikleri arasında geçiş yapın. E-posta, ad ve imzalama anahtarıyla adlandırılmış personlar ve hızlı geçiş için menü çubuğu paneli."
+      },
+      "cura": {
+        "name": "Cura",
+        "tagline": "Cursor hesapları arasında sürtünmesiz geçiş. Kendi ayarları, eklentileri ve oturumu olan izole profiller; menü çubuğundan başlatın."
+      },
+      "readMyScreen": {
+        "name": "Read My Screen",
+        "tagline": "Ekran görüntüleri, panodaki görseller, dosyalar ve aktif tarayıcı sekmesini OpenAI (GPT-4o ve daha fazlası), Anthropic Claude veya Google Gemini ile yapay zekâ destekli açıklamalara dönüştüren bir Raycast uzantısı."
+      },
+      "crossingRhine": {
+        "name": "Crossing of the Rhine: A.D. 406",
+        "tagline": "Kavimler Göçü dönemini konu alan, seçim odaklı tarihi bir RPG. Roma sınırında bir kabile yönetin ve verdiğiniz kararlarla Ren Nehri Geçişi'ni yeniden şekillendirin."
+      },
+      "spaceflash": {
+        "name": "Spaceflash",
+        "tagline": "Quest ve diğer VR başlıkları için dalga tabanlı bir nişancı. Ay üssünüzü sonsuz düşman dalgalarına karşı savunun ve skor tablosunda zirveye oynayın."
+      }
+    }
   },
   "skills": {
     "title": "Yetenekler",
@@ -320,6 +320,22 @@
         "name": "Canva",
         "description": "Sosyal medya grafikleri, sunumlar ve pazarlama materyalleri oluşturmak için sürükle-bırak arayüzüne sahip çevrimiçi grafik tasarım platformu"
       },
+      "azure": {
+        "name": "Azure",
+        "description": "Uygulamaları oluşturmak, dağıtmak ve yönetmek için hesaplama, depolama, ağ ve yönetilen hizmetler sunan Microsoft bulut platformu"
+      },
+      "firebase": {
+        "name": "Firebase",
+        "description": "Kimlik doğrulama, gerçek zamanlı veritabanı, bulut fonksiyonları, hosting ve analitiği tek toolkit'te sunan Google uygulama geliştirme platformu"
+      },
+      "swift": {
+        "name": "Swift",
+        "description": "iOS, macOS, watchOS ve tvOS uygulamaları geliştirmek için güvenlik ve performans odaklı Apple'ın modern programlama dili"
+      },
+      "penpot": {
+        "name": "Penpot",
+        "description": "Tasarımcılar ve geliştiriciler arasında işbirliği için açık kaynaklı UI/UX tasarım ve prototipleme aracı"
+      },
       "turkish": {
         "name": "Türkçe",
         "description": "Okuma, yazma ve konuşmada tam profesyonel yeterliliğe sahip ana dil konuşucusu"
@@ -441,7 +457,10 @@
         "period": "Haziran 2019 - Ağustos 2019",
         "location": "Yerinde",
         "description": "Vue.js kullanarak web uygulamaları geliştirme konusunda deneyim kazandım.",
-        "technologies": ["Vue", "ASP.NET Core"]
+        "technologies": [
+          "Vue",
+          "ASP.NET Core"
+        ]
       },
       {
         "company": "Freelancer",
@@ -469,7 +488,12 @@
         "period": "Ağustos 2018 - Eylül 2018",
         "location": "Yerinde",
         "description": "Donanım ve yazılım çözümleri geliştirme konusunda deneyim kazandım.",
-        "technologies": ["Assembly", "C", "C++", "Bilgisayar Mimarisi"]
+        "technologies": [
+          "Assembly",
+          "C",
+          "C++",
+          "Bilgisayar Mimarisi"
+        ]
       },
       {
         "company": "Otokar Automotive and Defense Industries",
@@ -477,7 +501,13 @@
         "period": "Temmuz 2017 - Ağustos 2017",
         "location": "Yerinde",
         "description": "Donanım ve yazılım çözümleri geliştirme konusunda deneyim kazandım.",
-        "technologies": ["C#", ".NET", "SQL", "MVC", "Entity Framework"]
+        "technologies": [
+          "C#",
+          ".NET",
+          "SQL",
+          "MVC",
+          "Entity Framework"
+        ]
       }
     ],
     "educations": [
@@ -573,17 +603,30 @@
   "currentVibes": {
     "title": "Güncel Vibe'lar",
     "description": "Şu anda nelere meraklıyım",
+    "railAriaLabel": "Güncel vibe'lar",
+    "cardAriaLabel": "{category}: {title}",
+    "tabs": {
+      "game": "Oyun",
+      "trakt": "İzleme",
+      "reading": "Okuma",
+      "music": "Müzik",
+      "blog": "Yazı",
+      "github": "Kod",
+      "map": "Seyahat"
+    },
     "cards": {
       "game": {
         "defaultTitle": "Oyun",
-        "currentlyPlaying": "Şu anda oynuyorum",
-        "recentlyCompleted": "Yakın zamanda tamamladım"
+        "currentlyPlaying": "Şu an oynuyor",
+        "recentlyCompleted": "Yakınlarda tamamlandı"
       },
       "gameStats": {
         "statsTitle": "Oyun İstatistiklerim",
         "statsCategory": "HowLongToBeat özeti",
         "totalHours": "Toplam saat",
         "platforms": "Platformlar",
+        "platformsView": "Gör",
+        "genres": "Türler",
         "gamesCompleted": "tamamlanan oyun",
         "complete": "tamamlandı",
         "completionRate": "tamamlama oranı",
@@ -591,34 +634,76 @@
         "pre1990": "1990 öncesi",
         "year1990s": "1990-1999",
         "year2000s": "2000-2009",
-        "year2010s": "2010+"
+        "year2010s": "2010-2019",
+        "year2020s": "2020+"
       },
       "music": {
         "noSongPlaying": "Şarkı çalmıyor",
-        "listeningTo": "Dinliyorum"
+        "listeningTo": "Dinliyor",
+        "lastPlayed": "Son çalınan",
+        "emptyHint": "Şu an bir şey çalmıyor. Bu ayın favorileri aşağıda."
       },
       "blog": {
         "defaultTitle": "Blog Yazısı",
-        "latestPost": "Yazdığım en son blog yazısı",
+        "latestPost": "Son yazı",
         "published": "Yayın tarihi",
-        "readTime": "Okuma süresi"
+        "readTime": "Okuma süresi",
+        "statsTitle": "Son yazılar",
+        "posts": "Akışta",
+        "thisYear": "Bu yıl",
+        "avgReadTime": "Ort. okuma",
+        "topics": "Konular"
       },
       "map": {
         "title": "Gittiğim Yerler",
-        "category": "En büyük seyahat başarılarım",
-        "completion": "Keşfedilen dünya"
+        "category": "Seyahat",
+        "completion": "Keşfedilen dünya",
+        "description": "Kürede işaretli duraklar; rota hâlâ büyüyor.",
+        "pinned": "Kürede",
+        "itinerary": "Öne çıkan duraklar",
+        "moreStops": "+{count} diğer",
+        "moreStopsTitle": "Diğer duraklar",
+        "otherRegion": "Diğer"
       },
       "trakt": {
         "defaultTitle": "Film veya Dizi",
-        "lastWatched": "Yakın zamanda izledim",
+        "lastWatched": "Yakınlarda izlendi",
         "movie": "Film",
         "episode": "Dizi Bölümü",
         "type": "Tür",
-        "watched": "İzlenme"
+        "watched": "İzlenme",
+        "minutes": "dk",
+        "genres": "Türler",
+        "rating": "Puan",
+        "votes": "oy",
+        "totalWatched": "İzlenen saat",
+        "moviesWatched": "Filmler",
+        "showsWatched": "Diziler",
+        "episodesWatched": "Bölümler",
+        "statsTitle": "Genel istatistikler"
+      },
+      "reading": {
+        "defaultTitle": "Kitap",
+        "currentlyReading": "Şu an okuyor",
+        "recentlyFinished": "Yakınlarda bitirdi",
+        "author": "Yazar",
+        "added": "Eklendi",
+        "finished": "Bitti",
+        "pages": "Sayfa",
+        "myRating": "Puanım",
+        "avgRating": "Topluluk",
+        "statsTitle": "Okuma istatistikleri",
+        "booksRead": "Okunan",
+        "thisYear": "Bu yıl",
+        "inProgress": "Devam eden",
+        "toRead": "Okunacak",
+        "avgMyRating": "Ort. puan",
+        "pagesRead": "Okunan sayfa",
+        "topAuthors": "En çok okunan yazarlar"
       },
       "github": {
         "title": "GitHub İstatistikleri",
-        "category": "Kodlama aktivitem",
+        "category": "Kod aktivitesi",
         "commits": "commit",
         "repos": "depo",
         "contributions": "katkı",
@@ -629,14 +714,23 @@
         "statsCategory": "Bu yılki GitHub aktivitesi",
         "pullRequestReviews": "PR incelemeleri",
         "reposContributedTo": "katkıda bulunulan depo",
-        "contributionsByMonth": "Aylara göre katkılar"
+        "contributionsByMonth": "Aylara göre katkılar",
+        "topLanguages": "Öne çıkan diller",
+        "topRepos": "En aktif depolar"
       },
       "spotifyStats": {
-        "statsCategory": "Bu ayın en çok dinlenen sanatçıları",
-        "topArtists": "en çok dinlenen sanatçı",
-        "topTracks": "en çok dinlenen şarkı",
+        "statsCategory": "Son dinlediklerim",
+        "topArtists": "sanatçı",
+        "topTracks": "şarkı",
+        "topGenres": "tür",
         "topArtistsChart": "En çok dinlenen sanatçılar",
-        "topTracksChart": "En çok dinlenen şarkılar"
+        "topTracksChart": "En çok dinlenen şarkılar",
+        "genres": "Öne çıkan türler",
+        "period": {
+          "short_term": "Son 4 hafta",
+          "medium_term": "Son 6 ay",
+          "long_term": "Tüm zamanlar"
+        }
       },
       "default": {
         "title": "Kart",
@@ -666,6 +760,9 @@
     "goBack": "Geri Dön"
   },
   "footer": {
+    "label": "Site alt bilgisi",
+    "farewell": "Elveda",
+    "version": "Sürüm {version}",
     "copyright": {
       "madeWith": "❤️ ile yapıldı."
     },
@@ -678,6 +775,10 @@
       "spotify": {
         "name": "Spotify",
         "description": "Müzik bölümüm için veri sağlar."
+      },
+      "goodreads": {
+        "name": "Goodreads",
+        "description": "Okuma bölümüm için veri sağlar."
       },
       "rss2json": {
         "name": "RSS2JSON",

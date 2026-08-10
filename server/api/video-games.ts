@@ -22,6 +22,7 @@ interface GameDetails {
   image: string;
   storefront: string;
   description: string;
+  genres?: string[];
   progress?: string;
   status?: GameStatus;
   completion_time?: number;
@@ -32,36 +33,74 @@ interface GameRequestParams {
   sortBy: GameSortBy;
 }
 
-const RELEASE_CHART_LABELS = [
-  "Pre-1990",
-  "1990-1999",
-  "2000-2009",
-  "2010+",
-] as const;
-
-interface HLTBStatsResponse {
-  userStatsSummary?: {
-    investedSpAll?: number;
-    investedCoAll?: number;
-    investedMpAll?: number;
-    playthroughCount?: { totalCompletions?: number };
-    platformTotal?: number;
-    releaseChart?: number[];
-  };
-}
-
 const { howlongtobeat } = useRuntimeConfig();
 
 const headers = {
   "Content-Type": "application/json",
   "User-Agent":
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
   Accept: "*/*",
   "Accept-Language": "en-US,en;q=0.9,tr;q=0.8",
   Origin: "https://howlongtobeat.com",
   Referer: "https://howlongtobeat.com/",
   "x-nextjs-data": "1",
 } as const;
+
+const RELEASE_CHART_KEYS = [
+  "pre1990",
+  "year1990s",
+  "year2000s",
+  "year2010s",
+  "year2020s",
+] as const;
+
+interface ReleaseByYear {
+  label: string;
+  count: number;
+}
+
+interface HLTBStats {
+  totalHours: number;
+  gamesPlayed: number;
+  gamesCompleted: number;
+  completionRate: number;
+  platforms: string[];
+  releaseByYear: ReleaseByYear[];
+}
+
+interface HltbStatsGameRow {
+  release_year?: number | string | null;
+  platform?: string | null;
+}
+
+interface HltbUserStatsPageProps {
+  userData?: {
+    user_platforms?: {
+      platform?: string[];
+      storefront?: string[];
+    };
+  };
+  userStats?: {
+    userStatsSummary?: {
+      investedSpAll?: number;
+      investedCoAll?: number;
+      investedMpAll?: number;
+      playthroughCount?: { totalCompletions?: number };
+      platformTotal?: number;
+      releaseChart?: number[];
+    };
+    gameList?: HltbStatsGameRow[];
+    chart?: {
+      platforms?: { platform?: string; count_total?: number }[];
+    };
+  };
+}
+
+interface HltbUserStatsNextData {
+  pageProps?: HltbUserStatsPageProps;
+}
+
+const FALLBACK_HLTB_BUILD_ID = "4crXj-7dC8uKpmhzQ0Ojf";
 
 const default_request_body = {
   user_id: 82755,
@@ -143,6 +182,7 @@ const fetchGameDetailsFromHTML = async (
 ): Promise<{
   imageUrl?: string;
   description?: string;
+  genres?: string[];
   gameplayMainExtra?: number;
 } | null> => {
   try {
@@ -194,14 +234,14 @@ const fetchGameDetailsFromAPI = async (
 ): Promise<{
   imageUrl?: string;
   description?: string;
+  genres?: string[];
   gameplayMainExtra?: number;
 } | null> => {
   try {
     // Try to get build ID dynamically
     let buildId = await getBuildId();
     if (!buildId) {
-      // Fallback to the build ID from your example
-      buildId = "pFldtozODRHtbKOIk5_Lb";
+      buildId = FALLBACK_HLTB_BUILD_ID;
     }
 
     const url = `https://howlongtobeat.com/_next/data/${buildId}/game/${gameId}.json?gameId=${gameId}`;
@@ -266,6 +306,7 @@ const extractGameData = (
 ): {
   imageUrl?: string;
   description?: string;
+  genres?: string[];
   gameplayMainExtra?: number;
 } | null => {
   try {
@@ -386,6 +427,17 @@ const extractGameData = (
       actualGameData.game_description ||
       "";
 
+    // Extract genres - HLTB uses 'profile_genre' ("Action, Adventure")
+    const genreRaw =
+      actualGameData.profile_genre ||
+      actualGameData.genre ||
+      actualGameData.genres ||
+      "";
+    const genres = String(genreRaw)
+      .split(",")
+      .map((g: string) => g.trim())
+      .filter(Boolean);
+
     // Extract completion time
     // HLTB stores completion times - need to find the correct field
     // The previous values (33329, 8793) were too large, suggesting wrong field
@@ -491,6 +543,7 @@ const extractGameData = (
     return {
       imageUrl,
       description,
+      genres,
       gameplayMainExtra:
         typeof gameplayMainExtra === "number" ? gameplayMainExtra : 0,
     };
@@ -524,6 +577,7 @@ const getGameDetails = async (
       image: gameDetails?.imageUrl || "",
       platform,
       description: gameDetails?.description || "No description available",
+      genres: gameDetails?.genres ?? [],
       progress,
       status,
       completion_time: gameDetails?.gameplayMainExtra || 0,
@@ -572,69 +626,103 @@ const getLastCompletedGame = async (): Promise<GameDetails | null> => {
   }
 };
 
-interface ReleaseByYear {
-  label: string;
-  count: number;
-}
+const buildReleaseByYearFromGames = (
+  gameList: HltbStatsGameRow[],
+): ReleaseByYear[] => {
+  const counts = [0, 0, 0, 0, 0];
+  for (const game of gameList) {
+    const year = Number(game.release_year);
+    if (!Number.isFinite(year) || year <= 0) continue;
+    if (year < 1990) counts[0] += 1;
+    else if (year < 2000) counts[1] += 1;
+    else if (year < 2010) counts[2] += 1;
+    else if (year < 2020) counts[3] += 1;
+    else counts[4] += 1;
+  }
+  return RELEASE_CHART_KEYS.map((label, i) => ({
+    label,
+    count: counts[i],
+  }));
+};
 
-interface HLTBStats {
-  totalHours: number;
-  gamesPlayed: number;
-  gamesCompleted: number;
-  completionRate: number;
-  platforms: string[];
-  releaseByYear: ReleaseByYear[];
-}
+const buildReleaseByYearFromChart = (
+  releaseChart: number[] | undefined,
+): ReleaseByYear[] => {
+  if (!Array.isArray(releaseChart) || releaseChart.length < 4) return [];
+  return RELEASE_CHART_KEYS.map((label, i) => ({
+    label,
+    count: typeof releaseChart[i] === "number" ? releaseChart[i] : 0,
+  }));
+};
 
-const fetchUniquePlatforms = async (): Promise<string[]> => {
+const resolveHltbUsername = (): string => {
+  const config = howlongtobeat as { username?: string };
+  return config.username?.trim() || "mentalmynx";
+};
+
+const fetchUserStatsPageProps = async (
+  username: string,
+): Promise<HltbUserStatsPageProps | null> => {
+  const nextHeaders = {
+    Accept: "*/*",
+    "Accept-Language": headers["Accept-Language"],
+    "User-Agent": headers["User-Agent"],
+    Referer: `https://howlongtobeat.com/user/${username}`,
+    "x-nextjs-data": "1",
+  } as const;
+
+  const tryNextData = async (buildId: string) => {
+    const url = `https://howlongtobeat.com/_next/data/${buildId}/user/${encodeURIComponent(username)}/stats.json?userName=${encodeURIComponent(username)}`;
+    const response = await fetch(url, { headers: nextHeaders });
+    if (!response.ok) return { ok: false as const, status: response.status };
+    const data = (await response.json()) as HltbUserStatsNextData;
+    return { ok: true as const, pageProps: data.pageProps ?? null };
+  };
+
+  let buildId = (await getBuildId()) || FALLBACK_HLTB_BUILD_ID;
+  let result = await tryNextData(buildId);
+
+  if (!result.ok && result.status === 404) {
+    const freshBuildId = await getBuildId();
+    if (freshBuildId && freshBuildId !== buildId) {
+      result = await tryNextData(freshBuildId);
+    }
+  }
+
+  if (result.ok && result.pageProps?.userStats) {
+    return result.pageProps;
+  }
+
   try {
-    const [playingRes, completedRes] = await Promise.all([
-      fetchGames({ status: "playing", sortBy: "date_updated" }),
-      fetchGames({ status: "completed", sortBy: "date_complete" }),
-    ]);
-
-    const platforms = new Set<string>();
-    for (const item of playingRes?.data?.gamesList ?? []) {
-      if (item.platform?.trim()) platforms.add(item.platform.trim());
-    }
-    for (const item of completedRes?.data?.gamesList ?? []) {
-      if (item.platform?.trim()) platforms.add(item.platform.trim());
-    }
-    return Array.from(platforms).sort();
+    const htmlRes = await fetch(
+      `https://howlongtobeat.com/user/${encodeURIComponent(username)}/stats`,
+      {
+        headers: {
+          Accept: "text/html",
+          "Accept-Language": headers["Accept-Language"],
+          "User-Agent": headers["User-Agent"],
+        },
+      },
+    );
+    if (!htmlRes.ok) return null;
+    const html = await htmlRes.text();
+    const match = html.match(
+      /<script id="__NEXT_DATA__"[^>]*>(.*?)<\/script>/,
+    );
+    if (!match?.[1]) return null;
+    const nextData = JSON.parse(match[1]) as HltbUserStatsNextData;
+    return nextData.pageProps ?? null;
   } catch (error) {
-    console.error("Error fetching platforms:", error);
-    return [];
+    console.warn("Failed to parse HLTB stats HTML:", error);
+    return null;
   }
 };
 
 const fetchUserStats = async (): Promise<HLTBStats | null> => {
   try {
-    const hltbConfig = howlongtobeat as { api?: string; statsApi?: string };
-    const statsApi =
-      hltbConfig.statsApi ||
-      (hltbConfig.api
-        ? hltbConfig.api.replace("/games/list", "/stats")
-        : null) ||
-      "https://howlongtobeat.com/api/user/82755/stats";
-
-    const response = await fetch(statsApi, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        category: "user_catalog",
-        platform: "",
-        storefront: "",
-        year: "",
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = (await response.json()) as HLTBStatsResponse;
-    const summary = data?.userStatsSummary;
-
+    const username = resolveHltbUsername();
+    const pageProps = await fetchUserStatsPageProps(username);
+    const summary = pageProps?.userStats?.userStatsSummary;
     if (!summary) {
       return null;
     }
@@ -642,8 +730,9 @@ const fetchUserStats = async (): Promise<HLTBStats | null> => {
     const investedSp = summary.investedSpAll ?? 0;
     const investedCo = summary.investedCoAll ?? 0;
     const investedMp = summary.investedMpAll ?? 0;
-    const totalSeconds = investedSp + investedCo + investedMp;
-    const totalHours = Math.round(totalSeconds / 3600);
+    const totalHours = Math.round(
+      (investedSp + investedCo + investedMp) / 3600,
+    );
 
     const gamesCompleted = summary.playthroughCount?.totalCompletions ?? 0;
     const gamesPlayed = summary.platformTotal ?? 0;
@@ -652,16 +741,28 @@ const fetchUserStats = async (): Promise<HLTBStats | null> => {
         ? Math.round((gamesCompleted / gamesPlayed) * 100)
         : 0;
 
-    let releaseByYear: ReleaseByYear[] = [];
-    const releaseChart = summary.releaseChart;
-    if (Array.isArray(releaseChart) && releaseChart.length === 4) {
-      releaseByYear = RELEASE_CHART_LABELS.map((label, i) => ({
-        label,
-        count: typeof releaseChart[i] === "number" ? releaseChart[i] : 0,
-      }));
-    }
+    const gameList = pageProps?.userStats?.gameList ?? [];
+    const releaseByYearFromGames = buildReleaseByYearFromGames(gameList);
+    const releaseByYear = releaseByYearFromGames.some((item) => item.count > 0)
+      ? releaseByYearFromGames
+      : buildReleaseByYearFromChart(summary.releaseChart);
 
-    const platforms = await fetchUniquePlatforms();
+    const platformsFromProfile =
+      pageProps?.userData?.user_platforms?.platform ?? [];
+    const platformsFromChart =
+      pageProps?.userStats?.chart?.platforms
+        ?.map((item) => item.platform?.trim())
+        .filter((name): name is string => Boolean(name)) ?? [];
+    const platforms = Array.from(
+      new Set(
+        (platformsFromProfile.length > 0
+          ? platformsFromProfile
+          : platformsFromChart
+        )
+          .map((name) => name.trim())
+          .filter(Boolean),
+      ),
+    ).sort((a, b) => a.localeCompare(b));
 
     return {
       totalHours,

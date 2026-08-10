@@ -1,47 +1,53 @@
 <template>
   <div class="relative inline-block px-2">
-    <Transition
-      @after-enter="$emit('animationStart')"
-      @after-leave="$emit('animationComplete')"
+    <div
+      :class="[
+        'relative z-10 inline-block text-left',
+        props.class,
+      ]"
     >
-      <div
-        v-show="isVisible"
-        :class="[
-          'relative z-10 inline-block text-left text-neutral-900 dark:text-neutral-100',
-          props.class,
-        ]"
-      >
-        <template
-          v-for="(wordObj, wordIndex) in splitWords"
-          :key="wordObj.word + wordIndex"
+      <template v-if="motionAllowed">
+        <Transition
+          @after-enter="$emit('animationStart')"
+          @after-leave="$emit('animationComplete')"
         >
-          <span
-            class="inline-block whitespace-nowrap opacity-0"
-            :style="{
-              animation: `fadeInWord 0.3s ease forwards`,
-              animationDelay: `${wordIndex * 0.3}s`,
-            }"
-          >
-            <span
-              v-for="(letter, letterIndex) in wordObj.letters"
-              :key="wordObj.word + letterIndex"
-              class="inline-block opacity-0"
-              :style="{
-                animation: `fadeInLetter 0.2s ease forwards`,
-                animationDelay: `${wordIndex * 0.3 + letterIndex * 0.05}s`,
-              }"
+          <div v-show="isVisible" class="inline-block">
+            <template
+              v-for="(wordObj, wordIndex) in splitWords"
+              :key="wordObj.word + wordIndex"
             >
-              {{ letter }}
-            </span>
-            <span class="inline-block">&nbsp;</span>
-          </span>
-        </template>
-      </div>
-    </Transition>
+              <span
+                class="flip-words__word inline-block whitespace-nowrap"
+                :style="{
+                  animation: `fadeInWord 0.3s ease forwards`,
+                  animationDelay: `${wordIndex * 0.3}s`,
+                }"
+              >
+                <span
+                  v-for="(letter, letterIndex) in wordObj.letters"
+                  :key="wordObj.word + letterIndex"
+                  class="flip-words__letter inline-block"
+                  :style="{
+                    animation: `fadeInLetter 0.2s ease forwards`,
+                    animationDelay: `${wordIndex * 0.3 + letterIndex * 0.05}s`,
+                  }"
+                >
+                  {{ letter }}
+                </span>
+                <span class="inline-block">&nbsp;</span>
+              </span>
+            </template>
+          </div>
+        </Transition>
+      </template>
+      <span v-else class="inline-block">{{ currentWord }}</span>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useSettings } from "~/composables/settings";
+
 interface Props {
   words: string[];
   duration?: number;
@@ -55,13 +61,20 @@ const props = withDefaults(defineProps<Props>(), {
 
 defineEmits(["animationStart", "animationComplete"]);
 
+const { reducedMotion } = useSettings();
+const prefersReduced = ref(false);
+
+const motionAllowed = computed(
+  () => !reducedMotion.value && !prefersReduced.value,
+);
+
 const currentWord = ref(props.words?.[0] || "");
 const isVisible = ref(true);
 const timeoutId = ref<number | null>(null);
 
 function startAnimation() {
-  if (!props.words || props.words.length === 0) return;
-  
+  if (!motionAllowed.value || !props.words || props.words.length === 0) return;
+
   isVisible.value = false;
 
   setTimeout(() => {
@@ -82,20 +95,32 @@ const splitWords = computed(() => {
   }));
 });
 
+function clearFlipTimeout() {
+  if (timeoutId.value) {
+    clearTimeout(timeoutId.value);
+    timeoutId.value = null;
+  }
+}
+
 function startTimeout() {
+  clearFlipTimeout();
+  if (!motionAllowed.value) return;
   timeoutId.value = window.setTimeout(() => {
     startAnimation();
   }, props.duration);
 }
 
 onMounted(() => {
+  if (typeof window !== "undefined" && window.matchMedia) {
+    prefersReduced.value = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+  }
   startTimeout();
 });
 
 onBeforeUnmount(() => {
-  if (timeoutId.value) {
-    clearTimeout(timeoutId.value);
-  }
+  clearFlipTimeout();
 });
 
 watch(isVisible, (newValue) => {
@@ -104,19 +129,37 @@ watch(isVisible, (newValue) => {
   }
 });
 
-watch(() => props.words, (newWords) => {
-  if (newWords && newWords.length > 0 && !currentWord.value) {
-    currentWord.value = newWords[0];
+watch(motionAllowed, (allowed) => {
+  if (!allowed) {
+    clearFlipTimeout();
+    isVisible.value = true;
+    return;
   }
-}, { immediate: true });
+  startTimeout();
+});
+
+watch(
+  () => props.words,
+  (newWords) => {
+    if (newWords && newWords.length > 0 && !currentWord.value) {
+      currentWord.value = newWords[0];
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <style>
+.flip-words__word,
+.flip-words__letter {
+  opacity: 1;
+}
+
 @keyframes fadeInWord {
   0% {
-    opacity: 0;
-    transform: translateY(10px);
-    filter: blur(8px);
+    opacity: 1;
+    transform: translateY(8px);
+    filter: blur(6px);
   }
   100% {
     opacity: 1;
@@ -127,9 +170,9 @@ watch(() => props.words, (newWords) => {
 
 @keyframes fadeInLetter {
   0% {
-    opacity: 0;
-    transform: translateY(10px);
-    filter: blur(8px);
+    opacity: 1;
+    transform: translateY(8px);
+    filter: blur(6px);
   }
   100% {
     opacity: 1;
@@ -148,8 +191,8 @@ watch(() => props.words, (newWords) => {
 
 @keyframes enterWord {
   0% {
-    opacity: 0;
-    transform: translateY(10px);
+    opacity: 1;
+    transform: translateY(8px);
   }
   100% {
     opacity: 1;
@@ -167,6 +210,21 @@ watch(() => props.words, (newWords) => {
     opacity: 0;
     transform: scale(2);
     filter: blur(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-words__word,
+  .flip-words__letter {
+    opacity: 1 !important;
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    animation: none !important;
   }
 }
 </style>

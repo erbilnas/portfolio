@@ -73,6 +73,18 @@ export const skillCategories: SkillCategory[] = [
         icon: "simple-icons:cloudflare",
       },
       {
+        name: "skills.items.swift.name",
+        description: "skills.items.swift.description",
+        skillKey: "swift",
+        icon: "simple-icons:swift",
+      },
+      {
+        name: "skills.items.penpot.name",
+        description: "skills.items.penpot.description",
+        skillKey: "penpot",
+        icon: "simple-icons:penpot",
+      },
+      {
         name: "skills.items.coolify.name",
         description: "skills.items.coolify.description",
         skillKey: "coolify",
@@ -199,6 +211,12 @@ export const skillCategories: SkillCategory[] = [
         skillKey: "playwright",
         icon: "simple-icons:playwright",
       },
+      {
+        name: "skills.items.swift.name",
+        description: "skills.items.swift.description",
+        skillKey: "swift",
+        icon: "simple-icons:swift",
+      },
     ],
   },
   {
@@ -249,6 +267,18 @@ export const skillCategories: SkillCategory[] = [
         icon: "simple-icons:drizzle",
       },
       {
+        name: "skills.items.supabase.name",
+        description: "skills.items.supabase.description",
+        skillKey: "supabase",
+        icon: "simple-icons:supabase",
+      },
+      {
+        name: "skills.items.firebase.name",
+        description: "skills.items.firebase.description",
+        skillKey: "firebase",
+        icon: "simple-icons:firebase",
+      },
+      {
         name: "skills.items.go.name",
         description: "skills.items.go.description",
         skillKey: "go",
@@ -296,6 +326,12 @@ export const skillCategories: SkillCategory[] = [
         description: "skills.items.cloudflare.description",
         skillKey: "cloudflare",
         icon: "simple-icons:cloudflare",
+      },
+      {
+        name: "skills.items.azure.name",
+        description: "skills.items.azure.description",
+        skillKey: "azure",
+        icon: "simple-icons:microsoftazure",
       },
       {
         name: "skills.items.linux.name",
@@ -350,7 +386,7 @@ export const skillCategories: SkillCategory[] = [
         name: "skills.items.cursor.name",
         description: "skills.items.cursor.description",
         skillKey: "cursor",
-        icon: "lucide:brain",
+        icon: "simple-icons:cursor",
       },
       {
         name: "skills.items.v0.name",
@@ -400,6 +436,12 @@ export const skillCategories: SkillCategory[] = [
         description: "skills.items.canva.description",
         skillKey: "canva",
         icon: "simple-icons:canva",
+      },
+      {
+        name: "skills.items.penpot.name",
+        description: "skills.items.penpot.description",
+        skillKey: "penpot",
+        icon: "simple-icons:penpot",
       },
     ],
   },

@@ -71,9 +71,6 @@ export default {
         wider: "0.025em",
         widest: "0.05em",
       },
-      transitionTimingFunction: {
-        "sponsored-card": "cubic-bezier(0.22, 1, 0.36, 1)",
-      },
       animation: {
         "pulse-subtle": "pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "card-enter": "card-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
@@ -84,6 +81,18 @@ export default {
         "title-fade": "title-fade 1s ease-out forwards",
         "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "slide-up": "slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "vibes-vinyl-spin": "vibes-vinyl-spin 4s linear infinite",
+        "vibes-vinyl-spin-slow": "vibes-vinyl-spin 18s linear infinite",
+        "vibes-cover-float": "vibes-cover-float 5.5s ease-in-out infinite",
+        "vibes-screen-flicker":
+          "vibes-screen-flicker 6s ease-in-out infinite",
+        "vibes-type-cursor": "vibes-type-cursor 1.1s steps(1) infinite",
+        "vibes-line-type":
+          "vibes-line-type 0.7s cubic-bezier(0.2, 0, 0, 1) both",
+        "vibes-live-pulse": "vibes-live-pulse 1.8s ease-in-out infinite",
+        "vibes-marquee": "vibes-marquee 12s linear infinite",
+        "vibes-screen-flicker-soft":
+          "vibes-screen-flicker-soft 5s ease-in-out infinite",
       },
       keyframes: {
         "pulse-subtle": {
@@ -154,6 +163,48 @@ export default {
             opacity: "1",
             transform: "translateY(0)",
           },
+        },
+        "vibes-vinyl-spin": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "vibes-cover-float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "vibes-screen-flicker": {
+          "0%, 100%": { opacity: "0.03" },
+          "40%": { opacity: "0.03" },
+          "42%": { opacity: "0.07" },
+          "44%": { opacity: "0.02" },
+          "70%": { opacity: "0.04" },
+          "72%": { opacity: "0.08" },
+          "74%": { opacity: "0.03" },
+        },
+        "vibes-type-cursor": {
+          "0%, 49%": { opacity: "1" },
+          "50%, 100%": { opacity: "0" },
+        },
+        "vibes-line-type": {
+          "0%": { transform: "scaleX(0.82)" },
+          "100%": { transform: "scaleX(1)" },
+        },
+        "vibes-live-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.35" },
+        },
+        "vibes-marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "vibes-screen-flicker-soft": {
+          "0%, 100%": { opacity: "1" },
+          "40%": { opacity: "1" },
+          "42%": { opacity: "0.82" },
+          "44%": { opacity: "1" },
+          "70%": { opacity: "0.92" },
+          "72%": { opacity: "0.78" },
+          "74%": { opacity: "1" },
         },
       },
       boxShadow: {
