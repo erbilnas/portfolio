@@ -139,19 +139,13 @@ watch(reducedMotion, (off) => {
           class="relative overflow-hidden rounded-sm bg-neutral-50 px-5 py-6 outline outline-1 outline-black/10 dark:bg-neutral-900 dark:outline-white/10 sm:px-6 sm:py-7"
           style="transform: translateZ(0)"
         >
-          <!-- Margin rule -->
-          <div
-            class="pointer-events-none absolute bottom-5 left-9 top-5 w-px bg-neutral-300/80 dark:bg-neutral-700/80"
-            aria-hidden="true"
-          />
-
           <p
-            class="relative mb-5 pl-3 text-[11px] font-semibold tracking-tight text-neutral-900 [text-wrap:pretty] dark:text-neutral-100 sm:text-xs"
+            class="relative mb-5 text-[11px] font-semibold tracking-tight text-neutral-900 [text-wrap:pretty] dark:text-neutral-100 sm:text-xs"
           >
             {{ snippet }}
           </p>
 
-          <div class="relative flex flex-col gap-2.5 pl-3" aria-hidden="true">
+          <div class="relative flex flex-col gap-2.5" aria-hidden="true">
             <div
               v-for="(w, i) in lines"
               :key="i"
@@ -168,12 +162,12 @@ watch(reducedMotion, (off) => {
           <!-- Carriage rail + cursor -->
           <div class="relative mt-6 h-4" aria-hidden="true">
             <div
-              class="absolute left-3 right-0 top-1/2 h-px -translate-y-1/2 bg-neutral-300 dark:bg-neutral-700"
+              class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-neutral-300 dark:bg-neutral-700"
             />
             <div
               class="absolute top-1/2 h-3.5 w-1.5 -translate-y-1/2 rounded-[1px] bg-neutral-800 dark:bg-neutral-200"
               :class="reducedMotion ? '' : 'animate-vibes-type-cursor'"
-              :style="{ left: `calc(${carriagePct}% + 0.75rem)` }"
+              :style="{ left: `${carriagePct}%` }"
             />
           </div>
         </div>

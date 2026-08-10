@@ -31,6 +31,7 @@ import { useSettings } from "~/composables/settings";
 
 const props = defineProps<{
   src: string;
+  title?: string;
 }>();
 
 const { reducedMotion } = useSettings();
@@ -50,6 +51,12 @@ const PAGE_D = 0.155;
 const SPINE_T = 0.05;
 const SPINE_OVERLAP = 0.014;
 const BOOK_SCALE = 0.86;
+
+const spineTitle = computed(() => {
+  const raw = (props.title ?? "").trim();
+  if (!raw) return "";
+  return raw.length > 42 ? `${raw.slice(0, 42)}…` : raw;
+});
 
 let renderer: WebGLRenderer | null = null;
 let scene: Scene | null = null;
@@ -129,11 +136,14 @@ function paintBoard(
   ctx.fillRect(0, 0, w, h);
 
   if (img && face === "front") {
-    // Dust-jacket style: cover art with a thin board margin
-    const margin = Math.round(w * 0.018);
+    // Fill the board: contain full cover art, tone letterbox if aspect differs
+    const margin = Math.round(w * 0.006);
     const iw = w - margin * 2;
     const ih = h - margin * 2;
-    const scale = Math.max(iw / img.width, ih / img.height);
+    const tone = sampleCoverTone(img);
+    ctx.fillStyle = `rgb(${tone.r}, ${tone.g}, ${tone.b})`;
+    ctx.fillRect(margin, margin, iw, ih);
+    const scale = Math.min(iw / img.width, ih / img.height);
     const dw = img.width * scale;
     const dh = img.height * scale;
     ctx.save();
@@ -193,7 +203,10 @@ function paintBoard(
   return prepCanvasTexture(new CanvasTexture(c));
 }
 
-function paintSpine(img: HTMLImageElement | null): CanvasTexture {
+function paintSpine(
+  img: HTMLImageElement | null,
+  title = "",
+): CanvasTexture {
   const w = SPINE_TEX_W;
   const h = SPINE_TEX_H;
   const c = document.createElement("canvas");
@@ -221,9 +234,37 @@ function paintSpine(img: HTMLImageElement | null): CanvasTexture {
     ctx.fillRect(w * 0.12, h * (y + 0.014), w * 0.76, h * 0.006);
   }
 
-  // Title stripe (abstract — no real text to avoid wrong glyphs)
-  ctx.fillStyle = "rgba(255,255,255,0.1)";
-  ctx.fillRect(w * 0.38, h * 0.32, w * 0.24, h * 0.36);
+  const label = title.trim();
+  if (label) {
+    // Vertical title between the raised bands (reads top → bottom on -x spine)
+    const maxLen = h * 0.48;
+    let fontPx = Math.round(w * 0.42);
+    ctx.font = `600 ${fontPx}px ui-sans-serif, system-ui, sans-serif`;
+    while (fontPx > 18 && ctx.measureText(label).width > maxLen) {
+      fontPx -= 2;
+      ctx.font = `600 ${fontPx}px ui-sans-serif, system-ui, sans-serif`;
+    }
+    let draw = label;
+    if (ctx.measureText(draw).width > maxLen) {
+      while (draw.length > 1 && ctx.measureText(`${draw}…`).width > maxLen) {
+        draw = draw.slice(0, -1);
+      }
+      draw = `${draw}…`;
+    }
+    ctx.save();
+    ctx.translate(w * 0.52, h * 0.5);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "rgba(0,0,0,0.35)";
+    ctx.fillText(draw, 0.8, 1.2);
+    ctx.fillStyle = "rgba(245,242,235,0.92)";
+    ctx.fillText(draw, 0, 0);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = "rgba(255,255,255,0.1)";
+    ctx.fillRect(w * 0.38, h * 0.32, w * 0.24, h * 0.36);
+  }
 
   ctx.save();
   ctx.globalAlpha = 0.06;
@@ -432,8 +473,12 @@ function setSize() {
   renderer.setSize(w, h, false);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   camera.aspect = w / h;
+  // Portrait panel: nudge closer so the hardcover fills the frame.
+  const aspect = w / h;
+  const dist = aspect < 1 ? 3.05 + aspect * 0.35 : 3.6;
+  camera.position.set(0, 0.06, dist);
   camera.updateProjectionMatrix();
-  camera.lookAt(0, 0, 0);
+  camera.lookAt(0, -0.02, 0);
 }
 
 function resolveCoverUrl(src: string): string {
@@ -463,7 +508,7 @@ function applyCoverArt(img: HTMLImageElement | null) {
   disposeTexture(spineTexture);
   frontTexture = paintBoard(img, "front");
   backTexture = paintBoard(img, "back");
-  spineTexture = paintSpine(img);
+  spineTexture = paintSpine(img, spineTitle.value);
 
   const front = book.getObjectByName("front") as Mesh | undefined;
   if (front && Array.isArray(front.material)) {
@@ -542,8 +587,9 @@ function tick() {
     book.rotation.x = 0.14 + Math.sin(now * 0.65) * 0.025;
     book.rotation.z = Math.sin(now * 0.4) * 0.01;
   }
-  // Keep X/Z locked to origin so the stage stays centered.
-  book.position.set(0, bobY, 0);
+  // Perspective foreshortening on a ¾ cover pulls the silhouette left; counter it.
+  const opticalX = -Math.sin(rotY.value) * 0.42;
+  book.position.set(opticalX, bobY - 0.02, 0);
 
   const shadow = book.getObjectByName("shadow") as Mesh | undefined;
   if (shadow) {
@@ -587,8 +633,8 @@ function init() {
 
   scene = new Scene();
   camera = new PerspectiveCamera(28, 1, 0.1, 40);
-  camera.position.set(0, 0.04, 3.6);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, 0.06, 3.6);
+  camera.lookAt(0, -0.02, 0);
 
   renderer = new WebGLRenderer({
     canvas,
@@ -622,7 +668,7 @@ function init() {
 
   frontTexture = paintBoard(null, "front");
   backTexture = paintBoard(null, "back");
-  spineTexture = paintSpine(null);
+  spineTexture = paintSpine(null, spineTitle.value);
   book = buildBook(frontTexture, backTexture, spineTexture);
   scene.add(book);
 
@@ -688,6 +734,24 @@ watch(
     if (scene) loadCover(src);
   },
 );
+
+watch(spineTitle, () => {
+  if (!scene || !book) return;
+  const img =
+    coverTexture && coverTexture.image
+      ? (coverTexture.image as HTMLImageElement)
+      : null;
+  disposeTexture(spineTexture);
+  spineTexture = paintSpine(img, spineTitle.value);
+  const spine = book.getObjectByName("spine") as Mesh | undefined;
+  if (spine && Array.isArray(spine.material)) {
+    const mats = spine.material as MeshPhysicalMaterial[];
+    const prev = mats[1];
+    mats[1] = coverMat(spineTexture, 0.68);
+    prev.map = null;
+    prev.dispose();
+  }
+});
 
 onMounted(() => {
   init();

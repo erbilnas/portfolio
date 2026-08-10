@@ -33,6 +33,7 @@ import { useSettings } from "~/composables/settings";
 
 const props = defineProps<{
   src: string;
+  title?: string;
   progressPercentage?: number;
 }>();
 
@@ -47,6 +48,12 @@ const CART_H = 1.58;
 const CART_D = 0.07;
 const PIN_COUNT = 11;
 const CART_SCALE = 0.7;
+
+const cartTitle = computed(() => {
+  const raw = (props.title ?? "").trim();
+  if (!raw) return "";
+  return raw.length > 48 ? `${raw.slice(0, 48)}…` : raw;
+});
 
 let renderer: WebGLRenderer | null = null;
 let scene: Scene | null = null;
@@ -84,7 +91,7 @@ function prepCanvasTexture(tex: CanvasTexture) {
   return tex;
 }
 
-function paintBackFace(): CanvasTexture {
+function paintBackFace(title = ""): CanvasTexture {
   const w = TEX_W;
   const h = TEX_H;
   const c = document.createElement("canvas");
@@ -104,20 +111,80 @@ function paintBackFace(): CanvasTexture {
   }
   ctx.restore();
 
-  ctx.strokeStyle = "rgba(255,255,255,0.1)";
-  ctx.lineWidth = 2.5;
-  ctx.lineCap = "round";
-  const lines = [
-    [w * 0.09, h * 0.1, w * 0.38],
-    [w * 0.09, h * 0.128, w * 0.26],
-    [w * 0.09, h * 0.156, w * 0.32],
-    [w * 0.09, h * 0.184, w * 0.2],
-  ] as const;
-  for (const [x, y, len] of lines) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + len, y);
-    ctx.stroke();
+  const label = title.trim();
+  if (label) {
+    // Game name above the contact well (Switch cart back label area)
+    const maxW = w * 0.78;
+    const cx = w * 0.5;
+    const cy = h * 0.26;
+    let fontPx = Math.round(w * 0.055);
+    ctx.font = `600 ${fontPx}px ui-sans-serif, system-ui, sans-serif`;
+
+    const words = label.split(/\s+/);
+    const lines: string[] = [];
+    let line = "";
+    for (const word of words) {
+      const next = line ? `${line} ${word}` : word;
+      if (ctx.measureText(next).width <= maxW) {
+        line = next;
+      } else {
+        if (line) lines.push(line);
+        line = word;
+      }
+    }
+    if (line) lines.push(line);
+    while (lines.length > 3) {
+      lines.pop();
+    }
+    if (lines.length === 3) {
+      const last = lines[2];
+      if (ctx.measureText(last).width > maxW) {
+        let clipped = last;
+        while (
+          clipped.length > 1 &&
+          ctx.measureText(`${clipped}…`).width > maxW
+        ) {
+          clipped = clipped.slice(0, -1);
+        }
+        lines[2] = `${clipped}…`;
+      }
+    }
+
+    while (fontPx > 22) {
+      ctx.font = `600 ${fontPx}px ui-sans-serif, system-ui, sans-serif`;
+      const widest = Math.max(...lines.map((l) => ctx.measureText(l).width));
+      if (widest <= maxW) break;
+      fontPx -= 2;
+    }
+    ctx.font = `600 ${fontPx}px ui-sans-serif, system-ui, sans-serif`;
+    const lineH = fontPx * 1.2;
+    const blockH = lines.length * lineH;
+    let y = cy - blockH / 2 + lineH / 2;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    for (const row of lines) {
+      ctx.fillStyle = "rgba(0,0,0,0.55)";
+      ctx.fillText(row, cx + 1.5, y + 1.5);
+      ctx.fillStyle = "rgba(220,220,220,0.88)";
+      ctx.fillText(row, cx, y);
+      y += lineH;
+    }
+  } else {
+    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = "round";
+    const lines = [
+      [w * 0.09, h * 0.1, w * 0.38],
+      [w * 0.09, h * 0.128, w * 0.26],
+      [w * 0.09, h * 0.156, w * 0.32],
+      [w * 0.09, h * 0.184, w * 0.2],
+    ] as const;
+    for (const [x, y, len] of lines) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + len, y);
+      ctx.stroke();
+    }
   }
 
   const rx = w * 0.09;
@@ -503,6 +570,21 @@ function applyFront(img: HTMLImageElement | null) {
   prev.dispose();
 }
 
+function applyBack(title = cartTitle.value) {
+  if (!cart) return;
+  disposeTexture(backTexture);
+  backTexture = paintBackFace(title);
+
+  const body = cart.getObjectByName("body") as Mesh | undefined;
+  if (!body || !Array.isArray(body.material)) return;
+
+  const mats = body.material as MeshPhysicalMaterial[];
+  const prev = mats[5];
+  mats[5] = makeFaceMaterial(backTexture, 0.66);
+  prev.map = null;
+  prev.dispose();
+}
+
 function syncProgressRing(pct?: number) {
   if (!scene || !cart) return;
   if (progressRing) {
@@ -635,7 +717,7 @@ function init() {
   rim.position.set(-0.4, 1.5, -3.2);
   scene.add(rim);
 
-  backTexture = paintBackFace();
+  backTexture = paintBackFace(cartTitle.value);
   frontTexture = paintFrontFrame(null);
   cart = buildCart(frontTexture, backTexture);
   scene.add(cart);
@@ -710,6 +792,10 @@ watch(
     if (scene) loadCover(src);
   },
 );
+
+watch(cartTitle, (title) => {
+  if (scene) applyBack(title);
+});
 
 watch(
   () => props.progressPercentage,
