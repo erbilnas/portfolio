@@ -1,17 +1,19 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const { version, socialLinks } = useAppConfig();
 
-const navigateTo = (url: string) => {
-  window.open(url, "_blank");
-};
+const releasesUrl = socialLinks.github
+  ? `${socialLinks.github}/erbilnas-com/releases`
+  : "https://github.com/erbilnas/erbilnas-com/releases";
 </script>
 
 <template>
-  <Button
-    variant="link"
-    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-    @click="() => navigateTo(`${socialLinks.github}/erbilnas-com/releases`)"
+  <a
+    :href="releasesUrl"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="text-xs text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
   >
-    Version {{ version }}
-  </Button>
+    {{ t("footer.version", { version }) }}
+  </a>
 </template>

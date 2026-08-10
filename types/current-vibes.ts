@@ -1,8 +1,18 @@
+export interface MediumWritingStats {
+  postsInFeed: number;
+  postsThisYear: number;
+  averageReadTime: number;
+  topics: string[];
+}
+
 export interface MediumPost {
   title: string;
   link: string;
   published_at: string;
   description: string;
+  categories?: string[];
+  readTime?: number;
+  stats?: MediumWritingStats;
 }
 
 export interface SingleGameDetail {
@@ -14,6 +24,7 @@ export interface SingleGameDetail {
   storefront: string;
   completion_time: number;
   status: "playing" | "completed";
+  genres?: string[];
 }
 
 export interface ReleaseByYear {
@@ -41,10 +52,21 @@ export interface Album {
   image: string;
 }
 
+export interface SpotifyRankItem {
+  label: string;
+  /** Relative weight for bars (usually Spotify popularity 0–100). */
+  count: number;
+  subtitle?: string;
+  popularity?: number;
+}
+
 export interface SpotifyStats {
-  topArtistsByMonth: { label: string; count: number }[];
-  topTracksByMonth?: { label: string; count: number }[];
+  topArtistsByMonth: SpotifyRankItem[];
+  topTracksByMonth?: SpotifyRankItem[];
   topTracksCount?: number;
+  topArtistsCount?: number;
+  topGenres?: string[];
+  timeRange?: "short_term" | "medium_term" | "long_term";
 }
 
 export interface MusicPlayerData {
@@ -59,6 +81,13 @@ export interface MusicPlayer {
   player: MusicPlayerData;
 }
 
+export interface TraktUserWatchStats {
+  moviesWatched: number;
+  showsWatched: number;
+  episodesWatched: number;
+  totalMinutes: number;
+}
+
 export interface TraktWatchedDetail {
   type: "movie" | "episode";
   title: string;
@@ -67,11 +96,30 @@ export interface TraktWatchedDetail {
   image: string;
   ids: { trakt?: number; slug?: string; imdb?: string; tmdb?: number };
   watched_at: string;
+  overview?: string;
+  tagline?: string;
+  rating?: number;
+  votes?: number;
+  runtime?: number;
+  genres?: string[];
+  stats?: TraktUserWatchStats;
 }
 
 export interface ContributionsByMonth {
   label: string;
   count: number;
+}
+
+export interface GitHubTopLanguage {
+  label: string;
+  count: number;
+  percentage: number;
+}
+
+export interface GitHubTopRepo {
+  label: string;
+  count: number;
+  url?: string;
 }
 
 export interface GitHubStats {
@@ -85,4 +133,30 @@ export interface GitHubStats {
   reposContributedTo?: number;
   year?: number;
   contributionsByMonth?: ContributionsByMonth[];
+  topLanguages?: GitHubTopLanguage[];
+  topRepos?: GitHubTopRepo[];
+}
+
+export interface GoodreadsReadingStats {
+  booksRead: number;
+  booksThisYear: number;
+  currentlyReading: number;
+  toRead: number;
+  averageRating?: number;
+  pagesRead?: number;
+  topAuthors?: string[];
+}
+
+export interface GoodreadsBook {
+  title: string;
+  author: string;
+  image: string;
+  link: string;
+  status: "reading" | "finished";
+  date?: string;
+  bookId?: string;
+  pages?: number;
+  userRating?: number;
+  averageRating?: number;
+  stats?: GoodreadsReadingStats;
 }

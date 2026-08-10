@@ -11,7 +11,7 @@ defineProps<Props>();
 
 <template>
   <BentoGridItem
-    class="p-6 space-y-3 w-[280px] md:w-[280px] flex-shrink-0 snap-start bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl hover:shadow-lg transition-all duration-300"
+    class="p-6 space-y-3 w-[280px] md:w-[280px] flex-shrink-0 snap-start bg-white dark:bg-neutral-950 border border-neutral-200/80 dark:border-white/10 rounded-2xl hover:shadow-lg transition-all duration-300"
   >
     <template #icon>
       <Icon

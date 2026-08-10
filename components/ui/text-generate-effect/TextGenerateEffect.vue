@@ -31,6 +31,7 @@ import {
 } from "vue";
 
 import { cn } from "@/lib/utils";
+import { useSettings } from "~/composables/settings";
 
 const props = withDefaults(
   defineProps<{
@@ -43,35 +44,48 @@ const props = withDefaults(
   { duration: 0.7, delay: 0, filter: true }
 );
 
+const { reducedMotion } = useSettings();
 const scope = ref(null);
 const wordsArray = computed(() => props.words.split(" "));
 
+// Visible by default — never gate copy on animation completing.
 const spanStyle = computed(() => ({
-  opacity: 0,
-  filter: props.filter ? "blur(10px)" : "none",
+  opacity: 1,
+  filter: "none",
   transition: `opacity ${props.duration}s, filter ${props.duration}s`,
 }));
 
+function shouldAnimate() {
+  if (reducedMotion.value) return false;
+  if (typeof window === "undefined" || !window.matchMedia) return false;
+  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 function animateWords() {
-  if (scope.value) {
-    const spans = (scope.value as HTMLElement).querySelectorAll("span");
+  if (!scope.value) return;
 
-    // Reset all spans to initial state
-    spans.forEach((span: HTMLElement) => {
-      span.style.opacity = "0";
-      span.style.filter = props.filter ? "blur(10px)" : "none";
+  const spans = (scope.value as HTMLElement).querySelectorAll("span");
+
+  spans.forEach((span: HTMLElement) => {
+    span.style.opacity = "1";
+    span.style.filter = "none";
+  });
+
+  if (!shouldAnimate()) return;
+
+  spans.forEach((span: HTMLElement) => {
+    span.style.opacity = "0";
+    span.style.filter = props.filter ? "blur(10px)" : "none";
+  });
+
+  setTimeout(() => {
+    spans.forEach((span: HTMLElement, index: number) => {
+      setTimeout(() => {
+        span.style.opacity = "1";
+        span.style.filter = props.filter ? "blur(0px)" : "none";
+      }, index * 200);
     });
-
-    // Animate them in
-    setTimeout(() => {
-      spans.forEach((span: HTMLElement, index: number) => {
-        setTimeout(() => {
-          span.style.opacity = "1";
-          span.style.filter = props.filter ? "blur(0px)" : "none";
-        }, index * 200);
-      });
-    }, props.delay);
-  }
+  }, props.delay);
 }
 
 onMounted(() => {
@@ -80,7 +94,6 @@ onMounted(() => {
   });
 });
 
-// Watch for changes in words prop and re-animate
 watch(
   () => props.words,
   () => {

@@ -12,6 +12,28 @@ interface ContributionWeek {
   contributionDays: ContributionDay[];
 }
 
+interface LanguageEdge {
+  size: number;
+  node?: { name?: string | null } | null;
+}
+
+interface RepoLanguageNode {
+  languages?: {
+    edges?: LanguageEdge[] | null;
+  } | null;
+}
+
+interface CommitRepoContribution {
+  repository?: {
+    name?: string | null;
+    nameWithOwner?: string | null;
+    url?: string | null;
+  } | null;
+  contributions?: {
+    totalCount?: number | null;
+  } | null;
+}
+
 interface ContributionsCollectionResponse {
   data?: {
     user?: {
@@ -25,7 +47,11 @@ interface ContributionsCollectionResponse {
           totalContributions: number;
           weeks: ContributionWeek[];
         };
+        commitContributionsByRepository?: CommitRepoContribution[] | null;
       };
+      repositories?: {
+        nodes?: RepoLanguageNode[] | null;
+      } | null;
     };
   };
   errors?: Array<{ message: string }>;
@@ -37,14 +63,25 @@ const aggregateContributionsByMonth = (
   if (!weeks?.length) return [];
   const monthCounts: Record<string, number> = {};
   const monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
   for (const week of weeks) {
     for (const day of week.contributionDays ?? []) {
       if (!day?.date) continue;
       const monthKey = day.date.slice(0, 7);
-      monthCounts[monthKey] = (monthCounts[monthKey] ?? 0) + (day.contributionCount ?? 0);
+      monthCounts[monthKey] =
+        (monthCounts[monthKey] ?? 0) + (day.contributionCount ?? 0);
     }
   }
   return Object.entries(monthCounts)
@@ -54,6 +91,52 @@ const aggregateContributionsByMonth = (
       const label = `${monthNames[parseInt(m, 10) - 1]} ${y}`;
       return { label, count };
     });
+};
+
+const aggregateTopLanguages = (
+  nodes: RepoLanguageNode[] | undefined,
+  limit = 5,
+): { label: string; count: number; percentage: number }[] => {
+  if (!nodes?.length) return [];
+  const totals: Record<string, number> = {};
+  for (const repo of nodes) {
+    for (const edge of repo.languages?.edges ?? []) {
+      const name = edge.node?.name;
+      if (!name || !edge.size) continue;
+      totals[name] = (totals[name] ?? 0) + edge.size;
+    }
+  }
+  const entries = Object.entries(totals).sort(([, a], [, b]) => b - a);
+  const top = entries.slice(0, limit);
+  const sum = top.reduce((s, [, size]) => s + size, 0) || 1;
+  return top.map(([label, count]) => ({
+    label,
+    count,
+    percentage: Math.round((count / sum) * 100),
+  }));
+};
+
+const mapTopRepos = (
+  items: CommitRepoContribution[] | undefined,
+  limit = 5,
+): { label: string; count: number; url?: string }[] => {
+  if (!items?.length) return [];
+  return items
+    .map((item) => {
+      const repo = item.repository;
+      const count = item.contributions?.totalCount ?? 0;
+      const label = repo?.name || repo?.nameWithOwner;
+      if (!label || count <= 0) return null;
+      return {
+        label,
+        count,
+        url: repo?.url || undefined,
+      };
+    })
+    .filter((item): item is { label: string; count: number; url?: string } =>
+      Boolean(item),
+    )
+    .slice(0, limit);
 };
 
 const parseUsernameFromUrl = (url: string | undefined): string | null => {
@@ -113,7 +196,7 @@ export default defineEventHandler(async (event) => {
 
     const userData = (await userResponse.json()) as GitHubUserResponse;
 
-    // Fetch contributions (GraphQL API)
+    // Fetch contributions + language mix (GraphQL API)
     const now = new Date();
     const startOfYear = new Date(now.getFullYear(), 0, 1);
     const graphqlQuery = {
@@ -132,6 +215,33 @@ export default defineEventHandler(async (event) => {
                   contributionDays {
                     contributionCount
                     date
+                  }
+                }
+              }
+              commitContributionsByRepository(maxRepositories: 5) {
+                repository {
+                  name
+                  nameWithOwner
+                  url
+                }
+                contributions {
+                  totalCount
+                }
+              }
+            }
+            repositories(
+              first: 40
+              ownerAffiliations: OWNER
+              isFork: false
+              orderBy: { field: PUSHED_AT, direction: DESC }
+            ) {
+              nodes {
+                languages(first: 5, orderBy: { field: SIZE, direction: DESC }) {
+                  edges {
+                    size
+                    node {
+                      name
+                    }
                   }
                 }
               }
@@ -171,10 +281,15 @@ export default defineEventHandler(async (event) => {
       throw new Error(graphqlData.errors[0]?.message ?? "GraphQL error");
     }
 
-    const collection = graphqlData.data?.user?.contributionsCollection ?? null;
+    const user = graphqlData.data?.user;
+    const collection = user?.contributionsCollection ?? null;
     const calendar = collection?.contributionCalendar;
     const weeks = calendar?.weeks ?? [];
     const contributionsByMonth = aggregateContributionsByMonth(weeks);
+    const topLanguages = aggregateTopLanguages(user?.repositories?.nodes ?? []);
+    const topRepos = mapTopRepos(
+      collection?.commitContributionsByRepository ?? [],
+    );
 
     return {
       username: userData.login,
@@ -183,10 +298,14 @@ export default defineEventHandler(async (event) => {
       commits: collection?.totalCommitContributions ?? 0,
       pullRequests: collection?.totalPullRequestContributions ?? 0,
       issues: collection?.totalIssueContributions ?? 0,
-      pullRequestReviews: collection?.totalPullRequestReviewContributions ?? 0,
-      reposContributedTo: collection?.totalRepositoriesWithContributedCommits ?? 0,
+      pullRequestReviews:
+        collection?.totalPullRequestReviewContributions ?? 0,
+      reposContributedTo:
+        collection?.totalRepositoriesWithContributedCommits ?? 0,
       year: now.getFullYear(),
       contributionsByMonth,
+      topLanguages,
+      topRepos,
     };
   } catch (error) {
     console.error("Error fetching GitHub stats:", error);

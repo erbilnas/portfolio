@@ -2,11 +2,11 @@
   "nav": {
     "welcome": "Welcome",
     "aboutMe": "About Me",
-    "sponsoredByMe": "Sponsored (by me)",
     "skills": "Skills",
     "experience": "Experience",
     "projects": "Projects",
     "currentVibes": "Current Vibes",
+    "vibesLive": "Live",
     "resume": "Resume",
     "settings": "Settings",
     "multipleLanguagesSupported": "Multiple languages are supported"
@@ -14,32 +14,33 @@
   "settings": {
     "title": "Settings",
     "disableCustomCursor": "Disable Custom Cursor",
-    "disableCustomCursorDescription": "Disable the custom cursor for better accessibility",
+    "disableCustomCursorDescription": "Use the system cursor instead",
     "theme": "Theme",
+    "themeDescription": "Light, dark, or follow system",
     "language": "Language",
+    "languageDescription": "Site language",
     "languageSwitchToast": "Suggest language based on browser",
-    "languageSwitchToastDescription": "Show a prompt to switch language when your browser is set to Turkish or Japanese",
+    "languageSwitchToastDescription": "Prompt when browser is Turkish or Japanese",
     "light": "Light",
     "dark": "Dark",
     "system": "System",
     "languageSwitchError": "Failed to switch language. Please try again.",
     "reducedMotion": "Reduce Motion",
-    "reducedMotionDescription": "Minimize animations for better accessibility",
-    "marqueeSpeed": "Projects Marquee Speed",
+    "reducedMotionDescription": "Ease animations",
     "fontSize": "Font Size",
+    "fontSizeDescription": "Base text scale",
     "fontSizeDefault": "Default",
     "fontSizeLarge": "Large",
     "fontSizeXLarge": "Extra Large",
     "fontFamily": "Font",
+    "fontFamilyDescription": "Typeface for the site",
     "fontSans": "Sans",
     "fontSerif": "Serif",
     "fontMono": "Mono",
-    "disableCardHoverEffects": "Disable Card Hover Effects",
-    "disableCardHoverEffectsDescription": "Reduce blur and scale effects on Current Vibes cards",
     "highContrast": "High Contrast",
-    "highContrastDescription": "Increase contrast for better visibility",
+    "highContrastDescription": "Stronger text contrast",
     "resetToDefaults": "Reset to Defaults",
-    "resetToDefaultsDescription": "Restore all settings to their default values",
+    "resetToDefaultsDescription": "Restore default settings",
     "resetSuccess": "Settings reset successfully",
     "keyboardShortcuts": "Keyboard Shortcuts",
     "keyboardShortcutsDescription": "View available keyboard shortcuts",
@@ -48,77 +49,75 @@
     "shortcutScrollToTop": "Scroll to top",
     "about": "About",
     "builtWith": "Built with Vue, Nuxt, and Tailwind CSS",
-    "version": "Version"
+    "version": "Version",
+    "sources": "Sources"
   },
   "welcome": {
     "hello": "Hello",
     "introduction": "It's me, {name}.",
     "name": "Erbil",
+    "socialMore": "More",
     "flippingWords": [
-      "an ever-learning technology enthusiast",
-      "a passionate software engineer",
-      "a dedicated team player",
-      "a problem solver",
-      "a quick learner",
-      "a creative thinker",
       "vibe coding like a pro",
-      "playing games, just for fun"
+      "playing games, just for fun",
+      "building apps I actually ship",
+      "chasing better zeros and ones",
+      "still learning, still curious"
     ]
   },
   "aboutMe": {
     "description": "I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm {age} years old, born and raised in Turkey."
   },
-  "sponsoredByMe": {
-    "title": "Sponsored (by me)",
+  "projects": {
+    "title": "Projects",
     "description": "Products and apps I build, maintain, and ship.",
     "empty": "Add entries in constants/sponsored-apps.ts and optional screenshots under public/sponsored/.",
     "visitExternal": "Visit",
     "visitInternal": "Open",
     "cardAriaLabel": "{name}: {tagline}",
-    "enterFullscreen": "Show grid in fullscreen",
-    "exitFullscreen": "Exit fullscreen",
-    "hintGrid": "Drag to pan the grid (tiles repeat) — click a tile to open that project. Use fullscreen for a larger view.",
-    "hintReducedMotion": "All projects are in the row below. Hover or focus a card to read the tagline, then open the link.",
-    "apps": {
-      "farkle": {
-        "name": "Farkle",
-        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer.",
-        "gridDescription": "Online Farkle — two players, six dice, rooms and solo vs computer."
-      },
-      "baklavue": {
-        "name": "BaklaVue",
-        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables.",
-        "gridDescription": "Vue 3 UI kit for Baklava — type-safe components, v-model, slots, composables."
-      },
-      "nestConcept": {
-        "name": "Nest Concept",
-        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions.",
-        "gridDescription": "Architecture, landscape, structure, and construction — modern, innovative solutions."
-      },
-      "dontBeAfk": {
-        "name": "Don't Be AFK",
-        "tagline": "Bash CLI and macOS UI that automates clicks at custom coordinates on an interval — keep your Mac from going idle during long tasks, screen savers, or \"online\" status.",
-        "gridDescription": "Bash CLI and macOS UI — automated clicks on an interval to avoid idle lock-in."
-      },
-      "readMyScreen": {
-        "name": "Read My Screen",
-        "tagline": "A Raycast extension that turns screenshots, clipboard images, image files, and the active browser tab into AI-powered explanations, using OpenAI (GPT-4o and more), Anthropic Claude, or Google Gemini.",
-        "gridDescription": "Raycast extension — screenshots, clipboard, files, and browser tab to AI explanations via OpenAI, Claude, or Gemini."
-      }
-    }
-  },
-  "projects": {
-    "title": "Projects",
-    "description": "A showcase of projects I've worked on, featuring innovative solutions and creative implementations",
-    "speed": "Speed",
-    "speedSlow": "Slow",
-    "speedMedium": "Medium",
-    "speedFast": "Fast",
+    "openSource": "Open source",
     "visit": "Visit",
     "viewSource": "View Source",
     "visitTitle": "Visit {name} - Live Demo",
     "githubTitle": "View {name} source code on GitHub",
-    "items": {}
+    "apps": {
+      "farkle": {
+        "name": "Farkle",
+        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer."
+      },
+      "baklavue": {
+        "name": "BaklaVue",
+        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables."
+      },
+      "nestConcept": {
+        "name": "Nest Concept",
+        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions."
+      },
+      "dontBeAfk": {
+        "name": "Don't Be AFK",
+        "tagline": "Keep your status active and never go idle. Customizable mouse movement and clicks with a global hotkey, startup launch, and daily activity stats."
+      },
+      "gitPersona": {
+        "name": "Git Persona",
+        "tagline": "Switch git identities by repository. Named personas with email, name, and signing key, plus a menu bar panel for quick switches."
+      },
+      "cura": {
+        "name": "Cura",
+        "tagline": "Switch Cursor accounts without friction. Isolated profiles with their own settings, extensions, and sign-in, launched from the menu bar."
+      },
+      "readMyScreen": {
+        "name": "Read My Screen",
+        "tagline": "A Raycast extension that turns screenshots, clipboard images, image files, and the active browser tab into AI-powered explanations, using OpenAI (GPT-4o and more), Anthropic Claude, or Google Gemini."
+      },
+      "crossingRhine": {
+        "name": "Crossing of the Rhine: A.D. 406",
+        "tagline": "A choice-driven historical RPG about the Migration Period. Lead a tribe at Rome's frontier and reshape the Crossing of the Rhine through the decisions you make."
+      },
+      "spaceflash": {
+        "name": "Spaceflash",
+        "tagline": "A wave-based VR shooter for Quest and other headsets. Defend your moon base as endless enemies close in, and chase high scores on the board."
+      }
+    }
   },
   "skills": {
     "title": "Skills",
@@ -321,6 +320,22 @@
         "name": "Canva",
         "description": "Online graphic design platform with drag-and-drop interface for creating social media graphics, presentations, and marketing materials"
       },
+      "azure": {
+        "name": "Azure",
+        "description": "Microsoft cloud platform for building, deploying, and managing applications with compute, storage, networking, and managed services"
+      },
+      "firebase": {
+        "name": "Firebase",
+        "description": "Google's app development platform offering authentication, realtime database, cloud functions, hosting, and analytics in one toolkit"
+      },
+      "swift": {
+        "name": "Swift",
+        "description": "Apple's modern programming language for building apps across iOS, macOS, watchOS, and tvOS with safety and performance in mind"
+      },
+      "penpot": {
+        "name": "Penpot",
+        "description": "Open-source design and prototyping tool for UI/UX workflows, built for collaboration between designers and developers"
+      },
       "turkish": {
         "name": "Turkish",
         "description": "Native speaker with full professional proficiency in reading, writing, and speaking"
@@ -442,7 +457,10 @@
         "period": "June 2019 - August 2019",
         "location": "On-site",
         "description": "Gained experience in developing web applications using Vue.js.",
-        "technologies": ["Vue", "ASP.NET Core"]
+        "technologies": [
+          "Vue",
+          "ASP.NET Core"
+        ]
       },
       {
         "company": "Freelancer",
@@ -470,7 +488,12 @@
         "period": "August 2018 - September 2018",
         "location": "On-site",
         "description": "Gained experience in developing hardware and software solutions.",
-        "technologies": ["Assembly", "C", "C++", "Computer Architecture"]
+        "technologies": [
+          "Assembly",
+          "C",
+          "C++",
+          "Computer Architecture"
+        ]
       },
       {
         "company": "Otokar Automotive and Defense Industries",
@@ -478,7 +501,13 @@
         "period": "July 2017 - August 2017",
         "location": "On-site",
         "description": "Gained experience in developing hardware and software solutions.",
-        "technologies": ["C#", ".NET", "SQL", "MVC", "Entity Framework"]
+        "technologies": [
+          "C#",
+          ".NET",
+          "SQL",
+          "MVC",
+          "Entity Framework"
+        ]
       }
     ],
     "educations": [
@@ -574,17 +603,30 @@
   "currentVibes": {
     "title": "Current Vibes",
     "description": "What I'm currently up to",
+    "railAriaLabel": "Current vibes",
+    "cardAriaLabel": "{category}: {title}",
+    "tabs": {
+      "game": "Gaming",
+      "trakt": "Watching",
+      "reading": "Reading",
+      "music": "Music",
+      "blog": "Writing",
+      "github": "Coding",
+      "map": "Travel"
+    },
     "cards": {
       "game": {
         "defaultTitle": "Game",
-        "currentlyPlaying": "I'm currently playing",
-        "recentlyCompleted": "I recently completed"
+        "currentlyPlaying": "Currently playing",
+        "recentlyCompleted": "Recently completed"
       },
       "gameStats": {
         "statsTitle": "My Gaming Stats",
         "statsCategory": "HowLongToBeat summary",
         "totalHours": "Total hours",
         "platforms": "Platforms",
+        "platformsView": "View",
+        "genres": "Genres",
         "gamesCompleted": "games completed",
         "complete": "complete",
         "completionRate": "completion rate",
@@ -592,34 +634,76 @@
         "pre1990": "Pre-1990",
         "year1990s": "1990-1999",
         "year2000s": "2000-2009",
-        "year2010s": "2010+"
+        "year2010s": "2010-2019",
+        "year2020s": "2020+"
       },
       "music": {
         "noSongPlaying": "No song playing",
-        "listeningTo": "I'm listening to"
+        "listeningTo": "Listening to",
+        "lastPlayed": "Last played",
+        "emptyHint": "Nothing playing right now. Here are this month's favorites."
       },
       "blog": {
         "defaultTitle": "Blog Post",
-        "latestPost": "The latest blog post I've written",
+        "latestPost": "Latest post",
         "published": "Published",
-        "readTime": "Read time"
+        "readTime": "Read time",
+        "statsTitle": "Recent writing",
+        "posts": "In feed",
+        "thisYear": "This year",
+        "avgReadTime": "Avg. read",
+        "topics": "Topics"
       },
       "map": {
         "title": "Places I've Been",
-        "category": "Biggest travel achievements",
-        "completion": "World explored"
+        "category": "Travel",
+        "completion": "World explored",
+        "description": "Pinned stops on the globe, with the full trail still growing.",
+        "pinned": "On the globe",
+        "itinerary": "Highlighted stops",
+        "moreStops": "+{count} more",
+        "moreStopsTitle": "More stops",
+        "otherRegion": "Elsewhere"
       },
       "trakt": {
         "defaultTitle": "Movie or TV Show",
-        "lastWatched": "I recently watched",
+        "lastWatched": "Recently watched",
         "movie": "Movie",
         "episode": "TV Episode",
         "type": "Type",
-        "watched": "Watched"
+        "watched": "Watched",
+        "minutes": "min",
+        "genres": "Genres",
+        "rating": "Rating",
+        "votes": "votes",
+        "totalWatched": "Hours watched",
+        "moviesWatched": "Movies",
+        "showsWatched": "Shows",
+        "episodesWatched": "Episodes",
+        "statsTitle": "All-time stats"
+      },
+      "reading": {
+        "defaultTitle": "Book",
+        "currentlyReading": "Currently reading",
+        "recentlyFinished": "Recently finished",
+        "author": "Author",
+        "added": "Added",
+        "finished": "Finished",
+        "pages": "Pages",
+        "myRating": "My rating",
+        "avgRating": "Community",
+        "statsTitle": "Reading stats",
+        "booksRead": "Read",
+        "thisYear": "This year",
+        "inProgress": "In progress",
+        "toRead": "Want to read",
+        "avgMyRating": "Avg. rating",
+        "pagesRead": "Pages read",
+        "topAuthors": "Top authors"
       },
       "github": {
         "title": "GitHub Stats",
-        "category": "My coding activity",
+        "category": "Coding activity",
         "commits": "commits",
         "repos": "repositories",
         "contributions": "contributions",
@@ -630,14 +714,23 @@
         "statsCategory": "GitHub activity this year",
         "pullRequestReviews": "PR reviews",
         "reposContributedTo": "repos contributed to",
-        "contributionsByMonth": "Contributions by month"
+        "contributionsByMonth": "Contributions by month",
+        "topLanguages": "Top languages",
+        "topRepos": "Most active repos"
       },
       "spotifyStats": {
-        "statsCategory": "Top artists this month",
-        "topArtists": "top artists",
-        "topTracks": "top tracks",
+        "statsCategory": "Listening lately",
+        "topArtists": "artists",
+        "topTracks": "tracks",
+        "topGenres": "genres",
         "topArtistsChart": "Top artists",
-        "topTracksChart": "Top tracks"
+        "topTracksChart": "Top tracks",
+        "genres": "Top genres",
+        "period": {
+          "short_term": "Last 4 weeks",
+          "medium_term": "Last 6 months",
+          "long_term": "All time"
+        }
       },
       "default": {
         "title": "Card",
@@ -667,6 +760,9 @@
     "goBack": "Go Back"
   },
   "footer": {
+    "label": "Site footer",
+    "farewell": "Farewell",
+    "version": "Version {version}",
     "copyright": {
       "madeWith": "Made with ❤️"
     },
@@ -679,6 +775,10 @@
       "spotify": {
         "name": "Spotify",
         "description": "Provides data for my music section."
+      },
+      "goodreads": {
+        "name": "Goodreads",
+        "description": "Provides data for my reading section."
       },
       "rss2json": {
         "name": "RSS2JSON",

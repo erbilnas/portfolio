@@ -2,11 +2,11 @@
   "nav": {
     "welcome": "ようこそ",
     "aboutMe": "自己紹介",
-    "sponsoredByMe": "スポンサード（自分）",
     "skills": "スキル",
     "experience": "経歴",
     "projects": "プロジェクト",
     "currentVibes": "現在の活動",
+    "vibesLive": "ライブ",
     "resume": "履歴書",
     "settings": "設定",
     "multipleLanguagesSupported": "複数言語に対応しています"
@@ -14,32 +14,33 @@
   "settings": {
     "title": "設定",
     "disableCustomCursor": "カスタムカーソルを無効にする",
-    "disableCustomCursorDescription": "アクセシビリティ向上のためカスタムカーソルを無効にします",
+    "disableCustomCursorDescription": "システムのカーソルを使う",
     "theme": "テーマ",
+    "themeDescription": "ライト、ダーク、またはシステム",
     "language": "言語",
+    "languageDescription": "サイトの言語",
     "languageSwitchToast": "ブラウザに基づいて言語を提案",
-    "languageSwitchToastDescription": "ブラウザがトルコ語または日本語に設定されている場合、言語切り替えのプロンプトを表示",
+    "languageSwitchToastDescription": "ブラウザがトルコ語または日本語のとき提案",
     "light": "ライト",
     "dark": "ダーク",
     "system": "システム",
     "languageSwitchError": "言語の切り替えに失敗しました。もう一度お試しください。",
     "reducedMotion": "モーションを減らす",
-    "reducedMotionDescription": "アクセシビリティ向上のためアニメーションを最小限にします",
-    "marqueeSpeed": "プロジェクトマーキー速度",
+    "reducedMotionDescription": "アニメーションを抑える",
     "fontSize": "フォントサイズ",
+    "fontSizeDescription": "基本の文字サイズ",
     "fontSizeDefault": "標準",
     "fontSizeLarge": "大",
     "fontSizeXLarge": "特大",
     "fontFamily": "フォント",
+    "fontFamilyDescription": "サイトの書体",
     "fontSans": "サンセリフ",
     "fontSerif": "セリフ",
     "fontMono": "等幅",
-    "disableCardHoverEffects": "カードホバー効果を無効にする",
-    "disableCardHoverEffectsDescription": "Current Vibesカードのぼかしとスケール効果を減らします",
     "highContrast": "ハイコントラスト",
-    "highContrastDescription": "視認性向上のためコントラストを高めます",
+    "highContrastDescription": "文字のコントラストを上げる",
     "resetToDefaults": "デフォルトに戻す",
-    "resetToDefaultsDescription": "すべての設定をデフォルト値に復元します",
+    "resetToDefaultsDescription": "設定を初期値に戻す",
     "resetSuccess": "設定をリセットしました",
     "keyboardShortcuts": "キーボードショートカット",
     "keyboardShortcutsDescription": "利用可能なキーボードショートカットを表示",
@@ -48,21 +49,20 @@
     "shortcutScrollToTop": "一番上にスクロール",
     "about": "について",
     "builtWith": "Vue、Nuxt、Tailwind CSSで構築",
-    "version": "バージョン"
+    "version": "バージョン",
+    "sources": "ソース"
   },
   "welcome": {
     "hello": "こんにちは",
     "introduction": "私、{name}です。",
     "name": "Erbil",
+    "socialMore": "もっと",
     "flippingWords": [
-      "常に学び続けるテクノロジー愛好家",
-      "情熱的なソフトウェアエンジニア",
-      "献身的なチームプレイヤー",
-      "問題解決者",
-      "素早い学習者",
-      "創造的な思考家",
       "プロのようにコーディング",
-      "ゲームで楽しむ"
+      "ゲームで楽しむ",
+      "本当に出すアプリを作る",
+      "ゼロとイチをもっとうまく",
+      "今も学び、今も好奇心"
     ]
   },
   "aboutMe": {
@@ -70,16 +70,54 @@
   },
   "projects": {
     "title": "プロジェクト",
-    "description": "革新的なソリューションと創造的な実装を特徴とする、私が携わったプロジェクトのショーケース",
-    "speed": "速度",
-    "speedSlow": "遅い",
-    "speedMedium": "中",
-    "speedFast": "速い",
+    "description": "自分が開発・保守・リリースしているプロダクトとアプリです。",
+    "empty": "エントリは constants/sponsored-apps.ts に追加し、任意の画像は public/sponsored/ に置いてください。",
+    "visitExternal": "サイトへ",
+    "visitInternal": "開く",
+    "cardAriaLabel": "{name}：{tagline}",
+    "openSource": "オープンソース",
     "visit": "訪問",
     "viewSource": "ソースを表示",
     "visitTitle": "{name} - ライブデモを訪問",
     "githubTitle": "GitHubで{name}のソースコードを表示",
-    "items": {}
+    "apps": {
+      "farkle": {
+        "name": "Farkle",
+        "tagline": "オンラインでファークルをプレイ — 2人、6つのサイコロ、中世風の賭け。ルームを作成して友達を招待するか、コンピュータとソロ対戦できます。"
+      },
+      "baklavue": {
+        "name": "BaklaVue",
+        "tagline": "Trendyol Baklava 向けの Vue 3 UI キット。Baklava の Web コンポーネントと Vue のリアクティブなエコシステムをつなぎ、v-model・スロット・コンポーザブルで型安全なコンポーネントを実現します。"
+      },
+      "nestConcept": {
+        "name": "Nest Concept",
+        "tagline": "建築・ランドスケープ・構造・建設の各分野でプロフェッショナルなサービスを提供。モダンで革新的なソリューションのご相談はお問い合わせください。"
+      },
+      "dontBeAfk": {
+        "name": "Don't Be AFK",
+        "tagline": "ステータスをアクティブに保ち、アイドルにさせません。グローバルホットキー、起動時自動起動、日次アクティビティ統計付きで、マウス移動とクリックをカスタマイズできます。"
+      },
+      "gitPersona": {
+        "name": "Git Persona",
+        "tagline": "リポジトリごとに Git の識別情報を切り替え。メール・名前・署名キーの名前付きペルソナと、メニューバーからのすばやい切替パネル。"
+      },
+      "cura": {
+        "name": "Cura",
+        "tagline": "Cursor アカウントをスムーズに切り替え。設定・拡張機能・サインインが分離されたプロファイルを、メニューバーから起動。"
+      },
+      "readMyScreen": {
+        "name": "Read My Screen",
+        "tagline": "スクリーンショット、クリップボードの画像、画像ファイル、アクティブなブラウザタブを、OpenAI（GPT-4o など）、Anthropic Claude、Google Gemini による AI 解説に変える Raycast 拡張機能。"
+      },
+      "crossingRhine": {
+        "name": "Crossing of the Rhine: A.D. 406",
+        "tagline": "民族大移動を描く選択式の歴史RPG。ローマ辺境の部族を率い、プレイヤーの決断でライン川渡河の行方を変えていく。"
+      },
+      "spaceflash": {
+        "name": "Spaceflash",
+        "tagline": "Quest など向けのウェーブ制 VR シューター。月面基地を押し寄せる敵から守り、ハイスコアを競う。"
+      }
+    }
   },
   "skills": {
     "title": "スキル",
@@ -282,6 +320,22 @@
         "name": "Canva",
         "description": "ソーシャルメディアグラフィック、プレゼンテーション、マーケティング資料を作成するためのドラッグアンドドロップインターフェースを備えたオンライングラフィックデザインプラットフォーム"
       },
+      "azure": {
+        "name": "Azure",
+        "description": "コンピューティング、ストレージ、ネットワーク、マネージドサービスでアプリの構築・デプロイ・管理を行うMicrosoftのクラウドプラットフォーム"
+      },
+      "firebase": {
+        "name": "Firebase",
+        "description": "認証、リアルタイムデータベース、クラウド関数、ホスティング、分析を一つのツールキットで提供するGoogleのアプリ開発プラットフォーム"
+      },
+      "swift": {
+        "name": "Swift",
+        "description": "安全性とパフォーマンスを重視した、iOS・macOS・watchOS・tvOS向けアプリ開発のためのAppleのモダンなプログラミング言語"
+      },
+      "penpot": {
+        "name": "Penpot",
+        "description": "デザイナーと開発者のコラボレーション向けに作られた、オープンソースのUI/UXデザイン＆プロトタイピングツール"
+      },
       "turkish": {
         "name": "トルコ語",
         "description": "読み、書き、話すにおいて完全な専門的習熟度を持つネイティブスピーカー"
@@ -403,7 +457,10 @@
         "period": "2019年6月 - 2019年8月",
         "location": "オフィス",
         "description": "Vue.jsを使用したWebアプリケーション開発の経験を積みました。",
-        "technologies": ["Vue", "ASP.NET Core"]
+        "technologies": [
+          "Vue",
+          "ASP.NET Core"
+        ]
       },
       {
         "company": "Freelancer",
@@ -431,7 +488,12 @@
         "period": "2018年8月 - 2018年9月",
         "location": "オフィス",
         "description": "ハードウェアとソフトウェアソリューションの開発経験を積みました。",
-        "technologies": ["Assembly", "C", "C++", "コンピュータアーキテクチャ"]
+        "technologies": [
+          "Assembly",
+          "C",
+          "C++",
+          "コンピュータアーキテクチャ"
+        ]
       },
       {
         "company": "Otokar Automotive and Defense Industries",
@@ -439,7 +501,13 @@
         "period": "2017年7月 - 2017年8月",
         "location": "オフィス",
         "description": "ハードウェアとソフトウェアソリューションの開発経験を積みました。",
-        "technologies": ["C#", ".NET", "SQL", "MVC", "Entity Framework"]
+        "technologies": [
+          "C#",
+          ".NET",
+          "SQL",
+          "MVC",
+          "Entity Framework"
+        ]
       }
     ],
     "educations": [
@@ -535,17 +603,30 @@
   "currentVibes": {
     "title": "現在の活動",
     "description": "今取り組んでいること",
+    "railAriaLabel": "現在の活動",
+    "cardAriaLabel": "{category}: {title}",
+    "tabs": {
+      "game": "ゲーム",
+      "trakt": "視聴",
+      "reading": "読書",
+      "music": "音楽",
+      "blog": "記事",
+      "github": "コード",
+      "map": "旅行"
+    },
     "cards": {
       "game": {
         "defaultTitle": "ゲーム",
-        "currentlyPlaying": "現在プレイ中",
-        "recentlyCompleted": "最近クリアしました"
+        "currentlyPlaying": "プレイ中",
+        "recentlyCompleted": "最近クリア"
       },
       "gameStats": {
         "statsTitle": "ゲーム統計",
         "statsCategory": "HowLongToBeatサマリー",
         "totalHours": "総プレイ時間",
         "platforms": "プラットフォーム",
+        "platformsView": "表示",
+        "genres": "ジャンル",
         "gamesCompleted": "クリアしたゲーム",
         "complete": "クリア",
         "completionRate": "クリア率",
@@ -553,34 +634,76 @@
         "pre1990": "1990年以前",
         "year1990s": "1990-1999",
         "year2000s": "2000-2009",
-        "year2010s": "2010年以降"
+        "year2010s": "2010-2019",
+        "year2020s": "2020年以降"
       },
       "music": {
         "noSongPlaying": "再生中の曲はありません",
-        "listeningTo": "聴いています"
+        "listeningTo": "聴いている曲",
+        "lastPlayed": "最近再生した曲",
+        "emptyHint": "いま再生中の曲はありません。今月のお気に入りはこちら。"
       },
       "blog": {
         "defaultTitle": "ブログ記事",
-        "latestPost": "最新のブログ記事",
+        "latestPost": "最新記事",
         "published": "公開日",
-        "readTime": "読了時間"
+        "readTime": "読了時間",
+        "statsTitle": "最近の執筆",
+        "posts": "フィード内",
+        "thisYear": "今年",
+        "avgReadTime": "平均読了",
+        "topics": "トピック"
       },
       "map": {
         "title": "訪れた場所",
-        "category": "旅行の成果",
-        "completion": "探索した世界"
+        "category": "旅行",
+        "completion": "探索した世界",
+        "description": "グローブにピンした滞在地。旅はまだ続いている。",
+        "pinned": "グローブ上",
+        "itinerary": "ハイライト",
+        "moreStops": "+{count}件",
+        "moreStopsTitle": "その他の滞在地",
+        "otherRegion": "その他"
       },
       "trakt": {
         "defaultTitle": "映画またはテレビ番組",
-        "lastWatched": "最近視聴しました",
+        "lastWatched": "最近視聴",
         "movie": "映画",
         "episode": "テレビエピソード",
         "type": "種類",
-        "watched": "視聴"
+        "watched": "視聴",
+        "minutes": "分",
+        "genres": "ジャンル",
+        "rating": "評価",
+        "votes": "票",
+        "totalWatched": "視聴時間",
+        "moviesWatched": "映画",
+        "showsWatched": "番組",
+        "episodesWatched": "エピソード",
+        "statsTitle": "通算統計"
+      },
+      "reading": {
+        "defaultTitle": "本",
+        "currentlyReading": "読書中",
+        "recentlyFinished": "最近読了",
+        "author": "著者",
+        "added": "追加",
+        "finished": "読了",
+        "pages": "ページ",
+        "myRating": "自分の評価",
+        "avgRating": "コミュニティ",
+        "statsTitle": "読書統計",
+        "booksRead": "読了",
+        "thisYear": "今年",
+        "inProgress": "読書中",
+        "toRead": "読みたい",
+        "avgMyRating": "平均評価",
+        "pagesRead": "読んだページ",
+        "topAuthors": "よく読む著者"
       },
       "github": {
         "title": "GitHub統計",
-        "category": "コーディング活動",
+        "category": "コーディング",
         "commits": "コミット",
         "repos": "リポジトリ",
         "contributions": "コントリビューション",
@@ -591,14 +714,23 @@
         "statsCategory": "今年のGitHub活動",
         "pullRequestReviews": "PRレビュー",
         "reposContributedTo": "コントリビュートしたリポジトリ",
-        "contributionsByMonth": "月別コントリビューション"
+        "contributionsByMonth": "月別コントリビューション",
+        "topLanguages": "よく使う言語",
+        "topRepos": "最もアクティブなリポジトリ"
       },
       "spotifyStats": {
-        "statsCategory": "今月のトップアーティスト",
-        "topArtists": "トップアーティスト",
-        "topTracks": "トップトラック",
+        "statsCategory": "最近のリスニング",
+        "topArtists": "アーティスト",
+        "topTracks": "トラック",
+        "topGenres": "ジャンル",
         "topArtistsChart": "トップアーティスト",
-        "topTracksChart": "トップトラック"
+        "topTracksChart": "トップトラック",
+        "genres": "トップジャンル",
+        "period": {
+          "short_term": "直近4週間",
+          "medium_term": "直近6ヶ月",
+          "long_term": "全期間"
+        }
       },
       "default": {
         "title": "カード",
@@ -628,6 +760,9 @@
     "goBack": "戻る"
   },
   "footer": {
+    "label": "フッター",
+    "farewell": "さようなら",
+    "version": "バージョン {version}",
     "copyright": {
       "madeWith": "❤️で作成"
     },
@@ -640,6 +775,10 @@
       "spotify": {
         "name": "Spotify",
         "description": "音楽セクションのデータを提供します。"
+      },
+      "goodreads": {
+        "name": "Goodreads",
+        "description": "読書セクションのデータを提供します。"
       },
       "rss2json": {
         "name": "RSS2JSON",
@@ -671,45 +810,6 @@
       "description": "お使いのブラウザは日本語が設定されています。",
       "switch": "日本語に切り替える",
       "dismiss": "閉じる"
-    }
-  },
-  "sponsoredByMe": {
-    "title": "スポンサード（自分）",
-    "description": "自分が開発・保守・リリースしているプロダクトとアプリです。",
-    "empty": "エントリは constants/sponsored-apps.ts に追加し、任意の画像は public/sponsored/ に置いてください。",
-    "visitExternal": "サイトへ",
-    "visitInternal": "開く",
-    "cardAriaLabel": "{name}：{tagline}",
-    "enterFullscreen": "グリッドを全画面表示",
-    "exitFullscreen": "全画面を終了",
-    "hintGrid": "ドラッグでグリッドをパンできます（タイルは繰り返し表示されます）。タイルをクリックするとそのプロジェクトが開きます。広く見る場合は全画面をご利用ください。",
-    "hintReducedMotion": "プロジェクトは下の一列に並んでいます。カードにホバーまたはフォーカスしてタグラインを読み、リンクから開いてください。",
-    "apps": {
-      "farkle": {
-        "name": "Farkle",
-        "tagline": "オンラインでファークルをプレイ — 2人、6つのサイコロ、中世風の賭け。ルームを作成して友達を招待するか、コンピュータとソロ対戦できます。",
-        "gridDescription": "オンラインのファークル — 2人・6個のサイコロ・ルーム作成とソロ対コンピュータ。"
-      },
-      "baklavue": {
-        "name": "BaklaVue",
-        "tagline": "Trendyol Baklava 向けの Vue 3 UI キット。Baklava の Web コンポーネントと Vue のリアクティブなエコシステムをつなぎ、v-model・スロット・コンポーザブルで型安全なコンポーネントを実現します。",
-        "gridDescription": "Baklava 向け Vue 3 UI キット — 型安全コンポーネント、v-model、スロット、コンポーザブル。"
-      },
-      "nestConcept": {
-        "name": "Nest Concept",
-        "tagline": "建築・ランドスケープ・構造・建設の各分野でプロフェッショナルなサービスを提供。モダンで革新的なソリューションのご相談はお問い合わせください。",
-        "gridDescription": "建築・ランドスケープ・構造・建設 — モダンで革新的なソリューション。"
-      },
-      "dontBeAfk": {
-        "name": "Don't Be AFK",
-        "tagline": "Bash CLI と macOS 用 UI。指定した間隔で任意座標を自動クリックし、長時間作業やスクリーンセーバー、「オンライン」表示中でも Mac がアイドルにならないようにします。",
-        "gridDescription": "Bash CLI と macOS UI — 間隔で自動クリックし、アイドル状態を防ぐ。"
-      },
-      "readMyScreen": {
-        "name": "Read My Screen",
-        "tagline": "スクリーンショット、クリップボードの画像、画像ファイル、アクティブなブラウザタブを、OpenAI（GPT-4o など）、Anthropic Claude、Google Gemini による AI 解説に変える Raycast 拡張機能。",
-        "gridDescription": "Raycast 拡張 — スクリーンショット・クリップボード・ファイル・タブを OpenAI / Claude / Gemini で解説。"
-      }
     }
   }
 }

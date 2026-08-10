@@ -1,8 +1,8 @@
 export interface SponsoredApp {
-  /** Key for `sponsoredByMe.apps.<id>` name + tagline in locale files */
+  /** Key for `projects.apps.<id>` name + tagline in locale files */
   id: string;
   /**
-   * Primary brand hex from the logo (e.g. `#42b883`) — tints the card atmosphere and glow.
+   * Primary brand hex from the logo (e.g. `#42b883`) — tints the featured stage atmosphere.
    */
   brandColor: string;
   /** External or internal URL */
@@ -12,18 +12,14 @@ export interface SponsoredApp {
   /** Logos and marks often need `contain`; full-bleed screenshots use `cover` (default). */
   imageFit?: "cover" | "contain";
   /**
-   * Use PNG or SVG with an alpha channel so the card gradient shows through.
+   * Use PNG or SVG with an alpha channel so the brand atmosphere shows through.
    * If you only have a flat white background, set `multiply` so the logo blends into the scene (alters colors slightly).
    */
   logoBlend?: "normal" | "multiply";
   /**
-   * Horizontal wordmarks: wider top-left slot and slightly shorter max height so the mark reads clearly.
+   * Horizontal wordmarks: wider logo slot so the mark reads clearly.
    */
   logoLayout?: "wide";
-  /**
-   * Infinite Grid footer: `date` here; card blurb is `sponsoredByMe.apps.<id>.gridDescription` in locales.
-   */
-  grid: {
-    date: string;
-  };
+  /** Ship year shown on the featured stage and rail */
+  year: string;
 }

@@ -1,3 +1,5 @@
+import { parseTravelPlaces } from "./utils/parse-travel-places";
+
 const isPreview = process.env.NUXT_PREVIEW === "true";
 
 const appConfig = {
@@ -19,6 +21,9 @@ const appConfig = {
     placesBeen: process.env.PLACES_BEEN_URL,
     countriesVisited: process.env.COUNTRIES_VISITED_COUNT,
     citiesVisited: process.env.CITIES_VISITED_COUNT,
+    // TRAVEL_PLACES: JSON array of { id, name, lat, lng, country?, highlighted? }
+    // highlighted: true → listed under Highlighted stops (globe still uses all places)
+    places: parseTravelPlaces(process.env.TRAVEL_PLACES),
   },
   flippingWords: process.env.FLIPPING_WORDS,
 
@@ -41,6 +46,12 @@ const runtimeConfig = {
       (process.env.HOWLONGTOBEAT_API_URL
         ? process.env.HOWLONGTOBEAT_API_URL.replace("/games/list", "/stats")
         : "https://howlongtobeat.com/api/user/82755/stats"),
+    username:
+      process.env.HLTB_USERNAME ||
+      process.env.HLTB_PROFILE_URL?.match(
+        /howlongtobeat\.com\/user\/([^/?#]+)/i,
+      )?.[1] ||
+      "mentalmynx",
   },
   rss2json: {
     api: process.env.RSS2JSON_API_URL,
@@ -64,6 +75,15 @@ const runtimeConfig = {
   github: {
     username: process.env.GITHUB_USERNAME,
     token: process.env.GITHUB_TOKEN,
+  },
+  goodreads: {
+    // Numeric id preferred (profile → …/user/show/12345-…). Vanity profile
+    // URLs are resolved at request time in server/api/goodreads.ts.
+    userId:
+      process.env.GOODREADS_USER_ID ||
+      process.env.GOODREADS_PROFILE_URL?.match(
+        /goodreads\.com\/user\/show\/(\d+)/i,
+      )?.[1],
   },
 };
 
@@ -206,6 +226,9 @@ export default defineNuxtConfig({
   // Better error pages
   experimental: {
     watcher: "chokidar",
+  },
+  routeRules: {
+    "/resume": { redirect: "/?resume=1" },
   },
   compatibilityDate: "2025-01-02",
   image: {

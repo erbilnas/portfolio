@@ -2,18 +2,15 @@ import { useColorMode } from "#imports";
 import { ref, watch, computed } from "vue";
 import type { Locale } from "~/types/i18n";
 
-export type MarqueeSpeed = "slow" | "medium" | "fast";
 export type FontSize = "default" | "large" | "xlarge";
 export type FontFamily = "sans" | "serif" | "mono";
 
 const DEFAULT_THEME = "system" as const;
 const DEFAULT_CURSOR_DISABLED = false;
 const DEFAULT_LANGUAGE: Locale = "en";
-const DEFAULT_MARQUEE_SPEED: MarqueeSpeed = "medium";
 const DEFAULT_FONT_SIZE: FontSize = "default";
 const DEFAULT_FONT_FAMILY: FontFamily = "sans";
 const DEFAULT_REDUCED_MOTION = false;
-const DEFAULT_DISABLE_CARD_HOVER = false;
 const DEFAULT_HIGH_CONTRAST = false;
 const DEFAULT_LANGUAGE_SWITCH_TOAST_ENABLED = true;
 
@@ -119,10 +116,8 @@ function createSettings() {
   const cursorDisabled = useLocalStorage("settings-cursor-disabled", DEFAULT_CURSOR_DISABLED);
   const language = useLocalStorage<Locale>("settings-language", DEFAULT_LANGUAGE);
   const reducedMotion = useLocalStorage("settings-reduced-motion", DEFAULT_REDUCED_MOTION);
-  const marqueeSpeed = useLocalStorage<MarqueeSpeed>("settings-marquee-speed", DEFAULT_MARQUEE_SPEED);
   const fontSize = useLocalStorage<FontSize>("settings-font-size", DEFAULT_FONT_SIZE);
   const fontFamily = useLocalStorage<FontFamily>("settings-font-family", DEFAULT_FONT_FAMILY);
-  const disableCardHoverEffects = useLocalStorage("settings-disable-card-hover", DEFAULT_DISABLE_CARD_HOVER);
   const highContrast = useLocalStorage("settings-high-contrast", DEFAULT_HIGH_CONTRAST);
   const languageSwitchToastEnabled = useLocalStorage(
     "settings-language-switch-toast-enabled",
@@ -145,20 +140,12 @@ function createSettings() {
     reducedMotion.value = !reducedMotion.value;
   };
 
-  const setMarqueeSpeed = (speed: MarqueeSpeed) => {
-    marqueeSpeed.value = speed;
-  };
-
   const setFontSize = (size: FontSize) => {
     fontSize.value = size;
   };
 
   const setFontFamily = (family: FontFamily) => {
     fontFamily.value = family;
-  };
-
-  const toggleCardHoverEffects = () => {
-    disableCardHoverEffects.value = !disableCardHoverEffects.value;
   };
 
   const toggleHighContrast = () => {
@@ -184,10 +171,8 @@ function createSettings() {
     }
     colorMode.preference = DEFAULT_THEME;
     language.value = DEFAULT_LANGUAGE;
-    marqueeSpeed.value = DEFAULT_MARQUEE_SPEED;
     fontSize.value = DEFAULT_FONT_SIZE;
     fontFamily.value = DEFAULT_FONT_FAMILY;
-    disableCardHoverEffects.value = DEFAULT_DISABLE_CARD_HOVER;
     highContrast.value = DEFAULT_HIGH_CONTRAST;
   };
 
@@ -200,14 +185,10 @@ function createSettings() {
     setLanguage,
     reducedMotion: computed(() => reducedMotion.value),
     toggleReducedMotion,
-    marqueeSpeed: computed(() => marqueeSpeed.value),
-    setMarqueeSpeed,
     fontSize: computed(() => fontSize.value),
     setFontSize,
     fontFamily: computed(() => fontFamily.value),
     setFontFamily,
-    disableCardHoverEffects: computed(() => disableCardHoverEffects.value),
-    toggleCardHoverEffects,
     highContrast: computed(() => highContrast.value),
     toggleHighContrast,
     languageSwitchToastEnabled: computed(() => languageSwitchToastEnabled.value),

@@ -1,25 +1,41 @@
 import { onMounted, onUnmounted, watch, type Ref } from "vue";
 import { sectionMeta } from "~/seo/sections";
 
+const DEFAULT_TITLE = "Erbil Nas";
+const DEFAULT_DESCRIPTION =
+  "Welcome to my personal website. I am a Software Engineer passionate about creating innovative solutions and sharing knowledge.";
+
+/** Middle viewport band so only one section owns the tab title at a time. */
 const observerOptions: IntersectionObserverInit = {
   root: null,
-  threshold: 0.1,
+  rootMargin: "-35% 0px -45% 0px",
+  threshold: 0,
 };
 
-export const useObserver = (section: string, ref: Ref<HTMLElement | null>) => {
-  const meta = sectionMeta[section] ?? {
-    title: `${section} | Erbil Nas`,
-  };
+export const useSectionSeo = () => {
+  const title = useState("section-seo-title", () => DEFAULT_TITLE);
+  const description = useState(
+    "section-seo-description",
+    () => DEFAULT_DESCRIPTION,
+  );
+
+  return { title, description };
+};
+
+export const useObserver = (section: string, elRef: Ref<HTMLElement | null>) => {
+  const meta = sectionMeta[section];
+  if (!meta) return;
+
+  const { title, description } = useSectionSeo();
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        useSeoMeta({
-          title: meta.title,
-          description: meta.description,
-        });
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      title.value = meta.title;
+      if (meta.description) {
+        description.value = meta.description;
       }
-    });
+    }
   };
 
   let observer: IntersectionObserver | null = null;
@@ -27,35 +43,28 @@ export const useObserver = (section: string, ref: Ref<HTMLElement | null>) => {
 
   onMounted(() => {
     const setupObserver = () => {
-      if (ref.value && !observer) {
-        observer = new IntersectionObserver(
-          handleIntersection,
-          observerOptions
-        );
-        observer.observe(ref.value);
-      }
+      if (!elRef.value || observer) return;
+      observer = new IntersectionObserver(handleIntersection, observerOptions);
+      observer.observe(elRef.value);
     };
 
-    // Try to setup immediately
     setupObserver();
 
-    // Watch for ref changes in case it's not available yet
     stopWatcher = watch(
-      () => ref.value,
+      () => elRef.value,
       () => {
         setupObserver();
       },
-      { immediate: true }
+      { immediate: true },
     );
   });
 
   onUnmounted(() => {
-    if (stopWatcher) {
-      stopWatcher();
-    }
-    if (observer && ref.value) {
-      observer.unobserve(ref.value);
+    stopWatcher?.();
+    if (observer) {
+      if (elRef.value) observer.unobserve(elRef.value);
       observer.disconnect();
+      observer = null;
     }
   });
 };

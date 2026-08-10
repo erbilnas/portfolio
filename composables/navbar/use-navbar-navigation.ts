@@ -50,50 +50,43 @@ export const useNavbarNavigation = () => {
   const navigationItems = computed<NavigationItem[]>(() => [
     {
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.HandIcon)
+        import("lucide-vue-next").then((m) => m.House)
       ),
       label: t("nav.welcome"),
       action: () => scrollToSection("welcome"),
     },
     {
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.UserIcon)
+        import("lucide-vue-next").then((m) => m.UserRound)
       ),
       label: t("nav.aboutMe"),
       action: () => scrollToSection("about-me"),
     },
     {
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.SparklesIcon)
+        import("lucide-vue-next").then((m) => m.AppWindow)
       ),
-      label: t("nav.sponsoredByMe"),
-      action: () => scrollToSection("sponsored-by-me"),
+      label: t("nav.projects"),
+      action: () => scrollToSection("projects"),
     },
     {
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.CodeIcon)
+        import("lucide-vue-next").then((m) => m.Layers)
       ),
       label: t("nav.skills"),
       action: () => scrollToSection("skills"),
     },
     {
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.BriefcaseIcon)
+        import("lucide-vue-next").then((m) => m.BriefcaseBusiness)
       ),
       label: t("nav.experience"),
       action: () => scrollToSection("experience"),
     },
     {
-      icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.FolderKanbanIcon)
-      ),
-      label: t("nav.projects"),
-      action: () => scrollToSection("projects"),
-    },
-    {
       id: "current-vibes",
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.FerrisWheelIcon)
+        import("lucide-vue-next").then((m) => m.AudioLines)
       ),
       label: t("nav.currentVibes"),
       action: () => scrollToSection("current-vibes"),
@@ -101,18 +94,18 @@ export const useNavbarNavigation = () => {
     {
       id: "resume",
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.FileTextIcon)
+        import("lucide-vue-next").then((m) => m.FileUser)
       ),
       label: t("nav.resume"),
-      action: () => navigateTo("/resume"),
+      action: () => useResumeDrawer().openResumeDrawer(),
     },
     {
       id: "settings",
       icon: defineAsyncComponent(() =>
-        import("lucide-vue-next").then((m) => m.SettingsIcon)
+        import("lucide-vue-next").then((m) => m.SlidersHorizontal)
       ),
       label: t("nav.settings"),
-      badge: true,
+      badge: false,
       action: () => {
         // This will be handled by parent component
       },

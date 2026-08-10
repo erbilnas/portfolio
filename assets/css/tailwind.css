@@ -144,16 +144,9 @@
     line-height: 1.1;
   }
 
-  /* Hide default cursor and ensure cursor is visible on interactive elements */
-  body:not(.cursor-disabled) a,
-  body:not(.cursor-disabled) button,
-  body:not(.cursor-disabled) [role="button"],
-  body:not(.cursor-disabled) input,
-  body:not(.cursor-disabled) body,
-  body:not(.cursor-disabled) svg,
-  body:not(.cursor-disabled) div,
-  body:not(.cursor-disabled) select,
-  body:not(.cursor-disabled) textarea {
+  /* Hide system cursor while the custom cursor is active */
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
     cursor: none !important;
   }
 }

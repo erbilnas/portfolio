@@ -6,14 +6,14 @@ const CurrentVibes = defineAsyncComponent(() => import("./current-vibes"));
 const Experience = defineAsyncComponent(() => import("./experience"));
 const FooterComponent = defineAsyncComponent(() => import("./footer"));
 const Projects = defineAsyncComponent(() => import("./projects"));
-const SponsoredByMe = defineAsyncComponent(() => import("./sponsored-by-me"));
 const Skills = defineAsyncComponent(() => import("./skills"));
 const Welcome = defineAsyncComponent(() => import("./welcome"));
 
+const { title, description } = useSectionSeo();
+
 useSeoMeta({
-  title: "Erbil Nas",
-  description:
-    "Welcome to my personal website. I am a Software Engineer passionate about creating innovative solutions and sharing knowledge.",
+  title: () => title.value,
+  description: () => description.value,
 });
 useHead({
   meta: [
@@ -29,10 +29,9 @@ useHead({
 <template>
   <Welcome />
   <AboutMe />
-  <SponsoredByMe />
+  <Projects />
   <Skills />
   <Experience />
-  <Projects />
   <CurrentVibes />
   <FooterComponent />
 </template>
