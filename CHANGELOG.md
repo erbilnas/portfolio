@@ -1,3 +1,10 @@
+# [6.7.0](https://github.com/erbilnas/portfolio/compare/v6.6.0...v6.7.0) (2026-08-10)
+
+
+### Features
+
+* redesign portfolio experience across welcome, projects, and vibes ([400adac](https://github.com/erbilnas/portfolio/commit/400adac95233ce2563dd70b3e9545fd9b94bd2a6))
+
 # [6.7.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.6.0...v6.7.0-preview.1) (2026-08-10)
 
 
