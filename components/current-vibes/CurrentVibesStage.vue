@@ -82,6 +82,7 @@ const coverTransitionClass = computed(() =>
           <GamingCover
             v-else-if="card.type === 'game'"
             :src="metadata.src"
+            :title="metadata.title"
             :progress-percentage="metadata.progressPercentage"
           />
           <WatchingScreen
@@ -100,6 +101,7 @@ const coverTransitionClass = computed(() =>
           <ReadingCover
             v-else-if="card.type === 'reading'"
             :src="metadata.src"
+            :title="metadata.title"
           />
         </div>
         <template #fallback>
