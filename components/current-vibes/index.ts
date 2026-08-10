@@ -1,3 +1,10 @@
-export { default as CurrentVibesCard } from "./CurrentVibesCard.vue";
 export { default as CurrentVibesHeader } from "./CurrentVibesHeader.vue";
-
+export { default as CurrentVibesShowcase } from "./CurrentVibesShowcase.vue";
+export { default as CurrentVibesStage } from "./CurrentVibesStage.vue";
+export { default as TravelGlobe } from "./TravelGlobe.vue";
+export { default as MusicTurntable } from "./scenes/MusicTurntable.vue";
+export { default as GamingCover } from "./scenes/GamingCover.vue";
+export { default as WatchingScreen } from "./scenes/WatchingScreen.vue";
+export { default as CodingCommitField } from "./scenes/CodingCommitField.vue";
+export { default as WritingDesk } from "./scenes/WritingDesk.vue";
+export { default as ReadingCover } from "./scenes/ReadingCover.vue";

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import NavbarDesktop from "./NavbarDesktop.vue";
 import NavbarMobile from "./NavbarMobile.vue";
-import NavbarSettingsDialog from "./NavbarSettingsDialog.vue";
+import NavbarSettingsDrawer from "./NavbarSettingsDrawer.vue";
+import ResumeDrawer from "@/components/ResumeDrawer.vue";
 import {
   useNavbarNavigation,
   useNavbarScroll,
@@ -9,7 +10,7 @@ import {
   useNavbarSettings,
 } from "@/composables/navbar";
 
-const { navigationItems, scrollToSection } = useNavbarNavigation();
+const { navigationItems } = useNavbarNavigation();
 const { navbarVisible, isMobile, setupScrollListeners } = useNavbarScroll();
 const {
   mobileMenuOpen,
@@ -18,17 +19,16 @@ const {
   handleNavItemClick,
 } = useNavbarMobile();
 const {
-  settingsDialogOpen,
+  settingsDrawerOpen,
   cursorDisabled,
   theme,
   reducedMotion,
   fontSize,
   fontFamily,
-  disableCardHoverEffects,
   highContrast,
   languageSwitchToastEnabled,
   initializeSettings,
-  openSettingsDialog,
+  openSettingsDrawer,
   setLightTheme,
   setDarkTheme,
   setSystemTheme,
@@ -36,26 +36,23 @@ const {
   handleToggleReducedMotion,
   handleSetFontSize,
   handleSetFontFamily,
-  handleToggleCardHoverEffects,
   handleToggleHighContrast,
   handleToggleLanguageSwitchToast,
   handleResetToDefaults,
 } = useNavbarSettings();
 
-// Update navigation items to include settings action
 const navigationItemsWithSettings = computed(() => {
   return navigationItems.value.map((item) => {
     if (item.id === "settings") {
       return {
         ...item,
-        action: openSettingsDialog,
+        action: openSettingsDrawer,
       };
     }
     return item;
   });
 });
 
-// Setup scroll listeners on mount
 let cleanupScrollListeners: (() => void) | null = null;
 
 onMounted(() => {
@@ -71,13 +68,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- Desktop Navigation -->
   <NavbarDesktop
     v-if="!isMobile"
     :navigation-items="navigationItemsWithSettings"
   />
 
-  <!-- Mobile Navigation -->
   <NavbarMobile
     v-if="isMobile"
     :navigation-items="navigationItemsWithSettings"
@@ -88,15 +83,13 @@ onUnmounted(() => {
     @overlay-click="closeMobileMenu"
   />
 
-  <!-- Settings Dialog -->
-  <NavbarSettingsDialog
-    v-model:open="settingsDialogOpen"
+  <NavbarSettingsDrawer
+    v-model:open="settingsDrawerOpen"
     :cursor-disabled="cursorDisabled"
     :theme="theme"
     :reduced-motion="reducedMotion"
     :font-size="fontSize"
     :font-family="fontFamily"
-    :disable-card-hover-effects="disableCardHoverEffects"
     :high-contrast="highContrast"
     :language-switch-toast-enabled="languageSwitchToastEnabled"
     :on-toggle-cursor="handleToggleCursor"
@@ -106,10 +99,10 @@ onUnmounted(() => {
     :on-toggle-reduced-motion="handleToggleReducedMotion"
     :on-set-font-size="handleSetFontSize"
     :on-set-font-family="handleSetFontFamily"
-    :on-toggle-card-hover-effects="handleToggleCardHoverEffects"
     :on-toggle-high-contrast="handleToggleHighContrast"
     :on-toggle-language-switch-toast="handleToggleLanguageSwitchToast"
     :on-reset-to-defaults="handleResetToDefaults"
   />
-</template>
 
+  <ResumeDrawer />
+</template>

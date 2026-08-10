@@ -10,22 +10,24 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex items-center justify-between gap-4">
-    <div class="flex flex-col gap-1">
+  <div class="flex items-center justify-between gap-3">
+    <div class="min-w-0 flex flex-col gap-0.5">
       <label
         :id="labelId"
-        class="text-sm font-medium"
+        class="text-sm font-medium leading-tight"
       >
         {{ label }}
       </label>
       <p
         v-if="description"
         :id="descriptionId"
-        class="text-xs text-muted-foreground"
+        class="text-[11px] leading-snug text-muted-foreground"
       >
         {{ description }}
       </p>
     </div>
-    <slot />
+    <div class="shrink-0">
+      <slot />
+    </div>
   </div>
 </template>

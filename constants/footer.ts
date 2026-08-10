@@ -9,7 +9,7 @@ export const technologies: Technologies[] = [
   { name: "Vue", url: "https://vuejs.org", icon: "simple-icons:vuedotjs" },
   {
     name: "TypeScript",
-    url: "https://typescript.com",
+    url: "https://www.typescriptlang.org",
     icon: "simple-icons:typescript",
   },
   {

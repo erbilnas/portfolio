@@ -55,11 +55,6 @@ const isDesktop = useMediaQuery("(min-width: 768px)");
 // Lazy load settings to avoid initialization order issues
 // Initialize as a ref that will be set after mount
 const cursorDisabled = ref(false);
-/** Set by SponsoredAppsInfiniteGrid when its WebGL area is in fullscreen (native cursor works better). */
-const sponsoredInfiniteGridFullscreen = useState(
-  "sponsored-infinite-grid-fullscreen",
-  () => false,
-);
 let settingsComposable: ReturnType<typeof useSettings> | null = null;
 
 // Initialize settings after mount to avoid initialization order issues
@@ -235,6 +230,7 @@ const attachListeners = async () => {
   // Remove hidden class and set initial position
   cursor.value.classList.remove("hidden");
   follower.value.classList.remove("hidden");
+  document.documentElement.classList.add("custom-cursor-active");
   document.body.classList.remove("cursor-disabled");
 
   // Set initial position at center of screen (will be updated on first mousemove)
@@ -266,6 +262,7 @@ const removeListeners = () => {
 
   cursor.value?.classList.add("hidden");
   follower.value?.classList.add("hidden");
+  document.documentElement.classList.remove("custom-cursor-active");
   document.body.classList.add("cursor-disabled");
 
   document.removeEventListener("mousemove", moveCircle);
@@ -286,11 +283,7 @@ const removeListeners = () => {
 const shouldEnableCursor = () => {
   // Use fallback if media query hasn't initialized yet
   const desktop = isDesktop.value || isDesktopFallback.value;
-  return (
-    desktop &&
-    !cursorDisabled.value &&
-    !sponsoredInfiniteGridFullscreen.value
-  );
+  return desktop && !cursorDisabled.value;
 };
 
 // Lifecycle hooks
@@ -313,6 +306,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   removeListeners();
+  document.documentElement.classList.remove("custom-cursor-active");
 });
 
 // Watch both values together to handle state changes

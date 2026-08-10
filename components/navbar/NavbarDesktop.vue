@@ -8,8 +8,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { MusicIcon } from "lucide-vue-next";
-import type { MusicPlayer } from "~/types/current-vibes";
+import { useNavbarVibesPreview } from "@/composables/navbar";
+import { useSettings } from "@/composables/settings";
+import NavbarVibesDockMark from "./NavbarVibesDockMark.vue";
+import NavbarVibesPreviewBlock from "./NavbarVibesPreviewBlock.vue";
 import type { NavigationItem } from "./navbar.types";
 
 interface Props {
@@ -19,19 +21,9 @@ interface Props {
 defineProps<Props>();
 
 const { t } = useI18n();
+const { preview: vibesPreview } = useNavbarVibesPreview();
+const { reducedMotion } = useSettings();
 
-// Fetch music data for tooltip
-const { data: musicData } = useFetch<MusicPlayer>("/api/music");
-
-// Format music info for display
-const musicInfo = computed(() => {
-  const player = musicData.value?.player;
-  // Check if music is playing by checking if player data exists
-  if (!player?.name || !player?.artist) return null;
-  return `${player.name} - ${player.artist}`;
-});
-
-// Mouse tracking for DockIcon components
 const mouseX = ref(Infinity);
 const magnification = 10;
 const distance = 140;
@@ -81,23 +73,49 @@ provide("distance", distance);
                   v-if="badge"
                   class="absolute -top-0.5 -right-0.5 flex h-3 w-3 rounded-full bg-primary border-2 border-background animate-pulse shadow-lg"
                 />
+                <NavbarVibesDockMark
+                  v-else-if="id === 'current-vibes' && vibesPreview"
+                  :preview="vibesPreview"
+                />
               </div>
             </DockIcon>
           </TooltipTrigger>
 
-          <TooltipContent>
-            <div class="flex flex-col gap-1">
+          <TooltipContent class="max-w-[18rem]">
+            <div class="flex flex-col gap-2">
               <p>{{ label }}</p>
               <p v-if="id === 'settings'" class="text-xs text-muted-foreground">
                 {{ t("nav.multipleLanguagesSupported") }}
               </p>
-              <div
-                v-if="id === 'current-vibes' && musicInfo"
-                class="flex items-center gap-1.5 text-xs text-muted-foreground"
+              <Transition
+                mode="out-in"
+                :enter-active-class="
+                  reducedMotion ? '' : 'transition duration-200 ease-out'
+                "
+                :enter-from-class="
+                  reducedMotion ? '' : 'opacity-0 translate-y-1'
+                "
+                :enter-to-class="
+                  reducedMotion ? '' : 'opacity-100 translate-y-0'
+                "
+                :leave-active-class="
+                  reducedMotion ? '' : 'transition duration-150 ease-in'
+                "
+                :leave-from-class="
+                  reducedMotion ? '' : 'opacity-100 translate-y-0'
+                "
+                :leave-to-class="
+                  reducedMotion ? '' : 'opacity-0 -translate-y-0.5'
+                "
               >
-                <MusicIcon class="h-3 w-3" />
-                <span>{{ musicInfo }}</span>
-              </div>
+                <div
+                  v-if="id === 'current-vibes' && vibesPreview"
+                  :key="`${vibesPreview.kind}-${vibesPreview.title}`"
+                  class="border-t border-border/60 pt-2"
+                >
+                  <NavbarVibesPreviewBlock :preview="vibesPreview" />
+                </div>
+              </Transition>
             </div>
           </TooltipContent>
         </Tooltip>
