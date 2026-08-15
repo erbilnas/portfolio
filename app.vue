@@ -1,6 +1,6 @@
 <template>
-  <Cursor v-if="isClient" />
-  <PointerGlow v-if="isClient" />
+  <Cursor v-if="isClient && !isAdmin" />
+  <PointerGlow v-if="isClient && !isAdmin" />
 
   <NuxtLayout>
     <NuxtPage />
@@ -21,6 +21,8 @@ import { useSettings } from "~/composables/settings";
 // Use a ref to ensure reactivity and avoid initialization order issues
 const isClient = ref(false);
 const toastShown = ref(false); // Guard to prevent duplicate toasts
+const route = useRoute();
+const isAdmin = computed(() => route.path.startsWith("/admin"));
 
 // Get i18n composables
 const { locale, t, setLocale } = useI18n();
@@ -139,6 +141,7 @@ onMounted(async () => {
     // 2. Current locale is English (default)
     // 3. User has not disabled the language switch toast in settings
     if (
+      !isAdmin.value &&
       browserLang &&
       locale.value === "en" &&
       settings.languageSwitchToastEnabled.value

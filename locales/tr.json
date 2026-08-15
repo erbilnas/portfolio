@@ -6,6 +6,7 @@
     "experience": "Deneyim",
     "projects": "Projeler",
     "currentVibes": "Güncel Vibe'lar",
+    "guestbook": "Ziyaret defteri",
     "vibesLive": "Canlı",
     "resume": "Özgeçmiş",
     "settings": "Ayarlar",
@@ -58,6 +59,12 @@
     "name": "Erbil",
     "socialMore": "Daha fazla",
     "flippingWords": [
+      "sürekli öğrenen bir teknoloji tutkunu",
+      "tutkulu bir yazılım mühendisi",
+      "bağlı bir takım oyuncusu",
+      "bir problem çözücü",
+      "hızlı öğrenen",
+      "yaratıcı bir düşünür",
       "pro gibi vibe coding",
       "sadece eğlencesine oyun oynayan",
       "gerçekten yayınladığım uygulamalar yapan",
@@ -83,39 +90,66 @@
     "apps": {
       "farkle": {
         "name": "Farkle",
-        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın."
+        "tagline": "Farkle'ı çevrimiçi oynayın — iki oyuncu, altı zar, ortaçağda bir kumar. Oda oluşturun, arkadaşınızı davet edin veya bilgisayara karşı tek başınıza oynayın.",
+        "problem": "Masada Farkle için zar, masa ve skor kurallarını ezbere bilen biri gerekir.",
+        "stack": "Tarayıcıda gerçek zamanlı odalar ve tek kişilik oyun için bilgisayar rakibi.",
+        "outcome": "Açıp paylaşabileceğiniz, tarayıcıda biten canlı bir oyun."
       },
       "baklavue": {
         "name": "BaklaVue",
-        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler."
+        "tagline": "Trendyol Baklava için Vue 3 arayüz kiti — Baklava web bileşenlerini Vue'nun reaktif ekosistemiyle birleştirir: v-model, slot ve composable'larla tip güvenli bileşenler.",
+        "problem": "Baklava web bileşeni; Vue tarafı v-model, slot ve tipler ister.",
+        "stack": "Baklava üzerine Vue 3 sarmalayıcılar, composable'lar ve TypeScript.",
+        "outcome": "Native katmanla savaşmadan Vue'ya eklenebilen belgelenmiş bir kit."
       },
       "nestConcept": {
         "name": "Nest Concept",
-        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin."
+        "tagline": "Mimarlık, peyzaj, yapı ve inşaat alanlarında profesyonel hizmetler sunar. Modern ve yenilikçi çözümler için bizimle iletişime geçin.",
+        "problem": "Ofis sitesinin iş gibi durması gerekir: mimarlık, peyzaj, yapı.",
+        "stack": "Sakin, editoryal bir pazarlama sitesi.",
+        "outcome": "İletişim ve üretilmiş iş için canlı bir stüdyo yüzü."
       },
       "dontBeAfk": {
         "name": "Don't Be AFK",
-        "tagline": "Durumunuzu aktif tutun, asla boşta kalmayın. Global kısayol, başlangıçta otomatik açılış ve günlük aktivite istatistikleriyle özelleştirilebilir fare hareketi ve tıklamalar."
+        "tagline": "Durumunuzu aktif tutun, asla boşta kalmayın. Global kısayol, başlangıçta otomatik açılış ve günlük aktivite istatistikleriyle özelleştirilebilir fare hareketi ve tıklamalar.",
+        "problem": "Hâlâ masadayken boşta kalma zamanlayıcısı sizi AFK düşürür.",
+        "stack": "Global kısayol ve günlük istatistikli bir menü çubuğu uygulaması.",
+        "outcome": "Tek düğmeyle varlık açık kalır; fareyi kovalamazsınız."
       },
       "gitPersona": {
         "name": "Git Persona",
-        "tagline": "Depoya göre git kimlikleri arasında geçiş yapın. E-posta, ad ve imzalama anahtarıyla adlandırılmış personlar ve hızlı geçiş için menü çubuğu paneli."
+        "tagline": "Depoya göre git kimlikleri arasında geçiş yapın. E-posta, ad ve imzalama anahtarıyla adlandırılmış personlar ve hızlı geçiş için menü çubuğu paneli.",
+        "problem": "İş ve kişisel git kimlikleri depolar arasında sızar.",
+        "stack": "Menü çubuğundan ad, e-posta ve imza anahtarlı personlar.",
+        "outcome": "git config'i elle düzenlemeden depo bazlı kimlik."
       },
       "cura": {
         "name": "Cura",
-        "tagline": "Cursor hesapları arasında sürtünmesiz geçiş. Kendi ayarları, eklentileri ve oturumu olan izole profiller; menü çubuğundan başlatın."
+        "tagline": "Cursor hesapları arasında sürtünmesiz geçiş. Kendi ayarları, eklentileri ve oturumu olan izole profiller; menü çubuğundan başlatın.",
+        "problem": "Cursor ayar, eklenti ve oturumu tek profile bağlar.",
+        "stack": "Menü çubuğundan açılan izole profiller.",
+        "outcome": "İş ve kişisel Cursor hesapları tek tıkla ayrı kalır."
       },
       "readMyScreen": {
         "name": "Read My Screen",
-        "tagline": "Ekran görüntüleri, panodaki görseller, dosyalar ve aktif tarayıcı sekmesini OpenAI (GPT-4o ve daha fazlası), Anthropic Claude veya Google Gemini ile yapay zekâ destekli açıklamalara dönüştüren bir Raycast uzantısı."
+        "tagline": "Ekran görüntüleri, panodaki görseller, dosyalar ve aktif tarayıcı sekmesini OpenAI (GPT-4o ve daha fazlası), Anthropic Claude veya Google Gemini ile yapay zekâ destekli açıklamalara dönüştüren bir Raycast uzantısı.",
+        "problem": "Ekran görüntüsü veya sekme, açıklamaktan hızlı yakalanır.",
+        "stack": "OpenAI, Claude veya Gemini kullanan bir Raycast uzantısı.",
+        "outcome": "Pano, dosya ve aktif sekme okunabilir bir açıklamaya döner."
       },
       "crossingRhine": {
         "name": "Crossing of the Rhine: A.D. 406",
-        "tagline": "Kavimler Göçü dönemini konu alan, seçim odaklı tarihi bir RPG. Roma sınırında bir kabile yönetin ve verdiğiniz kararlarla Ren Nehri Geçişi'ni yeniden şekillendirin."
+        "tagline": "Kavimler Göçü dönemini konu alan, seçim odaklı tarihi bir RPG. Roma sınırında bir kabile yönetin ve verdiğiniz kararlarla Ren Nehri Geçişi'ni yeniden şekillendirin.",
+        "problem": "Ren Geçişi çoğu zaman oynanabilir bir çatal değil, ders kitabı cümlesidir.",
+        "stack": "Roma sınırında seçim odaklı tarihi bir RPG.",
+        "outcome": "Kabile kararlarının MS 406'yı yeniden yazdığı yayımlanmış bir oyun."
       },
       "spaceflash": {
         "name": "Spaceflash",
-        "tagline": "Quest ve diğer VR başlıkları için dalga tabanlı bir nişancı. Ay üssünüzü sonsuz düşman dalgalarına karşı savunun ve skor tablosunda zirveye oynayın."
+        "tagline": "Quest ve diğer VR başlıkları için dalga tabanlı bir nişancı. Ay üssünüzü sonsuz düşman dalgalarına karşı savunun ve skor tablosunda zirveye oynayın.",
+        "problem": "Ay üssü savunması 2D bir taslakta değil, başlıkta yaşamak ister.",
+        "stack": "Quest ve diğer başlıklar için dalga tabanlı VR nişancı.",
+        "outcome": "Skor kovalanan, VR'da oynanan bir savunma oyunu."
       }
     }
   },
@@ -652,7 +686,8 @@
         "posts": "Akışta",
         "thisYear": "Bu yıl",
         "avgReadTime": "Ort. okuma",
-        "topics": "Konular"
+        "topics": "Konular",
+        "recentTitle": "Diğer yazılar"
       },
       "map": {
         "title": "Gittiğim Yerler",
@@ -758,6 +793,46 @@
     "downloadCv": "CV İndir",
     "showResume": "Özgeçmişi Görüntüle",
     "goBack": "Geri Dön"
+  },
+  "admin": {
+    "title": "Yönetim",
+    "loginHint": "Bu sitenin sahibi GitHub hesabıyla gir.",
+    "continueGithub": "GitHub ile devam et",
+    "logout": "Çıkış",
+    "modules": {
+      "guestbook": "Ziyaret defteri"
+    },
+    "guestbook": {
+      "lead": "Onaylanmayı bekleyen notlar burada.",
+      "empty": "Henüz imza yok.",
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "delete": "Sil",
+      "status": {
+        "pending": "Bekliyor",
+        "approved": "Onaylı",
+        "rejected": "Reddedildi"
+      }
+    },
+    "errors": {
+      "forbidden": "Bu GitHub hesabına izin yok.",
+      "oauth": "GitHub girişi başarısız.",
+      "state": "Oturum doldu. Yeniden dene.",
+      "missing": ".env'e bunları ekle, sonra dev sunucusunu yeniden başlat:"
+    }
+  },
+  "guestbook": {
+    "title": "Ziyaret defteri",
+    "description": "Kısa bir not, adın, sonra yayımlarım. Konu yok.",
+    "notes": "İmzalar",
+    "sign": "İmzala",
+    "empty": "Henüz not yok. İlki senin olabilir.",
+    "name": "Ad",
+    "note": "Not",
+    "submit": "İmzala",
+    "pending": "İnceleme için bekliyor. Onaylayınca görünür.",
+    "error": "İmzalanamadı. Biraz sonra dene.",
+    "rateLimited": "Yeniden imzalamadan önce biraz bekle."
   },
   "footer": {
     "label": "Site alt bilgisi",

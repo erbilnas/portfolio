@@ -28,9 +28,16 @@ interface Props {
   metadata: CardMetadata;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 const { t } = useI18n();
 const { reducedMotion } = useSettings();
+
+const moreBlogPosts = computed(() => {
+  const recent = props.metadata.blogRecent ?? [];
+  const featuredTitle = props.metadata.title;
+  const rest = recent.filter((post) => post.title !== featuredTitle);
+  return rest.length ? rest : recent.slice(1);
+});
 
 function isExternalUrl(url: string) {
   return /^https?:\/\//i.test(url);
@@ -783,6 +790,37 @@ const coverTransitionClass = computed(() =>
                 {{ metadata.blogTopics.join(" · ") }}
               </p>
             </div>
+          </div>
+          <div
+            v-if="moreBlogPosts.length"
+            class="mt-6"
+          >
+            <p
+              class="text-[10px] font-medium text-neutral-500 dark:text-neutral-400"
+            >
+              {{ t("currentVibes.cards.blog.recentTitle") }}
+            </p>
+            <ul class="mt-3 flex flex-col gap-2.5">
+              <li
+                v-for="post in moreBlogPosts"
+                :key="post.link"
+                class="min-w-0"
+              >
+                <a
+                  :href="post.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[13px] font-medium leading-snug text-neutral-900 dark:text-neutral-100"
+                >
+                  {{ post.title }}
+                </a>
+                <p
+                  class="mt-0.5 text-[12px] text-neutral-500 dark:text-neutral-400"
+                >
+                  {{ post.publishedDate }}
+                </p>
+              </li>
+            </ul>
           </div>
         </template>
 

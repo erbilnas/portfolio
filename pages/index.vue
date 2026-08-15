@@ -3,6 +3,7 @@ import { defineAsyncComponent } from "vue";
 
 const AboutMe = defineAsyncComponent(() => import("./about-me"));
 const CurrentVibes = defineAsyncComponent(() => import("./current-vibes"));
+const Guestbook = defineAsyncComponent(() => import("./guestbook"));
 const Experience = defineAsyncComponent(() => import("./experience"));
 const FooterComponent = defineAsyncComponent(() => import("./footer"));
 const Projects = defineAsyncComponent(() => import("./projects"));
@@ -33,5 +34,6 @@ useHead({
   <Skills />
   <Experience />
   <CurrentVibes />
+  <Guestbook />
   <FooterComponent />
 </template>

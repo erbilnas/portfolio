@@ -7,7 +7,7 @@ const props = defineProps<{
   items: SponsoredApp[];
 }>();
 
-const { t } = useI18n();
+const { t, te } = useI18n();
 const { reducedMotion } = useSettings();
 
 const activeId = ref(props.items[0]?.id ?? "");
@@ -115,6 +115,11 @@ function scrollRailItemIntoView(id: string) {
       behavior: reducedMotion.value ? "auto" : "smooth",
     });
   }
+}
+
+function caseLine(id: string, key: "problem" | "stack" | "outcome") {
+  const path = `projects.apps.${id}.${key}`;
+  return te(path) ? t(path) : "";
 }
 
 function selectApp(id: string) {
@@ -289,6 +294,33 @@ onUnmounted(() => {
             >
               {{ t(`projects.apps.${featured.id}.tagline`) }}
             </p>
+            <dl
+              v-if="
+                caseLine(featured.id, 'problem') ||
+                caseLine(featured.id, 'stack') ||
+                caseLine(featured.id, 'outcome')
+              "
+              class="mt-6 flex max-w-xl flex-col gap-3"
+            >
+              <div
+                v-if="caseLine(featured.id, 'problem')"
+                class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
+              >
+                {{ caseLine(featured.id, "problem") }}
+              </div>
+              <div
+                v-if="caseLine(featured.id, 'stack')"
+                class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
+              >
+                {{ caseLine(featured.id, "stack") }}
+              </div>
+              <div
+                v-if="caseLine(featured.id, 'outcome')"
+                class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
+              >
+                {{ caseLine(featured.id, "outcome") }}
+              </div>
+            </dl>
           </div>
         </div>
 

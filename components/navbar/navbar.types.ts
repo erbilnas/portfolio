@@ -4,7 +4,8 @@ export type NavbarSection =
   | "skills"
   | "experience"
   | "projects"
-  | "current-vibes";
+  | "current-vibes"
+  | "guestbook";
 
 export interface NavigationItem {
   id?: string;

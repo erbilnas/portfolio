@@ -6,6 +6,7 @@
     "experience": "Experience",
     "projects": "Projects",
     "currentVibes": "Current Vibes",
+    "guestbook": "Guestbook",
     "vibesLive": "Live",
     "resume": "Resume",
     "settings": "Settings",
@@ -58,6 +59,12 @@
     "name": "Erbil",
     "socialMore": "More",
     "flippingWords": [
+      "an ever-learning technology enthusiast",
+      "a passionate software engineer",
+      "a dedicated team player",
+      "a problem solver",
+      "a quick learner",
+      "a creative thinker",
       "vibe coding like a pro",
       "playing games, just for fun",
       "building apps I actually ship",
@@ -83,39 +90,66 @@
     "apps": {
       "farkle": {
         "name": "Farkle",
-        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer."
+        "tagline": "Play Farkle online — two players, six dice, one medieval gamble. Create a room, invite a friend, or play solo vs the computer.",
+        "problem": "Local Farkle needs a table, dice, and someone who remembers the scoring.",
+        "stack": "Realtime rooms on the web, plus a computer opponent for solo play.",
+        "outcome": "A live game you can open, share, and finish in a browser."
       },
       "baklavue": {
         "name": "BaklaVue",
-        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables."
+        "tagline": "Vue 3 UI kit for Trendyol Baklava — bridges Baklava web components with Vue's reactive ecosystem: type-safe components with v-model, slots, and composables.",
+        "problem": "Baklava ships as web components; Vue apps still want v-model, slots, and types.",
+        "stack": "Vue 3 wrappers, composables, and TypeScript over Baklava.",
+        "outcome": "A documented kit teams can drop into Vue without fighting the native layer."
       },
       "nestConcept": {
         "name": "Nest Concept",
-        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions."
+        "tagline": "Professional architecture, landscape, structure, and construction services. Get in touch for modern, innovative solutions.",
+        "problem": "A practice site that had to feel like the work: architecture, landscape, structure.",
+        "stack": "A marketing site with a quiet editorial layout.",
+        "outcome": "A live studio presence for inquiries and the portfolio of built work."
       },
       "dontBeAfk": {
         "name": "Don't Be AFK",
-        "tagline": "Keep your status active and never go idle. Customizable mouse movement and clicks with a global hotkey, startup launch, and daily activity stats."
+        "tagline": "Keep your status active and never go idle. Customizable mouse movement and clicks with a global hotkey, startup launch, and daily activity stats.",
+        "problem": "Idle timers drop you AFK when you are still at the desk.",
+        "stack": "A desktop menu-bar app with a global hotkey and daily stats.",
+        "outcome": "One toggle keeps presence alive without babysitting the mouse."
       },
       "gitPersona": {
         "name": "Git Persona",
-        "tagline": "Switch git identities by repository. Named personas with email, name, and signing key, plus a menu bar panel for quick switches."
+        "tagline": "Switch git identities by repository. Named personas with email, name, and signing key, plus a menu bar panel for quick switches.",
+        "problem": "Work and personal git identities leak across repos.",
+        "stack": "Named personas (name, email, signing key) from a menu bar.",
+        "outcome": "Per-repo identity switches without editing git config by hand."
       },
       "cura": {
         "name": "Cura",
-        "tagline": "Switch Cursor accounts without friction. Isolated profiles with their own settings, extensions, and sign-in, launched from the menu bar."
+        "tagline": "Switch Cursor accounts without friction. Isolated profiles with their own settings, extensions, and sign-in, launched from the menu bar.",
+        "problem": "Cursor ties settings, extensions, and sign-in to one profile.",
+        "stack": "Isolated profiles launched from the menu bar.",
+        "outcome": "Work and personal Cursor accounts stay apart with a one-click switch."
       },
       "readMyScreen": {
         "name": "Read My Screen",
-        "tagline": "A Raycast extension that turns screenshots, clipboard images, image files, and the active browser tab into AI-powered explanations, using OpenAI (GPT-4o and more), Anthropic Claude, or Google Gemini."
+        "tagline": "A Raycast extension that turns screenshots, clipboard images, image files, and the active browser tab into AI-powered explanations, using OpenAI (GPT-4o and more), Anthropic Claude, or Google Gemini.",
+        "problem": "A screenshot or tab is faster to capture than to explain.",
+        "stack": "A Raycast extension over OpenAI, Claude, or Gemini.",
+        "outcome": "Clipboard, files, and the active tab become a readable explanation."
       },
       "crossingRhine": {
         "name": "Crossing of the Rhine: A.D. 406",
-        "tagline": "A choice-driven historical RPG about the Migration Period. Lead a tribe at Rome's frontier and reshape the Crossing of the Rhine through the decisions you make."
+        "tagline": "A choice-driven historical RPG about the Migration Period. Lead a tribe at Rome's frontier and reshape the Crossing of the Rhine through the decisions you make.",
+        "problem": "The Crossing of the Rhine is usually a paragraph in a textbook, not a playable fork.",
+        "stack": "A choice-driven historical RPG set on Rome's frontier.",
+        "outcome": "A shipped game where tribal decisions rewrite A.D. 406."
       },
       "spaceflash": {
         "name": "Spaceflash",
-        "tagline": "A wave-based VR shooter for Quest and other headsets. Defend your moon base as endless enemies close in, and chase high scores on the board."
+        "tagline": "A wave-based VR shooter for Quest and other headsets. Defend your moon base as endless enemies close in, and chase high scores on the board.",
+        "problem": "A moon-base defense fantasy needed to live in a headset, not a 2D mock.",
+        "stack": "Wave-based VR shooting for Quest and other headsets.",
+        "outcome": "A score-chasing defense game you play on the board in VR."
       }
     }
   },
@@ -652,7 +686,8 @@
         "posts": "In feed",
         "thisYear": "This year",
         "avgReadTime": "Avg. read",
-        "topics": "Topics"
+        "topics": "Topics",
+        "recentTitle": "More posts"
       },
       "map": {
         "title": "Places I've Been",
@@ -758,6 +793,46 @@
     "downloadCv": "Download CV",
     "showResume": "Show Resume",
     "goBack": "Go Back"
+  },
+  "admin": {
+    "title": "Admin",
+    "loginHint": "Sign in with the GitHub account that owns this site.",
+    "continueGithub": "Continue with GitHub",
+    "logout": "Log out",
+    "modules": {
+      "guestbook": "Guestbook"
+    },
+    "guestbook": {
+      "lead": "Pending notes wait here until you approve them.",
+      "empty": "No signatures yet.",
+      "approve": "Approve",
+      "reject": "Reject",
+      "delete": "Delete",
+      "status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      }
+    },
+    "errors": {
+      "forbidden": "That GitHub account is not allowed.",
+      "oauth": "GitHub sign-in failed.",
+      "state": "Sign-in expired. Try again.",
+      "missing": "Add these to .env, then restart the dev server:"
+    }
+  },
+  "guestbook": {
+    "title": "Guestbook",
+    "description": "A short note, your name, then I publish it. No threads.",
+    "notes": "Signed",
+    "sign": "Sign",
+    "empty": "No notes yet. Yours can be the first.",
+    "name": "Name",
+    "note": "Note",
+    "submit": "Sign",
+    "pending": "Held for review. It shows up after I approve it.",
+    "error": "Could not sign. Try again later.",
+    "rateLimited": "Wait a bit before signing again."
   },
   "footer": {
     "label": "Site footer",

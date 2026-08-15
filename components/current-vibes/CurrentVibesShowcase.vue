@@ -2,6 +2,7 @@
 import CurrentVibesStage from "~/components/current-vibes/CurrentVibesStage.vue";
 import { useCardsMetadata } from "~/composables/current-vibes";
 import type { CardData } from "~/composables/current-vibes/current-vibes-data";
+import { useVibeQuery } from "~/composables/current-vibes/vibe-query";
 import { useSettings } from "~/composables/settings";
 
 const props = defineProps<{
@@ -11,6 +12,7 @@ const props = defineProps<{
 const { t } = useI18n();
 const { reducedMotion } = useSettings();
 const { getCardMetadata } = useCardsMetadata();
+const { vibe, setVibe } = useVibeQuery();
 
 const activeType = ref<CardData["type"] | "">(props.cards[0]?.type ?? "");
 const tablistRef = ref<HTMLElement | null>(null);
@@ -25,12 +27,25 @@ watch(
       activeType.value = "";
       return;
     }
+    if (vibe.value && cards.some((card) => card.type === vibe.value)) {
+      activeType.value = vibe.value;
+      return;
+    }
     if (!cards.some((card) => card.type === activeType.value)) {
       activeType.value = cards[0].type;
     }
   },
-  { deep: true },
+  { deep: true, immediate: true },
 );
+
+watch(vibe, (next) => {
+  if (!next) {
+    return;
+  }
+  if (props.cards.some((card) => card.type === next)) {
+    activeType.value = next;
+  }
+});
 
 const featuredIndex = computed(() =>
   props.cards.findIndex((card) => card.type === activeType.value),
@@ -84,6 +99,9 @@ function measureIndicator() {
 
 function selectType(type: CardData["type"]) {
   activeType.value = type;
+  if (vibe.value !== type) {
+    setVibe(type);
+  }
 }
 
 function onTabsKeydown(event: KeyboardEvent) {
@@ -138,7 +156,7 @@ function onTabsKeydown(event: KeyboardEvent) {
   }
 
   event.preventDefault();
-  activeType.value = types[next];
+  selectType(types[next]);
   document.getElementById(`vibes-tab-${types[next]}`)?.focus();
 }
 

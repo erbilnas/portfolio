@@ -2,404 +2,488 @@
   "version": 1,
   "transcripts": {
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/02dd30d7-2f0e-4479-91d3-4601589f92ca/02dd30d7-2f0e-4479-91d3-4601589f92ca.jsonl": {
-      "mtimeMs": 1771606033099.8748,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771606033.0998747,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/03b2317d-0c1b-41d2-ba2e-2e764675ac9b/03b2317d-0c1b-41d2-ba2e-2e764675ac9b.jsonl": {
+      "mtimeMs": 1786370774.4679039,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/0669ca9e-350d-46a7-89af-33e7070205b6/0669ca9e-350d-46a7-89af-33e7070205b6.jsonl": {
+      "mtimeMs": 1786787156.5404918,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/066f53bd-fa1a-4708-bea8-2f4711a5a6b5/066f53bd-fa1a-4708-bea8-2f4711a5a6b5.jsonl": {
-      "mtimeMs": 1776017453321.0173,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776017453.3210173,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/07b96c40-d8eb-43d7-85ca-632f82b5ac2e/07b96c40-d8eb-43d7-85ca-632f82b5ac2e.jsonl": {
-      "mtimeMs": 1786365666391.7727,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786365666.3917727,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/0c1d4858-8806-4774-903b-e9c21767d86a/0c1d4858-8806-4774-903b-e9c21767d86a.jsonl": {
-      "mtimeMs": 1784574665614.2808,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1784574665.6142807,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/0e1bdf4b-fe8d-4ef8-82d2-38bb1179845a/0e1bdf4b-fe8d-4ef8-82d2-38bb1179845a.jsonl": {
-      "mtimeMs": 1786366158519.7615,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786366158.5197616,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/0f07e16c-fb4f-4f29-ab7e-0effb2224bc7/0f07e16c-fb4f-4f29-ab7e-0effb2224bc7.jsonl": {
-      "mtimeMs": 1776008028898.63,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776008028.89863,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/10c3dccf-7013-40aa-af33-cde5ba68b7e2/10c3dccf-7013-40aa-af33-cde5ba68b7e2.jsonl": {
-      "mtimeMs": 1771506771456.1736,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771506771.4561737,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/11867717-ead0-4b3a-b857-07a64b7d2d06/11867717-ead0-4b3a-b857-07a64b7d2d06.jsonl": {
-      "mtimeMs": 1771604876674.3071,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771604876.674307,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/18cebf3a-af55-4ea8-ab49-b0212c5b33aa/18cebf3a-af55-4ea8-ab49-b0212c5b33aa.jsonl": {
-      "mtimeMs": 1786350800694.2603,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786350800.6942604,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/18cebf3a-af55-4ea8-ab49-b0212c5b33aa/subagents/685a80f2-416a-4e65-a62e-309acce8981b.jsonl": {
-      "mtimeMs": 1786349370013.177,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786349370.013177,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/18cebf3a-af55-4ea8-ab49-b0212c5b33aa/subagents/9af591c3-c81a-4715-b9e1-e4b6c7b377ff.jsonl": {
-      "mtimeMs": 1786349364164.8284,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786349364.1648283,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/1ce3e0d5-9e9b-4cc8-bab7-a7b1cbeab5de/1ce3e0d5-9e9b-4cc8-bab7-a7b1cbeab5de.jsonl": {
-      "mtimeMs": 1771494570562.397,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771494570.562397,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/1efaad24-0587-4939-b781-0308659f8942/1efaad24-0587-4939-b781-0308659f8942.jsonl": {
-      "mtimeMs": 1776022920677.819,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776022920.677819,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/1f3817f7-12bf-4d1e-ba4b-59359ad2c1a4/1f3817f7-12bf-4d1e-ba4b-59359ad2c1a4.jsonl": {
-      "mtimeMs": 1786367421212.0574,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786368275.5117016,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/2132d2c4-79a5-4606-b55d-341b2d31fcaa/2132d2c4-79a5-4606-b55d-341b2d31fcaa.jsonl": {
-      "mtimeMs": 1771595711243.565,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771595711.2435648,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/228b1359-4f3c-4c6d-b927-32f29d57740c/228b1359-4f3c-4c6d-b927-32f29d57740c.jsonl": {
-      "mtimeMs": 1771493612477.3718,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771493612.477372,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/24644130-edbd-4d3c-a4b2-ef9b14e70c71/24644130-edbd-4d3c-a4b2-ef9b14e70c71.jsonl": {
+      "mtimeMs": 1786369193.8978434,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/24644130-edbd-4d3c-a4b2-ef9b14e70c71/subagents/2f6c8234-935d-4e0d-871c-914dd310fcae.jsonl": {
+      "mtimeMs": 1786368534.0434577,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/24644130-edbd-4d3c-a4b2-ef9b14e70c71/subagents/8429f320-2f1f-49a9-bb42-17cd39409f93.jsonl": {
+      "mtimeMs": 1786368536.8470328,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/2a1203f1-eea0-4926-8cfe-770225d205c2/2a1203f1-eea0-4926-8cfe-770225d205c2.jsonl": {
-      "mtimeMs": 1776016971951.0273,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776016971.9510274,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/2d0c87b9-b12d-4bde-bdf6-b7f13644e02a/2d0c87b9-b12d-4bde-bdf6-b7f13644e02a.jsonl": {
-      "mtimeMs": 1771569201021.3916,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771569201.0213916,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/300f8ef0-f2ec-4f00-9ba9-851fe501eadc/300f8ef0-f2ec-4f00-9ba9-851fe501eadc.jsonl": {
-      "mtimeMs": 1771516073237.5178,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771516073.2375178,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/31ac6e57-719d-4c97-81ab-73ff3f79070a/31ac6e57-719d-4c97-81ab-73ff3f79070a.jsonl": {
-      "mtimeMs": 1771605921130.1685,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771605921.1301684,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/31af12eb-20c4-4e1f-8688-e46ac6ff5a12/31af12eb-20c4-4e1f-8688-e46ac6ff5a12.jsonl": {
-      "mtimeMs": 1771594954838.127,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771594954.838127,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/33047dc5-c774-4ff1-9f04-2b9d22d4f6b1/33047dc5-c774-4ff1-9f04-2b9d22d4f6b1.jsonl": {
-      "mtimeMs": 1786364434019.3953,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786364434.0193954,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/385876cd-e565-4003-b014-435218f696f0/385876cd-e565-4003-b014-435218f696f0.jsonl": {
-      "mtimeMs": 1771593903147.235,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771593903.1472352,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/388c5ef6-f257-4c6e-86d7-5a2c001b5b0d/388c5ef6-f257-4c6e-86d7-5a2c001b5b0d.jsonl": {
-      "mtimeMs": 1771514388062.2168,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771514388.0622168,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/3ca19d10-bfcc-4979-b632-ae0388ba65d0/3ca19d10-bfcc-4979-b632-ae0388ba65d0.jsonl": {
-      "mtimeMs": 1786347087868.965,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786347087.8689651,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/3ca19d10-bfcc-4979-b632-ae0388ba65d0/subagents/7d3a410c-f611-4c4f-bb17-5cf8181f6146.jsonl": {
-      "mtimeMs": 1786345866208.7737,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786345866.2087736,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/3ca19d10-bfcc-4979-b632-ae0388ba65d0/subagents/99c2fe5e-a9d5-4c88-a8f1-bb8c57308186.jsonl": {
-      "mtimeMs": 1786345718894.9873,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786345718.8949873,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/3ce550d9-dc0b-48bc-9175-6e4df78358fd/3ce550d9-dc0b-48bc-9175-6e4df78358fd.jsonl": {
-      "mtimeMs": 1771505033398.5112,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771505033.3985112,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/418c9a4f-7845-4de6-9450-2bd3eb194224/418c9a4f-7845-4de6-9450-2bd3eb194224.jsonl": {
-      "mtimeMs": 1786359651679.1902,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786359651.6791902,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/42d61cb0-649b-48b4-8f47-ed5c4ab72296/42d61cb0-649b-48b4-8f47-ed5c4ab72296.jsonl": {
-      "mtimeMs": 1771521934361.3018,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771521934.3613017,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/43fec9ce-1c43-4cdc-a5c1-91df33c33d05/43fec9ce-1c43-4cdc-a5c1-91df33c33d05.jsonl": {
-      "mtimeMs": 1776011842567.4143,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776011842.5674143,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/44e36572-8d6d-41e3-bafe-a9f049267e4a/44e36572-8d6d-41e3-bafe-a9f049267e4a.jsonl": {
-      "mtimeMs": 1786355103447.3657,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786355103.4473658,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/47149b2d-65fb-4dca-8641-198839a3038c/47149b2d-65fb-4dca-8641-198839a3038c.jsonl": {
-      "mtimeMs": 1771574546688.6758,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771574546.6886759,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/5121dfe4-3e1c-4fbe-ad8e-fe772c22cd60/5121dfe4-3e1c-4fbe-ad8e-fe772c22cd60.jsonl": {
-      "mtimeMs": 1771518983742.7612,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771518983.7427611,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/51cd6e39-eac2-45cb-858f-11bdf3d70ced/51cd6e39-eac2-45cb-858f-11bdf3d70ced.jsonl": {
-      "mtimeMs": 1771595488906.5076,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771595488.9065075,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/5359f6c3-4e5b-4f86-abc9-3f1027439dba/5359f6c3-4e5b-4f86-abc9-3f1027439dba.jsonl": {
-      "mtimeMs": 1771569935583.5598,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771569935.5835598,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/541a1aa7-6d9a-459a-8e0a-e3ee1d274b95/541a1aa7-6d9a-459a-8e0a-e3ee1d274b95.jsonl": {
-      "mtimeMs": 1771511030340.0051,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771511030.3400052,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/58c2426a-9004-42a9-93b2-2c1fd73c50d5/58c2426a-9004-42a9-93b2-2c1fd73c50d5.jsonl": {
+      "mtimeMs": 1786805707.9788408,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/58c2426a-9004-42a9-93b2-2c1fd73c50d5/subagents/246fb779-154e-49ee-8b65-bab69d4c0a1f.jsonl": {
+      "mtimeMs": 1786805731.6489758,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/5a648c1a-deb6-4fc3-9e95-f7e2d76279ea/5a648c1a-deb6-4fc3-9e95-f7e2d76279ea.jsonl": {
-      "mtimeMs": 1786365368000.7578,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786365368.000758,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/5e11c2f6-5941-4210-9a03-d8bf28391556/5e11c2f6-5941-4210-9a03-d8bf28391556.jsonl": {
-      "mtimeMs": 1776010882279.3196,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776010882.2793195,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/610716db-c6d9-4add-a870-ce143d02eb81/610716db-c6d9-4add-a870-ce143d02eb81.jsonl": {
-      "mtimeMs": 1771574103627.8704,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771574103.6278703,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6171dc18-950c-41a3-9cdd-d0d2702afb7c/6171dc18-950c-41a3-9cdd-d0d2702afb7c.jsonl": {
-      "mtimeMs": 1771596212487.4521,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771596212.487452,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/61d025a5-164e-4895-9726-8f06246faa82/61d025a5-164e-4895-9726-8f06246faa82.jsonl": {
-      "mtimeMs": 1771514923056.191,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771514923.056191,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/66668029-2ecc-47cd-834a-eaa011b851bd/66668029-2ecc-47cd-834a-eaa011b851bd.jsonl": {
-      "mtimeMs": 1776008350922.0144,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776008350.9220145,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/67962d79-7a27-44d7-86ca-1bcc6ce9e71d/67962d79-7a27-44d7-86ca-1bcc6ce9e71d.jsonl": {
-      "mtimeMs": 1771571691698.5544,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771571691.6985545,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6907e6db-91ab-4b1e-92bd-e98fcc983111/6907e6db-91ab-4b1e-92bd-e98fcc983111.jsonl": {
-      "mtimeMs": 1771519540708.1353,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771519540.7081354,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6d3c3f24-5ed7-48d8-b499-864ab3c99f70/6d3c3f24-5ed7-48d8-b499-864ab3c99f70.jsonl": {
-      "mtimeMs": 1786361953169.875,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786361953.169875,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6d3c3f24-5ed7-48d8-b499-864ab3c99f70/subagents/181a225c-d110-406b-8ccf-5f62ffa197d5.jsonl": {
-      "mtimeMs": 1786360049839.986,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786360049.839986,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6d3c3f24-5ed7-48d8-b499-864ab3c99f70/subagents/3ab98b1f-07ae-4c04-b270-39da5a10161b.jsonl": {
-      "mtimeMs": 1786359869423.1199,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786359869.4231198,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6d3c3f24-5ed7-48d8-b499-864ab3c99f70/subagents/4b65475a-f4e8-4c25-9262-3efa0e9f5785.jsonl": {
-      "mtimeMs": 1786359861572.2634,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786359861.5722635,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/6d3c3f24-5ed7-48d8-b499-864ab3c99f70/subagents/d26ad22f-1d03-4a47-aeb1-d5ff2f92128d.jsonl": {
-      "mtimeMs": 1786360643479.05,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786360643.4790502,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/72d44118-0e94-41ff-8909-b68124ae98f3/72d44118-0e94-41ff-8909-b68124ae98f3.jsonl": {
-      "mtimeMs": 1771593543453.0483,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771593543.4530482,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/741d629c-0c42-4742-a596-695ba8124e80/741d629c-0c42-4742-a596-695ba8124e80.jsonl": {
-      "mtimeMs": 1771512110930.9927,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771512110.9309926,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/742af019-a72a-4c5b-a5b8-69542142fa54/742af019-a72a-4c5b-a5b8-69542142fa54.jsonl": {
-      "mtimeMs": 1771512045723.7056,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771512045.7237055,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/75fb937a-a7ff-4233-b01b-35df9c627e17/75fb937a-a7ff-4233-b01b-35df9c627e17.jsonl": {
-      "mtimeMs": 1771572500400.3147,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771572500.4003148,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/77b86f1c-7c19-4a8c-827a-96031112b478/77b86f1c-7c19-4a8c-827a-96031112b478.jsonl": {
-      "mtimeMs": 1771504007305.6343,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771504007.3056343,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/77f38418-0d7c-4090-a6ec-26f408aa31af/77f38418-0d7c-4090-a6ec-26f408aa31af.jsonl": {
-      "mtimeMs": 1771569693318.0679,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771569693.3180678,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/7927737d-aa6f-406e-bcb5-f10d969fe366/7927737d-aa6f-406e-bcb5-f10d969fe366.jsonl": {
-      "mtimeMs": 1771519450422.1023,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771519450.4221022,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/79c64368-e869-4450-8594-ed95cfc64637/79c64368-e869-4450-8594-ed95cfc64637.jsonl": {
-      "mtimeMs": 1786365073232.6633,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786365073.2326634,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/7c8f76c1-9136-4183-b524-1b5b812b03b6/7c8f76c1-9136-4183-b524-1b5b812b03b6.jsonl": {
-      "mtimeMs": 1786352184189.3381,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786352184.1893382,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/7c8f76c1-9136-4183-b524-1b5b812b03b6/subagents/8199fa6a-cfb6-4e1b-bec0-f891b2c732db.jsonl": {
-      "mtimeMs": 1786351006764.9983,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786351006.7649982,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/7c95bc82-0932-44c8-98bd-275fad5f76bb/7c95bc82-0932-44c8-98bd-275fad5f76bb.jsonl": {
-      "mtimeMs": 1771605794930.462,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771605794.930462,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/7e615383-a064-4172-82ab-087a3241ee93/7e615383-a064-4172-82ab-087a3241ee93.jsonl": {
-      "mtimeMs": 1776011933516.8992,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776011933.516899,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/831b9f9d-6294-428d-9bbe-f8ac6066322b/831b9f9d-6294-428d-9bbe-f8ac6066322b.jsonl": {
-      "mtimeMs": 1771596486522.3528,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771596486.5223527,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/83f9d34f-8c31-40c3-a76a-49869dd57ba8/83f9d34f-8c31-40c3-a76a-49869dd57ba8.jsonl": {
-      "mtimeMs": 1771604799941.8933,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771604799.9418933,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/86e30862-4ff4-4869-b7d8-6a0dffc88775/86e30862-4ff4-4869-b7d8-6a0dffc88775.jsonl": {
+      "mtimeMs": 1786373198.4629347,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/8bbc09d7-9ea3-4cfd-846f-588b40d6718f/8bbc09d7-9ea3-4cfd-846f-588b40d6718f.jsonl": {
-      "mtimeMs": 1786354350848.755,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786354350.848755,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/8dd52988-8c58-4c11-9eaf-fbe2e24918c6/8dd52988-8c58-4c11-9eaf-fbe2e24918c6.jsonl": {
+      "mtimeMs": 1786371220.0483456,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/8dd52988-8c58-4c11-9eaf-fbe2e24918c6/subagents/0fe969e2-17f3-4dcc-b07c-0a94bdece80d.jsonl": {
+      "mtimeMs": 1786370919.7213643,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9069a582-d591-482b-84b8-5fcaf53e78fc/9069a582-d591-482b-84b8-5fcaf53e78fc.jsonl": {
+      "mtimeMs": 1786786973.687919,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/998852fd-935d-49c5-85a7-775d37fdd489/998852fd-935d-49c5-85a7-775d37fdd489.jsonl": {
-      "mtimeMs": 1786352637755.8252,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786352637.7558253,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9b78c475-ceb6-4611-b513-78555e674840/9b78c475-ceb6-4611-b513-78555e674840.jsonl": {
-      "mtimeMs": 1771504240296.5994,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771504240.2965994,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9ba26f41-1baa-4a18-b61a-3b8cf21efa1b/9ba26f41-1baa-4a18-b61a-3b8cf21efa1b.jsonl": {
+      "mtimeMs": 1786369814.4995458,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9c2153f8-b346-4645-a586-cf53cd907b64/9c2153f8-b346-4645-a586-cf53cd907b64.jsonl": {
-      "mtimeMs": 1786345068060.6182,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786345068.0606182,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9c2153f8-b346-4645-a586-cf53cd907b64/subagents/cca5c482-7b7c-4ac3-a6e4-67cde515d4ef.jsonl": {
-      "mtimeMs": 1786343540343.0837,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786343540.3430839,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9f1a4205-69a1-4ea2-b6b2-72fb0392cf33/9f1a4205-69a1-4ea2-b6b2-72fb0392cf33.jsonl": {
-      "mtimeMs": 1786367719228.6277,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786368013.0137243,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9f1a4205-69a1-4ea2-b6b2-72fb0392cf33/subagents/0c26bdaf-44af-47d2-8956-5739a161604f.jsonl": {
-      "mtimeMs": 1786365436921.6545,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786365436.9216545,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9f1a4205-69a1-4ea2-b6b2-72fb0392cf33/subagents/40090587-c800-489e-b81d-31fca4515917.jsonl": {
-      "mtimeMs": 1786367739178.0051,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786367865.0137334,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9f729cab-6c01-45b6-a262-e5922561aaf1/9f729cab-6c01-45b6-a262-e5922561aaf1.jsonl": {
+      "mtimeMs": 1786369828.8027513,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9f729cab-6c01-45b6-a262-e5922561aaf1/subagents/66d775f3-a169-4977-b8b9-47193f2a8b8b.jsonl": {
+      "mtimeMs": 1786368573.4244568,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/9f729cab-6c01-45b6-a262-e5922561aaf1/subagents/829f7013-7dbd-40d0-9caf-e842a63c875a.jsonl": {
+      "mtimeMs": 1786368557.9392545,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/a4a476bf-71fb-4e97-aa09-d123e4e58495/a4a476bf-71fb-4e97-aa09-d123e4e58495.jsonl": {
-      "mtimeMs": 1771604619443.6355,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771604619.4436355,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/a7a517f4-4e8f-404d-be8b-982fbd995dc3/a7a517f4-4e8f-404d-be8b-982fbd995dc3.jsonl": {
-      "mtimeMs": 1771605621117.699,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771605621.117699,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/a85ae995-368f-4365-95af-3bbcb39618ce/a85ae995-368f-4365-95af-3bbcb39618ce.jsonl": {
-      "mtimeMs": 1771593173483.963,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771593173.4839628,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/a861cca3-d1f3-4d98-a506-126b268dc44f/a861cca3-d1f3-4d98-a506-126b268dc44f.jsonl": {
-      "mtimeMs": 1771511565603.1384,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771511565.6031384,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/af9af84b-d1b6-42ec-93cf-db7559a364e4/af9af84b-d1b6-42ec-93cf-db7559a364e4.jsonl": {
-      "mtimeMs": 1786349117275.065,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786349117.275065,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/b0f8d6b1-e930-4cd3-81dd-da788317f325/b0f8d6b1-e930-4cd3-81dd-da788317f325.jsonl": {
-      "mtimeMs": 1786354458132.953,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786354458.132953,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/b20e1ee8-f782-48f2-b9eb-b0926740df9b/b20e1ee8-f782-48f2-b9eb-b0926740df9b.jsonl": {
-      "mtimeMs": 1771570140262.7998,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771570140.2627997,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/b57e08bb-6199-4d6f-8e56-86eb95c13aab/b57e08bb-6199-4d6f-8e56-86eb95c13aab.jsonl": {
-      "mtimeMs": 1776022920689.352,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776022920.689352,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/b6428775-729a-448f-bbe5-6d63ff28a0db/b6428775-729a-448f-bbe5-6d63ff28a0db.jsonl": {
-      "mtimeMs": 1771594181801.2522,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771594181.8012521,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/b744dfa2-c5ce-4292-a463-b85d14e620db/b744dfa2-c5ce-4292-a463-b85d14e620db.jsonl": {
-      "mtimeMs": 1771513128029.8528,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771513128.0298529,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/bc43c5ac-f2c6-4ccf-b0ab-794b5103cecf/bc43c5ac-f2c6-4ccf-b0ab-794b5103cecf.jsonl": {
-      "mtimeMs": 1771520276874.7336,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771520276.8747337,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/c1063d36-202a-4bc0-b9b3-ada6bac6c01d/c1063d36-202a-4bc0-b9b3-ada6bac6c01d.jsonl": {
+      "mtimeMs": 1786368777.0127187,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/c1063d36-202a-4bc0-b9b3-ada6bac6c01d/subagents/692a0409-8ef5-4420-b166-76acee81a6de.jsonl": {
+      "mtimeMs": 1786368433.054108,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/c147c515-7d63-4f30-9c68-71f2e5472bef/c147c515-7d63-4f30-9c68-71f2e5472bef.jsonl": {
-      "mtimeMs": 1776167719002.2664,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776167719.0022664,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/c379d7e4-7512-42d5-8a43-c4d30c88492c/c379d7e4-7512-42d5-8a43-c4d30c88492c.jsonl": {
-      "mtimeMs": 1786365310674.661,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786365310.674661,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/c529d2e6-160a-41b0-81b6-60d7afb92936/c529d2e6-160a-41b0-81b6-60d7afb92936.jsonl": {
-      "mtimeMs": 1786366840918.7068,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786366840.918707,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/cee2f27c-a615-4fb9-8fe7-62860fd0bdc9/cee2f27c-a615-4fb9-8fe7-62860fd0bdc9.jsonl": {
-      "mtimeMs": 1771605112158.2546,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771605112.1582546,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/d0aca11c-2837-4a38-a0fb-a0869671d61c/d0aca11c-2837-4a38-a0fb-a0869671d61c.jsonl": {
-      "mtimeMs": 1776283820856.9126,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776283820.8569126,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/dc9fc0f5-8384-4120-b022-222aa1cd9be1/dc9fc0f5-8384-4120-b022-222aa1cd9be1.jsonl": {
-      "mtimeMs": 1786364108495.1414,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786364108.4951413,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/e11e75e8-f7ac-4cbd-9373-3ab5762c9d70/e11e75e8-f7ac-4cbd-9373-3ab5762c9d70.jsonl": {
+      "mtimeMs": 1786368406.742513,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/e209f32f-124c-4fc3-a036-f8f490572c1e/e209f32f-124c-4fc3-a036-f8f490572c1e.jsonl": {
-      "mtimeMs": 1786353959407.632,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786353959.407632,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/e4157275-036c-4a5d-bd96-49431846740a/e4157275-036c-4a5d-bd96-49431846740a.jsonl": {
+      "mtimeMs": 1786371518.2032282,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/e6d486be-b8fa-47eb-833e-9a1109ad074e/e6d486be-b8fa-47eb-833e-9a1109ad074e.jsonl": {
+      "mtimeMs": 1786787114.1059937,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
+    },
+    "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/e6d486be-b8fa-47eb-833e-9a1109ad074e/subagents/f35382b8-8081-4a42-b08a-52672d03b14c.jsonl": {
+      "mtimeMs": 1786787094.539159,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/e9b4ce0b-844a-4c0f-a2a4-e9a8219e01bb/e9b4ce0b-844a-4c0f-a2a4-e9a8219e01bb.jsonl": {
-      "mtimeMs": 1786364712800.3035,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786364712.8003035,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/eb532689-beda-4a04-94bc-38a3aa33d7d1/eb532689-beda-4a04-94bc-38a3aa33d7d1.jsonl": {
-      "mtimeMs": 1776173380544.299,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776173380.5442991,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/eb5b9423-458f-4e72-a3ff-28e7d0041a4e/eb5b9423-458f-4e72-a3ff-28e7d0041a4e.jsonl": {
-      "mtimeMs": 1776018528606.124,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776018528.606124,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/edc02ed9-a76d-4d3f-9f84-6081548e025d/edc02ed9-a76d-4d3f-9f84-6081548e025d.jsonl": {
-      "mtimeMs": 1786353716523.3662,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786353716.5233662,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/edc02ed9-a76d-4d3f-9f84-6081548e025d/subagents/0f224c18-5815-4e00-a19b-08f08b8e52ec.jsonl": {
-      "mtimeMs": 1786353424351.6492,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1786353424.3516493,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/f20547dc-48e6-4d0b-8883-7b166e542ddf/f20547dc-48e6-4d0b-8883-7b166e542ddf.jsonl": {
-      "mtimeMs": 1771595180156.071,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771595180.156071,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/f66542c7-fda1-42e6-9ff6-9f38f6b81b3f/f66542c7-fda1-42e6-9ff6-9f38f6b81b3f.jsonl": {
-      "mtimeMs": 1771596663108.5356,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771596663.1085358,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/f7e894f7-c449-46af-9713-e996245f4892/f7e894f7-c449-46af-9713-e996245f4892.jsonl": {
-      "mtimeMs": 1771595855513.723,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771595855.513723,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/fa4c0cb2-12cd-4cff-b961-64bef7f27ce6/fa4c0cb2-12cd-4cff-b961-64bef7f27ce6.jsonl": {
-      "mtimeMs": 1776013087505.7715,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1776013087.5057714,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     },
     "/Users/erbilnas/.cursor/projects/Users-erbilnas-Documents-Projects-portfolio/agent-transcripts/fbbe313c-e8fc-438a-8e0e-adb728c9254c/fbbe313c-e8fc-438a-8e0e-adb728c9254c.jsonl": {
-      "mtimeMs": 1771515287226.8052,
-      "lastProcessedAt": "2026-08-10T13:17:38.674518+00:00"
+      "mtimeMs": 1771515287.2268052,
+      "lastProcessedAt": "2026-08-15T14:56:36.001319+00:00"
     }
   }
 }

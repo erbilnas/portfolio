@@ -10,6 +10,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "NUXT_PREVIEW=true nuxt preview",
+    "test:guestbook": "node --test server/utils/guestbook-sanitize.test.mjs",
     "postinstall": "nuxt prepare",
     "release": "semantic-release"
   },
@@ -60,7 +61,7 @@
     "@semantic-release/release-notes-generator": "^12.1.0",
     "@types/canvas-confetti": "^1.9.0",
     "@types/three": "^0.185.4",
-    "baseline-browser-mapping": "^2.10.19",
+    "baseline-browser-mapping": "^2.11.14",
     "semantic-release": "^23.0.2"
   },
   "engines": {
