@@ -1,3 +1,17 @@
+## [6.7.1](https://github.com/erbilnas/portfolio/compare/v6.7.0...v6.7.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **vibes:** polish scene framing and labels ([700cde0](https://github.com/erbilnas/portfolio/commit/700cde048e3b2a785219af2be283095d5c432542))
+
+## [6.7.1-preview.1](https://github.com/erbilnas/portfolio/compare/v6.7.0...v6.7.1-preview.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **vibes:** polish scene framing and labels ([700cde0](https://github.com/erbilnas/portfolio/commit/700cde048e3b2a785219af2be283095d5c432542))
+
 # [6.7.0](https://github.com/erbilnas/portfolio/compare/v6.6.0...v6.7.0) (2026-08-10)
 
 

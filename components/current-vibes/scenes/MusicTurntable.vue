@@ -519,7 +519,11 @@ function setSize() {
 function applyCamera() {
   if (!camera || !root) return;
   // Elevated ¾ product shot; drag orbits around the deck.
-  const r = 5;
+  // Portrait panel (mobile): pull back so the deck isn't edge-to-edge.
+  const el = containerRef.value;
+  const aspect =
+    el && el.clientHeight > 0 ? el.clientWidth / el.clientHeight : 1;
+  const r = aspect < 1 ? 5 + (1 - Math.min(aspect, 1)) * 5.5 : 5;
   const elev = Math.max(0.55, Math.min(1.35, pitch.value + 0.45));
   const y = yaw.value;
   const flat = Math.cos(elev * 0.55);
