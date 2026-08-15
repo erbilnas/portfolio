@@ -117,6 +117,12 @@ export default defineEventHandler(async (event) => {
       categories: (categories ?? []).filter(Boolean),
       readTime: estimateReadTime(description || recentPost.content),
       stats: buildWritingStats(items),
+      recent: items.slice(0, 5).map((item) => ({
+        title: item.title,
+        link: item.link,
+        published_at: item.pubDate,
+        readTime: estimateReadTime(item.description || item.content),
+      })),
     };
   } catch (error) {
     setResponseStatus(event, 500);
