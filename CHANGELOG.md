@@ -1,3 +1,11 @@
+# [6.8.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.7.1...v6.8.0-preview.1) (2026-08-15)
+
+
+### Features
+
+* **guestbook:** add public signs and GitHub admin moderation ([d0154c7](https://github.com/erbilnas/portfolio/commit/d0154c76bde8455edebc3b45e95c367cf8f4b529))
+* **ui:** polish vibes stage, FlipWords, and project rail ([e21be00](https://github.com/erbilnas/portfolio/commit/e21be0059e58b0ca8359052373de30bbf16cc38c))
+
 ## [6.7.1](https://github.com/erbilnas/portfolio/compare/v6.7.0...v6.7.1) (2026-08-10)
 
 
