@@ -79,4 +79,5 @@ The digital showcase about me, a passionate software engineer with a love for vi
 
 - [Hetzner Cloud](https://www.hetzner.com/cloud) - VPS hosting
 - [Coolify](https://coolify.io/) - Self-hosted deployment platform (Docker-based apps and CI)
+- Guestbook notes live in `.data/guestbook`. Mount a Coolify persistent volume at `/app/.data` so rebuilds do not wipe signatures. Manage them at `/admin` after GitHub OAuth (create an OAuth App with homepage `NUXT_APP_URL` and callback `{NUXT_APP_URL}/api/admin/auth/callback`). Set `GITHUB_OAUTH_CLIENT_ID`, `GITHUB_OAUTH_CLIENT_SECRET`, `ADMIN_SESSION_SECRET`, and either `ADMIN_GITHUB_LOGIN` or `GITHUB_USERNAME` (only that login can sign in).
 - [semantic-release](https://semantic-release.gitbook.io/) - Automated version management

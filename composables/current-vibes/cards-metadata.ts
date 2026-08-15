@@ -57,6 +57,12 @@ export interface CardMetadata {
   blogPostsThisYear?: number;
   blogAverageReadTime?: number;
   blogTopics?: string[];
+  blogRecent?: {
+    title: string;
+    link: string;
+    publishedDate: string;
+    readTime?: number;
+  }[];
   // Map specific
   cities?: number;
   countries?: number;
@@ -279,6 +285,12 @@ export const useCardsMetadata = () => {
             blogPostsThisYear: stats?.postsThisYear,
             blogAverageReadTime: stats?.averageReadTime,
             blogTopics: stats?.topics ?? [],
+            blogRecent: (post?.recent ?? []).map((item) => ({
+              title: item.title,
+              link: item.link,
+              publishedDate: formatDate(item.published_at, locale.value),
+              readTime: item.readTime,
+            })),
             statsCategory: hasStats
               ? t("currentVibes.cards.blog.statsTitle")
               : undefined,

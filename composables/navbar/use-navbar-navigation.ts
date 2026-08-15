@@ -1,6 +1,11 @@
 import type { NavigationItem, NavbarSection } from "@/components/navbar/navbar.types";
+import { useNavbarVibesPreview } from "./use-navbar-vibes-preview";
+import { isVibeType, useVibeQuery } from "~/composables/current-vibes/vibe-query";
 
 export const useNavbarNavigation = () => {
+  const { preview } = useNavbarVibesPreview();
+  const { setVibe } = useVibeQuery();
+
   const scrollToSection = (sectionId: NavbarSection) => {
     // Function to perform the scroll
     const performScroll = () => {
@@ -89,7 +94,20 @@ export const useNavbarNavigation = () => {
         import("lucide-vue-next").then((m) => m.AudioLines)
       ),
       label: t("nav.currentVibes"),
-      action: () => scrollToSection("current-vibes"),
+      action: () => {
+        const kind = preview.value?.kind;
+        if (isVibeType(kind)) {
+          setVibe(kind, { withHash: true });
+        }
+        scrollToSection("current-vibes");
+      },
+    },
+    {
+      icon: defineAsyncComponent(() =>
+        import("lucide-vue-next").then((m) => m.BookOpen)
+      ),
+      label: t("nav.guestbook"),
+      action: () => scrollToSection("guestbook"),
     },
     {
       id: "resume",

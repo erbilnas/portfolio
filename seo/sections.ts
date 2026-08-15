@@ -36,4 +36,8 @@ export const sectionMeta: Record<string, SectionMeta> = {
     description:
       "What I'm currently enjoying - from music and games to books and shows.",
   },
+  "Guestbook": {
+    title: `${SITE_NAME} | Guestbook`,
+    description: "A signed guestbook of short notes from visitors.",
+  },
 };

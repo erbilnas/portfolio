@@ -5,6 +5,13 @@ export interface MediumWritingStats {
   topics: string[];
 }
 
+export interface MediumRecentPost {
+  title: string;
+  link: string;
+  published_at: string;
+  readTime: number;
+}
+
 export interface MediumPost {
   title: string;
   link: string;
@@ -13,6 +20,7 @@ export interface MediumPost {
   categories?: string[];
   readTime?: number;
   stats?: MediumWritingStats;
+  recent?: MediumRecentPost[];
 }
 
 export interface SingleGameDetail {
