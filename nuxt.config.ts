@@ -76,6 +76,12 @@ const runtimeConfig = {
     username: process.env.GITHUB_USERNAME,
     token: process.env.GITHUB_TOKEN,
   },
+  admin: {
+    githubClientId: process.env.GITHUB_OAUTH_CLIENT_ID || "",
+    githubClientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET || "",
+    sessionSecret: process.env.ADMIN_SESSION_SECRET || "",
+    allowedLogin: process.env.ADMIN_GITHUB_LOGIN || "",
+  },
   goodreads: {
     // Numeric id preferred (profile → …/user/show/12345-…). Vanity profile
     // URLs are resolved at request time in server/api/goodreads.ts.
@@ -124,6 +130,9 @@ export default defineNuxtConfig({
   ],
   site: {
     url: process.env.NUXT_APP_URL || "https://erbilnas.com",
+  },
+  sitemap: {
+    exclude: ["/admin", "/admin/**"],
   },
   appConfig,
   runtimeConfig,
@@ -212,9 +221,14 @@ export default defineNuxtConfig({
     logLevel:
       isPreview || process.env.NODE_ENV !== "production" ? "verbose" : "silent",
     sourceMap: isPreview || process.env.NODE_ENV !== "production",
-    // Log errors with full details
     experimental: {
       wasm: true,
+    },
+    storage: {
+      guestbook: {
+        driver: "fs",
+        base: process.env.GUESTBOOK_DATA_DIR || "./.data/guestbook",
+      },
     },
   },
   // Enable Vue error handling
