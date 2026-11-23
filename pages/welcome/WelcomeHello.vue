@@ -11,11 +11,13 @@ const { t } = useI18n();
 const { reducedMotion } = useSettings();
 
 const prefersReduced = ref(false);
-const visibleWord = ref<string>(WELCOME_HELLOS[0]!);
-const incomingWord = ref<string>(WELCOME_HELLOS[1]!);
+/** Locale hello first so LCP/CLS never catch a mid-crossfade frame. */
+const visibleWord = ref<string>(t("welcome.hello"));
+const incomingWord = ref<string>(t("welcome.hello"));
 /** 0 = visible word, 1 = incoming word */
 const blend = ref(0);
 const index = ref(0);
+let cycleStartTimer: number | null = null;
 
 const motionAllowed = computed(
   () => !reducedMotion.value && !prefersReduced.value,
@@ -56,12 +58,18 @@ const startStyle = computed(() => ({
 
 const CYCLE_MS = 2000;
 const CROSS_MS = 200;
+/** Past typical Lighthouse LCP window before any greeting swap. */
+const CYCLE_START_DELAY_MS = 10000;
 
 let cycleTimer: number | null = null;
 let crossRaf: number | null = null;
 let crossStart = 0;
 
 const clearTimers = () => {
+  if (cycleStartTimer != null) {
+    clearTimeout(cycleStartTimer);
+    cycleStartTimer = null;
+  }
   if (cycleTimer != null) {
     clearTimeout(cycleTimer);
     cycleTimer = null;
@@ -127,20 +135,27 @@ onMounted(() => {
       "(prefers-reduced-motion: reduce)",
     ).matches;
   }
-  // Mobile / coarse pointer: keep a stable greeting so LCP isn't reset by crossfades.
+  settleOnLocaleHello();
+  // Mobile / coarse pointer: never cycle — stable LCP element.
   const cheapMotion =
     window.matchMedia("(pointer: coarse)").matches ||
     window.matchMedia("(max-width: 768px)").matches;
   if (!motionAllowed.value || cheapMotion) {
-    settleOnLocaleHello();
     return;
   }
-  // Defer cycling so LCP can settle on the first visible greeting.
-  const start = () => scheduleCycle();
+  // Desktop: wait well past LCP before the first crossfade.
+  const start = () => {
+    if (cyclingPaused.value) return;
+    index.value = 0;
+    scheduleCycle();
+  };
+  const arm = () => {
+    cycleStartTimer = window.setTimeout(start, CYCLE_START_DELAY_MS);
+  };
   if (typeof requestIdleCallback === "function") {
-    requestIdleCallback(start, { timeout: 4000 });
+    requestIdleCallback(arm, { timeout: 2000 });
   } else {
-    window.setTimeout(start, 2500);
+    arm();
   }
 });
 
