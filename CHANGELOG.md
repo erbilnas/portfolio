@@ -1,3 +1,10 @@
+# [6.10.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.10.0-preview.2...v6.10.0-preview.3) (2026-11-23)
+
+
+### Performance Improvements
+
+* stabilize LCP, drop ad bait, and shrink docker builds ([b2a91c9](https://github.com/erbilnas/portfolio/commit/b2a91c91de46a10eb0c3c7b22d4a00f136e55272))
+
 # [6.10.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.10.0-preview.1...v6.10.0-preview.2) (2026-11-23)
 
 
