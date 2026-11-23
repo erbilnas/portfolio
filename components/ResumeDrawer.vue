@@ -8,7 +8,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-vue-next";
 import { useResumeDrawer } from "~/composables/use-resume-drawer";
 
 const { t } = useI18n();
@@ -24,6 +23,14 @@ const resumeUrl = computed(
 const isExternal = computed(() => {
   const url = resumeUrl.value;
   return url.startsWith("http://") || url.startsWith("https://");
+});
+
+/** Quiet Chrome PDF chrome; FitH keeps the page readable in a tall drawer. */
+const previewSrc = computed(() => {
+  const url = resumeUrl.value;
+  if (isExternal.value) return url;
+  const join = url.includes("#") ? "&" : "#";
+  return `${url}${join}toolbar=0&navpanes=0&view=FitH`;
 });
 
 const clearResumeQuery = () => {
@@ -54,60 +61,62 @@ onMounted(openFromQuery);
       :show-close="false"
       class="flex w-full flex-col gap-0 p-0 sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
     >
-      <SheetHeader
-        class="flex-row items-center justify-between gap-3 space-y-0 border-b border-border px-4 py-3 text-left sm:px-6"
+      <div
+        class="flex shrink-0 items-center gap-3 border-b border-border/70 px-4 py-3 sm:px-5"
       >
-        <div class="min-w-0 space-y-0.5">
-          <SheetTitle>{{ t("nav.resume") }}</SheetTitle>
+        <SheetHeader class="min-w-0 flex-1 space-y-0 p-0 text-left">
+          <SheetTitle class="truncate text-base font-medium tracking-tight">
+            {{ t("nav.resume") }}
+          </SheetTitle>
           <SheetDescription class="sr-only">
-            {{ t("common.showResume") }}
+            {{ t("common.resumePreview") }}
           </SheetDescription>
-        </div>
-        <div class="flex shrink-0 items-center gap-2">
+        </SheetHeader>
+
+        <div class="flex shrink-0 items-center gap-1">
           <Button
             as="a"
             :href="resumeUrl"
             :download="!isExternal ? 'resume.pdf' : undefined"
             :target="isExternal ? '_blank' : undefined"
             :rel="isExternal ? 'noopener noreferrer' : undefined"
-            variant="outline"
             size="sm"
-            class="gap-2"
+            class="gap-1.5 shadow-none"
           >
-            <Icon name="ph:file-pdf" :size="16" />
+            <Icon name="ph:download-simple" :size="16" />
             {{ t("common.downloadCv") }}
           </Button>
           <SheetClose
-            class="inline-flex size-8 items-center justify-center rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            class="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            <X class="h-4 w-4" />
-            <span class="sr-only">Close</span>
+            <Icon name="ph:x" :size="18" />
+            <span class="sr-only">{{ t("common.close") }}</span>
           </SheetClose>
         </div>
-      </SheetHeader>
+      </div>
 
-      <div class="min-h-0 flex-1 bg-muted/30 p-3 sm:p-4">
+      <div class="relative min-h-0 flex-1 bg-background">
         <object
           v-if="open"
-          :data="resumeUrl"
+          :data="previewSrc"
           type="application/pdf"
-          class="h-full min-h-[70vh] w-full rounded-md border border-border bg-background"
-          aria-label="Resume PDF"
+          class="absolute inset-0 h-full w-full"
+          :aria-label="t('nav.resume')"
         >
           <div
-            class="flex h-full min-h-[70vh] flex-col items-center justify-center gap-4 p-8 text-center text-muted-foreground"
+            class="flex h-full min-h-[50dvh] flex-col items-center justify-center gap-4 p-8 text-center text-muted-foreground"
           >
-            <p>{{ t("common.error") }}</p>
+            <p>{{ t("common.resumeUnavailable") }}</p>
             <Button
               as="a"
               :href="resumeUrl"
               :download="!isExternal ? 'resume.pdf' : undefined"
               :target="isExternal ? '_blank' : undefined"
               :rel="isExternal ? 'noopener noreferrer' : undefined"
-              variant="outline"
-              class="gap-2"
+              size="sm"
+              class="gap-1.5 shadow-none"
             >
-              <Icon name="ph:file-pdf" :size="16" />
+              <Icon name="ph:download-simple" :size="16" />
               {{ t("common.downloadCv") }}
             </Button>
           </div>

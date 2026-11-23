@@ -164,7 +164,14 @@ export interface GoodreadsBook {
   date?: string;
   bookId?: string;
   pages?: number;
+  /** Current page while reading (from profile progress). */
+  progressPage?: number;
+  progressPercentage?: number;
   userRating?: number;
   averageRating?: number;
+  ratingCount?: number;
+  genres?: string[];
+  bookFormat?: string;
+  language?: string;
   stats?: GoodreadsReadingStats;
 }

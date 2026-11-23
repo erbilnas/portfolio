@@ -200,24 +200,24 @@ onBeforeUnmount(() => {
 <template>
   <div
     v-if="cards.length > 0 && featured && featuredMetadata"
-    class="flex w-full max-w-7xl flex-col gap-8 md:gap-12"
+    class="flex w-full max-w-7xl flex-col gap-10 md:gap-16"
   >
     <div class="flex w-full flex-col">
       <div
         ref="tablistRef"
         role="tablist"
         :aria-label="t('currentVibes.railAriaLabel')"
-        class="relative isolate flex w-full gap-1 overflow-x-auto rounded-2xl bg-black/[0.04] p-1 dark:bg-white/[0.06] [-ms-overflow-style:none] [scrollbar-width:none] md:w-fit md:max-w-full [&::-webkit-scrollbar]:hidden"
+        class="relative isolate flex w-full snap-x snap-mandatory gap-0 overflow-x-auto border-b border-neutral-200 dark:border-white/15 [-ms-overflow-style:none] [scrollbar-width:none] md:gap-1 [&::-webkit-scrollbar]:hidden"
         @keydown="onTabsKeydown"
       >
-        <!-- Sliding active plate -->
+        <!-- Sliding ink rule under the active category -->
         <div
           aria-hidden="true"
-          class="pointer-events-none absolute top-1 z-0 h-[calc(100%-0.5rem)] rounded-xl bg-white outline outline-1 outline-black/5 dark:bg-white/[0.12] dark:outline-white/10"
+          class="pointer-events-none absolute bottom-0 z-0 h-0.5 bg-neutral-950 dark:bg-white"
           :class="
             reducedMotion || !indicator.ready
               ? ''
-              : 'transition-[transform,width] duration-300 ease-out'
+              : 'transition-[transform,width] duration-200 ease-out'
           "
           :style="{
             width: `${indicator.width}px`,
@@ -243,19 +243,34 @@ onBeforeUnmount(() => {
             })
           "
           :class="[
-            'relative z-10 shrink-0 rounded-xl px-3.5 py-2 text-sm tracking-tight md:px-4 md:py-2.5 md:text-base',
+            'relative z-10 flex shrink-0 snap-start items-baseline gap-2 px-3 pb-3 pt-1 first:pl-0 last:pr-0 md:gap-2.5 md:px-3.5 md:pb-3.5',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-black',
-            'active:scale-[0.96]',
             item.card.type === activeType
-              ? 'font-semibold text-neutral-950 dark:text-white'
-              : 'font-medium text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100',
-            reducedMotion
-              ? ''
-              : 'transition-[color,transform] duration-200 ease-out',
+              ? 'text-neutral-950 dark:text-white'
+              : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100',
+            reducedMotion ? '' : 'transition-colors duration-150 ease-out',
           ]"
           @click="selectType(item.card.type)"
         >
-          {{ t(`currentVibes.tabs.${item.card.type}`) }}
+          <span
+            class="text-[11px] tabular-nums leading-none md:text-xs"
+            :class="
+              item.card.type === activeType
+                ? 'text-neutral-500 dark:text-neutral-400'
+                : 'text-neutral-400 dark:text-neutral-500'
+            "
+            aria-hidden="true"
+          >
+            {{ String(item.index + 1).padStart(2, "0") }}
+          </span>
+          <span
+            class="text-sm leading-none md:text-[15px]"
+            :class="
+              item.card.type === activeType ? 'font-semibold' : 'font-medium'
+            "
+          >
+            {{ t(`currentVibes.tabs.${item.card.type}`) }}
+          </span>
         </button>
       </div>
     </div>

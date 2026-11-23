@@ -70,10 +70,13 @@
       "gerçekten yayınladığım uygulamalar yapan",
       "daha iyi sıfırlar ve birler peşinde",
       "hâlâ öğrenen, hâlâ meraklı"
-    ]
+    ],
+    "letsStart": "Haydi"
   },
   "aboutMe": {
-    "description": "Geleceğini sıfırlar ve birlerle inşa etmeye tutkulu, sürekli öğrenmeye meraklı bir yazılım mühendisiyim. Şu anda {age} yaşındayım, Türkiye'de doğdum ve büyüdüm."
+    "description": "Geleceğini sıfırlar ve birlerle inşa etmeye tutkulu, sürekli öğrenmeye meraklı bir yazılım mühendisiyim. Şu anda {age} yaşındayım, Türkiye'de doğdum ve büyüdüm.",
+    "lead": "Geleceğini sıfırlar ve birlerle inşa etmeye tutkulu, sürekli öğrenmeye meraklı bir yazılım mühendisiyim.",
+    "detail": "Şu anda {age} yaşındayım, Türkiye'de doğdum ve büyüdüm."
   },
   "projects": {
     "title": "Projeler",
@@ -90,7 +93,10 @@
     "apps": {
       "mybestgame": {
         "name": "mybestgame.lol",
-        "tagline": "Ödeme ile sıralanan bir video oyunu liderlik tablosu. Katkılarınızı biriktirin, sıralamada yükselin, Oyun Yönetmeni mesajı bırakın ve ödemeler onaylandıkça sıralamanın güncellenmesini izleyin."
+        "tagline": "Ödeme ile sıralanan bir video oyunu liderlik tablosu. Katkılarınızı biriktirin, sıralamada yükselin, Oyun Yönetmeni mesajı bırakın ve ödemeler onaylandıkça sıralamanın güncellenmesini izleyin.",
+        "problem": "Cüzdanı yok sayan liderlik tabloları sönük kalır; övünmek için bir bahis gerekir.",
+        "stack": "Ödemeler onaylandıkça güncellenen, Oyun Yönetmeni mesajlı canlı bir sıralama.",
+        "outcome": "Herkesin önünde, katkı katkı sıralamada yüksel."
       },
       "farkle": {
         "name": "Farkle",
@@ -665,7 +671,7 @@
         "platforms": "Platformlar",
         "platformsView": "Gör",
         "genres": "Türler",
-        "gamesCompleted": "tamamlanan oyun",
+        "gamesCompleted": "Tamamlanan oyun",
         "complete": "tamamlandı",
         "completionRate": "tamamlama oranı",
         "gamesByYear": "Çıkış yılına göre oyunlar",
@@ -729,8 +735,12 @@
         "added": "Eklendi",
         "finished": "Bitti",
         "pages": "Sayfa",
+        "pageOf": "{current} / {total}. sayfa",
+        "progress": "İlerleme",
         "myRating": "Puanım",
         "avgRating": "Topluluk",
+        "votes": "oy",
+        "genres": "Türler",
         "statsTitle": "Okuma istatistikleri",
         "booksRead": "Okunan",
         "thisYear": "Bu yıl",
@@ -794,8 +804,11 @@
     "scroll": "Kaydırarak",
     "toSeeMore": "daha fazla görüntüleyebilirsin",
     "scrollToSeeMore": "Kaydırmaya başlayın",
-    "downloadCv": "CV İndir",
+    "downloadCv": "İndir",
     "showResume": "Özgeçmişi Görüntüle",
+    "resumePreview": "Özgeçmiş önizlemesi. İndirme mevcut.",
+    "resumeUnavailable": "Bu tarayıcıda önizleme yok.",
+    "close": "Kapat",
     "goBack": "Geri Dön"
   },
   "admin": {

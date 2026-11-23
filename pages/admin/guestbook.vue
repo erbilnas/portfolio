@@ -95,33 +95,37 @@ function formatDate(value: string) {
             <span class="tabular-nums"> · {{ formatDate(entry.createdAt) }}</span>
           </p>
         </div>
-        <div class="flex shrink-0 flex-wrap gap-x-4 gap-y-2 text-sm">
-          <button
+        <div class="flex shrink-0 flex-wrap gap-2">
+          <Button
             v-if="entry.status !== 'approved'"
             type="button"
-            class="font-medium text-neutral-800 hover:text-neutral-950 disabled:opacity-50 dark:text-neutral-200 dark:hover:text-white"
+            variant="outline"
+            size="sm"
             :disabled="busyId === entry.id"
             @click="setStatus(entry.id, 'approve')"
           >
             {{ t("admin.guestbook.approve") }}
-          </button>
-          <button
+          </Button>
+          <Button
             v-if="entry.status !== 'rejected'"
             type="button"
-            class="font-medium text-neutral-800 hover:text-neutral-950 disabled:opacity-50 dark:text-neutral-200 dark:hover:text-white"
+            variant="outline"
+            size="sm"
             :disabled="busyId === entry.id"
             @click="setStatus(entry.id, 'reject')"
           >
             {{ t("admin.guestbook.reject") }}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
-            class="text-neutral-500 hover:text-neutral-800 disabled:opacity-50 dark:text-neutral-400 dark:hover:text-neutral-200"
+            variant="outline"
+            size="sm"
+            class="text-neutral-500"
             :disabled="busyId === entry.id"
             @click="remove(entry.id)"
           >
             {{ t("admin.guestbook.delete") }}
-          </button>
+          </Button>
         </div>
       </li>
     </ul>

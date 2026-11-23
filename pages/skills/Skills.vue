@@ -10,33 +10,29 @@ import { normalizeCategoryName } from "~/composables/skills/category-normalizati
 
 const sectionRef = ref<HTMLElement | null>(null);
 const carouselComponentRef = ref<InstanceType<typeof SkillsCarousel> | null>(
-  null
+  null,
 );
 
 useObserver("Skills", sectionRef);
 
 const { t, locale } = useI18n();
 
-// Initialize activeTab with translated "Favorites" category
 const activeTab = ref(normalizeCategoryName(t("skills.categories.favorites")));
 
 const { tabs, filteredSkills } = useSkillsData(activeTab);
 
-// Update activeTab when locale changes
 watch(
   () => locale.value,
   () => {
     const currentTabIndex = tabs.value.findIndex(
-      (tab) => tab === activeTab.value
+      (tab) => tab === activeTab.value,
     );
     if (currentTabIndex >= 0) {
-      // Keep the same tab index
       activeTab.value = tabs.value[currentTabIndex];
     } else {
-      // Default to first tab if current tab doesn't match
       activeTab.value = tabs.value[0];
     }
-  }
+  },
 );
 
 const carouselRef = ref<HTMLDivElement | null>(null);
@@ -52,13 +48,11 @@ const {
   cleanupScrollListeners,
 } = useCarouselScroll(carouselRef, activeTab);
 
-// Watch for carousel component to be mounted and update ref
 watch(
   () => carouselComponentRef.value?.carouselRef,
   (newRef) => {
     if (newRef && !carouselRef.value) {
       carouselRef.value = newRef;
-      // Setup listeners when ref becomes available (only once)
       if (!listenersSetup) {
         nextTick(() => {
           setupScrollListeners();
@@ -67,11 +61,10 @@ watch(
       }
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 onMounted(() => {
-  // Also try to setup listeners on mount in case watch already fired
   if (carouselRef.value && !listenersSetup) {
     setupScrollListeners();
     listenersSetup = true;
@@ -87,23 +80,27 @@ onUnmounted(() => {
 <template>
   <section id="skills" ref="sectionRef" class="relative">
     <div
-      class="overflow-hidden min-h-screen flex flex-col gap-12 py-20 items-center bg-white dark:bg-black px-6"
+      class="flex min-h-screen flex-col items-center gap-12 overflow-hidden bg-white px-6 py-24 dark:bg-black md:gap-16 md:px-10 md:py-32"
     >
       <SkillsHeader />
 
-      <SkillsTabs
-        :tabs="tabs"
-        :active-tab="activeTab"
-        @update:active-tab="activeTab = $event"
-      />
+      <div class="flex w-full max-w-6xl flex-col gap-6 md:gap-8">
+        <div
+          class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+        >
+          <SkillsTabs
+            :tabs="tabs"
+            :active-tab="activeTab"
+            @update:active-tab="activeTab = $event"
+          />
 
-      <div class="max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative">
-        <SkillsCarouselNavigation
-          :can-scroll-left="canScrollLeft"
-          :can-scroll-right="canScrollRight"
-          @scroll-left="scrollLeft"
-          @scroll-right="scrollRight"
-        />
+          <SkillsCarouselNavigation
+            :can-scroll-left="canScrollLeft"
+            :can-scroll-right="canScrollRight"
+            @scroll-left="scrollLeft"
+            @scroll-right="scrollRight"
+          />
+        </div>
 
         <SkillsCarousel
           ref="carouselComponentRef"

@@ -1,18 +1,92 @@
 <script setup lang="ts">
+import { useSettings } from "~/composables/settings";
 import Copyright from "./Copyright.vue";
 import UsedTechnologies from "./UsedTechnologies.vue";
-import Version from "./Version.vue";
 
 const { t, locale } = useI18n();
+const { reducedMotion } = useSettings();
 
 const sectionRef = ref<HTMLElement | null>(null);
-const farewellRef = ref<HTMLElement | null>(null);
+const scrollProgress = ref(0);
+const prefersReduced = ref(false);
 
 const isCjk = computed(() => locale.value === "ja");
 
-const farewellChars = computed(() => {
-  const word = t("footer.farewell");
-  return [...word];
+const motionAllowed = computed(
+  () => !reducedMotion.value && !prefersReduced.value,
+);
+
+/** Ease-out so scale settles instead of racing linearly. */
+const easedProgress = computed(() => {
+  const p = scrollProgress.value;
+  return 1 - (1 - p) * (1 - p);
+});
+
+/** Grow through the footer travel; rests under version / copyright. */
+const farewellScale = computed(() => {
+  if (!motionAllowed.value) return 1;
+  return 1 + easedProgress.value * 0.35;
+});
+
+const farewellStyle = computed(() => ({
+  transform: `scale(${farewellScale.value})`,
+}));
+
+/** Reserve layout height for max scale so glyphs don’t spill under the nav. */
+const farewellSlotStyle = computed(() => {
+  if (!motionAllowed.value) return undefined;
+  return {
+    minHeight: isCjk.value
+      ? "calc(1.35 * clamp(2.75rem, 11vw, 7rem))"
+      : "calc(1.35 * clamp(4.25rem, 16vw, 10rem))",
+  };
+});
+
+let ticking = false;
+
+const updateScrollProgress = () => {
+  const section = sectionRef.value;
+  if (!section || !motionAllowed.value) {
+    scrollProgress.value = 0;
+    ticking = false;
+    return;
+  }
+
+  const rect = section.getBoundingClientRect();
+  // 0 as footer enters the fold; 1 when its bottom meets the viewport bottom
+  const start = window.innerHeight;
+  const finish = window.innerHeight - rect.height;
+  const span = Math.max(1, start - finish);
+  scrollProgress.value = Math.min(1, Math.max(0, (start - rect.top) / span));
+  ticking = false;
+};
+
+const onScrollOrResize = () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(updateScrollProgress);
+};
+
+useObserver("Footer", sectionRef);
+
+onMounted(() => {
+  if (typeof window !== "undefined" && window.matchMedia) {
+    prefersReduced.value = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+  }
+  updateScrollProgress();
+  window.addEventListener("scroll", onScrollOrResize, { passive: true });
+  window.addEventListener("resize", onScrollOrResize, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onScrollOrResize);
+  window.removeEventListener("resize", onScrollOrResize);
+});
+
+watch(motionAllowed, () => {
+  updateScrollProgress();
 });
 </script>
 
@@ -20,7 +94,7 @@ const farewellChars = computed(() => {
   <section
     id="footer"
     ref="sectionRef"
-    class="relative overflow-hidden bg-white dark:bg-black"
+    class="relative overflow-x-clip bg-white dark:bg-black"
     :aria-label="t('footer.label')"
   >
     <div
@@ -29,44 +103,38 @@ const farewellChars = computed(() => {
     />
 
     <div
-      class="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-8 px-6 pt-24 md:gap-10 md:pt-32"
+      class="relative z-10 flex w-full flex-col items-center px-4 pb-[max(7.5rem,calc(env(safe-area-inset-bottom)+6.5rem))] pt-12 md:pt-16"
     >
-      <UsedTechnologies />
-
-      <div class="flex flex-col items-center gap-2.5">
-        <Version />
+      <div
+        class="mx-auto flex w-full max-w-3xl flex-col items-center gap-5 px-2"
+      >
+        <UsedTechnologies />
         <Copyright />
       </div>
-    </div>
 
-    <div
-      class="relative z-10 px-4 pb-[max(7.5rem,calc(env(safe-area-inset-bottom)+6.5rem))] pt-14 md:pt-20"
-    >
-      <p
-        ref="farewellRef"
-        class="footer-farewell text-center font-light leading-[0.9] text-gray-900 dark:text-white"
-        :class="
-          isCjk
-            ? 'footer-farewell--cjk tracking-normal'
-            : 'footer-farewell--latin tracking-[0.04em]'
-        "
-        :aria-label="t('footer.farewell')"
+      <div
+        class="mt-8 flex w-full items-start justify-center md:mt-10"
+        :style="farewellSlotStyle"
       >
-        <span
-          v-for="(char, index) in farewellChars"
-          :key="`${char}-${index}`"
-          class="footer-farewell__char inline-block"
-          :style="{ '--i': index }"
-          aria-hidden="true"
-        >{{ char === " " ? "\u00A0" : char }}</span>
-      </p>
+        <p
+          class="footer-farewell origin-top text-center font-semibold leading-none tracking-tight text-gray-900 dark:text-white"
+          :class="
+            isCjk
+              ? 'footer-farewell--cjk tracking-normal'
+              : 'footer-farewell--latin'
+          "
+          :style="farewellStyle"
+        >
+          {{ t("footer.farewell") }}
+        </p>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
 .footer-farewell {
-  /* Soft exit: only the baseline tips dissolve */
+  /* Soft exit: baseline tips dissolve into the page end */
   -webkit-mask-image: linear-gradient(
     to bottom,
     #000 0%,
@@ -86,62 +154,10 @@ const farewellChars = computed(() => {
 }
 
 .footer-farewell--latin {
-  font-size: clamp(4rem, 16vw, 10rem);
+  font-size: clamp(4.25rem, 16vw, 10rem);
 }
 
 .footer-farewell--cjk {
   font-size: clamp(2.75rem, 11vw, 7rem);
-}
-
-.footer-farewell__char {
-  /* Visible by default — motion only softens, never hides */
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--i) * 28ms);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .footer-farewell:hover .footer-farewell__char {
-    opacity: 0.45;
-  }
-}
-
-@supports (animation-timeline: view()) {
-  .footer-farewell__char {
-    animation: farewell-drift linear both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 45%;
-    animation-delay: calc(var(--i) * 18ms);
-  }
-
-  @keyframes farewell-drift {
-    from {
-      transform: translateY(0.12em);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .footer-farewell__char {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-  }
-
-  .footer-farewell:hover .footer-farewell__char {
-    transform: none;
-  }
-}
-
-:global(html.reduce-motion) .footer-farewell__char {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
 }
 </style>

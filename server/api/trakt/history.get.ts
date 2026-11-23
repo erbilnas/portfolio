@@ -81,14 +81,15 @@ export interface TraktHistoryResponse {
   };
 }
 
-function getImageUrl(images?: TraktImages): string {
+function getPosterUrl(images?: TraktImages): string {
   if (!images) return "";
   return (
-    images.fanart?.full ||
-    images.fanart?.medium ||
     images.poster?.full ||
     images.poster?.medium ||
     images.poster?.thumb ||
+    images.fanart?.full ||
+    images.fanart?.medium ||
+    images.fanart?.thumb ||
     ""
   );
 }
@@ -105,7 +106,20 @@ async function fetchPosterFromTmdb(
   tmdbId: number,
   type: "movie" | "tv",
   apiKey: string,
+  season?: number,
 ): Promise<string> {
+  // Season one-sheets for TV episodes when TMDB has season art
+  if (type === "tv" && typeof season === "number" && season >= 0) {
+    const seasonUrl = `https://api.themoviedb.org/3/tv/${tmdbId}/season/${season}?api_key=${apiKey}&language=en-US`;
+    const seasonRes = await fetch(seasonUrl);
+    if (seasonRes.ok) {
+      const seasonData = (await seasonRes.json()) as { poster_path?: string | null };
+      if (seasonData.poster_path) {
+        return `https://image.tmdb.org/t/p/w780${seasonData.poster_path}`;
+      }
+    }
+  }
+
   const endpoint =
     type === "movie"
       ? `https://api.themoviedb.org/3/movie/${tmdbId}`
@@ -176,7 +190,7 @@ async function normalizeHistoryItem(
     title = item.movie.title;
     year = item.movie.year;
     ids = item.movie.ids;
-    image = getImageUrl(item.movie.images);
+    image = getPosterUrl(item.movie.images);
     overview = item.movie.overview?.trim() || undefined;
     tagline = item.movie.tagline?.trim() || undefined;
     rating =
@@ -194,7 +208,6 @@ async function normalizeHistoryItem(
     subtitle = item.episode.title || item.show.title;
     year = item.show.year;
     ids = item.show.ids;
-    image = getImageUrl(item.show.images);
     overview =
       item.episode.overview?.trim() ||
       item.show.overview?.trim() ||
@@ -219,8 +232,17 @@ async function normalizeHistoryItem(
           ? item.show.runtime
           : undefined;
     genres = parseGenres(item.show.genres);
-    if (!image && tmdbApiKey && ids.tmdb) {
-      image = await fetchPosterFromTmdb(ids.tmdb, "tv", tmdbApiKey);
+    // Prefer the season one-sheet; fall back to show poster / Trakt art
+    if (tmdbApiKey && ids.tmdb) {
+      image = await fetchPosterFromTmdb(
+        ids.tmdb,
+        "tv",
+        tmdbApiKey,
+        item.episode.season,
+      );
+    }
+    if (!image) {
+      image = getPosterUrl(item.show.images);
     }
   }
 
@@ -252,7 +274,7 @@ export default defineEventHandler(async (event) => {
   try {
     const url = new URL(`https://api.trakt.tv/users/${trakt.username}/history`);
     url.searchParams.set("limit", "1");
-    url.searchParams.set("extended", "full");
+    url.searchParams.set("extended", "full,images");
 
     const [historyResponse, stats] = await Promise.all([
       fetch(url.toString(), { headers: traktHeaders(trakt.clientId) }),

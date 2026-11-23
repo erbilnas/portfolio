@@ -12,6 +12,16 @@ const observerOptions: IntersectionObserverInit = {
   threshold: 0,
 };
 
+const SEO_SECTION_TO_NAV_ID: Record<string, string> = {
+  Welcome: "welcome",
+  "About Me": "about-me",
+  Skills: "skills",
+  Experience: "experience",
+  Projects: "projects",
+  "Current Vibes": "current-vibes",
+  Guestbook: "guestbook",
+};
+
 export const useSectionSeo = () => {
   const title = useState("section-seo-title", () => DEFAULT_TITLE);
   const description = useState(
@@ -22,11 +32,16 @@ export const useSectionSeo = () => {
   return { title, description };
 };
 
+export const useActiveNavSection = () =>
+  useState<string>("active-nav-section", () => "welcome");
+
 export const useObserver = (section: string, elRef: Ref<HTMLElement | null>) => {
   const meta = sectionMeta[section];
   if (!meta) return;
 
   const { title, description } = useSectionSeo();
+  const activeNavSection = useActiveNavSection();
+  const navId = SEO_SECTION_TO_NAV_ID[section];
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     for (const entry of entries) {
@@ -34,6 +49,9 @@ export const useObserver = (section: string, elRef: Ref<HTMLElement | null>) => 
       title.value = meta.title;
       if (meta.description) {
         description.value = meta.description;
+      }
+      if (navId) {
+        activeNavSection.value = navId;
       }
     }
   };

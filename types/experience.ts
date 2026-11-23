@@ -19,4 +19,4 @@ export type TimelineItem =
   | { type: "experience"; data: WorkExperience }
   | { type: "education"; data: Education };
 
-export type ExperienceTab = "Work Experience" | "Education";
+export type ExperienceTabKey = "workExperience" | "education";

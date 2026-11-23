@@ -1,10 +1,5 @@
 <script lang="ts" setup>
 import { useMediaQuery } from "@/composables/use-media-query-client";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 const props = withDefaults(
   defineProps<{
@@ -17,6 +12,7 @@ const props = withDefaults(
 
 const appConfig = useAppConfig();
 const isMobile = useMediaQuery("(max-width: 768px)");
+const { t } = useI18n();
 
 interface SocialLink {
   icon: string;
@@ -90,8 +86,17 @@ const moreLinks = socialLinks.filter((link) => !link.primary);
 const MAGNET_STRENGTH = 0.28;
 const MAGNET_RANGE = 72;
 
+const moreOpen = ref(false);
 const activeLabel = ref("");
 const offsets = ref<Record<string, { x: number; y: number }>>({});
+
+const iconLinkClass =
+  "flex size-12 items-center justify-center rounded-xl text-muted-foreground transition-[color,background-color,transform] duration-150 ease-out will-change-transform hover:bg-foreground/[0.06] hover:text-foreground focus-visible:bg-foreground/[0.06] focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/30 active:scale-[0.96] dark:hover:bg-foreground/[0.08] dark:focus-visible:bg-foreground/[0.08]";
+
+const moreItemClass =
+  "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-[color,background-color,transform] duration-150 ease-out hover:bg-foreground/[0.06] hover:text-foreground focus-visible:bg-foreground/[0.06] focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/30 active:scale-[0.98] dark:hover:bg-foreground/[0.08]";
+
+const moreLabel = computed(() => t("welcome.socialMore"));
 
 const resetOffsets = () => {
   offsets.value = {};
@@ -141,6 +146,11 @@ const onLinkBlur = () => {
   activeLabel.value = "";
 };
 
+const toggleMore = () => {
+  moreOpen.value = !moreOpen.value;
+  activeLabel.value = moreOpen.value ? moreLabel.value : "";
+};
+
 watch(
   () => props.magnetEnabled,
   (enabled) => {
@@ -161,15 +171,13 @@ const linkStyle = (href: string) => {
 
 <template>
   <nav class="mx-auto w-full max-w-2xl" aria-label="Social links">
-    <ul
-      class="flex flex-wrap items-center justify-center gap-x-0.5 gap-y-1 sm:gap-x-1.5"
-    >
+    <ul class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
       <li v-for="{ icon, href, label } in primaryLinks" :key="href">
         <a
           :href="href"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex size-11 items-center justify-center text-muted-foreground transition-colors duration-150 ease-out will-change-transform hover:text-foreground focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/30"
+          :class="iconLinkClass"
           :style="linkStyle(href)"
           :aria-label="label"
           @pointerenter="onLinkPointerEnter(label)"
@@ -182,54 +190,64 @@ const linkStyle = (href: string) => {
         </a>
       </li>
 
+      <li
+        class="mx-0.5 hidden h-5 w-px shrink-0 bg-foreground/15 sm:mx-1.5 sm:block"
+        aria-hidden="true"
+        role="presentation"
+      ></li>
+
       <li>
-        <Popover>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              class="flex size-11 items-center justify-center text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/30"
-              :aria-label="$t('welcome.socialMore')"
-              @pointerenter="onLinkPointerEnter($t('welcome.socialMore'))"
-              @pointerleave="activeLabel = ''"
-              @focus="onLinkFocus($t('welcome.socialMore'))"
-              @blur="onLinkBlur"
-            >
-              <Icon name="ph:dots-three-bold" :size="22" />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent
-            class="w-auto border-foreground/10 bg-background p-2 shadow-none"
-            align="center"
-            :side-offset="8"
-          >
-            <ul class="flex items-center gap-0.5">
-              <li v-for="{ icon, href, label } in moreLinks" :key="href">
-                <a
-                  :href="href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex size-10 items-center justify-center text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/30"
-                  :aria-label="label"
-                  @pointerenter="onLinkPointerEnter(label)"
-                  @pointerleave="activeLabel = ''"
-                  @focus="onLinkFocus(label)"
-                  @blur="onLinkBlur"
-                >
-                  <Icon :name="icon" :size="20" />
-                </a>
-              </li>
-            </ul>
-          </PopoverContent>
-        </Popover>
+        <button
+          type="button"
+          :class="[
+            iconLinkClass,
+            moreOpen ? 'bg-foreground/[0.08] text-foreground' : '',
+          ]"
+          :aria-label="moreLabel"
+          :aria-expanded="moreOpen"
+          aria-controls="social-links-more"
+          @click="toggleMore"
+          @pointerenter="onLinkPointerEnter(moreLabel)"
+          @pointerleave="activeLabel = moreOpen ? moreLabel : ''"
+          @focus="onLinkFocus(moreLabel)"
+          @blur="onLinkBlur"
+        >
+          <Icon
+            :name="moreOpen ? 'ph:x-bold' : 'ph:dots-three-bold'"
+            :size="22"
+          />
+        </button>
+      </li>
+    </ul>
+
+    <ul
+      v-if="moreOpen"
+      id="social-links-more"
+      class="mt-3 flex flex-wrap items-center justify-center gap-1"
+    >
+      <li v-for="link in moreLinks" :key="link.href">
+        <a
+          :href="link.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          :class="moreItemClass"
+          @pointerenter="onLinkPointerEnter(link.label)"
+          @pointerleave="activeLabel = moreOpen ? moreLabel : ''"
+          @focus="onLinkFocus(link.label)"
+          @blur="onLinkBlur"
+        >
+          <Icon :name="link.icon" :size="18" class="shrink-0" />
+          <span>{{ link.label }}</span>
+        </a>
       </li>
     </ul>
 
     <p
       class="mt-3 h-5 text-center text-sm font-light text-muted-foreground transition-opacity duration-150 ease-out"
-      :class="activeLabel ? 'opacity-100' : 'opacity-0'"
+      :class="activeLabel && !moreOpen ? 'opacity-100' : 'opacity-0'"
       aria-live="polite"
     >
-      <span v-if="activeLabel">{{ activeLabel }}</span>
+      <span v-if="activeLabel && !moreOpen">{{ activeLabel }}</span>
     </p>
   </nav>
 </template>

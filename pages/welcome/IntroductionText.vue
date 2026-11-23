@@ -8,7 +8,7 @@ const introduction = computed(() =>
 
 <template>
   <p
-    class="text-center text-2xl font-light tracking-tight text-gray-900 md:text-4xl dark:text-white"
+    class="text-pretty text-center text-xl font-medium tracking-tight text-gray-900 md:text-3xl dark:text-white"
   >
     {{ introduction }}
   </p>

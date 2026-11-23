@@ -103,8 +103,14 @@ export interface CardMetadata {
   readingDate?: string;
   readingStatus?: "reading" | "finished";
   readingPages?: number;
+  readingProgressPage?: number;
+  readingProgressPercentage?: number;
   readingUserRating?: number;
   readingAverageRating?: number;
+  readingRatingCount?: number;
+  readingGenres?: string[];
+  readingBookFormat?: string;
+  readingLanguage?: string;
   readingBooksRead?: number;
   readingBooksThisYear?: number;
   readingCurrentlyReading?: number;
@@ -175,10 +181,34 @@ const truncateDescription = (
   maxLength = 150,
 ) => {
   if (!description) return "";
-  const strippedText = description.replace(/<[^>]*>/g, "");
+  let strippedText = description
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  // Medium RSS often glues the featured-image alt onto the lead sentence
+  // (sometimes without a space: "…SystemIn today’s…").
+  const sentenceStart =
+    "(?:In|The|A|An|This|That|When|How|Why|What|If|As|For|With|From|To|On|At|By|It|We|You|One|Creating|Building|Writing|Today)";
+  strippedText = strippedText
+    .replace(
+      new RegExp(
+        `^Featured image(?: of)?(?:\\s+[A-Z][\\w&'-]*)*(?:\\s*)(?:[A-Z][a-zA-Z&'-]*?)(?=${sentenceStart}(?:[\\s'\\u2019]|$))`,
+        "u",
+      ),
+      "",
+    )
+    .replace(
+      new RegExp(
+        `^Featured image(?: of)?(?:\\s+(?!${sentenceStart}\\b)[A-Z][\\w&'-]*)+`,
+        "u",
+      ),
+      "",
+    )
+    .replace(/^[.\s]+/, "")
+    .trim();
   return strippedText.length <= maxLength
     ? strippedText
-    : strippedText.slice(0, maxLength) + "...";
+    : `${strippedText.slice(0, maxLength)}...`;
 };
 
 export const useCardsMetadata = () => {
@@ -370,8 +400,14 @@ export const useCardsMetadata = () => {
                 ? readingDate
                 : undefined,
             readingPages: book?.pages,
+            readingProgressPage: book?.progressPage,
+            readingProgressPercentage: book?.progressPercentage,
             readingUserRating: book?.userRating,
             readingAverageRating: book?.averageRating,
+            readingRatingCount: book?.ratingCount,
+            readingGenres: book?.genres ?? [],
+            readingBookFormat: book?.bookFormat,
+            readingLanguage: book?.language,
             readingBooksRead: stats?.booksRead,
             readingBooksThisYear: stats?.booksThisYear,
             readingCurrentlyReading: stats?.currentlyReading,
