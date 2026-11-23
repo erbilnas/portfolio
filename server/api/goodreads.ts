@@ -424,7 +424,7 @@ function configuredUserId(
   );
 }
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const appConfig = useAppConfig();
   const envUserId = (config.goodreads as { userId?: string } | undefined)
@@ -526,4 +526,9 @@ export default defineEventHandler(async (event) => {
       message: "Goodreads service is not available at this time",
     };
   }
+}, {
+  maxAge: 300,
+  swr: true,
+  name: "api-goodreads",
+  getKey: () => "goodreads",
 });

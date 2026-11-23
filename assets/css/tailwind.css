@@ -151,6 +151,25 @@
   }
 }
 
+/*
+ * Defer layout/paint for below-fold homepage sections.
+ * Paired with contain-intrinsic-size so skipped sections keep scroll height.
+ * Do not apply to #welcome (above the fold).
+ */
+#projects,
+#skills,
+#experience,
+#current-vibes,
+#guestbook,
+#footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 48rem;
+}
+
+#footer {
+  contain-intrinsic-size: auto none auto 28rem;
+}
+
 /* Ensure custom cursor appears above Sonner toasts */
 /* Using global styles outside of @layer to ensure highest priority */
 [data-sonner-toaster],

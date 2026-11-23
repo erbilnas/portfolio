@@ -279,14 +279,14 @@ onUnmounted(() => {
                   :src="featured.image"
                   :alt="t(`projects.apps.${featured.id}.name`)"
                   format="webp"
-                  :quality="95"
-                  width="960"
+                  :quality="80"
+                  width="512"
                   :sizes="
                     featured.logoLayout === 'wide'
                       ? '(max-width: 768px) 55vw, 200px'
                       : '(max-width: 768px) 40vw, 140px'
                   "
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                   class="max-h-full max-w-full object-contain object-left"
                   :class="
@@ -305,7 +305,7 @@ onUnmounted(() => {
                       ? 'mix-blend-multiply'
                       : ''
                   "
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </template>
@@ -430,7 +430,7 @@ onUnmounted(() => {
                 :src="item.image"
                 :alt="t(`projects.apps.${item.id}.name`)"
                 format="webp"
-                :quality="90"
+                :quality="80"
                 width="160"
                 sizes="40px"
                 loading="lazy"

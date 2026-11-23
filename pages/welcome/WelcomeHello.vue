@@ -127,11 +127,21 @@ onMounted(() => {
       "(prefers-reduced-motion: reduce)",
     ).matches;
   }
-  if (!motionAllowed.value) {
+  // Mobile / coarse pointer: keep a stable greeting so LCP isn't reset by crossfades.
+  const cheapMotion =
+    window.matchMedia("(pointer: coarse)").matches ||
+    window.matchMedia("(max-width: 768px)").matches;
+  if (!motionAllowed.value || cheapMotion) {
     settleOnLocaleHello();
     return;
   }
-  scheduleCycle();
+  // Defer cycling so LCP can settle on the first visible greeting.
+  const start = () => scheduleCycle();
+  if (typeof requestIdleCallback === "function") {
+    requestIdleCallback(start, { timeout: 4000 });
+  } else {
+    window.setTimeout(start, 2500);
+  }
 });
 
 onBeforeUnmount(() => {
