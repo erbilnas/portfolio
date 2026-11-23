@@ -94,7 +94,7 @@ const buildWritingStats = (items: MediumItem[]): MediumWritingStats => {
   };
 };
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   try {
     const { items } = await getMediumFeed();
 
@@ -132,4 +132,9 @@ export default defineEventHandler(async (event) => {
       message: "Medium service is not available at this time",
     };
   }
+}, {
+  maxAge: 300,
+  swr: true,
+  name: "api-blog",
+  getKey: () => "blog",
 });

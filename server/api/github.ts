@@ -149,7 +149,7 @@ const parseUsernameFromUrl = (url: string | undefined): string | null => {
   }
 };
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   try {
     const config = useRuntimeConfig();
     const githubConfig = config.github as
@@ -315,4 +315,9 @@ export default defineEventHandler(async (event) => {
       message: "GitHub service is not available at this time",
     };
   }
+}, {
+  maxAge: 180,
+  swr: true,
+  name: "api-github",
+  getKey: () => "github",
 });

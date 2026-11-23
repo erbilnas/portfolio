@@ -263,7 +263,7 @@ async function normalizeHistoryItem(
   };
 }
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const { trakt } = config;
 
@@ -298,4 +298,9 @@ export default defineEventHandler(async (event) => {
     console.error("Trakt history fetch error:", error);
     return null;
   }
+}, {
+  maxAge: 120,
+  swr: true,
+  name: "api-trakt-history",
+  getKey: () => "trakt-history",
 });

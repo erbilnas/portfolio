@@ -778,7 +778,7 @@ const fetchUserStats = async (): Promise<HLTBStats | null> => {
   }
 };
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   try {
     const results = await Promise.allSettled([
       getCurrentlyPlayingGame(),
@@ -807,4 +807,9 @@ export default defineEventHandler(async (event) => {
       message: "Game data is not available at this time",
     };
   }
+}, {
+  maxAge: 120,
+  swr: true,
+  name: "api-video-games",
+  getKey: () => "video-games",
 });

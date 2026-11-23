@@ -1,14 +1,32 @@
 <script lang="ts" setup>
-import { defineAsyncComponent } from "vue";
+import Welcome from "./welcome";
 
 const AboutMe = defineAsyncComponent(() => import("./about-me"));
-const CurrentVibes = defineAsyncComponent(() => import("./current-vibes"));
-const Guestbook = defineAsyncComponent(() => import("./guestbook"));
-const Experience = defineAsyncComponent(() => import("./experience"));
-const FooterComponent = defineAsyncComponent(() => import("./footer"));
-const Projects = defineAsyncComponent(() => import("./projects"));
-const Skills = defineAsyncComponent(() => import("./skills"));
-const Welcome = defineAsyncComponent(() => import("./welcome"));
+
+const Projects = defineLazyHydrationComponent(
+  "visible",
+  () => import("./projects"),
+);
+const Skills = defineLazyHydrationComponent(
+  "visible",
+  () => import("./skills"),
+);
+const Experience = defineLazyHydrationComponent(
+  "visible",
+  () => import("./experience"),
+);
+const CurrentVibes = defineLazyHydrationComponent(
+  "visible",
+  () => import("./current-vibes"),
+);
+const Guestbook = defineLazyHydrationComponent(
+  "visible",
+  () => import("./guestbook"),
+);
+const FooterComponent = defineLazyHydrationComponent(
+  "visible",
+  () => import("./footer"),
+);
 
 const { title, description } = useSectionSeo();
 
@@ -30,10 +48,11 @@ useHead({
 <template>
   <Welcome />
   <AboutMe />
-  <Projects />
-  <Skills />
-  <Experience />
-  <CurrentVibes />
-  <Guestbook />
-  <FooterComponent />
+  <!-- rootMargin: hydrate before scroll so section CSS/JS are ready near fold -->
+  <Projects :hydrate-on-visible="{ rootMargin: '320px 0px' }" />
+  <Skills :hydrate-on-visible="{ rootMargin: '240px 0px' }" />
+  <Experience :hydrate-on-visible="{ rootMargin: '240px 0px' }" />
+  <CurrentVibes :hydrate-on-visible="{ rootMargin: '200px 0px' }" />
+  <Guestbook :hydrate-on-visible="{ rootMargin: '160px 0px' }" />
+  <FooterComponent :hydrate-on-visible="{ rootMargin: '120px 0px' }" />
 </template>

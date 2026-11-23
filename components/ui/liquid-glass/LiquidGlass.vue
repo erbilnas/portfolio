@@ -4,6 +4,7 @@
     class="effect"
     :class="[
       props.layout === 'inline' ? 'effect--inline' : 'effect--fixed',
+      useCheapGlass ? 'effect--cheap' : '',
       props.containerClass,
     ]"
     :style="baseStyle"
@@ -12,7 +13,12 @@
       <slot />
     </div>
 
-    <svg class="filter" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg
+      v-if="!useCheapGlass"
+      class="filter"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
       <defs>
         <filter :id="filterId" color-interpolation-filters="sRGB">
           <feImage
@@ -131,10 +137,31 @@ const dimensions = reactive({
 });
 
 let observer: ResizeObserver | null = null;
+let coarsePointerMq: MediaQueryList | null = null;
+let narrowViewportMq: MediaQueryList | null = null;
+
+/** Coarse pointer or narrow viewport: frost + light CSS blur, no SVG displacement. */
+const useCheapGlass = ref(false);
+
+function syncCheapGlass() {
+  if (!import.meta.client) {
+    useCheapGlass.value = false;
+    return;
+  }
+  const coarse = coarsePointerMq?.matches ?? false;
+  const narrow = narrowViewportMq?.matches ?? false;
+  useCheapGlass.value = coarse || narrow;
+}
 
 const filterId = `lg-filter-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
 const baseStyle = computed(() => {
+  if (useCheapGlass.value) {
+    return {
+      "--frost": Math.max(props.frost, 0.14),
+      "border-radius": `${props.radius}px`,
+    };
+  }
   return {
     "--frost": props.frost,
     "--lg-filter": `url(#${filterId})`,
@@ -194,7 +221,16 @@ const displacementDataUri = computed(() => {
 onMounted(() => {
   if (!liquidGlassRoot.value) return;
 
+  if (import.meta.client) {
+    coarsePointerMq = window.matchMedia("(pointer: coarse)");
+    narrowViewportMq = window.matchMedia("(max-width: 768px)");
+    syncCheapGlass();
+    coarsePointerMq.addEventListener("change", syncCheapGlass);
+    narrowViewportMq.addEventListener("change", syncCheapGlass);
+  }
+
   observer = new ResizeObserver((entries) => {
+    if (useCheapGlass.value) return;
     const entry = entries[0];
     if (!entry) return;
 
@@ -218,6 +254,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   observer?.disconnect();
+  coarsePointerMq?.removeEventListener("change", syncCheapGlass);
+  narrowViewportMq?.removeEventListener("change", syncCheapGlass);
 });
 </script>
 
@@ -248,6 +286,15 @@ onUnmounted(() => {
     0px 4px 16px rgba(17, 17, 26, 0.05) inset,
     0px 8px 24px rgba(17, 17, 26, 0.05) inset,
     0px 16px 56px rgba(17, 17, 26, 0.05) inset;
+}
+
+.effect--cheap {
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  background: light-dark(
+    hsl(0 0% 100% / max(var(--frost, 0.14), 0.14)),
+    hsl(0 0% 0% / max(var(--frost, 0.14), 0.18))
+  );
 }
 
 .effect--fixed {

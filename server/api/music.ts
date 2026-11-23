@@ -238,7 +238,7 @@ function topGenresFromArtists(
     .map(([genre]) => genre);
 }
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   try {
     const tokenResponse = await getAccessToken();
     const access_token = tokenResponse?.access_token;
@@ -330,4 +330,9 @@ export default defineEventHandler(async (event) => {
       message: "Spotify service is not available at this time",
     };
   }
+}, {
+  maxAge: 60,
+  swr: true,
+  name: "api-music",
+  getKey: () => "music",
 });

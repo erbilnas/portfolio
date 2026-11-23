@@ -3,13 +3,6 @@ import { useI18n } from "#imports";
 import type { CardMetadata } from "~/composables/current-vibes/cards-metadata";
 import type { CardData } from "~/composables/current-vibes/current-vibes-data";
 import { useSettings } from "~/composables/settings";
-import TravelGlobe from "~/components/current-vibes/TravelGlobe.vue";
-import MusicTurntable from "~/components/current-vibes/scenes/MusicTurntable.vue";
-import GamingCover from "~/components/current-vibes/scenes/GamingCover.vue";
-import WatchingScreen from "~/components/current-vibes/scenes/WatchingScreen.vue";
-import CodingCommitField from "~/components/current-vibes/scenes/CodingCommitField.vue";
-import WritingDesk from "~/components/current-vibes/scenes/WritingDesk.vue";
-import ReadingCover from "~/components/current-vibes/scenes/ReadingCover.vue";
 import {
   Popover,
   PopoverContent,
@@ -24,6 +17,85 @@ interface Props {
 const props = defineProps<Props>();
 const { t } = useI18n();
 const { reducedMotion } = useSettings();
+
+const TravelGlobe = defineAsyncComponent(
+  () => import("~/components/current-vibes/TravelGlobe.vue"),
+);
+const MusicTurntable = defineAsyncComponent(
+  () => import("~/components/current-vibes/scenes/MusicTurntable.vue"),
+);
+const GamingCover = defineAsyncComponent(
+  () => import("~/components/current-vibes/scenes/GamingCover.vue"),
+);
+const WatchingScreen = defineAsyncComponent(
+  () => import("~/components/current-vibes/scenes/WatchingScreen.vue"),
+);
+const CodingCommitField = defineAsyncComponent(
+  () => import("~/components/current-vibes/scenes/CodingCommitField.vue"),
+);
+const WritingDesk = defineAsyncComponent(
+  () => import("~/components/current-vibes/scenes/WritingDesk.vue"),
+);
+const ReadingCover = defineAsyncComponent(
+  () => import("~/components/current-vibes/scenes/ReadingCover.vue"),
+);
+
+const stageRoot = ref<HTMLElement | null>(null);
+/** WebGL/scene mount gate: on near viewport, off when far (saves GPU/CPU). */
+const sceneReady = ref(false);
+let sceneObserver: IntersectionObserver | null = null;
+let idleRevealHandle: number | null = null;
+
+onMounted(() => {
+  if (!import.meta.client || !stageRoot.value) {
+    sceneReady.value = true;
+    return;
+  }
+
+  const el = stageRoot.value;
+
+  if (typeof IntersectionObserver === "undefined") {
+    sceneReady.value = true;
+    return;
+  }
+
+  sceneObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries.some((entry) => entry.isIntersecting);
+      if (!visible) {
+        if (idleRevealHandle != null && typeof cancelIdleCallback === "function") {
+          cancelIdleCallback(idleRevealHandle);
+          idleRevealHandle = null;
+        }
+        sceneReady.value = false;
+        return;
+      }
+      if (sceneReady.value) return;
+      if (typeof requestIdleCallback === "function") {
+        idleRevealHandle = requestIdleCallback(
+          () => {
+            idleRevealHandle = null;
+            sceneReady.value = true;
+          },
+          { timeout: 1200 },
+        );
+      } else {
+        sceneReady.value = true;
+      }
+    },
+    { rootMargin: "200px 0px" },
+  );
+  sceneObserver.observe(el);
+});
+
+onUnmounted(() => {
+  sceneObserver?.disconnect();
+  sceneObserver = null;
+  if (idleRevealHandle != null && typeof cancelIdleCallback === "function") {
+    cancelIdleCallback(idleRevealHandle);
+    idleRevealHandle = null;
+  }
+});
 
 const moreBlogPosts = computed(() => {
   const recent = props.metadata.blogRecent ?? [];
@@ -66,6 +138,7 @@ const coverTransitionClass = computed(() =>
     :aria-labelledby="`vibes-featured-title-${card.type}`"
   >
     <div
+      ref="stageRoot"
       :class="[
         'relative min-w-0 w-full overflow-hidden bg-neutral-200 dark:bg-neutral-900 md:aspect-auto md:min-h-[44rem] lg:min-h-[48rem]',
         // Music is a wide product shot — keep mobile stage closer to square.
@@ -77,7 +150,7 @@ const coverTransitionClass = computed(() =>
       ]"
     >
       <ClientOnly>
-        <div class="absolute inset-0">
+        <div v-if="sceneReady" class="absolute inset-0">
           <TravelGlobe v-if="card.type === 'map'" />
           <MusicTurntable
             v-else-if="card.type === 'music'"
@@ -109,6 +182,11 @@ const coverTransitionClass = computed(() =>
             :title="metadata.title"
           />
         </div>
+        <div
+          v-else
+          class="absolute inset-0 bg-neutral-200 dark:bg-neutral-900"
+          aria-hidden="true"
+        />
         <template #fallback>
           <div
             class="absolute inset-0 bg-neutral-200 dark:bg-neutral-900"

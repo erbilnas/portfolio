@@ -247,6 +247,8 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-01-02",
   image: {
     domains: ["conceptnest.com.tr"],
+    format: ["webp"],
+    quality: 80,
   },
   shadcn: {
     prefix: "",
