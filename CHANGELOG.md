@@ -1,3 +1,10 @@
+# [6.10.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.10.0-preview.1...v6.10.0-preview.2) (2026-11-23)
+
+
+### Performance Improvements
+
+* defer below-fold work and cut homepage cost ([f0363da](https://github.com/erbilnas/portfolio/commit/f0363dab3f84e5e07cfc8ce4dcc67601e8b7b0b2))
+
 # [6.10.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.9.0...v6.10.0-preview.1) (2026-11-23)
 
 
