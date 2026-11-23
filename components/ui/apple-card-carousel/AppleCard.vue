@@ -21,15 +21,16 @@
           :layout-id="layout ? `card-${card.title}` : undefined"
           class="relative z-[60] mx-auto my-10 h-fit max-w-5xl rounded-3xl bg-white p-4 font-sans md:p-10 dark:bg-neutral-900"
         >
-          <button
-            class="sticky right-0 top-4 ml-auto flex size-8 items-center justify-center rounded-full bg-black dark:bg-white"
+          <Button
+            type="button"
+            size="icon"
+            variant="outline"
+            class="sticky right-0 top-4 ml-auto size-8"
+            aria-label="Close"
             @click="handleClose"
           >
-            <Icon
-              name="tabler:x"
-              class="size-6 text-neutral-100 dark:text-neutral-900"
-            />
-          </button>
+            <Icon name="tabler:x" class="size-5" />
+          </Button>
           <Motion
             as="div"
             :layout-id="layout ? `category-${card.title}` : undefined"

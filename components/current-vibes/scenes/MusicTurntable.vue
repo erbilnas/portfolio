@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * Direction: Three.js turntable — elevated ¾ product shot.
+ * Direction: Three.js turntable — fixed elevated product shot (no orbit).
  * Vinyl + tonearm are the means; Spotify album art sits as the center label
  * (and a sleeve leaning behind). No default/placeholder cover image.
  */
@@ -65,14 +65,9 @@ let raf = 0;
 let resizeObserver: ResizeObserver | null = null;
 let lastFrame = 0;
 
-/** Orbit around deck center (yaw / pitch). */
-const yaw = ref(-0.42);
-const pitch = ref(0.38);
-const velocityYaw = ref(0);
-const dragging = ref(false);
-let lastX = 0;
-let lastY = 0;
-let pointerId: number | null = null;
+/** Fixed product-shot framing — no drag / idle orbit. */
+const FIXED_YAW = -0.18;
+const FIXED_PITCH = 0.58;
 
 /** Rest = parked right of platter; play = stylus on the grooves. */
 const tonearmRest = 0.48;
@@ -444,8 +439,10 @@ function buildScene(colors: ReturnType<typeof theme>) {
       side: DoubleSide,
     }),
   );
-  sleeveMesh.position.set(0.68, 0.78, -0.78);
-  sleeveMesh.rotation.set(-0.06, -0.28, 0.04);
+  // Closer / slightly smaller so the full sleeve stays inside the frame
+  sleeveMesh.position.set(0.48, 0.7, -0.62);
+  sleeveMesh.rotation.set(-0.04, -0.2, 0.02);
+  sleeveMesh.scale.setScalar(0.92);
   sleeveMesh.renderOrder = -1;
   sleeveMesh.visible = false;
   group.add(sleeveMesh);
@@ -513,26 +510,31 @@ function setSize() {
   renderer.setSize(w, h, false);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   camera.aspect = w / h;
+  // Tall mobile stage: slightly wider FOV so the product can sit larger
+  camera.fov = w / h < 0.85 ? 34 : 30;
   camera.updateProjectionMatrix();
+  applyCamera();
 }
 
 function applyCamera() {
   if (!camera || !root) return;
-  // Elevated ¾ product shot; drag orbits around the deck.
-  // Portrait panel (mobile): pull back so the deck isn't edge-to-edge.
   const el = containerRef.value;
   const aspect =
     el && el.clientHeight > 0 ? el.clientWidth / el.clientHeight : 1;
-  const r = aspect < 1 ? 5 + (1 - Math.min(aspect, 1)) * 5.5 : 5;
-  const elev = Math.max(0.55, Math.min(1.35, pitch.value + 0.45));
-  const y = yaw.value;
+  // Portrait: move CLOSER so deck + sleeve fill the tall frame (old formula
+  // pulled back and left a huge empty field). Landscape keeps the product shot.
+  const tall = aspect < 0.85;
+  const r = tall ? 4.55 + aspect * 0.85 : 6.1;
+  const elev = FIXED_PITCH + (tall ? 0.28 : 0.45);
+  const y = FIXED_YAW;
   const flat = Math.cos(elev * 0.55);
   camera.position.set(
     r * Math.sin(y) * Math.max(0.45, flat),
-    r * Math.sin(elev) * 0.72 + 0.35,
+    r * Math.sin(elev) * (tall ? 0.62 : 0.72) + (tall ? 0.22 : 0.35),
     r * Math.cos(y) * Math.max(0.45, flat),
   );
-  camera.lookAt(-0.05, 0.18, 0.02);
+  // Bias look toward sleeve so both deck and cover sit mid-frame
+  camera.lookAt(0.1, tall ? 0.48 : 0.32, -0.08);
   root.rotation.set(0, 0, 0);
 }
 
@@ -542,23 +544,10 @@ function tick(now: number) {
   const dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 0.016;
   lastFrame = now;
 
-  if (!dragging.value && !reducedMotion.value) {
-    if (Math.abs(velocityYaw.value) > 0.0003) {
-      yaw.value += velocityYaw.value;
-      velocityYaw.value *= 0.92;
-    } else {
-      velocityYaw.value = 0;
-      yaw.value += 0.0012;
-    }
-  } else if (!dragging.value) {
-    velocityYaw.value = 0;
-  }
-
-  // Vinyl spin
+  // Vinyl spin only — scene / camera stay locked
   if (!reducedMotion.value) {
     const speed = props.isPlaying ? 1.85 : 0.35;
     vinyl.rotation.y += speed * dt;
-    // Quiet platter breathe
     vinyl.position.y = DECK_H + 0.022 + Math.sin(now * 0.0012) * 0.004;
   }
 
@@ -567,45 +556,12 @@ function tick(now: number) {
   const ease = 1 - Math.exp(-dt * 5);
   tonearmAngle.value += (target - tonearmAngle.value) * ease;
   tonearm.rotation.y = tonearmAngle.value;
-  // Dip stylus onto the plaque when playing; lift when resting
   const tipTarget = props.isPlaying ? 0.1 : -0.06;
   tonearm.rotation.x += (tipTarget - tonearm.rotation.x) * ease;
-
-  if (sleeveMesh && sleeveMesh.visible && !reducedMotion.value) {
-    sleeveMesh.rotation.y = -0.28 + Math.sin(now * 0.0007) * 0.02;
-  }
 
   applyCamera();
   renderer.render(scene, camera);
   raf = requestAnimationFrame(tick);
-}
-
-function onPointerDown(e: PointerEvent) {
-  dragging.value = true;
-  velocityYaw.value = 0;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  pointerId = e.pointerId;
-  (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-}
-
-function onPointerMove(e: PointerEvent) {
-  if (!dragging.value || pointerId !== e.pointerId) return;
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  const stepY = dx * 0.008;
-  yaw.value += stepY;
-  pitch.value = Math.max(0.18, Math.min(1.15, pitch.value - dy * 0.006));
-  velocityYaw.value = stepY;
-}
-
-function onPointerUp(e: PointerEvent) {
-  if (pointerId !== null && pointerId !== e.pointerId) return;
-  dragging.value = false;
-  pointerId = null;
-  (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
 }
 
 function applyThemeColors() {
@@ -778,11 +734,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="containerRef"
-    class="absolute inset-0 cursor-grab touch-none overflow-hidden bg-neutral-100 active:cursor-grabbing dark:bg-neutral-950"
-    @pointerdown="onPointerDown"
-    @pointermove="onPointerMove"
-    @pointerup="onPointerUp"
-    @pointercancel="onPointerUp"
+    class="absolute inset-0 overflow-hidden bg-neutral-100 dark:bg-neutral-950"
   >
     <canvas ref="canvasRef" class="absolute inset-0 h-full w-full" />
     <div

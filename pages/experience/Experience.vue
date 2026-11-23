@@ -1,116 +1,78 @@
 <script setup lang="ts">
 import { useI18n, useObserver } from "#imports";
 import {
-  EducationEntry,
-  ExperienceEntry,
   ExperienceHeader,
+  ExperienceStack,
   ExperienceTabs,
 } from "~/components/experience";
-import { Timeline } from "~/components/ui/timeline";
-import {
-  useTimelineItems,
-  useTimelineItemsForComponent,
-  useTimelineItemsWithSlots,
-} from "~/composables/experience";
-import type { ExperienceTab } from "~/types/experience";
+import { useTimelineItems } from "~/composables/experience";
+import { useSettings } from "~/composables/settings";
+import type { ExperienceTabKey } from "~/types/experience";
 
 const sectionRef = ref<HTMLElement | null>(null);
 
 useObserver("Experience", sectionRef);
 
-const { t, locale } = useI18n();
+const { t } = useI18n();
+const { reducedMotion } = useSettings();
 
-// Use keys instead of translated strings for tab matching
-const WORK_EXPERIENCE_KEY = "workExperience";
-const EDUCATION_KEY = "education";
+const activeTabKey = ref<ExperienceTabKey>("workExperience");
 
-const tabs = computed<ExperienceTab[]>(() => [
-  t(`experience.${WORK_EXPERIENCE_KEY}`) as ExperienceTab,
-  t(`experience.${EDUCATION_KEY}`) as ExperienceTab,
+const tabs = computed(() => [
+  {
+    key: "workExperience" as const,
+    label: t("experience.workExperience"),
+  },
+  {
+    key: "education" as const,
+    label: t("experience.education"),
+  },
 ]);
 
-const activeTab = ref<ExperienceTab>(
-  t(`experience.${WORK_EXPERIENCE_KEY}`) as ExperienceTab
-);
-
-// Track active tab by key for reliable comparison
-const activeTabKey = ref<"workExperience" | "education">(WORK_EXPERIENCE_KEY);
-
-// Update activeTab when locale changes
-watch(
-  () => locale.value,
-  () => {
-    const currentTabIndex = tabs.value.findIndex(
-      (tab) => tab === activeTab.value
-    );
-    if (currentTabIndex === 0) {
-      activeTab.value = tabs.value[0];
-      activeTabKey.value = WORK_EXPERIENCE_KEY;
-    } else if (currentTabIndex === 1) {
-      activeTab.value = tabs.value[1];
-      activeTabKey.value = EDUCATION_KEY;
-    } else {
-      // Default to first tab if current tab doesn't match
-      activeTab.value = tabs.value[0];
-      activeTabKey.value = WORK_EXPERIENCE_KEY;
-    }
-  }
-);
-
-// Watch for tab changes to update the key
-watch(activeTab, (newTab) => {
-  const tabIndex = tabs.value.findIndex((tab) => tab === newTab);
-  if (tabIndex === 0) {
-    activeTabKey.value = WORK_EXPERIENCE_KEY;
-  } else if (tabIndex === 1) {
-    activeTabKey.value = EDUCATION_KEY;
-  }
-});
-
-// Handler for tab updates
-function handleTabUpdate(tab: ExperienceTab) {
-  activeTab.value = tab;
-  const tabIndex = tabs.value.findIndex((t) => t === tab);
-  if (tabIndex === 0) {
-    activeTabKey.value = WORK_EXPERIENCE_KEY;
-  } else if (tabIndex === 1) {
-    activeTabKey.value = EDUCATION_KEY;
-  }
-}
-
 const timelineItems = useTimelineItems(activeTabKey);
-const timelineItemsForComponent = useTimelineItemsForComponent(timelineItems);
-const timelineItemsWithSlots = useTimelineItemsWithSlots(timelineItems);
-
 </script>
 
 <template>
   <section id="experience" ref="sectionRef" class="relative">
     <div
-      class="overflow-hidden min-h-screen flex flex-col gap-12 py-20 items-center bg-white dark:bg-black px-6"
+      class="flex min-h-screen flex-col items-center gap-12 bg-white px-6 py-24 dark:bg-black md:gap-16 md:px-10 md:py-32"
     >
-      <ExperienceHeader />
+      <div class="flex w-full max-w-2xl flex-col items-center gap-6 md:gap-8">
+        <ExperienceHeader />
+        <ExperienceTabs
+          :tabs="tabs"
+          :active-key="activeTabKey"
+          @update:active-key="activeTabKey = $event"
+        />
+      </div>
 
-      <ExperienceTabs
-        :tabs="tabs"
-        :activeTab="activeTab"
-        @update:activeTab="handleTabUpdate"
-      />
-
-      <div class="relative w-full max-w-4xl">
-        <Timeline :items="timelineItemsForComponent">
-          <template
-            v-for="{ item, slotName } in timelineItemsWithSlots"
-            :key="slotName"
-            #[slotName]
+      <div class="relative w-full max-w-2xl">
+        <Transition
+          mode="out-in"
+          :enter-active-class="
+            reducedMotion
+              ? ''
+              : 'transition duration-[250ms] ease-[cubic-bezier(0.32,0.72,0,1)]'
+          "
+          :enter-from-class="reducedMotion ? '' : 'translate-y-1'"
+          :enter-to-class="reducedMotion ? '' : 'translate-y-0'"
+          :leave-active-class="
+            reducedMotion
+              ? ''
+              : 'transition duration-150 ease-[cubic-bezier(0.32,0.72,0,1)]'
+          "
+          :leave-from-class="reducedMotion ? '' : 'translate-y-0'"
+          :leave-to-class="reducedMotion ? '' : 'translate-y-1'"
+        >
+          <div
+            :id="`experience-panel-${activeTabKey}`"
+            :key="activeTabKey"
+            role="tabpanel"
+            :aria-labelledby="`experience-tab-${activeTabKey}`"
           >
-            <ExperienceEntry
-              v-if="item.type === 'experience'"
-              :experience="item.data"
-            />
-            <EducationEntry v-else :education="item.data" />
-          </template>
-        </Timeline>
+            <ExperienceStack :items="timelineItems" />
+          </div>
+        </Transition>
       </div>
     </div>
   </section>

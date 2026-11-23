@@ -12,7 +12,7 @@ const releasesUrl = socialLinks.github
     :href="releasesUrl"
     target="_blank"
     rel="noopener noreferrer"
-    class="text-xs text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+    class="underline-offset-2 transition-colors duration-150 hover:text-neutral-900 hover:underline dark:hover:text-white"
   >
     {{ t("footer.version", { version }) }}
   </a>

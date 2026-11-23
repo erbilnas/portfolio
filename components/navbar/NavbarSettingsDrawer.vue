@@ -6,6 +6,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { RotateCcw } from "lucide-vue-next";
+import { toast } from "vue-sonner";
+import type { Locale } from "~/types/i18n";
 import NavbarSettingsPanel from "./NavbarSettingsPanel.vue";
 
 interface Props {
@@ -36,27 +39,53 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const { locale, switchLocale } = useI18nLocale();
+const isResetting = ref(false);
 
 const isOpen = computed({
   get: () => props.open,
   set: (value) => emit("update:open", value),
 });
+
+const appConfig = useAppConfig();
+const version = (appConfig as { version?: string }).version ?? "Unknown";
+
+const handleReset = async () => {
+  props.onResetToDefaults();
+  if (locale.value !== "en") {
+    isResetting.value = true;
+    try {
+      await switchLocale("en" as Locale);
+    } catch {
+      toast.error(t("settings.languageSwitchError"));
+    } finally {
+      isResetting.value = false;
+    }
+  }
+  toast.success(t("settings.resetSuccess"));
+};
 </script>
 
 <template>
   <Sheet v-model:open="isOpen">
     <SheetContent
       side="right"
-      class="flex w-full flex-col gap-0 overflow-y-auto p-0 sm:max-w-md scrollbar-thin"
+      class="flex h-full w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
     >
-      <SheetHeader class="sr-only">
-        <SheetTitle>{{ t("settings.title") }}</SheetTitle>
-        <SheetDescription>
+      <SheetHeader
+        class="shrink-0 border-b border-neutral-200 px-5 py-4 pr-12 text-left dark:border-white/15"
+      >
+        <SheetTitle
+          class="text-base font-semibold tracking-tight text-neutral-950 dark:text-white"
+        >
+          {{ t("settings.title") }}
+        </SheetTitle>
+        <SheetDescription class="sr-only">
           {{ t("nav.multipleLanguagesSupported") }}
         </SheetDescription>
       </SheetHeader>
 
-      <div class="px-4 py-4 pr-12 sm:px-5 sm:pr-14">
+      <div class="min-h-0 flex-1 overflow-y-auto px-5 py-5 scrollbar-thin">
         <NavbarSettingsPanel
           :cursor-disabled="cursorDisabled"
           :theme="theme"
@@ -74,9 +103,29 @@ const isOpen = computed({
           :on-set-font-family="onSetFontFamily"
           :on-toggle-high-contrast="onToggleHighContrast"
           :on-toggle-language-switch-toast="onToggleLanguageSwitchToast"
-          :on-reset-to-defaults="onResetToDefaults"
         />
       </div>
+
+      <footer
+        class="shrink-0 flex items-center justify-between gap-3 border-t border-neutral-200 px-5 py-4 dark:border-white/15"
+      >
+        <p
+          class="text-[11px] tabular-nums text-neutral-500 dark:text-neutral-400"
+        >
+          {{ t("settings.version") }} {{ version }}
+        </p>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          class="gap-1.5 text-[12px]"
+          :disabled="isResetting"
+          @click="handleReset"
+        >
+          <RotateCcw class="size-3 shrink-0" aria-hidden="true" />
+          {{ t("settings.resetToDefaults") }}
+        </Button>
+      </footer>
     </SheetContent>
   </Sheet>
 </template>

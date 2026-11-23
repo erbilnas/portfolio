@@ -1,131 +1,100 @@
-<template>
-  <MotionConfig
-    :transition="{
-      duration: 0.7,
-      type: 'spring',
-      bounce: 0.5,
-    }"
-  >
-    <div
-      :class="
-        cn(
-          'fixed left-1/2 top-12 z-[999] -translate-x-1/2 bg-primary/90 backdrop-blur-lg border-radius',
-          $props.class
-        )
-      "
-      @click="() => (open = !open)"
-    >
-      <motion.div
-        id="motion-id"
-        layout
-        :initial="{
-          height: props.height,
-          width: 0,
-        }"
-        :animate="{
-          height: open && isSlotAvailable ? 'auto' : props.height,
-          width: open && isSlotAvailable ? 320 : 260,
-        }"
-        class="bg-natural-900 relative cursor-pointer overflow-hidden text-secondary"
-      >
-        <header class="gray- flex h-11 cursor-pointer items-center gap-2 px-4">
-          <AnimatedCircularProgressBar
-            :value="scrollPercentage * 100"
-            :min="0"
-            :max="100"
-            :circle-stroke-width="10"
-            class="w-6"
-            :show-percentage="false"
-            :duration="0.3"
-            :gauge-secondary-color="isDark ? '#6b728055' : '#6b728099'"
-            :gauge-primary-color="isDark ? 'black' : 'white'"
-          />
-          <h1 class="grow text-center font-bold">{{ title }}</h1>
-          <NumberFlow
-            :value="scrollPercentage"
-            :format="{
-              style: 'percent',
-            }"
-            locales="en-US"
-          />
-        </header>
-        <motion.div
-          v-if="isSlotAvailable"
-          class="mb-2 flex h-full max-h-60 flex-col gap-1 overflow-y-auto px-4 text-sm"
-        >
-          <slot />
-        </motion.div>
-      </motion.div>
-    </div>
-  </MotionConfig>
-</template>
-
 <script lang="ts" setup>
-import { useColorMode } from "#imports";
-import { cn } from "@/lib/utils";
+import LiquidGlass from "@/components/ui/liquid-glass/LiquidGlass.vue";
 import NumberFlow from "@number-flow/vue";
-import { motion, MotionConfig } from "motion-v";
-import { computed, onMounted, onUnmounted, ref, useSlots } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 interface Props {
-  class?: string;
+  /** Accessible name for the progresschip. */
   title?: string;
-  height?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  class: "",
   title: "Progress",
-  height: 44,
 });
 
-const open = ref(false);
-const slots = useSlots();
+const { t } = useI18n();
 
 const scrollPercentage = ref(0);
 
-// Lazy load color mode to avoid initialization order issues
-let colorModeComposable: ReturnType<typeof useColorMode> | null = null;
-const initializeColorMode = () => {
-  if (!colorModeComposable && process.client) {
-    try {
-      colorModeComposable = useColorMode();
-    } catch (error) {
-      console.warn("Color mode not ready yet:", error);
-    }
-  }
-  return colorModeComposable;
-};
+const percentValue = computed(() =>
+  Math.min(1, Math.max(0, scrollPercentage.value)),
+);
 
-const isDark = computed(() => {
-  const colorMode = initializeColorMode();
-  return colorMode?.value === "dark" ?? false;
-});
-const isSlotAvailable = computed(() => !!slots.default);
-const borderRadius = computed(() => `${props.height / 2}px`);
+const percentDisplay = computed(() => Math.round(percentValue.value * 100));
 
-onMounted(() => {
-  // Initialize color mode after mount to avoid initialization order issues
-  initializeColorMode();
-
-  if (window === undefined) return;
-
-  window.addEventListener("scroll", updatePageScroll);
-  updatePageScroll();
-});
+const circumference = 2 * Math.PI * 10;
+const dashOffset = computed(
+  () => circumference * (1 - percentValue.value),
+);
 
 function updatePageScroll() {
-  scrollPercentage.value =
-    window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  const height = document.body.scrollHeight - window.innerHeight;
+  scrollPercentage.value = height > 0 ? window.scrollY / height : 0;
 }
+
+onMounted(() => {
+  window.addEventListener("scroll", updatePageScroll, { passive: true });
+  updatePageScroll();
+});
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updatePageScroll);
 });
 </script>
 
-<style scoped>
-.border-radius {
-  border-radius: v-bind(borderRadius);
-}
-</style>
+<template>
+  <LiquidGlass
+    layout="fixed"
+    :radius="20"
+    :frost="0.12"
+    :border="0.04"
+    :blur="8"
+    :scale="-120"
+    container-class="fixed left-1/2 top-[max(0.75rem,env(safe-area-inset-top))] z-[999] -translate-x-1/2"
+    class="max-w-[calc(100vw-2rem)]"
+  >
+    <div
+      class="flex h-10 items-center gap-2.5 px-3.5 text-neutral-950 dark:text-white"
+      role="progressbar"
+      :aria-label="title || t('common.scrollToSeeMore')"
+      :aria-valuenow="percentDisplay"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <svg
+        class="size-5 shrink-0 -rotate-90"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          class="opacity-20"
+        />
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          :stroke-dasharray="circumference"
+          :stroke-dashoffset="dashOffset"
+          class="transition-[stroke-dashoffset] duration-150 ease-out"
+        />
+      </svg>
+
+      <NumberFlow
+        :value="percentValue"
+        :format="{ style: 'percent', maximumFractionDigits: 0 }"
+        locales="en-US"
+        class="min-w-[2.75ch] text-[13px] font-medium tabular-nums tracking-tight"
+      />
+    </div>
+  </LiquidGlass>
+</template>

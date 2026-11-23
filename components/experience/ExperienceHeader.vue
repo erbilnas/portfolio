@@ -5,14 +5,14 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="text-center mb-16">
-    <h2 class="text-5xl md:text-7xl font-semibold tracking-tight">
-      <span class="inline-block text-gray-900 dark:text-white">
-        {{ t("experience.title") }}
-      </span>
+  <div class="text-center">
+    <h2
+      class="text-5xl font-semibold tracking-tight text-gray-900 dark:text-white md:text-7xl"
+    >
+      {{ t("experience.title") }}
     </h2>
     <p
-      class="text-gray-600 dark:text-gray-400 mt-4 text-lg md:text-xl font-light animate-title-fade"
+      class="mt-3 text-lg font-light text-gray-600 md:mt-4 md:text-xl dark:text-gray-400"
     >
       {{ t("experience.description") }}
     </p>

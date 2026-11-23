@@ -70,10 +70,13 @@
       "building apps I actually ship",
       "chasing better zeros and ones",
       "still learning, still curious"
-    ]
+    ],
+    "letsStart": "Here we go"
   },
   "aboutMe": {
-    "description": "I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm {age} years old, born and raised in Turkey."
+    "description": "I'm a software engineer, constantly learning and passionate about building my future with zeros and ones. I'm {age} years old, born and raised in Turkey.",
+    "lead": "I'm a software engineer, constantly learning and passionate about building my future with zeros and ones.",
+    "detail": "I'm {age} years old, born and raised in Turkey."
   },
   "projects": {
     "title": "Projects",
@@ -90,7 +93,10 @@
     "apps": {
       "mybestgame": {
         "name": "mybestgame.lol",
-        "tagline": "A pay-to-rank video game leaderboard. Stack contributions to climb the chart, leave a Game Director message, and watch ranks update as payments clear."
+        "tagline": "A pay-to-rank video game leaderboard. Stack contributions to climb the chart, leave a Game Director message, and watch ranks update as payments clear.",
+        "problem": "Leaderboards that ignore the wallet feel flat; bragging rights need a stake.",
+        "stack": "A live pay-to-rank board with Game Director messages as payments clear.",
+        "outcome": "Climb the chart in public, one contribution at a time."
       },
       "farkle": {
         "name": "Farkle",
@@ -665,7 +671,7 @@
         "platforms": "Platforms",
         "platformsView": "View",
         "genres": "Genres",
-        "gamesCompleted": "games completed",
+        "gamesCompleted": "Games completed",
         "complete": "complete",
         "completionRate": "completion rate",
         "gamesByYear": "Games by release year",
@@ -729,8 +735,12 @@
         "added": "Added",
         "finished": "Finished",
         "pages": "Pages",
+        "pageOf": "page {current} of {total}",
+        "progress": "Progress",
         "myRating": "My rating",
         "avgRating": "Community",
+        "votes": "ratings",
+        "genres": "Genres",
         "statsTitle": "Reading stats",
         "booksRead": "Read",
         "thisYear": "This year",
@@ -794,8 +804,11 @@
     "scroll": "Scroll",
     "toSeeMore": "to see more",
     "scrollToSeeMore": "Scroll to see more",
-    "downloadCv": "Download CV",
+    "downloadCv": "Download",
     "showResume": "Show Resume",
+    "resumePreview": "CV preview. Download available.",
+    "resumeUnavailable": "Preview unavailable in this browser.",
+    "close": "Close",
     "goBack": "Go Back"
   },
   "admin": {

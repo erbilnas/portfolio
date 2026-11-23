@@ -7,28 +7,31 @@ import {
   ACESFilmicToneMapping,
   AmbientLight,
   BoxGeometry,
+  BufferGeometry,
   CanvasTexture,
   Color,
   DirectionalLight,
+  Float32BufferAttribute,
   Group,
   HemisphereLight,
   LinearFilter,
   LinearMipmapLinearFilter,
   Mesh,
+  MeshBasicMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   PerspectiveCamera,
   PlaneGeometry,
+  PMREMGenerator,
   Points,
   PointsMaterial,
-  BufferGeometry,
-  Float32BufferAttribute,
   Scene,
   SRGBColorSpace,
   Texture,
   TextureLoader,
   WebGLRenderer,
 } from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { useSettings } from "~/composables/settings";
 
 const props = defineProps<{
@@ -64,6 +67,8 @@ let dust: Points | null = null;
 let frontTexture: CanvasTexture | null = null;
 let backTexture: CanvasTexture | null = null;
 let coverTexture: Texture | null = null;
+let envMap: Texture | null = null;
+let pmrem: PMREMGenerator | null = null;
 let raf = 0;
 let resizeObserver: ResizeObserver | null = null;
 let clockStart = 0;
@@ -212,7 +217,7 @@ function paintBackFace(title = ""): CanvasTexture {
   ctx.lineWidth = 2;
   ctx.strokeRect(rx + 1.5, ry + 1.5, rw - 3, rh - 3);
 
-  // Gold contact pins
+  // Dark pin slots only — gold contacts are real meshes
   const padX = rw * 0.055;
   const padY = rh * 0.09;
   const gap = Math.max(3, rw * 0.012);
@@ -223,48 +228,23 @@ function paintBackFace(title = ""): CanvasTexture {
 
   for (let i = 0; i < PIN_COUNT; i++) {
     const x = rx + padX + i * (pinSlotW + gap);
-
-    ctx.fillStyle = "#050505";
+    const slot = ctx.createLinearGradient(x, pinTop, x + pinSlotW, pinTop);
+    slot.addColorStop(0, "#020202");
+    slot.addColorStop(0.5, "#0c0c0c");
+    slot.addColorStop(1, "#020202");
+    ctx.fillStyle = slot;
     ctx.beginPath();
     ctx.roundRect(x, pinTop, pinSlotW, pinH, 2);
     ctx.fill();
-
-    const inset = pinSlotW * 0.2;
-    const gx = x + inset;
-    const gw = pinSlotW - inset * 2;
-    const gy = pinTop + pinH * 0.04;
-    const gh = pinH * 0.92;
-
-    const gold = ctx.createLinearGradient(gx, gy, gx + gw, gy);
-    gold.addColorStop(0, "#8a6420");
-    gold.addColorStop(0.22, "#d4b05a");
-    gold.addColorStop(0.5, "#f3dfa0");
-    gold.addColorStop(0.78, "#c9a04a");
-    gold.addColorStop(1, "#7a5818");
-    ctx.fillStyle = gold;
-    ctx.beginPath();
-    ctx.roundRect(gx, gy, gw, gh, 1.5);
-    ctx.fill();
-
-    const shine = ctx.createLinearGradient(gx, gy, gx + gw, gy);
-    shine.addColorStop(0, "rgba(255,255,255,0)");
-    shine.addColorStop(0.45, "rgba(255,255,255,0.28)");
-    shine.addColorStop(0.55, "rgba(255,255,255,0.08)");
-    shine.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = shine;
-    ctx.fillRect(gx, gy, gw, gh * 0.55);
-
-    const toe = ctx.createLinearGradient(gx, gy + gh * 0.7, gx, gy + gh);
-    toe.addColorStop(0, "rgba(0,0,0,0)");
-    toe.addColorStop(1, "rgba(60,40,10,0.45)");
-    ctx.fillStyle = toe;
-    ctx.fillRect(gx, gy + gh * 0.65, gw, gh * 0.35);
   }
 
   return prepCanvasTexture(new CanvasTexture(c));
 }
 
-function paintFrontFrame(art: HTMLImageElement | null): CanvasTexture {
+function paintFrontFrame(
+  art: HTMLImageElement | null,
+  title = "",
+): CanvasTexture {
   const w = TEX_W;
   const h = TEX_H;
   const c = document.createElement("canvas");
@@ -276,11 +256,21 @@ function paintFrontFrame(art: HTMLImageElement | null): CanvasTexture {
   ctx.fillRect(0, 0, w, h);
 
   const sheen = ctx.createLinearGradient(0, 0, w * 0.7, h);
-  sheen.addColorStop(0, "rgba(255,255,255,0.1)");
-  sheen.addColorStop(0.4, "rgba(255,255,255,0.02)");
-  sheen.addColorStop(1, "rgba(0,0,0,0.28)");
+  sheen.addColorStop(0, "rgba(255,255,255,0.12)");
+  sheen.addColorStop(0.35, "rgba(255,255,255,0.03)");
+  sheen.addColorStop(1, "rgba(0,0,0,0.32)");
   ctx.fillStyle = sheen;
   ctx.fillRect(0, 0, w, h);
+
+  // Quiet plastic grain on the shell face
+  ctx.save();
+  ctx.globalAlpha = 0.05;
+  for (let i = 0; i < 2800; i++) {
+    const g = (Math.random() * 255) | 0;
+    ctx.fillStyle = `rgb(${g},${g},${g})`;
+    ctx.fillRect((Math.random() * w) | 0, (Math.random() * h) | 0, 1.5, 1.5);
+  }
+  ctx.restore();
 
   const notchW = w * 0.13;
   const notchH = h * 0.015;
@@ -297,18 +287,25 @@ function paintFrontFrame(art: HTMLImageElement | null): CanvasTexture {
   const labelW = w - insetX * 2;
   const labelH = h - insetTop - insetBottom;
 
-  ctx.fillStyle = "#ececec";
+  // Recessed label well rim
+  ctx.fillStyle = "#0e0e0e";
+  ctx.beginPath();
+  ctx.roundRect(insetX - 5, insetTop - 5, labelW + 10, labelH + 10, 8);
+  ctx.fill();
+
+  ctx.fillStyle = "#f2f2f2";
   ctx.beginPath();
   ctx.roundRect(insetX, insetTop, labelW, labelH, 6);
   ctx.fill();
 
-  if (art && art.complete && art.naturalWidth > 0) {
+  const hasArt = !!(art && art.complete && art.naturalWidth > 0);
+  if (hasArt) {
     const scale = Math.max(
-      labelW / art.naturalWidth,
-      labelH / art.naturalHeight,
+      labelW / art!.naturalWidth,
+      labelH / art!.naturalHeight,
     );
-    const dw = art.naturalWidth * scale;
-    const dh = art.naturalHeight * scale;
+    const dw = art!.naturalWidth * scale;
+    const dh = art!.naturalHeight * scale;
     const dx = insetX + (labelW - dw) / 2;
     const dy = insetTop + (labelH - dh) / 2;
     ctx.save();
@@ -317,14 +314,35 @@ function paintFrontFrame(art: HTMLImageElement | null): CanvasTexture {
     ctx.clip();
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(art, dx, dy, dw, dh);
+    ctx.drawImage(art!, dx, dy, dw, dh);
     ctx.restore();
+  } else if (title) {
+    ctx.fillStyle = "#111111";
+    ctx.beginPath();
+    ctx.roundRect(insetX, insetTop, labelW, labelH, 6);
+    ctx.fill();
+
+    const pad = labelW * 0.1;
+    ctx.fillStyle = "#f5f5f5";
+    ctx.font = `600 ${Math.round(labelW * 0.085)}px system-ui, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    wrapTitle(ctx, title, w / 2, insetTop + labelH * 0.42, labelW - pad * 2);
   }
 
-  ctx.strokeStyle = "rgba(0,0,0,0.4)";
-  ctx.lineWidth = 4;
+  // Soft inner shadow on the label well
+  const wellShade = ctx.createLinearGradient(insetX, insetTop, insetX, insetTop + 28);
+  wellShade.addColorStop(0, "rgba(0,0,0,0.35)");
+  wellShade.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = wellShade;
   ctx.beginPath();
-  ctx.roundRect(insetX + 2, insetTop + 2, labelW - 4, labelH - 4, 5);
+  ctx.roundRect(insetX, insetTop, labelW, 28, 6);
+  ctx.fill();
+
+  ctx.strokeStyle = "rgba(0,0,0,0.45)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.roundRect(insetX + 1.5, insetTop + 1.5, labelW - 3, labelH - 3, 5);
   ctx.stroke();
 
   // Insert arrow — recessed pocket + molded chevron
@@ -369,13 +387,59 @@ function paintFrontFrame(art: HTMLImageElement | null): CanvasTexture {
   return prepCanvasTexture(new CanvasTexture(c));
 }
 
+function wrapTitle(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  maxW: number,
+) {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let line = "";
+  for (const word of words) {
+    const next = line ? `${line} ${word}` : word;
+    if (ctx.measureText(next).width > maxW && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+  const lineH = Math.round(maxW * 0.12);
+  const startY = y - ((lines.length - 1) * lineH) / 2;
+  lines.slice(0, 4).forEach((l, i) => {
+    ctx.fillText(l, x, startY + i * lineH);
+  });
+}
+
+function paintContactShadow(): CanvasTexture {
+  const s = 256;
+  const c = document.createElement("canvas");
+  c.width = s;
+  c.height = s;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(s / 2, s / 2, 8, s / 2, s / 2, s * 0.48);
+  g.addColorStop(0, "rgba(0,0,0,0.55)");
+  g.addColorStop(0.35, "rgba(0,0,0,0.22)");
+  g.addColorStop(0.7, "rgba(0,0,0,0.06)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, s, s);
+  const tex = new CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
 function makeSideMaterial(hex: string) {
   return new MeshPhysicalMaterial({
     color: new Color(hex),
-    roughness: 0.55,
-    metalness: 0.04,
-    clearcoat: 0.25,
-    clearcoatRoughness: 0.4,
+    roughness: 0.42,
+    metalness: 0.08,
+    clearcoat: 0.72,
+    clearcoatRoughness: 0.22,
+    envMapIntensity: 0.85,
   });
 }
 
@@ -383,9 +447,21 @@ function makeFaceMaterial(map: CanvasTexture, rough: number) {
   return new MeshPhysicalMaterial({
     map,
     roughness: rough,
-    metalness: 0.04,
-    clearcoat: 0.2,
-    clearcoatRoughness: 0.42,
+    metalness: 0.06,
+    clearcoat: 0.55,
+    clearcoatRoughness: 0.28,
+    envMapIntensity: 0.7,
+  });
+}
+
+function makeGoldPinMaterial() {
+  return new MeshPhysicalMaterial({
+    color: new Color("#d4b05a"),
+    roughness: 0.22,
+    metalness: 1,
+    clearcoat: 0.55,
+    clearcoatRoughness: 0.18,
+    envMapIntensity: 1.35,
   });
 }
 
@@ -464,35 +540,98 @@ function buildProgressRing(pct: number): Mesh {
 function buildCart(front: CanvasTexture, back: CanvasTexture): Group {
   const group = new Group();
 
-  const frontMat = makeFaceMaterial(front, 0.58);
-  const backMat = makeFaceMaterial(back, 0.66);
+  const frontMat = makeFaceMaterial(front, 0.52);
+  const backMat = makeFaceMaterial(back, 0.62);
 
-  // Single solid cart: black shell on all edges, label maps on front/back.
-  // Materials: +x, -x, +y, -y, +z (front), -z (back)
+  // Materials: +x, -x, +y, -y, +z (front / cover), -z (back / pins)
   const body = new Mesh(new BoxGeometry(CART_W, CART_H, CART_D), [
     makeSideMaterial("#1a1a1a"),
-    makeSideMaterial("#161616"),
+    makeSideMaterial("#151515"),
     makeSideMaterial("#1c1c1c"),
-    makeSideMaterial("#121212"),
+    makeSideMaterial("#101010"),
     frontMat,
     backMat,
   ]);
   body.name = "body";
   group.add(body);
 
+  // Thin raised bezel around the label (open center — does not cover art)
+  const bezelMat = makeSideMaterial("#121212");
+  const bezelZ = CART_D / 2 + 0.003;
+  const labelW = CART_W * 0.844;
+  const labelH = CART_H * 0.822;
+  const labelY = CART_H * 0.021;
+  const bt = 0.014;
+  const top = new Mesh(new BoxGeometry(labelW + bt * 2, bt, 0.007), bezelMat);
+  top.position.set(0, labelY + labelH / 2 + bt / 2, bezelZ);
+  group.add(top);
+  const bottom = new Mesh(new BoxGeometry(labelW + bt * 2, bt, 0.007), bezelMat);
+  bottom.position.set(0, labelY - labelH / 2 - bt / 2, bezelZ);
+  group.add(bottom);
+  const left = new Mesh(new BoxGeometry(bt, labelH, 0.007), bezelMat);
+  left.position.set(-labelW / 2 - bt / 2, labelY, bezelZ);
+  group.add(left);
+  const right = new Mesh(new BoxGeometry(bt, labelH, 0.007), bezelMat);
+  right.position.set(labelW / 2 + bt / 2, labelY, bezelZ);
+  group.add(right);
+
+  // Top insert notch (Switch cart cue)
+  const notch = new Mesh(
+    new BoxGeometry(CART_W * 0.14, CART_H * 0.018, CART_D * 0.55),
+    makeSideMaterial("#050505"),
+  );
+  notch.position.set(0, CART_H / 2 - CART_H * 0.012, CART_D * 0.08);
+  group.add(notch);
+
+  // Physical contact well + gold pins on the back face
+  const wellW = CART_W * 0.78;
+  const wellH = CART_H * 0.38;
+  const wellY = -CART_H * 0.08;
+  const well = new Mesh(
+    new BoxGeometry(wellW, wellH, 0.02),
+    makeSideMaterial("#060606"),
+  );
+  well.position.set(0, wellY, -CART_D / 2 - 0.008);
+  group.add(well);
+
+  const wellLip = new Mesh(
+    new BoxGeometry(wellW + 0.024, wellH + 0.024, 0.005),
+    makeSideMaterial("#1a1a1a"),
+  );
+  wellLip.position.set(0, wellY, -CART_D / 2 - 0.001);
+  group.add(wellLip);
+
+  const goldMat = makeGoldPinMaterial();
+  const pinGap = wellW * 0.014;
+  const pinW = (wellW * 0.86 - pinGap * (PIN_COUNT - 1)) / PIN_COUNT;
+  const pinH = wellH * 0.76;
+  const pinDepth = 0.018;
+  const pinGeo = new BoxGeometry(pinW, pinH, pinDepth);
+  const pinStartX = -((PIN_COUNT - 1) * (pinW + pinGap)) / 2;
+  for (let i = 0; i < PIN_COUNT; i++) {
+    const pin = new Mesh(pinGeo, goldMat);
+    pin.position.set(
+      pinStartX + i * (pinW + pinGap),
+      wellY,
+      -CART_D / 2 - 0.018,
+    );
+    group.add(pin);
+  }
+
+  // Soft elliptical contact shadow
+  const shadowMap = paintContactShadow();
   const shadow = new Mesh(
-    new PlaneGeometry(CART_W * 1.15, CART_D * 2.4),
-    new MeshStandardMaterial({
-      color: "#000000",
+    new PlaneGeometry(1, 1),
+    new MeshBasicMaterial({
+      map: shadowMap,
       transparent: true,
-      opacity: 0.11,
-      roughness: 1,
-      metalness: 0,
+      opacity: 0.85,
       depthWrite: false,
     }),
   );
   shadow.rotation.x = -Math.PI / 2;
-  shadow.position.set(0, -CART_H / 2 - 0.008, 0.01);
+  shadow.position.set(0, -CART_H / 2 - 0.02, 0.04);
+  shadow.scale.set(CART_W * 1.15, CART_W * 0.55, 1);
   shadow.name = "shadow";
   group.add(shadow);
 
@@ -558,14 +697,14 @@ function loadCover(src: string) {
 function applyFront(img: HTMLImageElement | null) {
   if (!cart) return;
   disposeTexture(frontTexture);
-  frontTexture = paintFrontFrame(img);
+  frontTexture = paintFrontFrame(img, cartTitle.value);
 
   const body = cart.getObjectByName("body") as Mesh | undefined;
   if (!body || !Array.isArray(body.material)) return;
 
   const mats = body.material as MeshPhysicalMaterial[];
   const prev = mats[4];
-  mats[4] = makeFaceMaterial(frontTexture, 0.58);
+  mats[4] = makeFaceMaterial(frontTexture, 0.52);
   prev.map = null;
   prev.dispose();
 }
@@ -630,9 +769,14 @@ function tick() {
 
   const shadow = cart.getObjectByName("shadow") as Mesh | undefined;
   if (shadow) {
-    shadow.scale.setScalar(1 + Math.abs(cart.position.y) * 0.35);
-    const mat = shadow.material as MeshStandardMaterial;
-    mat.opacity = Math.max(0.04, 0.11 - Math.abs(cart.position.y) * 0.35);
+    const lift = Math.abs(cart.position.y);
+    shadow.scale.set(
+      CART_W * 1.15 * (1 + lift * 0.35),
+      CART_W * 0.55 * (1 + lift * 0.3),
+      1,
+    );
+    const mat = shadow.material as MeshBasicMaterial;
+    mat.opacity = Math.max(0.28, 0.85 - lift * 1.4);
   }
 
   if (progressRing) {
@@ -695,30 +839,36 @@ function init() {
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.08;
+  renderer.toneMappingExposure = 1.12;
 
-  scene.add(new AmbientLight(0xffffff, 0.4));
-  scene.add(new HemisphereLight(0xffffff, 0xa8a8a8, 0.5));
+  pmrem = new PMREMGenerator(renderer);
+  envMap = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = envMap;
+  scene.environmentIntensity = 0.55;
 
-  const key = new DirectionalLight(0xffffff, 1.2);
-  key.position.set(2.6, 3.4, 4);
+  scene.add(new AmbientLight(0xffffff, 0.28));
+  scene.add(new HemisphereLight(0xfff8f0, 0x8a8a90, 0.48));
+
+  const key = new DirectionalLight(0xfff6ee, 1.12);
+  key.position.set(2.4, 3.6, 3.6);
   scene.add(key);
 
-  const fill = new DirectionalLight(0xf2f4ff, 0.45);
-  fill.position.set(-3, 0.6, 2);
+  const fill = new DirectionalLight(0xe8eef8, 0.38);
+  fill.position.set(-3.2, 0.8, 2.2);
   scene.add(fill);
 
-  const sideKick = new DirectionalLight(0xffffff, 0.35);
-  sideKick.position.set(4, 1.2, 0.4);
+  const sideKick = new DirectionalLight(0xffffff, 0.32);
+  sideKick.position.set(3.8, 1.4, 0.6);
   scene.add(sideKick);
 
-  const rim = new DirectionalLight(0xffffff, 0.3);
-  rim.position.set(-0.4, 1.5, -3.2);
+  const rim = new DirectionalLight(0xffffff, 0.42);
+  rim.position.set(-0.2, 1.8, -3.4);
   scene.add(rim);
 
   backTexture = paintBackFace(cartTitle.value);
-  frontTexture = paintFrontFrame(null);
+  frontTexture = paintFrontFrame(null, cartTitle.value);
   cart = buildCart(frontTexture, backTexture);
   scene.add(cart);
 
@@ -780,11 +930,25 @@ function disposeScene() {
   backTexture = null;
   coverTexture = null;
 
+  if (envMap) {
+    envMap.dispose();
+    envMap = null;
+  }
+  pmrem?.dispose();
+  pmrem = null;
+
   renderer?.dispose();
   renderer = null;
   scene = null;
   camera = null;
 }
+
+watch(cartTitle, (title) => {
+  if (!scene || !cart) return;
+  applyBack(title);
+  // Refresh title fallback on the front only when cover art is missing
+  if (!coverTexture) applyFront(null);
+});
 
 watch(
   () => props.src,
@@ -792,10 +956,6 @@ watch(
     if (scene) loadCover(src);
   },
 );
-
-watch(cartTitle, (title) => {
-  if (scene) applyBack(title);
-});
 
 watch(
   () => props.progressPercentage,

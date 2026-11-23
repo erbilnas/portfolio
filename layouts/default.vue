@@ -3,10 +3,19 @@
     <Progress :model-value="scrollProgress" />
   </header>
 
-  <ScrollIsland
-    v-if="isMobile && showScrollIsland"
-    :title="$t('common.scrollToSeeMore')"
-  />
+  <Transition
+    enter-active-class="transition duration-200 ease-out"
+    leave-active-class="transition duration-150 ease-in"
+    enter-from-class="translate-y-1"
+    enter-to-class="translate-y-0"
+    leave-from-class="translate-y-0"
+    leave-to-class="translate-y-1"
+  >
+    <ScrollIsland
+      v-if="isMobile && showScrollIsland"
+      :title="$t('common.scrollToSeeMore')"
+    />
+  </Transition>
 
   <main>
     <AdBlockWarning />
