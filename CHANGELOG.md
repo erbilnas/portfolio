@@ -1,3 +1,10 @@
+# [6.10.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.9.0...v6.10.0-preview.1) (2026-11-23)
+
+
+### Features
+
+* polish portfolio UI with liquid glass and quieter sections ([76d8ffe](https://github.com/erbilnas/portfolio/commit/76d8ffeabe8f83834d70a00f0658dc99d9ee7dd5))
+
 # [6.9.0](https://github.com/erbilnas/portfolio/compare/v6.8.0...v6.9.0) (2026-08-24)
 
 
