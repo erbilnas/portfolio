@@ -2,16 +2,25 @@
   <div
     ref="liquidGlassRoot"
     class="effect"
-    :class="[props.containerClass]"
+    :class="[
+      props.layout === 'inline' ? 'effect--inline' : 'effect--fixed',
+      useCheapGlass ? 'effect--cheap' : '',
+      props.containerClass,
+    ]"
     :style="baseStyle"
   >
     <div :class="cn('slot-container', props.class)">
       <slot />
     </div>
 
-    <svg class="filter" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      v-if="!useCheapGlass"
+      class="filter"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
       <defs>
-        <filter id="displacementFilter" color-interpolation-filters="sRGB">
+        <filter :id="filterId" color-interpolation-filters="sRGB">
           <feImage
             x="0"
             y="0"
@@ -21,7 +30,6 @@
             result="map"
           />
           <feDisplacementMap
-            id="redchannel"
             in="SourceGraphic"
             in2="map"
             :xChannelSelector="xChannel"
@@ -36,7 +44,6 @@
             result="red"
           />
           <feDisplacementMap
-            id="greenchannel"
             in="SourceGraphic"
             in2="map"
             :xChannelSelector="xChannel"
@@ -51,7 +58,6 @@
             result="green"
           />
           <feDisplacementMap
-            id="bluechannel"
             in="SourceGraphic"
             in2="map"
             :xChannelSelector="xChannel"
@@ -81,6 +87,7 @@ import {
   onUnmounted,
   reactive,
   ref,
+  useId,
   type HTMLAttributes,
 } from "vue";
 import { cn } from "~/lib/utils";
@@ -100,11 +107,12 @@ interface Props {
   bOffset?: number;
   scale?: number;
   frost?: number;
+  /** `fixed` for docks/overlays; `inline` for buttons and in-flow chrome. */
+  layout?: "fixed" | "inline";
   class?: HTMLAttributes["class"];
   containerClass?: HTMLAttributes["class"];
 }
 
-// Props definition
 const props = withDefaults(defineProps<Props>(), {
   radius: 16,
   border: 0.07,
@@ -119,9 +127,9 @@ const props = withDefaults(defineProps<Props>(), {
   bOffset: 20,
   scale: -180,
   frost: 0.05,
+  layout: "fixed",
 });
 
-// Refs
 const liquidGlassRoot = ref<HTMLElement | null>(null);
 const dimensions = reactive({
   width: 0,
@@ -129,15 +137,38 @@ const dimensions = reactive({
 });
 
 let observer: ResizeObserver | null = null;
+let coarsePointerMq: MediaQueryList | null = null;
+let narrowViewportMq: MediaQueryList | null = null;
+
+/** Coarse pointer or narrow viewport: frost + light CSS blur, no SVG displacement. */
+const useCheapGlass = ref(false);
+
+function syncCheapGlass() {
+  if (!import.meta.client) {
+    useCheapGlass.value = false;
+    return;
+  }
+  const coarse = coarsePointerMq?.matches ?? false;
+  const narrow = narrowViewportMq?.matches ?? false;
+  useCheapGlass.value = coarse || narrow;
+}
+
+const filterId = `lg-filter-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
 const baseStyle = computed(() => {
+  if (useCheapGlass.value) {
+    return {
+      "--frost": Math.max(props.frost, 0.14),
+      "border-radius": `${props.radius}px`,
+    };
+  }
   return {
     "--frost": props.frost,
+    "--lg-filter": `url(#${filterId})`,
     "border-radius": `${props.radius}px`,
   };
 });
 
-// Computed displacement image
 const displacementImage = computed(() => {
   const border =
     Math.min(dimensions.width, dimensions.height) * (props.border * 0.5);
@@ -169,30 +200,37 @@ const displacementImage = computed(() => {
   }" rx="${props.radius}" fill="url(#blue)" style="mix-blend-mode: ${
     props.blend
   }" />
-      <rect 
-        x="${border}" 
-        y="${yBorder}" 
-        width="${dimensions.width - border * 2}" 
-        height="${dimensions.height - border * 2}" 
-        rx="${props.radius}" 
-        fill="hsl(0 0% ${props.lightness}% / ${props.alpha})" 
-        style="filter:blur(${props.blur}px)" 
+      <rect
+        x="${border}"
+        y="${yBorder}"
+        width="${dimensions.width - border * 2}"
+        height="${dimensions.height - border * 2}"
+        rx="${props.radius}"
+        fill="hsl(0 0% ${props.lightness}% / ${props.alpha})"
+        style="filter:blur(${props.blur}px)"
       />
     </svg>
   `;
 });
 
-// Data URI for SVG filter
 const displacementDataUri = computed(() => {
   const encoded = encodeURIComponent(displacementImage.value);
   return `data:image/svg+xml,${encoded}`;
 });
 
-// Lifecycle hooks
 onMounted(() => {
   if (!liquidGlassRoot.value) return;
 
+  if (import.meta.client) {
+    coarsePointerMq = window.matchMedia("(pointer: coarse)");
+    narrowViewportMq = window.matchMedia("(max-width: 768px)");
+    syncCheapGlass();
+    coarsePointerMq.addEventListener("change", syncCheapGlass);
+    narrowViewportMq.addEventListener("change", syncCheapGlass);
+  }
+
   observer = new ResizeObserver((entries) => {
+    if (useCheapGlass.value) return;
     const entry = entries[0];
     if (!entry) return;
 
@@ -216,16 +254,17 @@ onMounted(() => {
 
 onUnmounted(() => {
   observer?.disconnect();
+  coarsePointerMq?.removeEventListener("change", syncCheapGlass);
+  narrowViewportMq?.removeEventListener("change", syncCheapGlass);
 });
 </script>
 
 <style scoped>
 .effect {
-  position: fixed;
   display: block;
   opacity: 1;
   border-radius: inherit;
-  backdrop-filter: url(#displacementFilter);
+  backdrop-filter: var(--lg-filter);
   background: light-dark(
     hsl(0 0% 100% / var(--frost, 0)),
     hsl(0 0% 0% / var(--frost, 0))
@@ -249,11 +288,49 @@ onUnmounted(() => {
     0px 16px 56px rgba(17, 17, 26, 0.05) inset;
 }
 
+.effect--cheap {
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  background: light-dark(
+    hsl(0 0% 100% / max(var(--frost, 0.14), 0.14)),
+    hsl(0 0% 0% / max(var(--frost, 0.14), 0.18))
+  );
+}
+
+.effect--fixed {
+  position: fixed;
+}
+
+.effect--inline {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  box-shadow: 0 0 1px 1px
+      light-dark(
+        color-mix(in oklch, canvasText, #0000 88%),
+        color-mix(in oklch, canvasText, #0000 92%)
+      )
+      inset,
+    0 0 8px 2px
+      light-dark(
+        color-mix(in oklch, canvasText, #0000 92%),
+        color-mix(in oklch, canvasText, #0000 96%)
+      )
+      inset,
+    0 2px 8px rgba(17, 17, 26, 0.06),
+    0 1px 2px rgba(17, 17, 26, 0.04);
+}
+
 .slot-container {
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: inherit;
+}
+
+.effect--inline .slot-container {
+  /* Keep label/icon fully visible inside compact button shells. */
+  overflow: visible;
 }
 
 .filter {

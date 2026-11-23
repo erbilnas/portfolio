@@ -16,10 +16,11 @@ import {
   LinearFilter,
   LinearMipmapLinearFilter,
   Mesh,
+  MeshBasicMaterial,
   MeshPhysicalMaterial,
-  MeshStandardMaterial,
   PerspectiveCamera,
   PlaneGeometry,
+  PMREMGenerator,
   Scene,
   SRGBColorSpace,
   Texture,
@@ -27,6 +28,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { useSettings } from "~/composables/settings";
 
 const props = defineProps<{
@@ -67,6 +69,8 @@ let backTexture: CanvasTexture | null = null;
 let spineTexture: CanvasTexture | null = null;
 let coverTexture: Texture | null = null;
 let pageEdgeTextures: CanvasTexture[] = [];
+let envMap: Texture | null = null;
+let pmrem: PMREMGenerator | null = null;
 let raf = 0;
 let resizeObserver: ResizeObserver | null = null;
 let clockStart = 0;
@@ -150,6 +154,8 @@ function paintBoard(
     ctx.beginPath();
     ctx.rect(margin, margin, iw, ih);
     ctx.clip();
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.drawImage(img, margin + (iw - dw) / 2, margin + (ih - dh) / 2, dw, dh);
     ctx.restore();
   } else if (img && face === "back") {
@@ -159,15 +165,35 @@ function paintBoard(
     ctx.fillRect(0, 0, w, h);
     ctx.fillStyle = "rgba(255,255,255,0.04)";
     ctx.fillRect(w * 0.12, h * 0.14, w * 0.76, h * 0.72);
+    // Quiet ISBN-ish barcode stub
+    const bx = w * 0.22;
+    const by = h * 0.72;
+    const bw = w * 0.56;
+    const bh = h * 0.08;
+    ctx.fillStyle = "rgba(255,255,255,0.88)";
+    ctx.fillRect(bx, by, bw, bh);
+    for (let i = 0; i < 42; i++) {
+      const tw = 1 + (i % 5 === 0 ? 2.5 : i % 3 === 0 ? 1.8 : 1);
+      ctx.fillStyle = "#111";
+      ctx.fillRect(bx + 8 + i * ((bw - 16) / 42), by + 6, tw, bh - 12);
+    }
   } else {
     ctx.fillStyle = "#2a2a2e";
     ctx.fillRect(w * 0.1, h * 0.14, w * 0.8, h * 0.72);
+    const label = spineTitle.value;
+    if (face === "front" && label) {
+      ctx.fillStyle = "rgba(245,242,235,0.92)";
+      ctx.font = `600 ${Math.round(w * 0.08)}px ui-sans-serif, system-ui, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(label, w / 2, h * 0.48, w * 0.72);
+    }
   }
 
   // Cloth/paper grain
   ctx.save();
-  ctx.globalAlpha = 0.05;
-  for (let i = 0; i < 5200; i++) {
+  ctx.globalAlpha = 0.055;
+  for (let i = 0; i < 6200; i++) {
     const x = Math.random() * w;
     const y = Math.random() * h;
     ctx.fillStyle = Math.random() > 0.5 ? "#fff" : "#000";
@@ -177,28 +203,33 @@ function paintBoard(
 
   // Soft bevel (light from top-left)
   const top = ctx.createLinearGradient(0, 0, 0, h * 0.08);
-  top.addColorStop(0, "rgba(255,255,255,0.16)");
+  top.addColorStop(0, "rgba(255,255,255,0.18)");
   top.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = top;
   ctx.fillRect(0, 0, w, h * 0.08);
 
   const left = ctx.createLinearGradient(0, 0, w * 0.06, 0);
-  left.addColorStop(0, "rgba(0,0,0,0.28)");
+  left.addColorStop(0, "rgba(0,0,0,0.32)");
   left.addColorStop(1, "rgba(0,0,0,0)");
   ctx.fillStyle = left;
   ctx.fillRect(0, 0, w * 0.06, h);
 
   const right = ctx.createLinearGradient(w, 0, w * 0.94, 0);
-  right.addColorStop(0, "rgba(255,255,255,0.08)");
+  right.addColorStop(0, "rgba(255,255,255,0.1)");
   right.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = right;
   ctx.fillRect(w * 0.94, 0, w * 0.06, h);
 
   const bottom = ctx.createLinearGradient(0, h, 0, h * 0.92);
-  bottom.addColorStop(0, "rgba(0,0,0,0.22)");
+  bottom.addColorStop(0, "rgba(0,0,0,0.26)");
   bottom.addColorStop(1, "rgba(0,0,0,0)");
   ctx.fillStyle = bottom;
   ctx.fillRect(0, h * 0.92, w, h * 0.08);
+
+  // Laminate edge lip
+  ctx.strokeStyle = "rgba(255,255,255,0.08)";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(2, 2, w - 4, h - 4);
 
   return prepCanvasTexture(new CanvasTexture(c));
 }
@@ -278,48 +309,79 @@ function paintSpine(
 }
 
 function paintPageEdge(kind: "fore" | "head" | "spineSide"): CanvasTexture {
-  const w = kind === "fore" ? 160 : kind === "head" ? 1024 : 160;
-  const h = kind === "head" ? 160 : 1280;
+  const w = kind === "fore" ? 256 : kind === "head" ? 1536 : 256;
+  const h = kind === "head" ? 256 : 1536;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
   const ctx = c.getContext("2d")!;
 
-  const cream = ctx.createLinearGradient(0, 0, kind === "head" ? 0 : w, kind === "head" ? h : 0);
-  cream.addColorStop(0, "#f7f3ea");
-  cream.addColorStop(0.55, "#efe9dc");
-  cream.addColorStop(1, "#e6dfd0");
+  const cream = ctx.createLinearGradient(
+    0,
+    0,
+    kind === "head" ? 0 : w,
+    kind === "head" ? h : 0,
+  );
+  cream.addColorStop(0, "#faf6ee");
+  cream.addColorStop(0.45, "#f1eadc");
+  cream.addColorStop(1, "#e4dccb");
   ctx.fillStyle = cream;
   ctx.fillRect(0, 0, w, h);
 
-  const lines = kind === "head" ? 90 : 110;
+  // Dense sheet lines with slight waviness
+  const lines = kind === "head" ? 160 : 220;
   for (let i = 0; i < lines; i++) {
     const t = i / lines;
+    const wobble = Math.sin(i * 1.7) * 0.8 + Math.sin(i * 0.31) * 1.2;
     if (kind === "head") {
-      const x = t * w;
+      const x = t * w + wobble * 0.15;
       ctx.fillStyle =
-        i % 3 === 0 ? "rgba(90,70,40,0.07)" : "rgba(60,50,35,0.035)";
+        i % 7 === 0
+          ? "rgba(95,72,42,0.11)"
+          : i % 3 === 0
+            ? "rgba(90,70,40,0.06)"
+            : "rgba(60,50,35,0.03)";
       ctx.fillRect(x, 0, Math.max(1, w / lines), h);
     } else {
-      const y = t * h;
+      const y = t * h + wobble * 0.2;
       ctx.fillStyle =
-        i % 3 === 0 ? "rgba(90,70,40,0.08)" : "rgba(60,50,35,0.04)";
+        i % 7 === 0
+          ? "rgba(95,72,42,0.12)"
+          : i % 3 === 0
+            ? "rgba(90,70,40,0.07)"
+            : "rgba(60,50,35,0.035)";
       ctx.fillRect(0, y, w, Math.max(1, h / lines));
     }
   }
 
+  // Fiber grain
+  ctx.save();
+  ctx.globalAlpha = 0.04;
+  for (let i = 0; i < 2400; i++) {
+    ctx.fillStyle = Math.random() > 0.5 ? "#fff" : "#5a4630";
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1.2, 1.2);
+  }
+  ctx.restore();
+
   // Slight age darkening toward spine / outer edge
   if (kind === "fore") {
     const shade = ctx.createLinearGradient(0, 0, w, 0);
-    shade.addColorStop(0, "rgba(120,95,60,0.12)");
+    shade.addColorStop(0, "rgba(120,95,60,0.16)");
     shade.addColorStop(0.35, "rgba(120,95,60,0)");
-    shade.addColorStop(1, "rgba(255,255,255,0.08)");
+    shade.addColorStop(1, "rgba(255,255,255,0.1)");
     ctx.fillStyle = shade;
     ctx.fillRect(0, 0, w, h);
   } else if (kind === "spineSide") {
     const shade = ctx.createLinearGradient(0, 0, w, 0);
-    shade.addColorStop(0, "rgba(80,60,40,0.18)");
-    shade.addColorStop(1, "rgba(255,255,255,0.05)");
+    shade.addColorStop(0, "rgba(80,60,40,0.22)");
+    shade.addColorStop(1, "rgba(255,255,255,0.06)");
+    ctx.fillStyle = shade;
+    ctx.fillRect(0, 0, w, h);
+  } else {
+    const shade = ctx.createLinearGradient(0, 0, 0, h);
+    shade.addColorStop(0, "rgba(255,255,255,0.1)");
+    shade.addColorStop(0.5, "rgba(0,0,0,0)");
+    shade.addColorStop(1, "rgba(90,70,40,0.12)");
     ctx.fillStyle = shade;
     ctx.fillRect(0, 0, w, h);
   }
@@ -327,34 +389,60 @@ function paintPageEdge(kind: "fore" | "head" | "spineSide"): CanvasTexture {
   return prepCanvasTexture(new CanvasTexture(c));
 }
 
+function paintContactShadow(): CanvasTexture {
+  const s = 256;
+  const c = document.createElement("canvas");
+  c.width = s;
+  c.height = s;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(s / 2, s / 2, 6, s / 2, s / 2, s * 0.48);
+  g.addColorStop(0, "rgba(0,0,0,0.5)");
+  g.addColorStop(0.4, "rgba(0,0,0,0.18)");
+  g.addColorStop(0.75, "rgba(0,0,0,0.05)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, s, s);
+  const tex = new CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
 function coverMat(map: Texture, roughness = 0.62) {
   return new MeshPhysicalMaterial({
     map,
     color: new Color("#ffffff"),
     roughness,
-    metalness: 0.04,
-    clearcoat: 0.22,
-    clearcoatRoughness: 0.55,
-    sheen: 0.18,
-    sheenRoughness: 0.75,
+    metalness: 0.05,
+    clearcoat: 0.48,
+    clearcoatRoughness: 0.32,
+    sheen: 0.22,
+    sheenRoughness: 0.7,
     sheenColor: new Color("#f2efe8"),
+    envMapIntensity: 0.75,
   });
 }
 
 function pageMat(map: Texture) {
-  return new MeshStandardMaterial({
+  return new MeshPhysicalMaterial({
     map,
     color: new Color("#f4f0e6"),
-    roughness: 0.92,
+    roughness: 0.88,
     metalness: 0,
+    sheen: 0.12,
+    sheenRoughness: 0.9,
+    sheenColor: new Color("#fff8e8"),
+    envMapIntensity: 0.25,
   });
 }
 
 function solidMat(color: string, roughness = 0.88) {
-  return new MeshStandardMaterial({
+  return new MeshPhysicalMaterial({
     color: new Color(color),
     roughness,
-    metalness: 0,
+    metalness: 0.04,
+    clearcoat: 0.2,
+    clearcoatRoughness: 0.55,
+    envMapIntensity: 0.45,
   });
 }
 
@@ -408,13 +496,26 @@ function buildBook(
   pages.name = "pages";
   group.add(pages);
 
+  // Thin mid-block sheet cue (reads as stacked paper, not a solid brick)
+  const sheetCue = new Mesh(
+    new BoxGeometry(PAGE_W * 0.995, PAGE_H * 0.998, 0.002),
+    new MeshBasicMaterial({
+      color: new Color("#d9d0c0"),
+      transparent: true,
+      opacity: 0.35,
+      depthWrite: false,
+    }),
+  );
+  sheetCue.position.set(pageCenterX + 0.002, 0, PAGE_D * 0.12);
+  group.add(sheetCue);
+
   // Front board — left edge tucked into spine
   const frontCover = new Mesh(new BoxGeometry(COVER_W, COVER_H, COVER_T), [
     boardEdge.clone(),
     boardEdge.clone(),
     boardEdge.clone(),
     boardEdge.clone(),
-    coverMat(front, 0.55),
+    coverMat(front, 0.48),
     boardInner.clone(),
   ]);
   frontCover.position.set(boardCenterX, 0, PAGE_D / 2 + COVER_T / 2);
@@ -428,39 +529,42 @@ function buildBook(
     boardEdge.clone(),
     boardEdge.clone(),
     boardInner.clone(),
-    coverMat(back, 0.7),
+    coverMat(back, 0.62),
   ]);
   backCover.position.set(boardCenterX, 0, -(PAGE_D / 2 + COVER_T / 2));
   backCover.name = "back";
   group.add(backCover);
 
-  const shadow = new Mesh(
-    new PlaneGeometry(COVER_W + SPINE_T * 1.2, caseDepth * 2.2),
-    new MeshStandardMaterial({
-      color: "#000000",
-      transparent: true,
-      opacity: 0.13,
-      roughness: 1,
-      metalness: 0,
-      depthWrite: false,
-    }),
-  );
-  shadow.rotation.x = -Math.PI / 2;
-  shadow.position.set(boardCenterX * 0.55, -COVER_H / 2 - 0.01, 0);
-  shadow.name = "shadow";
-  group.add(shadow);
-
-  group.scale.setScalar(BOOK_SCALE);
-
+  // Pivot on the hardcover body only — shadow must not skew the rotation center
   group.updateMatrixWorld(true);
-  const box = new Box3().setFromObject(group);
+  const box = new Box3();
+  for (const name of ["spine", "pages", "front", "back"] as const) {
+    const part = group.getObjectByName(name);
+    if (part) box.expandByObject(part);
+  }
   const center = new Vector3();
   box.getCenter(center);
-  center.divideScalar(BOOK_SCALE);
   for (const child of group.children) {
     child.position.sub(center);
   }
 
+  const shadowMap = paintContactShadow();
+  const shadow = new Mesh(
+    new PlaneGeometry(1, 1),
+    new MeshBasicMaterial({
+      map: shadowMap,
+      transparent: true,
+      opacity: 0.82,
+      depthWrite: false,
+    }),
+  );
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.position.set(0, -COVER_H / 2 - 0.02, 0);
+  shadow.scale.set(COVER_W * 1.35, caseDepth * 2.6, 1);
+  shadow.name = "shadow";
+  group.add(shadow);
+
+  group.scale.setScalar(BOOK_SCALE);
   return group;
 }
 
@@ -485,14 +589,15 @@ function resolveCoverUrl(src: string): string {
   if (!src) return "";
   if (src.startsWith("/") || src.startsWith("data:")) return src;
   try {
-    const host = new URL(src).hostname;
-    if (
-      host === "i.gr-assets.com" ||
-      host === "images.gr-assets.com" ||
-      host === "s.gr-assets.com" ||
-      host.endsWith(".gr-assets.com")
-    ) {
-      return `/api/image-proxy?url=${encodeURIComponent(src)}`;
+    const url = new URL(src);
+    const host = url.hostname;
+    // Goodreads often serves tiny _SX98_ thumbs; request a sharper face for the board
+    if (host.endsWith(".gr-assets.com") || host === "gr-assets.com") {
+      url.pathname = url.pathname.replace(
+        /\._S[XY]\d+_/i,
+        "._SX600_",
+      );
+      return `/api/image-proxy?url=${encodeURIComponent(url.toString())}`;
     }
   } catch {
     return src;
@@ -571,31 +676,36 @@ function tick() {
       velocity.value = 0;
     } else if (Math.abs(velocity.value) > 0.0004) {
       rotY.value += velocity.value;
-      velocity.value *= 0.94;
+      velocity.value *= 0.93;
     } else {
       velocity.value = 0;
-      rotY.value += 0.0024;
+      rotY.value += 0.0035;
     }
   }
 
   book.rotation.y = rotY.value;
-  const bobY = reducedMotion.value ? 0 : Math.sin(now * 0.85) * 0.028;
+  book.rotation.z = 0;
   if (reducedMotion.value) {
-    book.rotation.x = 0.14;
-    book.rotation.z = 0;
+    book.rotation.x = 0.12;
+    book.position.y = 0;
   } else {
-    book.rotation.x = 0.14 + Math.sin(now * 0.65) * 0.025;
-    book.rotation.z = Math.sin(now * 0.4) * 0.01;
+    book.rotation.x = 0.12 + Math.sin(now * 0.85) * 0.035;
+    book.position.y = Math.sin(now * 1.05) * 0.045;
   }
-  // Perspective foreshortening on a ¾ cover pulls the silhouette left; counter it.
-  const opticalX = -Math.sin(rotY.value) * 0.42;
-  book.position.set(opticalX, bobY - 0.02, 0);
+  book.position.x = 0;
+  book.position.z = 0;
 
   const shadow = book.getObjectByName("shadow") as Mesh | undefined;
   if (shadow) {
-    shadow.scale.setScalar(1 + Math.abs(bobY) * 0.4);
-    const mat = shadow.material as MeshStandardMaterial;
-    mat.opacity = Math.max(0.06, 0.14 - Math.abs(bobY) * 0.35);
+    const lift = Math.abs(book.position.y);
+    const caseDepth = PAGE_D + COVER_T * 2;
+    shadow.scale.set(
+      COVER_W * 1.35 * (1 + lift * 0.35),
+      caseDepth * 2.6 * (1 + lift * 0.3),
+      1,
+    );
+    const mat = shadow.material as MeshBasicMaterial;
+    mat.opacity = Math.max(0.28, 0.85 - lift * 1.4);
   }
 
   renderer.render(scene, camera);
@@ -644,25 +754,31 @@ function init() {
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.08;
+  renderer.toneMappingExposure = 1.12;
 
-  scene.add(new AmbientLight(0xffffff, 0.32));
-  scene.add(new HemisphereLight(0xfff8f0, 0x8a8680, 0.55));
+  pmrem = new PMREMGenerator(renderer);
+  envMap = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = envMap;
+  scene.environmentIntensity = 0.5;
 
-  const key = new DirectionalLight(0xfff5ea, 1.25);
+  scene.add(new AmbientLight(0xffffff, 0.26));
+  scene.add(new HemisphereLight(0xfff8f0, 0x8a8680, 0.48));
+
+  const key = new DirectionalLight(0xfff5ea, 1.2);
   key.position.set(2.8, 3.6, 3.2);
   scene.add(key);
 
-  const fill = new DirectionalLight(0xe8eef8, 0.38);
+  const fill = new DirectionalLight(0xe8eef8, 0.36);
   fill.position.set(-3.2, 0.8, 1.6);
   scene.add(fill);
 
-  const rim = new DirectionalLight(0xfff0e0, 0.42);
+  const rim = new DirectionalLight(0xfff0e0, 0.48);
   rim.position.set(-1.2, 2.2, -3.4);
   scene.add(rim);
 
-  const under = new DirectionalLight(0xffffff, 0.18);
+  const under = new DirectionalLight(0xffffff, 0.16);
   under.position.set(0.4, -2.5, 1.2);
   scene.add(under);
 
@@ -721,6 +837,13 @@ function disposeScene() {
   backTexture = null;
   spineTexture = null;
   coverTexture = null;
+
+  if (envMap) {
+    envMap.dispose();
+    envMap = null;
+  }
+  pmrem?.dispose();
+  pmrem = null;
 
   renderer?.dispose();
   renderer = null;

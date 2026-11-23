@@ -48,25 +48,28 @@ async function logout() {
           <p class="text-neutral-500 dark:text-neutral-400">
             {{ me?.login }}
           </p>
-          <button
+          <Button
             type="button"
-            class="self-start text-left text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
+            variant="outline"
+            size="sm"
+            class="self-start"
             @click="logout"
           >
             {{ t("admin.logout") }}
-          </button>
+          </Button>
         </div>
       </aside>
       <main class="min-w-0 flex-1 px-6 py-10 md:px-0">
         <div class="mb-8 flex items-center justify-between md:hidden">
           <p class="text-sm font-medium">{{ t("admin.title") }}</p>
-          <button
+          <Button
             type="button"
-            class="text-sm text-neutral-600 dark:text-neutral-300"
+            variant="outline"
+            size="sm"
             @click="logout"
           >
             {{ t("admin.logout") }}
-          </button>
+          </Button>
         </div>
         <slot />
       </main>

@@ -15,7 +15,7 @@ const { cards } = useCurrentVibesData();
 <template>
   <section id="current-vibes" ref="sectionRef" class="relative">
     <div
-      class="flex min-h-screen w-full flex-col items-center gap-10 overflow-hidden bg-white px-6 py-20 dark:bg-black md:gap-14 md:px-10"
+      class="flex min-h-screen w-full flex-col items-center gap-12 overflow-hidden bg-white px-6 py-24 dark:bg-black md:gap-16 md:px-10 md:py-32"
     >
       <CurrentVibesHeader />
       <CurrentVibesShowcase :cards="cards" />

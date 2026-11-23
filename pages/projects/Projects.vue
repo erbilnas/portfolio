@@ -18,16 +18,16 @@ const showRepoStrip = computed(
 <template>
   <section id="projects" ref="sectionRef" class="relative">
     <div
-      class="flex min-h-screen flex-col items-center justify-center gap-12 bg-white px-6 py-20 dark:bg-black md:gap-14 md:py-24"
+      class="flex min-h-screen flex-col items-center justify-center gap-12 bg-white px-6 py-24 dark:bg-black md:gap-16 md:px-10 md:py-32"
     >
-      <div class="w-full max-w-6xl text-center">
+      <div class="mx-auto max-w-3xl text-center">
         <h2
-          class="text-5xl font-semibold tracking-tight text-gray-900 dark:text-white md:text-7xl"
+          class="text-balance text-4xl font-semibold tracking-tight text-neutral-950 dark:text-white md:text-6xl"
         >
           {{ t("projects.title") }}
         </h2>
         <p
-          class="mx-auto mt-4 max-w-2xl text-lg font-light leading-relaxed text-gray-600 dark:text-gray-400 md:text-xl"
+          class="mt-3 text-pretty text-base text-neutral-500 dark:text-neutral-400 md:mt-4 md:text-lg"
         >
           {{ t("projects.description") }}
         </p>
@@ -40,7 +40,7 @@ const showRepoStrip = computed(
 
       <p
         v-else
-        class="max-w-xl text-center text-gray-500 dark:text-gray-400"
+        class="max-w-xl text-center text-neutral-500 dark:text-neutral-400"
       >
         {{ t("projects.empty") }}
       </p>

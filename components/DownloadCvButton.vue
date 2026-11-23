@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Button } from "@/components/ui/button";
 import { useResumeDrawer } from "~/composables/use-resume-drawer";
 
 const props = withDefaults(
@@ -15,19 +16,11 @@ const { openResumeDrawer } = useResumeDrawer();
 
 <template>
   <div class="flex flex-wrap items-center justify-center gap-3">
-    <ShimmerButton
-      v-if="props.variant === 'default'"
-      @click="openResumeDrawer"
-    >
-      <Icon name="ph:read-cv-logo" :size="20" />
-      {{ $t("common.showResume") }}
-    </ShimmerButton>
     <Button
-      v-else
       type="button"
-      variant="outline"
+      :variant="props.variant === 'spotlight' ? 'outline' : 'default'"
       size="lg"
-      class="group gap-2 border-foreground/25 bg-foreground/[0.03] text-foreground shadow-none transition-colors duration-150 ease-out hover:border-foreground/40 hover:bg-foreground/10 hover:text-foreground dark:border-foreground/35 dark:hover:border-foreground/55"
+      class="group gap-2 px-6 text-foreground"
       @click="openResumeDrawer"
     >
       <Icon

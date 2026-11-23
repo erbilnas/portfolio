@@ -242,11 +242,14 @@ export default defineNuxtConfig({
     watcher: "chokidar",
   },
   routeRules: {
+    "/": { swr: 60 },
     "/resume": { redirect: "/?resume=1" },
   },
   compatibilityDate: "2025-01-02",
   image: {
     domains: ["conceptnest.com.tr"],
+    format: ["webp"],
+    quality: 80,
   },
   shadcn: {
     prefix: "",

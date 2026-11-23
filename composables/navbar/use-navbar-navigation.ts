@@ -54,6 +54,7 @@ export const useNavbarNavigation = () => {
   
   const navigationItems = computed<NavigationItem[]>(() => [
     {
+      id: "welcome",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.House)
       ),
@@ -61,6 +62,7 @@ export const useNavbarNavigation = () => {
       action: () => scrollToSection("welcome"),
     },
     {
+      id: "about-me",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.UserRound)
       ),
@@ -68,6 +70,7 @@ export const useNavbarNavigation = () => {
       action: () => scrollToSection("about-me"),
     },
     {
+      id: "projects",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.AppWindow)
       ),
@@ -75,6 +78,7 @@ export const useNavbarNavigation = () => {
       action: () => scrollToSection("projects"),
     },
     {
+      id: "skills",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.Layers)
       ),
@@ -82,6 +86,7 @@ export const useNavbarNavigation = () => {
       action: () => scrollToSection("skills"),
     },
     {
+      id: "experience",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.BriefcaseBusiness)
       ),
@@ -103,6 +108,7 @@ export const useNavbarNavigation = () => {
       },
     },
     {
+      id: "guestbook",
       icon: defineAsyncComponent(() =>
         import("lucide-vue-next").then((m) => m.BookOpen)
       ),

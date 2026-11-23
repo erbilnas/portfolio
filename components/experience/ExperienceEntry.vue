@@ -4,48 +4,66 @@ import type { WorkExperience } from "~/types/experience";
 
 interface Props {
   experience: WorkExperience;
+  compact?: boolean;
 }
 
-defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  compact: false,
+});
 
 const calculateYears = useCalculateYears();
+
+const TECH_PREVIEW = 8;
+
+const techLine = computed(() => {
+  const tech = props.experience.technologies ?? [];
+  if (tech.length === 0) return "";
+  if (tech.length <= TECH_PREVIEW) return tech.join(" · ");
+  return `${tech.slice(0, TECH_PREVIEW).join(" · ")} · +${tech.length - TECH_PREVIEW}`;
+});
 </script>
 
 <template>
-  <div class="relative pl-12 md:pl-12 pb-8 md:pb-16">
-    <!-- Header -->
-    <div class="mb-4">
-      <!-- Show company on mobile only -->
-      <h4
-        class="text-base font-semibold text-slate-600 dark:text-slate-400 mb-1 md:hidden"
-      >
-        {{ experience.company }}
-      </h4>
+  <article class="relative w-full">
+    <template v-if="!compact">
       <h3
-        class="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2"
+        class="text-xl font-semibold tracking-tight text-gray-900 md:text-2xl dark:text-white"
       >
         {{ experience.currentPosition }}
       </h3>
-      <div
-        class="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2 text-sm text-slate-600 dark:text-slate-400 mb-2"
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        {{ experience.company }}
+      </p>
+      <p
+        class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500 dark:text-gray-400"
       >
         <span>{{ experience.location }}</span>
-      </div>
-      <div class="text-xs md:text-sm text-slate-500 dark:text-slate-400">
-        {{ experience.period }}
-        <span class="ml-2 text-slate-400 dark:text-slate-500">
-          • {{ calculateYears(experience.period) }}
-        </span>
-      </div>
-    </div>
+        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">·</span>
+        <span>{{ experience.period }}</span>
+        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">·</span>
+        <span>{{ calculateYears(experience.period) }}</span>
+      </p>
+    </template>
 
-    <!-- Description -->
-    <div>
-      <div
-        class="text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors"
-      >
-        {{ experience.description }}
-      </div>
-    </div>
-  </div>
+    <p
+      v-else
+      class="text-sm text-gray-500 dark:text-gray-400"
+    >
+      {{ experience.location }}
+    </p>
+
+    <p
+      class="mt-3 text-pretty text-sm leading-relaxed text-gray-700 md:text-base dark:text-gray-300"
+      :class="compact ? 'mt-3' : 'mt-4'"
+    >
+      {{ experience.description }}
+    </p>
+
+    <p
+      v-if="techLine"
+      class="mt-3 text-pretty text-xs leading-relaxed text-gray-500 md:text-sm dark:text-gray-500"
+    >
+      {{ techLine }}
+    </p>
+  </article>
 </template>

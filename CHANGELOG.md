@@ -1,3 +1,24 @@
+# [6.10.0-preview.3](https://github.com/erbilnas/portfolio/compare/v6.10.0-preview.2...v6.10.0-preview.3) (2026-11-23)
+
+
+### Performance Improvements
+
+* stabilize LCP, drop ad bait, and shrink docker builds ([b2a91c9](https://github.com/erbilnas/portfolio/commit/b2a91c91de46a10eb0c3c7b22d4a00f136e55272))
+
+# [6.10.0-preview.2](https://github.com/erbilnas/portfolio/compare/v6.10.0-preview.1...v6.10.0-preview.2) (2026-11-23)
+
+
+### Performance Improvements
+
+* defer below-fold work and cut homepage cost ([f0363da](https://github.com/erbilnas/portfolio/commit/f0363dab3f84e5e07cfc8ce4dcc67601e8b7b0b2))
+
+# [6.10.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.9.0...v6.10.0-preview.1) (2026-11-23)
+
+
+### Features
+
+* polish portfolio UI with liquid glass and quieter sections ([76d8ffe](https://github.com/erbilnas/portfolio/commit/76d8ffeabe8f83834d70a00f0658dc99d9ee7dd5))
+
 # [6.9.0](https://github.com/erbilnas/portfolio/compare/v6.8.0...v6.9.0) (2026-08-24)
 
 

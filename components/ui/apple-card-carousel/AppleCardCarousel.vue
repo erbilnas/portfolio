@@ -25,20 +25,28 @@
       </div>
     </div>
     <div v-if="!hideNavigation" class="mr-10 flex justify-end gap-2">
-      <button
-        class="relative z-40 flex size-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+      <Button
+        type="button"
+        size="icon"
+        variant="outline"
+        class="relative z-40 size-10"
+        aria-label="Previous"
         :disabled="!canScrollLeft"
         @click="scrollLeft"
       >
-        <Icon name="tabler:arrow-narrow-left" class="size-6 text-gray-500" />
-      </button>
-      <button
-        class="relative z-40 flex size-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+        <Icon name="tabler:arrow-narrow-left" class="size-5 text-gray-500" />
+      </Button>
+      <Button
+        type="button"
+        size="icon"
+        variant="outline"
+        class="relative z-40 size-10"
+        aria-label="Next"
         :disabled="!canScrollRight"
         @click="scrollRight"
       >
-        <Icon name="tabler:arrow-narrow-right" class="size-6 text-gray-500" />
-      </button>
+        <Icon name="tabler:arrow-narrow-right" class="size-5 text-gray-500" />
+      </Button>
     </div>
   </div>
 </template>

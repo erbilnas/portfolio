@@ -18,15 +18,28 @@ export interface NavbarVibesPreview {
 export const useNavbarVibesPreview = () => {
   const { t } = useI18n();
 
-  const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+  const { data: musicData } = useFetch<MusicPlayer>("/api/music", {
+    lazy: true,
+    server: false,
+  });
   const { data: gameData } = useFetch<
     GameDetails | { status: number; message: string }
-  >("/api/video-games");
+  >("/api/video-games", {
+    lazy: true,
+    server: false,
+  });
   const { data: readingData } = useFetch<
     GoodreadsBook | { status: number; message: string } | null
-  >("/api/goodreads");
+  >("/api/goodreads", {
+    lazy: true,
+    server: false,
+  });
   const { data: traktData } = useFetch<TraktWatchedDetail | null>(
     "/api/trakt/history",
+    {
+      lazy: true,
+      server: false,
+    },
   );
 
   const preview = computed<NavbarVibesPreview | null>(() => {

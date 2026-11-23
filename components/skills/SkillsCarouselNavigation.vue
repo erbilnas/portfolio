@@ -14,30 +14,34 @@ const emit = defineEmits<Emits>();
 </script>
 
 <template>
-  <div class="hidden md:flex justify-end gap-2 mb-4">
-    <button
-      class="flex size-12 items-center justify-center rounded-full bg-white dark:bg-neutral-950 border border-neutral-200/80 dark:border-white/10 disabled:opacity-30 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-200 shadow-sm hover:shadow-md"
+  <div class="hidden items-center gap-1.5 md:flex">
+    <Button
+      type="button"
+      size="icon"
+      variant="outline"
+      class="size-10"
+      aria-label="Previous"
       :disabled="!canScrollLeft"
       @click="emit('scroll-left')"
     >
       <Icon
         name="tabler:arrow-narrow-left"
-        class="size-5 text-neutral-900 dark:text-neutral-100"
+        class="size-4 text-neutral-900 dark:text-neutral-100"
       />
-    </button>
-    <button
-      class="flex size-12 items-center justify-center rounded-full bg-white dark:bg-neutral-950 border border-neutral-200/80 dark:border-white/10 disabled:opacity-30 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-200 shadow-sm hover:shadow-md"
+    </Button>
+    <Button
+      type="button"
+      size="icon"
+      variant="outline"
+      class="size-10"
+      aria-label="Next"
       :disabled="!canScrollRight"
       @click="emit('scroll-right')"
     >
       <Icon
         name="tabler:arrow-narrow-right"
-        class="size-5 text-neutral-900 dark:text-neutral-100"
+        class="size-4 text-neutral-900 dark:text-neutral-100"
       />
-    </button>
+    </Button>
   </div>
 </template>
-
-
-
-

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BentoGridItem } from "~/components/ui/bento-grid";
 import type { SkillWithCategory } from "~/composables/skills";
 
 interface Props {
@@ -10,23 +9,26 @@ defineProps<Props>();
 </script>
 
 <template>
-  <BentoGridItem
-    class="p-6 space-y-3 w-[280px] md:w-[280px] flex-shrink-0 snap-start bg-white dark:bg-neutral-950 border border-neutral-200/80 dark:border-white/10 rounded-2xl hover:shadow-lg transition-all duration-300"
+  <article
+    class="flex w-[260px] shrink-0 snap-start flex-col gap-3 border-l border-neutral-200/70 pl-5 dark:border-white/10 md:w-[280px] md:pl-6"
   >
-    <template #icon>
+    <div class="flex items-center gap-2.5">
       <Icon
         v-if="skill.icon"
         :name="skill.icon"
-        class="size-6 text-primary"
+        class="size-5 shrink-0 text-neutral-950 dark:text-white"
+        aria-hidden="true"
       />
-    </template>
-    <template #title>
-      {{ skill.name }}
-    </template>
-    <template #description>
+      <h3
+        class="min-w-0 truncate text-[15px] font-semibold tracking-tight text-neutral-950 dark:text-white"
+      >
+        {{ skill.name }}
+      </h3>
+    </div>
+    <p
+      class="text-pretty text-[13px] leading-relaxed text-neutral-600 dark:text-neutral-400"
+    >
       {{ skill.description }}
-    </template>
-  </BentoGridItem>
+    </p>
+  </article>
 </template>
-
-

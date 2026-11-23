@@ -48,7 +48,7 @@ const getAriaLabel = (item: NavigationItem) => {
       v-if="navbarVisible || mobileMenuOpen"
       :radius="20"
       container-class="fixed bottom-4 right-4 z-[60]"
-      class="flex items-center justify-center rounded-2xl p-3 transition-all backdrop-blur-xl bg-white/80 dark:bg-black/80 border border-gray-200/50 dark:border-gray-800/50"
+      class="flex items-center justify-center rounded-2xl p-2.5"
     >
       <button
         @click.stop="emit('toggleMenu')"

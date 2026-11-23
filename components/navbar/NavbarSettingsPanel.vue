@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { Locale } from "~/types/i18n";
 import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Sun, Moon, Monitor, Type, RotateCcw } from "lucide-vue-next";
+import { Sun, Moon, Monitor } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import NavbarSettingsRow from "./SettingsRow.vue";
 
 interface Props {
   cursorDisabled: boolean;
@@ -23,7 +23,6 @@ interface Props {
   onSetFontFamily: (family: "sans" | "serif" | "mono") => void;
   onToggleHighContrast: () => void;
   onToggleLanguageSwitchToast: () => void;
-  onResetToDefaults: () => void;
 }
 
 const props = defineProps<Props>();
@@ -53,6 +52,7 @@ const handleLocaleChange = async (newLocale: string) => {
   }
 };
 
+// Keep locale button order stable when the active language changes.
 const allLocales = computed(() => locales.value);
 
 const themeOptions = [
@@ -79,19 +79,45 @@ const themeOptions = [
 const fontSizeOptions: {
   value: "default" | "large" | "xlarge";
   labelKey: string;
+  previewClass: string;
 }[] = [
-  { value: "default", labelKey: "settings.fontSizeDefault" },
-  { value: "large", labelKey: "settings.fontSizeLarge" },
-  { value: "xlarge", labelKey: "settings.fontSizeXLarge" },
+  {
+    value: "default",
+    labelKey: "settings.fontSizeDefault",
+    previewClass: "text-[11px]",
+  },
+  {
+    value: "large",
+    labelKey: "settings.fontSizeLarge",
+    previewClass: "text-[13px]",
+  },
+  {
+    value: "xlarge",
+    labelKey: "settings.fontSizeXLarge",
+    previewClass: "text-[15px]",
+  },
 ];
 
 const fontFamilyOptions: {
   value: "sans" | "serif" | "mono";
   labelKey: string;
+  faceClass: string;
 }[] = [
-  { value: "sans", labelKey: "settings.fontSans" },
-  { value: "serif", labelKey: "settings.fontSerif" },
-  { value: "mono", labelKey: "settings.fontMono" },
+  {
+    value: "sans",
+    labelKey: "settings.fontSans",
+    faceClass: "font-sans",
+  },
+  {
+    value: "serif",
+    labelKey: "settings.fontSerif",
+    faceClass: "font-serif",
+  },
+  {
+    value: "mono",
+    labelKey: "settings.fontMono",
+    faceClass: "font-mono",
+  },
 ];
 
 const providerKeys = [
@@ -110,268 +136,241 @@ const providers = computed(() =>
   })),
 );
 
-const getOptionButtonClass = (isActive: boolean, isDisabled?: boolean) =>
+const segmentTrackClass =
+  "grid grid-cols-3 gap-0.5 rounded-lg bg-neutral-100 p-0.5 dark:bg-white/[0.06]";
+
+const getSegmentButtonClass = (isActive: boolean, isDisabled?: boolean) =>
   cn(
-    "flex-1 h-8 px-2 text-xs",
+    "inline-flex h-8 items-center justify-center gap-1.5 rounded-md px-2 text-[12px] font-medium transition-colors duration-150 ease-out",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-black",
     isActive
-      ? "border-foreground/25 bg-foreground/[0.06] text-foreground"
-      : "border-border hover:bg-accent",
-    isDisabled && "opacity-50 cursor-not-allowed",
+      ? "bg-white text-neutral-950 shadow-sm dark:bg-neutral-900 dark:text-white"
+      : "text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100",
+    isDisabled && "cursor-not-allowed opacity-50",
   );
-
-const appConfig = useAppConfig();
-const version = (appConfig as { version?: string }).version ?? "Unknown";
-
-const handleReset = async () => {
-  props.onResetToDefaults();
-  if (locale.value !== "en") {
-    isSwitchingLocale.value = true;
-    try {
-      await switchLocale("en");
-    } catch {
-      toast.error(t("settings.languageSwitchError"));
-    } finally {
-      isSwitchingLocale.value = false;
-    }
-  }
-  toast.success(t("settings.resetSuccess"));
-};
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
-    <p class="text-sm font-medium text-foreground">
-      {{ t("settings.title") }}
-    </p>
+  <div class="flex flex-col gap-8">
+    <section aria-label="Preferences">
+      <div class="border-t border-neutral-200 dark:border-white/15">
+        <NavbarSettingsRow
+          :label="t('settings.disableCustomCursor')"
+          :description="t('settings.disableCustomCursorDescription')"
+          label-id="cursor-label"
+          description-id="cursor-description"
+        >
+          <Switch
+            :model-value="cursorDisabled"
+            aria-labelledby="cursor-label"
+            aria-describedby="cursor-description"
+            @update:model-value="
+              (v) => handleSwitchChange(v, cursorDisabled, onToggleCursor)
+            "
+          />
+        </NavbarSettingsRow>
 
-    <div class="flex flex-col gap-3">
-      <NavbarSettingsRow
-        :label="t('settings.disableCustomCursor')"
-        :description="t('settings.disableCustomCursorDescription')"
-        label-id="cursor-label"
-        description-id="cursor-description"
-      >
-        <Switch
-          :model-value="cursorDisabled"
-          aria-labelledby="cursor-label"
-          aria-describedby="cursor-description"
-          @update:model-value="
-            (v) => handleSwitchChange(v, cursorDisabled, onToggleCursor)
-          "
-        />
-      </NavbarSettingsRow>
+        <NavbarSettingsRow
+          :label="t('settings.reducedMotion')"
+          :description="t('settings.reducedMotionDescription')"
+          label-id="reduced-motion-label"
+          description-id="reduced-motion-description"
+        >
+          <Switch
+            :model-value="reducedMotion"
+            aria-labelledby="reduced-motion-label"
+            aria-describedby="reduced-motion-description"
+            @update:model-value="
+              (v) =>
+                handleSwitchChange(v, reducedMotion, onToggleReducedMotion)
+            "
+          />
+        </NavbarSettingsRow>
 
-      <NavbarSettingsRow
-        :label="t('settings.reducedMotion')"
-        :description="t('settings.reducedMotionDescription')"
-        label-id="reduced-motion-label"
-        description-id="reduced-motion-description"
-      >
-        <Switch
-          :model-value="reducedMotion"
-          aria-labelledby="reduced-motion-label"
-          aria-describedby="reduced-motion-description"
-          @update:model-value="
-            (v) =>
-              handleSwitchChange(v, reducedMotion, onToggleReducedMotion)
-          "
-        />
-      </NavbarSettingsRow>
+        <NavbarSettingsRow
+          :label="t('settings.highContrast')"
+          :description="t('settings.highContrastDescription')"
+          label-id="high-contrast-label"
+          description-id="high-contrast-description"
+        >
+          <Switch
+            :model-value="highContrast"
+            aria-labelledby="high-contrast-label"
+            aria-describedby="high-contrast-description"
+            @update:model-value="
+              (v) => handleSwitchChange(v, highContrast, onToggleHighContrast)
+            "
+          />
+        </NavbarSettingsRow>
 
-      <NavbarSettingsRow
-        :label="t('settings.highContrast')"
-        :description="t('settings.highContrastDescription')"
-        label-id="high-contrast-label"
-        description-id="high-contrast-description"
-      >
-        <Switch
-          :model-value="highContrast"
-          aria-labelledby="high-contrast-label"
-          aria-describedby="high-contrast-description"
-          @update:model-value="
-            (v) => handleSwitchChange(v, highContrast, onToggleHighContrast)
-          "
-        />
-      </NavbarSettingsRow>
+        <NavbarSettingsRow
+          :label="t('settings.languageSwitchToast')"
+          :description="t('settings.languageSwitchToastDescription')"
+          label-id="language-switch-toast-label"
+          description-id="language-switch-toast-description"
+        >
+          <Switch
+            :model-value="languageSwitchToastEnabled"
+            aria-labelledby="language-switch-toast-label"
+            aria-describedby="language-switch-toast-description"
+            @update:model-value="
+              (v) =>
+                handleSwitchChange(
+                  v,
+                  languageSwitchToastEnabled,
+                  onToggleLanguageSwitchToast,
+                )
+            "
+          />
+        </NavbarSettingsRow>
+      </div>
+    </section>
 
-      <NavbarSettingsRow
-        :label="t('settings.languageSwitchToast')"
-        :description="t('settings.languageSwitchToastDescription')"
-        label-id="language-switch-toast-label"
-        description-id="language-switch-toast-description"
-      >
-        <Switch
-          :model-value="props.languageSwitchToastEnabled"
-          aria-labelledby="language-switch-toast-label"
-          aria-describedby="language-switch-toast-description"
-          @update:model-value="
-            (v) =>
-              handleSwitchChange(
-                v,
-                props.languageSwitchToastEnabled,
-                props.onToggleLanguageSwitchToast,
-              )
-          "
-        />
-      </NavbarSettingsRow>
-    </div>
-
-    <div class="flex flex-col gap-1.5">
-      <div class="flex flex-col gap-0.5">
-        <label id="theme-label" class="text-xs font-medium text-foreground">
+    <section class="flex flex-col gap-5" aria-label="Appearance">
+      <div class="flex flex-col gap-2">
+        <p
+          id="theme-label"
+          class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400"
+        >
           {{ t("settings.theme") }}
-        </label>
-        <p id="theme-description" class="text-[11px] leading-snug text-muted-foreground">
-          {{ t("settings.themeDescription") }}
         </p>
-      </div>
-      <div
-        class="flex gap-1.5"
-        role="group"
-        aria-labelledby="theme-label"
-        aria-describedby="theme-description"
-      >
-        <Button
-          v-for="opt in themeOptions"
-          :key="opt.value"
-          variant="outline"
-          size="sm"
-          :class="getOptionButtonClass(theme === opt.value)"
-          :aria-label="t(opt.labelKey)"
-          :aria-pressed="theme === opt.value"
-          @click="opt.handler"
+        <div
+          :class="segmentTrackClass"
+          role="group"
+          aria-labelledby="theme-label"
         >
-          <component :is="opt.icon" class="size-3.5 shrink-0" />
-        </Button>
+          <button
+            v-for="opt in themeOptions"
+            :key="opt.value"
+            type="button"
+            :class="getSegmentButtonClass(theme === opt.value)"
+            :aria-label="t(opt.labelKey)"
+            :aria-pressed="theme === opt.value"
+            @click="opt.handler"
+          >
+            <component
+              :is="opt.icon"
+              class="size-3.5 shrink-0"
+              aria-hidden="true"
+            />
+            <span>{{ t(opt.labelKey) }}</span>
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="flex flex-col gap-1.5" :aria-busy="isSwitchingLocale">
-      <div class="flex flex-col gap-0.5">
-        <label id="language-label" class="text-xs font-medium text-foreground">
+      <div class="flex flex-col gap-2" :aria-busy="isSwitchingLocale">
+        <p
+          id="language-label"
+          class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400"
+        >
           {{ t("settings.language") }}
-        </label>
-        <p id="language-description" class="text-[11px] leading-snug text-muted-foreground">
-          {{ t("settings.languageDescription") }}
         </p>
-      </div>
-      <div
-        class="flex flex-wrap gap-1.5"
-        role="group"
-        aria-labelledby="language-label"
-        aria-describedby="language-description"
-      >
-        <Button
-          v-for="loc in allLocales"
-          :key="loc.code"
-          variant="outline"
-          size="sm"
-          :class="getOptionButtonClass(locale === loc.code, isSwitchingLocale)"
-          :aria-pressed="locale === loc.code"
-          :disabled="isSwitchingLocale"
-          @click="handleLocaleChange(loc.code)"
+        <div
+          :class="segmentTrackClass"
+          role="group"
+          aria-labelledby="language-label"
         >
-          {{ loc.name }}
-        </Button>
+          <button
+            v-for="loc in allLocales"
+            :key="loc.code"
+            type="button"
+            :class="
+              getSegmentButtonClass(locale === loc.code, isSwitchingLocale)
+            "
+            :aria-pressed="locale === loc.code"
+            :disabled="isSwitchingLocale"
+            @click="handleLocaleChange(loc.code)"
+          >
+            {{ loc.name }}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="flex flex-col gap-1.5">
-      <div class="flex flex-col gap-0.5">
-        <label id="font-size-label" class="text-xs font-medium text-foreground">
+      <div class="flex flex-col gap-2">
+        <p
+          id="font-size-label"
+          class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400"
+        >
           {{ t("settings.fontSize") }}
-        </label>
-        <p id="font-size-description" class="text-[11px] leading-snug text-muted-foreground">
-          {{ t("settings.fontSizeDescription") }}
         </p>
-      </div>
-      <div
-        class="flex gap-1.5"
-        role="group"
-        aria-labelledby="font-size-label"
-        aria-describedby="font-size-description"
-      >
-        <Button
-          v-for="opt in fontSizeOptions"
-          :key="opt.value"
-          variant="outline"
-          size="sm"
-          :class="getOptionButtonClass(fontSize === opt.value)"
-          :aria-pressed="fontSize === opt.value"
-          @click="onSetFontSize(opt.value)"
+        <div
+          :class="segmentTrackClass"
+          role="group"
+          aria-labelledby="font-size-label"
         >
-          <Type class="size-3.5 shrink-0" />
-          {{ t(opt.labelKey) }}
-        </Button>
+          <button
+            v-for="opt in fontSizeOptions"
+            :key="opt.value"
+            type="button"
+            :class="[
+              getSegmentButtonClass(fontSize === opt.value),
+              opt.previewClass,
+            ]"
+            :aria-pressed="fontSize === opt.value"
+            @click="onSetFontSize(opt.value)"
+          >
+            {{ t(opt.labelKey) }}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="flex flex-col gap-1.5">
-      <div class="flex flex-col gap-0.5">
-        <label
+      <div class="flex flex-col gap-2">
+        <p
           id="font-family-label"
-          class="text-xs font-medium text-foreground"
+          class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400"
         >
           {{ t("settings.fontFamily") }}
-        </label>
-        <p id="font-family-description" class="text-[11px] leading-snug text-muted-foreground">
-          {{ t("settings.fontFamilyDescription") }}
         </p>
-      </div>
-      <div
-        class="flex gap-1.5"
-        role="group"
-        aria-labelledby="font-family-label"
-        aria-describedby="font-family-description"
-      >
-        <Button
-          v-for="opt in fontFamilyOptions"
-          :key="opt.value"
-          variant="outline"
-          size="sm"
-          :class="getOptionButtonClass(fontFamily === opt.value)"
-          :aria-pressed="fontFamily === opt.value"
-          @click="onSetFontFamily(opt.value)"
+        <div
+          :class="segmentTrackClass"
+          role="group"
+          aria-labelledby="font-family-label"
         >
-          {{ t(opt.labelKey) }}
-        </Button>
+          <button
+            v-for="opt in fontFamilyOptions"
+            :key="opt.value"
+            type="button"
+            :class="[
+              getSegmentButtonClass(fontFamily === opt.value),
+              opt.faceClass,
+            ]"
+            :aria-pressed="fontFamily === opt.value"
+            @click="onSetFontFamily(opt.value)"
+          >
+            {{ t(opt.labelKey) }}
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="border-t border-border/60 pt-3">
-      <p class="mb-2 text-xs font-medium text-foreground">
+    <section
+      class="border-t border-neutral-200 pt-6 dark:border-white/15"
+      aria-labelledby="sources-label"
+    >
+      <p
+        id="sources-label"
+        class="mb-3 text-[11px] font-medium text-neutral-500 dark:text-neutral-400"
+      >
         {{ t("settings.sources") }}
       </p>
-      <ul class="flex flex-col gap-2">
+      <ul class="flex flex-col border-t border-neutral-200 dark:border-white/15">
         <li
           v-for="{ name, description } in providers"
           :key="name"
-          class="flex flex-col gap-0.5"
+          class="flex items-baseline justify-between gap-4 border-b border-neutral-200 py-2.5 last:border-b-0 dark:border-white/15"
         >
-          <p class="text-xs font-medium text-foreground">{{ name }}</p>
-          <p class="text-[11px] leading-snug text-muted-foreground">
+          <span
+            class="shrink-0 text-[12px] font-medium text-neutral-950 dark:text-white"
+          >
+            {{ name }}
+          </span>
+          <span
+            class="min-w-0 text-right text-[11px] leading-snug text-neutral-500 dark:text-neutral-400"
+          >
             {{ description }}
-          </p>
+          </span>
         </li>
       </ul>
-      <p class="mt-3 text-[11px] text-muted-foreground">
-        {{ t("settings.version") }} {{ version }}
-      </p>
-    </div>
-
-    <div class="flex flex-col gap-1.5">
-      <p class="text-[11px] leading-snug text-muted-foreground">
-        {{ t("settings.resetToDefaultsDescription") }}
-      </p>
-      <Button
-        variant="outline"
-        size="sm"
-        class="h-8 w-full text-xs"
-        @click="handleReset"
-      >
-        <RotateCcw class="mr-1.5 size-3.5 shrink-0" />
-        {{ t("settings.resetToDefaults") }}
-      </Button>
-    </div>
+    </section>
   </div>
 </template>

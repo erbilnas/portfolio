@@ -82,7 +82,7 @@ function parseItem(
   return {
     title,
     author: tagValue(itemXml, "author_name") || "",
-    image,
+    image: upgradeCoverUrl(image),
     link: tagValue(itemXml, "link") || "",
     status,
     date: date || undefined,
@@ -98,7 +98,10 @@ function parseItem(
   };
 }
 
-async function fetchShelfXml(userId: string, shelf: Shelf): Promise<string> {
+async function fetchShelfXml(
+  userId: string,
+  shelf: Shelf,
+): Promise<string | null> {
   const url = `https://www.goodreads.com/review/list_rss/${encodeURIComponent(userId)}?shelf=${shelf}`;
   const response = await fetch(url, {
     headers: {
@@ -108,10 +111,192 @@ async function fetchShelfXml(userId: string, shelf: Shelf): Promise<string> {
   });
 
   if (!response.ok) {
-    throw new Error(`Goodreads RSS ${shelf} failed: ${response.status}`);
+    // Goodreads has been returning 404 for list_rss for many accounts.
+    console.warn(
+      `[goodreads] RSS ${shelf} unavailable (${response.status}); will try profile HTML fallback`,
+    );
+    return null;
   }
 
-  return response.text();
+  const text = await response.text();
+  // Guard against HTML "Page not found" bodies served as 200 in the future.
+  if (!text.includes("<item") && text.includes("<html")) {
+    console.warn(
+      `[goodreads] RSS ${shelf} returned HTML instead of feed; using profile HTML fallback`,
+    );
+    return null;
+  }
+
+  return text;
+}
+
+function upgradeCoverUrl(url: string): string {
+  if (!url) return url;
+  // Prefer a readable cover over the tiny profile thumb (_SX98_).
+  return url.replace(/\._[A-Z]{2}\d+_/, "._SX600_");
+}
+
+/** Parse currently-reading cards from the public profile HTML. */
+function parseCurrentlyReadingFromProfile(html: string): ParsedItem[] {
+  const section = html.match(
+    /id=["']currentlyReadingReviews["']([\s\S]*?)(?:id=["'](?:currentlyReadingReviews|updates|friendUpdates)|<\/body>)/i,
+  )?.[1];
+  if (!section) return [];
+
+  const blocks = section.split(/class=["']Updates\b/i).slice(1);
+  const books: ParsedItem[] = [];
+
+  for (const block of blocks) {
+    const titleMatch = block.match(
+      /class=["']bookTitle["'][^>]*href=["']([^"']+)["'][^>]*>([^<]+)</i,
+    );
+    if (!titleMatch) continue;
+
+    const href = titleMatch[1]!;
+    const title = decodeXmlEntities(titleMatch[2]!);
+    const author =
+      block.match(
+        /class=["']authorName["'][^>]*>([^<]+)</i,
+      )?.[1]?.trim() ?? "";
+    const image =
+      block.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1] ?? "";
+    const bookId =
+      href.match(/\/book\/show\/(\d+)/i)?.[1] ||
+      block.match(/name=["']book_id["'][^>]*value=["'](\d+)["']/i)?.[1];
+
+    // e.g. "(page 47 of 232)" on the progress widget
+    const pageProgress = block.match(/\(page\s+(\d+)\s+of\s+(\d+)\)/i);
+    const progressPage = pageProgress
+      ? Number.parseInt(pageProgress[1]!, 10)
+      : undefined;
+    const pages = pageProgress
+      ? Number.parseInt(pageProgress[2]!, 10)
+      : undefined;
+    const progressPercentage =
+      progressPage && pages && pages > 0
+        ? Math.round((progressPage / pages) * 100)
+        : undefined;
+
+    const date =
+      block.match(
+        /class=["'](?:greyText|updatedTimestamp)["'][^>]*>([^<]*\d{4}[^<]*)</i,
+      )?.[1]?.trim() || undefined;
+
+    books.push({
+      title,
+      author: decodeXmlEntities(author),
+      image: upgradeCoverUrl(image),
+      link: href.startsWith("http")
+        ? href
+        : `https://www.goodreads.com${href}`,
+      status: "reading",
+      bookId,
+      date,
+      pages:
+        Number.isFinite(pages) && pages! > 0 ? pages : undefined,
+      progressPage:
+        Number.isFinite(progressPage) && progressPage! > 0
+          ? progressPage
+          : undefined,
+      progressPercentage,
+    });
+  }
+
+  return books;
+}
+
+interface BookPageEnrichment {
+  pages?: number;
+  averageRating?: number;
+  ratingCount?: number;
+  genres?: string[];
+  bookFormat?: string;
+  language?: string;
+  image?: string;
+}
+
+/** Fill gaps from the public book show page (JSON-LD + genre graph). */
+async function enrichFromBookPage(
+  bookId: string,
+  link?: string,
+): Promise<BookPageEnrichment | null> {
+  try {
+    const url =
+      link?.includes("/book/show/")
+        ? link
+        : `https://www.goodreads.com/book/show/${encodeURIComponent(bookId)}`;
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": BROWSER_UA,
+        Accept: "text/html,application/xhtml+xml",
+        "Accept-Language": "en-US,en;q=0.9",
+        Referer: "https://www.goodreads.com/",
+      },
+      redirect: "follow",
+    });
+    if (!response.ok) return null;
+    const html = await response.text();
+    // AWS WAF interstitial is tiny and has no book payload
+    if (html.length < 8000 || !html.includes("application/ld+json")) {
+      return null;
+    }
+
+    const enrichment: BookPageEnrichment = {};
+
+    const ldMatch = html.match(
+      /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/i,
+    );
+    if (ldMatch) {
+      try {
+        const data = JSON.parse(ldMatch[1]!) as {
+          numberOfPages?: number;
+          bookFormat?: string;
+          inLanguage?: string;
+          image?: string | string[];
+          aggregateRating?: {
+            ratingValue?: number | string;
+            ratingCount?: number | string;
+          };
+        };
+        if (typeof data.numberOfPages === "number" && data.numberOfPages > 0) {
+          enrichment.pages = data.numberOfPages;
+        }
+        if (data.bookFormat) enrichment.bookFormat = String(data.bookFormat);
+        if (data.inLanguage) enrichment.language = String(data.inLanguage);
+        const ratingValue = Number(data.aggregateRating?.ratingValue);
+        if (Number.isFinite(ratingValue) && ratingValue > 0) {
+          enrichment.averageRating = Math.round(ratingValue * 100) / 100;
+        }
+        const ratingCount = Number(data.aggregateRating?.ratingCount);
+        if (Number.isFinite(ratingCount) && ratingCount > 0) {
+          enrichment.ratingCount = ratingCount;
+        }
+        const image = Array.isArray(data.image) ? data.image[0] : data.image;
+        if (typeof image === "string" && image) {
+          enrichment.image = upgradeCoverUrl(image);
+        }
+      } catch {
+        // ignore malformed JSON-LD
+      }
+    }
+
+    const genres = [
+      ...html.matchAll(
+        /"__typename"\s*:\s*"BookGenre"\s*,\s*"genre"\s*:\s*\{\s*"__typename"\s*:\s*"Genre"\s*,\s*"name"\s*:\s*"([^"]+)"/g,
+      ),
+    ]
+      .map((m) => m[1]!)
+      .filter(Boolean);
+    // Dedupe while keeping order
+    if (genres.length) {
+      enrichment.genres = [...new Set(genres)].slice(0, 6);
+    }
+
+    return enrichment;
+  } catch (error) {
+    console.warn("[goodreads] book page enrich failed:", error);
+    return null;
+  }
 }
 
 function parseShelfCounts(html: string): ShelfCounts | null {
@@ -239,7 +424,7 @@ function configuredUserId(
   );
 }
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const appConfig = useAppConfig();
   const envUserId = (config.goodreads as { userId?: string } | undefined)
@@ -263,17 +448,70 @@ export default defineEventHandler(async (event) => {
       fetchShelfXml(userId, "read"),
     ]);
 
-    const readingItems = allItems(readingXml)
-      .map((item) => parseItem(item, "reading"))
-      .filter((b): b is ParsedItem => !!b);
-    const readItems = allItems(readXml)
-      .map((item) => parseItem(item, "finished"))
-      .filter((b): b is ParsedItem => !!b);
+    let readingItems = readingXml
+      ? allItems(readingXml)
+          .map((item) => parseItem(item, "reading"))
+          .filter((b): b is ParsedItem => !!b)
+      : [];
+    const readItems = readXml
+      ? allItems(readXml)
+          .map((item) => parseItem(item, "finished"))
+          .filter((b): b is ParsedItem => !!b)
+      : [];
+
+    if (readingItems.length === 0 && profile.html) {
+      readingItems = parseCurrentlyReadingFromProfile(profile.html);
+    }
 
     const featured = readingItems[0] ?? readItems[0];
     if (!featured) return null;
 
     const { readAt: _readAt, ...featuredBook } = featured;
+
+    if (featuredBook.bookId) {
+      const extra = await enrichFromBookPage(
+        featuredBook.bookId,
+        featuredBook.link,
+      );
+      if (extra) {
+        if (!featuredBook.pages && extra.pages) {
+          featuredBook.pages = extra.pages;
+        }
+        if (
+          featuredBook.progressPage &&
+          featuredBook.pages &&
+          featuredBook.pages > 0 &&
+          featuredBook.progressPercentage === undefined
+        ) {
+          featuredBook.progressPercentage = Math.round(
+            (featuredBook.progressPage / featuredBook.pages) * 100,
+          );
+        }
+        if (extra.averageRating !== undefined) {
+          featuredBook.averageRating = extra.averageRating;
+        }
+        if (extra.ratingCount !== undefined) {
+          featuredBook.ratingCount = extra.ratingCount;
+        }
+        if (extra.genres?.length) {
+          featuredBook.genres = extra.genres;
+        }
+        if (extra.bookFormat) {
+          featuredBook.bookFormat = extra.bookFormat;
+        }
+        if (extra.language) {
+          featuredBook.language = extra.language;
+        }
+        if (extra.image) {
+          featuredBook.image = extra.image;
+        } else if (featuredBook.image) {
+          featuredBook.image = upgradeCoverUrl(featuredBook.image);
+        }
+      }
+    } else if (featuredBook.image) {
+      featuredBook.image = upgradeCoverUrl(featuredBook.image);
+    }
+
     const stats = buildStats(readingItems, readItems, profile.counts);
 
     return {
@@ -288,4 +526,9 @@ export default defineEventHandler(async (event) => {
       message: "Goodreads service is not available at this time",
     };
   }
+}, {
+  maxAge: 300,
+  swr: true,
+  name: "api-goodreads",
+  getKey: () => "goodreads",
 });

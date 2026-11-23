@@ -14,10 +14,10 @@ const { reducedMotion } = useSettings();
 <template>
   <div
     v-if="projects.length > 0"
-    class="w-full max-w-6xl"
+    class="w-full max-w-6xl pt-2 md:pt-4"
   >
     <p
-      class="mb-3 text-xs font-medium text-neutral-500 dark:text-neutral-400"
+      class="mb-3 text-[13px] text-neutral-500 dark:text-neutral-400"
     >
       {{ t("projects.openSource") }}
     </p>
