@@ -1,0 +1,40 @@
+# Dependencies & build outputs (rebuilt in image)
+node_modules
+.output
+.nuxt
+.nitro
+.cache
+.data
+dist
+
+# VCS & local tooling (hundreds of MB)
+.git
+.github
+.cursor
+.vscode
+.idea
+.fleet
+tmp
+tmp/
+
+# Env & secrets (inject via Coolify)
+.env
+.env.*
+!.env.example
+
+# Logs & OS junk
+logs
+*.log
+.DS_Store
+**/.DS_Store
+
+# Tests / docs not needed at build time
+*.md
+!README.md
+coverage
+playwright-report
+test-results
+
+# Local LH / debug dumps
+.tmp-*
+.tmp*

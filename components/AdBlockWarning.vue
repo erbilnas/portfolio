@@ -11,11 +11,14 @@ const ADBLOCK_COOKIE_MAX_AGE_DAYS = 30;
 
 const getCookie = (key: string): string | null => {
   if (typeof document === "undefined") return null;
-  const cookies = document.cookie.split(";").reduce<Record<string, string>>((acc, cookie) => {
-    const [k, v] = cookie.trim().split("=");
-    if (k && v) acc[k] = decodeURIComponent(v);
-    return acc;
-  }, {});
+  const cookies = document.cookie.split(";").reduce<Record<string, string>>(
+    (acc, cookie) => {
+      const [k, v] = cookie.trim().split("=");
+      if (k && v) acc[k] = decodeURIComponent(v);
+      return acc;
+    },
+    {},
+  );
   return cookies[key] ?? null;
 };
 
@@ -29,10 +32,12 @@ const shouldShowAdblockWarning = (): boolean => {
   if (!value) return true;
   const timestamp = parseInt(value, 10);
   if (Number.isNaN(timestamp)) return true;
-  const thirtyDaysAgo = Date.now() - ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+  const thirtyDaysAgo =
+    Date.now() - ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
   return timestamp < thirtyDaysAgo;
 };
 
+/** Bait classes only — never load third-party ad networks for detection. */
 const AD_TEST_CLASSES = [
   "adsbygoogle",
   "ad-unit",
@@ -42,11 +47,6 @@ const AD_TEST_CLASSES = [
   "adsbox",
   "ad-banner",
   "ad-sidebar",
-];
-
-const AD_TEST_SCRIPTS = [
-  "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
-  "https://securepubads.g.doubleclick.net/tag/js/gpt.js",
 ];
 
 const isDialogOpen = ref(false);
@@ -59,15 +59,6 @@ const createTestElement = (className: string): HTMLElement | null => {
     "position: absolute; left: -999px; top: -999px; width: 1px; height: 1px;";
   document.body.appendChild(elem);
   return elem;
-};
-
-const createTestScript = (src: string): HTMLScriptElement | null => {
-  if (typeof document === "undefined") return null;
-  const script = document.createElement("script");
-  script.src = src;
-  script.async = true;
-  document.head.appendChild(script);
-  return script;
 };
 
 const cleanupElements = (elements: (HTMLElement | null)[]) => {
@@ -89,15 +80,9 @@ const isElementBlocked = (elem: HTMLElement | null): boolean => {
   );
 };
 
-const isScriptBlocked = (script: HTMLScriptElement | null): boolean => {
-  if (!script || typeof document === "undefined") return false;
-  return !script.getAttribute("src") || !document.head.contains(script);
-};
-
 const detectAdBlocker = async () => {
-  // Guard against SSR
   if (
-    process.server ||
+    import.meta.server ||
     typeof document === "undefined" ||
     typeof window === "undefined"
   ) {
@@ -105,40 +90,38 @@ const detectAdBlocker = async () => {
   }
 
   const testElements: (HTMLElement | null)[] = [];
-  const testScripts: (HTMLScriptElement | null)[] = [];
 
   try {
-    // Create test elements
     testElements.push(
       ...AD_TEST_CLASSES.map(createTestElement).filter(
-        (el): el is HTMLElement => el !== null
-      )
-    );
-    testScripts.push(
-      ...AD_TEST_SCRIPTS.map(createTestScript).filter(
-        (el): el is HTMLScriptElement => el !== null
-      )
+        (el): el is HTMLElement => el !== null,
+      ),
     );
 
-    // Wait for ad blockers to react
     await new Promise((resolve) => setTimeout(resolve, AD_BLOCKER_CHECK_DELAY));
 
-    // Check for blocking
     const hasBlockedElement = testElements.some(isElementBlocked);
-    const hasBlockedScript = testScripts.some(isScriptBlocked);
 
-    if ((hasBlockedElement || hasBlockedScript) && shouldShowAdblockWarning()) {
-      setCookie(ADBLOCK_COOKIE_NAME, String(Date.now()), ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60);
+    if (hasBlockedElement && shouldShowAdblockWarning()) {
+      setCookie(
+        ADBLOCK_COOKIE_NAME,
+        String(Date.now()),
+        ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60,
+      );
       isDialogOpen.value = true;
     }
   } catch (e) {
     console.error("Error during ad blocker detection:", e);
     if (shouldShowAdblockWarning()) {
-      setCookie(ADBLOCK_COOKIE_NAME, String(Date.now()), ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60);
+      setCookie(
+        ADBLOCK_COOKIE_NAME,
+        String(Date.now()),
+        ADBLOCK_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60,
+      );
       isDialogOpen.value = true;
     }
   } finally {
-    cleanupElements([...testElements, ...testScripts]);
+    cleanupElements(testElements);
   }
 };
 

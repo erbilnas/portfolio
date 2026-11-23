@@ -281,6 +281,7 @@ onUnmounted(() => {
                   format="webp"
                   :quality="80"
                   width="512"
+                  height="512"
                   :sizes="
                     featured.logoLayout === 'wide'
                       ? '(max-width: 768px) 55vw, 200px'
@@ -299,6 +300,8 @@ onUnmounted(() => {
                   v-else
                   :src="featured.image"
                   :alt="t(`projects.apps.${featured.id}.name`)"
+                  width="512"
+                  height="512"
                   class="max-h-full max-w-full object-contain object-left"
                   :class="
                     featured.logoBlend === 'multiply'
@@ -320,7 +323,7 @@ onUnmounted(() => {
                   {{ t(`projects.apps.${featured.id}.name`) }}
                 </h3>
                 <span
-                  class="text-sm tabular-nums text-neutral-500 dark:text-neutral-400"
+                  class="text-sm tabular-nums text-neutral-600 dark:text-neutral-300"
                 >
                   {{ featured.year }}
                 </span>
@@ -330,7 +333,7 @@ onUnmounted(() => {
               >
                 {{ t(`projects.apps.${featured.id}.tagline`) }}
               </p>
-              <dl
+              <div
                 v-if="
                   caseLine(featured.id, 'problem') ||
                   caseLine(featured.id, 'stack') ||
@@ -338,25 +341,25 @@ onUnmounted(() => {
                 "
                 class="mt-5 flex flex-col gap-2.5"
               >
-                <div
+                <p
                   v-if="caseLine(featured.id, 'problem')"
-                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400"
+                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
                 >
                   {{ caseLine(featured.id, "problem") }}
-                </div>
-                <div
+                </p>
+                <p
                   v-if="caseLine(featured.id, 'stack')"
-                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400"
+                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
                 >
                   {{ caseLine(featured.id, "stack") }}
-                </div>
-                <div
+                </p>
+                <p
                   v-if="caseLine(featured.id, 'outcome')"
-                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400"
+                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
                 >
                   {{ caseLine(featured.id, "outcome") }}
-                </div>
-              </dl>
+                </p>
+              </div>
 
               <div class="mt-7">
                 <Button
@@ -405,12 +408,6 @@ onUnmounted(() => {
             role="radio"
             :aria-checked="item.id === activeId"
             :tabindex="item.id === activeId ? 0 : -1"
-            :aria-label="
-              t('projects.cardAriaLabel', {
-                name: t(`projects.apps.${item.id}.name`),
-                tagline: t(`projects.apps.${item.id}.tagline`),
-              })
-            "
             :style="brandVars(item)"
             :class="[
               'group relative flex w-[9.75rem] shrink-0 snap-start flex-col gap-2.5 rounded-2xl px-3.5 py-3.5 text-left sm:w-[11rem]',
@@ -432,6 +429,7 @@ onUnmounted(() => {
                 format="webp"
                 :quality="80"
                 width="160"
+                height="160"
                 sizes="40px"
                 loading="lazy"
                 decoding="async"
@@ -444,6 +442,8 @@ onUnmounted(() => {
                 v-else-if="item.image"
                 :src="item.image"
                 :alt="t(`projects.apps.${item.id}.name`)"
+                width="160"
+                height="160"
                 class="max-h-8 max-w-[7.5rem] object-contain object-left opacity-90"
                 :class="
                   item.logoBlend === 'multiply' ? 'mix-blend-multiply' : ''
@@ -470,7 +470,7 @@ onUnmounted(() => {
                 {{ t(`projects.apps.${item.id}.name`) }}
               </p>
               <p
-                class="mt-0.5 text-xs tabular-nums text-neutral-500 dark:text-neutral-400"
+                class="mt-0.5 text-xs tabular-nums text-neutral-600 dark:text-neutral-300"
               >
                 {{ item.year }}
               </p>

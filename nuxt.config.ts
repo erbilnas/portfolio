@@ -242,6 +242,7 @@ export default defineNuxtConfig({
     watcher: "chokidar",
   },
   routeRules: {
+    "/": { swr: 60 },
     "/resume": { redirect: "/?resume=1" },
   },
   compatibilityDate: "2025-01-02",
