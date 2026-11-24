@@ -29,12 +29,18 @@ export const useVibeQuery = () => {
     return isVibeType(value) ? value : null;
   });
 
-  const setVibe = (type: VibeType, options?: { withHash?: boolean }) => {
+  const setVibe = async (type: VibeType) => {
+    if (route.query.vibe === type && !route.hash) {
+      return;
+    }
+    // Query only. Do not pass hash: "" to router.replace — that scrolls to
+    // top and fights navbar smooth-scroll. Strip a leftover hash via history.
     const query = { ...route.query, vibe: type };
-    router.replace({
-      query,
-      hash: options?.withHash ? "#current-vibes" : route.hash,
-    });
+    await router.replace({ path: route.path, query });
+    if (window.location.hash) {
+      const { href } = router.resolve({ path: route.path, query });
+      window.history.replaceState(window.history.state, "", href);
+    }
   };
 
   return { vibe, setVibe };

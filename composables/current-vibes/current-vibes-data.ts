@@ -13,24 +13,34 @@ export interface CardData {
 }
 
 export const useCurrentVibesData = () => {
+  // Shared keys with navbar preview so late lazy-hydration reuses in-flight data
+  // instead of racing a second client fetch that can surface as a network error.
   const {
     data: gameData,
     pending: gamePending,
     error: gameError,
   } = useFetch<GameDetails | { status: number; message: string }>(
     "/api/video-games",
+    { key: "vibes-video-games", lazy: true },
   );
-  const { data: blogData } = useFetch<MediumPost>("/api/blog");
-  const { data: musicData } = useFetch<MusicPlayer>("/api/music");
+  const { data: blogData } = useFetch<MediumPost>("/api/blog", {
+    key: "vibes-blog",
+    lazy: true,
+  });
+  const { data: musicData } = useFetch<MusicPlayer>("/api/music", {
+    key: "vibes-music",
+    lazy: true,
+  });
   const { data: traktData } = useFetch<TraktWatchedDetail | null>(
     "/api/trakt/history",
+    { key: "vibes-trakt-history", lazy: true },
   );
   const { data: readingData } = useFetch<
     GoodreadsBook | { status: number; message: string } | null
-  >("/api/goodreads");
+  >("/api/goodreads", { key: "vibes-goodreads", lazy: true });
   const { data: githubData } = useFetch<
     GitHubStats | { status: number; message: string }
-  >("/api/github");
+  >("/api/github", { key: "vibes-github", lazy: true });
 
   // Watch for data changes
   watch(

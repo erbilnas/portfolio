@@ -52,7 +52,7 @@ useHead({
   <Projects :hydrate-on-visible="{ rootMargin: '320px 0px' }" />
   <Skills :hydrate-on-visible="{ rootMargin: '240px 0px' }" />
   <Experience :hydrate-on-visible="{ rootMargin: '240px 0px' }" />
-  <CurrentVibes :hydrate-on-visible="{ rootMargin: '200px 0px' }" />
+  <CurrentVibes :hydrate-on-visible="{ rootMargin: '480px 0px' }" />
   <Guestbook :hydrate-on-visible="{ rootMargin: '160px 0px' }" />
   <FooterComponent :hydrate-on-visible="{ rootMargin: '120px 0px' }" />
 </template>

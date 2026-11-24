@@ -53,7 +53,10 @@ const easedProgress = computed(() => {
 /** Scale after the text morph so Hello isn’t competing focal points. */
 const helloScale = computed(() => {
   if (!motionAllowed.value) return 1;
-  const afterMorph = Math.min(1, Math.max(0, (easedProgress.value - 0.35) / 0.65));
+  const afterMorph = Math.min(
+    1,
+    Math.max(0, (easedProgress.value - 0.52) / 0.48),
+  );
   return 1 + afterMorph * 0.45;
 });
 
@@ -61,13 +64,14 @@ const helloStyle = computed(() => ({
   transform: `scale(${helloScale.value})`,
 }));
 
+/** Intro + FlipWords + CTAs: fade harder so "It's me, Erbil" goes transparent as Hello takes over. */
 const restStyle = computed(() => {
   if (!motionAllowed.value) return undefined;
   const p = easedProgress.value;
   return {
-    opacity: String(1 - Math.min(0.82, p * 1.05)),
-    transform: `translate3d(0, ${p * 32}px, 0)`,
-    pointerEvents: p > 0.45 ? "none" : "auto",
+    opacity: String(1 - Math.min(0.92, p * 1.45)),
+    transform: `translate3d(0, ${p * 36}px, 0)`,
+    pointerEvents: p > 0.38 ? "none" : "auto",
   };
 });
 

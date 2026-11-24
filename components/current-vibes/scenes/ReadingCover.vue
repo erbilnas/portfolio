@@ -30,6 +30,7 @@ import {
 } from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { useSettings } from "~/composables/settings";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 
 const props = defineProps<{
   src: string;
@@ -590,19 +591,15 @@ function resolveCoverUrl(src: string): string {
   if (src.startsWith("/") || src.startsWith("data:")) return src;
   try {
     const url = new URL(src);
-    const host = url.hostname;
     // Goodreads often serves tiny _SX98_ thumbs; request a sharper face for the board
-    if (host.endsWith(".gr-assets.com") || host === "gr-assets.com") {
-      url.pathname = url.pathname.replace(
-        /\._S[XY]\d+_/i,
-        "._SX600_",
-      );
-      return `/api/image-proxy?url=${encodeURIComponent(url.toString())}`;
+    if (url.hostname.endsWith(".gr-assets.com") || url.hostname === "gr-assets.com") {
+      url.pathname = url.pathname.replace(/\._S[XY]\d+_/i, "._SX600_");
+      return proxiedMediaUrl(url.toString());
     }
   } catch {
-    return src;
+    return proxiedMediaUrl(src);
   }
-  return src;
+  return proxiedMediaUrl(src);
 }
 
 function applyCoverArt(img: HTMLImageElement | null) {

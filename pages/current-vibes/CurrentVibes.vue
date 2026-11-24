@@ -13,7 +13,11 @@ const { cards } = useCurrentVibesData();
 </script>
 
 <template>
-  <section id="current-vibes" ref="sectionRef" class="relative">
+  <section
+    id="current-vibes"
+    ref="sectionRef"
+    class="relative scroll-mt-5"
+  >
     <div
       class="flex min-h-screen w-full flex-col items-center gap-12 overflow-hidden bg-white px-6 py-24 dark:bg-black md:gap-16 md:px-10 md:py-32"
     >
