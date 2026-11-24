@@ -91,6 +91,13 @@
     "visitTitle": "Visit {name} - Live Demo",
     "githubTitle": "View {name} source code on GitHub",
     "apps": {
+      "skills": {
+        "name": "Skills",
+        "tagline": "A searchable catalog of reusable agent skills. Browse by topic, open a skill, copy the install line, and get back to work — plus sets, MCPs, and rules.",
+        "problem": "Agent skills scatter across repos; finding the right one mid-flow is friction.",
+        "stack": "A Nuxt catalog with search, sets, MCPs, rules, and one-line install copy.",
+        "outcome": "Pick a workflow, paste the install, keep building."
+      },
       "mybestgame": {
         "name": "mybestgame.lol",
         "tagline": "A pay-to-rank video game leaderboard. Stack contributions to climb the chart, leave a Game Director message, and watch ranks update as payments clear.",
