@@ -5,6 +5,7 @@
  */
 import * as THREE from "three";
 import { useSettings } from "~/composables/settings";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 
 const props = defineProps<{
   src: string;
@@ -114,23 +115,7 @@ function mat(
 }
 
 function resolveCoverUrl(src: string): string {
-  if (!src) return "";
-  if (src.startsWith("/") || src.startsWith("data:")) return src;
-  try {
-    const host = new URL(src).hostname;
-    if (
-      host === "image.tmdb.org" ||
-      host === "howlongtobeat.com" ||
-      host === "www.howlongtobeat.com" ||
-      host.endsWith(".scdn.co") ||
-      host === "images.igdb.com"
-    ) {
-      return `/api/image-proxy?url=${encodeURIComponent(src)}`;
-    }
-  } catch {
-    return src;
-  }
-  return src;
+  return proxiedMediaUrl(src);
 }
 
 function buildDust(): THREE.Points {

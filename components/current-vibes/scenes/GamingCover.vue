@@ -33,6 +33,7 @@ import {
 } from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { useSettings } from "~/composables/settings";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 
 const props = defineProps<{
   src: string;
@@ -652,23 +653,7 @@ function setSize() {
 }
 
 function resolveCoverUrl(src: string): string {
-  if (!src) return "";
-  if (src.startsWith("/") || src.startsWith("data:")) return src;
-  try {
-    const host = new URL(src).hostname;
-    if (
-      host === "howlongtobeat.com" ||
-      host === "www.howlongtobeat.com" ||
-      host.endsWith(".scdn.co") ||
-      host === "image.tmdb.org" ||
-      host === "images.igdb.com"
-    ) {
-      return `/api/image-proxy?url=${encodeURIComponent(src)}`;
-    }
-  } catch {
-    return src;
-  }
-  return src;
+  return proxiedMediaUrl(src);
 }
 
 function loadCover(src: string) {

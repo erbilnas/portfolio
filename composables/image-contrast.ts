@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 
 interface ContrastResult {
   isLight: boolean;
@@ -86,7 +87,8 @@ export const useImageContrast = () => {
         resolve(0.5); // Default to medium brightness on error
       };
 
-      img.src = imageSrc;
+      // Remote covers (HLTB etc.) block canvas CORS; go through same-origin proxy.
+      img.src = proxiedMediaUrl(imageSrc);
     });
   };
 
