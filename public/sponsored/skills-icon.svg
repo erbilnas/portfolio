@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Skills">
+  <rect width="32" height="32" fill="#141414"/>
+  <!-- Geometric S: two open bowls + short bridge -->
+  <path
+    fill="none"
+    stroke="#f7f5f2"
+    stroke-width="3.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M22.5 10.2
+       C22.5 7.4 20.2 5.8 16.2 5.8
+       C12.1 5.8 9.6 7.5 9.6 10.1
+       C9.6 12.6 11.4 13.7 16.8 14.8
+       L17.6 15
+       C21.8 15.9 23.4 17.4 23.4 20.2
+       C23.4 23.4 20.6 25.4 16 25.4
+       C11.3 25.4 8.5 23.3 8.5 20.1"
+  />
+</svg>

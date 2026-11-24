@@ -91,6 +91,13 @@
     "visitTitle": "{name} - Canlı Demo'yu Ziyaret Et",
     "githubTitle": "{name} kaynak kodunu GitHub'da görüntüle",
     "apps": {
+      "skills": {
+        "name": "Skills",
+        "tagline": "Yeniden kullanılabilir agent skill’lerinin aranabilir kataloğu. Konuya göre gezinin, bir skill açın, kurulum satırını kopyalayın — setler, MCP’ler ve kurallar da burada.",
+        "problem": "Agent skill’leri depolara dağılır; akış ortasında doğruyu bulmak sürtünme yaratır.",
+        "stack": "Arama, setler, MCP’ler, kurallar ve tek satırlık kurulum kopyası olan bir Nuxt katalog.",
+        "outcome": "İş akışını seçin, kurulumu yapıştırın, üretmeye devam edin."
+      },
       "mybestgame": {
         "name": "mybestgame.lol",
         "tagline": "Ödeme ile sıralanan bir video oyunu liderlik tablosu. Katkılarınızı biriktirin, sıralamada yükselin, Oyun Yönetmeni mesajı bırakın ve ödemeler onaylandıkça sıralamanın güncellenmesini izleyin.",

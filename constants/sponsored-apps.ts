@@ -7,6 +7,14 @@ import type { SponsoredApp } from "~/types/sponsored-app";
  */
 const sponsoredAppsRaw: SponsoredApp[] = [
   {
+    id: "skills",
+    brandColor: "#141414",
+    url: "https://skills.erbilnas.com/",
+    image: "/sponsored/skills-icon.svg",
+    imageFit: "contain",
+    year: "2026",
+  },
+  {
     id: "mybestgame",
     brandColor: "#e11d2e",
     url: "https://mybestgame.lol/",
