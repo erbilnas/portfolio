@@ -1,3 +1,16 @@
+# [6.11.0-preview.1](https://github.com/erbilnas/portfolio/compare/v6.10.0...v6.11.0-preview.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* **docker:** add curl so Coolify healthchecks pass ([377b022](https://github.com/erbilnas/portfolio/commit/377b022e312a1e41940e46b39f636e110232e5dc))
+* **projects:** raise dark-mode stage text contrast ([e407063](https://github.com/erbilnas/portfolio/commit/e40706330dfd980e090bf7eaa25e4f28f8a9d7e0))
+
+
+### Features
+
+* **projects:** add skills.erbilnas.com to the catalog ([aed46f1](https://github.com/erbilnas/portfolio/commit/aed46f14a08df17fabf351a12a1181dc2dd33fa2))
+
 # [6.10.0](https://github.com/erbilnas/portfolio/compare/v6.9.0...v6.10.0) (2026-11-23)
 
 

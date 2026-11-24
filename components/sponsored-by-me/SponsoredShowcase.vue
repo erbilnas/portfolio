@@ -323,13 +323,13 @@ onUnmounted(() => {
                   {{ t(`projects.apps.${featured.id}.name`) }}
                 </h3>
                 <span
-                  class="text-sm tabular-nums text-neutral-600 dark:text-neutral-300"
+                  class="text-sm tabular-nums text-neutral-600 dark:text-neutral-200"
                 >
                   {{ featured.year }}
                 </span>
               </div>
               <p
-                class="mt-3 text-base leading-relaxed text-neutral-600 dark:text-neutral-300 md:text-lg"
+                class="mt-3 text-base leading-relaxed text-neutral-600 dark:text-neutral-200 md:text-lg"
               >
                 {{ t(`projects.apps.${featured.id}.tagline`) }}
               </p>
@@ -343,19 +343,19 @@ onUnmounted(() => {
               >
                 <p
                   v-if="caseLine(featured.id, 'problem')"
-                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
+                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-200"
                 >
                   {{ caseLine(featured.id, "problem") }}
                 </p>
                 <p
                   v-if="caseLine(featured.id, 'stack')"
-                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
+                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-200"
                 >
                   {{ caseLine(featured.id, "stack") }}
                 </p>
                 <p
                   v-if="caseLine(featured.id, 'outcome')"
-                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300"
+                  class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-200"
                 >
                   {{ caseLine(featured.id, "outcome") }}
                 </p>
@@ -464,13 +464,13 @@ onUnmounted(() => {
                   'truncate text-[13px] tracking-tight',
                   item.id === activeId
                     ? 'font-semibold text-neutral-950 dark:text-white'
-                    : 'font-medium text-neutral-600 dark:text-neutral-300',
+                    : 'font-medium text-neutral-600 dark:text-neutral-200',
                 ]"
               >
                 {{ t(`projects.apps.${item.id}.name`) }}
               </p>
               <p
-                class="mt-0.5 text-xs tabular-nums text-neutral-600 dark:text-neutral-300"
+                class="mt-0.5 text-xs tabular-nums text-neutral-600 dark:text-neutral-200"
               >
                 {{ item.year }}
               </p>
