@@ -1,3 +1,10 @@
+## [6.11.1](https://github.com/erbilnas/portfolio/compare/v6.11.0...v6.11.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* **nav:** settle vibes scroll after lazy layout and polish welcome ([e25f424](https://github.com/erbilnas/portfolio/commit/e25f4247309ffd2e012653eca411a0de047b7500))
+
 ## [6.11.1-preview.1](https://github.com/erbilnas/portfolio/compare/v6.11.0...v6.11.1-preview.1) (2026-11-24)
 
 
