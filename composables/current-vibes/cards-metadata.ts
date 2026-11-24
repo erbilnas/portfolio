@@ -12,6 +12,7 @@ import {
   groupTravelPlacesByCountry,
   type TravelPlace,
 } from "~/utils/parse-travel-places";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 import type { CardData } from "./current-vibes-data";
 
 export interface TravelPlaceGroupMeta {
@@ -244,7 +245,9 @@ export const useCardsMetadata = () => {
               game?.status === "playing"
                 ? t("currentVibes.cards.game.currentlyPlaying")
                 : t("currentVibes.cards.game.recentlyCompleted"),
-            src: game?.image || "/images/blog-post-card-bg.jpg",
+            src: proxiedMediaUrl(
+              game?.image || "/images/blog-post-card-bg.jpg",
+            ),
             progress: game?.progress,
             progressPercentage: calculateProgressPercentage(game),
             platform,
@@ -279,7 +282,7 @@ export const useCardsMetadata = () => {
             category: player?.is_playing
               ? t("currentVibes.cards.music.listeningTo")
               : t("currentVibes.cards.music.lastPlayed"),
-            src: player?.album?.image || "",
+            src: proxiedMediaUrl(player?.album?.image || ""),
             artist: player?.artist,
             album: player?.album?.name,
             isPlaying: !!player?.is_playing,
@@ -334,7 +337,9 @@ export const useCardsMetadata = () => {
           return {
             title: trakt?.title || t("currentVibes.cards.trakt.defaultTitle"),
             category: t("currentVibes.cards.trakt.lastWatched"),
-            src: trakt?.image || "/images/trakt-card-bg.png",
+            src: proxiedMediaUrl(
+              trakt?.image || "/images/trakt-card-bg.png",
+            ),
             watchedDate: formatDate(trakt?.watched_at, locale.value),
             mediaType: trakt?.type,
             subtitle: trakt?.subtitle,
@@ -392,7 +397,7 @@ export const useCardsMetadata = () => {
               book?.status === "finished"
                 ? t("currentVibes.cards.reading.recentlyFinished")
                 : t("currentVibes.cards.reading.currentlyReading"),
-            src: book?.image || "",
+            src: proxiedMediaUrl(book?.image || ""),
             author: book?.author || undefined,
             readingStatus: book?.status,
             readingDate:

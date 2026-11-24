@@ -168,10 +168,16 @@ watch(activeType, async () => {
   const active = activeType.value
     ? tabRefs.value[activeType.value]
     : null;
-  active?.scrollIntoView({
-    block: "nearest",
-    inline: "center",
-    behavior: reducedMotion.value ? "auto" : "smooth",
+  const list = tablistRef.value;
+  if (!active || !list) {
+    return;
+  }
+  // Scroll the tab strip only — element.scrollIntoView also moves the document.
+  const left =
+    active.offsetLeft - (list.clientWidth - active.offsetWidth) / 2;
+  list.scrollTo({
+    left: Math.max(0, left),
+    behavior: reducedMotion.value ? "instant" : "smooth",
   });
 });
 

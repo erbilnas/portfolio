@@ -84,6 +84,11 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Navbar long-hops: override smooth so lazy layout settle can re-align instantly */
+  html.navbar-instant-scroll {
+    scroll-behavior: auto !important;
+  }
+
   /* Font size settings */
   html.font-size-default {
     font-size: 100%;

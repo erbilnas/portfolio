@@ -30,6 +30,7 @@ import {
   WebGLRenderer,
 } from "three";
 import { useSettings } from "~/composables/settings";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 
 const props = defineProps<{
   src: string;
@@ -231,21 +232,7 @@ function paintSleeve(art: HTMLImageElement | null): CanvasTexture {
 }
 
 function resolveCoverUrl(src: string): string {
-  if (!src) return "";
-  if (src.startsWith("/") || src.startsWith("data:")) return src;
-  try {
-    const host = new URL(src).hostname;
-    if (
-      host === "i.scdn.co" ||
-      host === "mosaic.scdn.co" ||
-      host.endsWith(".scdn.co")
-    ) {
-      return `/api/image-proxy?url=${encodeURIComponent(src)}`;
-    }
-  } catch {
-    return src;
-  }
-  return src;
+  return proxiedMediaUrl(src);
 }
 
 function applyArt(img: HTMLImageElement | null) {

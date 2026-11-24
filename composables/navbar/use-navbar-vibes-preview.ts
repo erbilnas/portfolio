@@ -4,6 +4,7 @@ import type {
   MusicPlayer,
   TraktWatchedDetail,
 } from "~/types/current-vibes";
+import { proxiedMediaUrl } from "~/utils/proxied-media-url";
 
 export type NavbarVibesKind = "music" | "game" | "trakt" | "reading";
 
@@ -19,24 +20,28 @@ export const useNavbarVibesPreview = () => {
   const { t } = useI18n();
 
   const { data: musicData } = useFetch<MusicPlayer>("/api/music", {
+    key: "vibes-music",
     lazy: true,
     server: false,
   });
   const { data: gameData } = useFetch<
     GameDetails | { status: number; message: string }
   >("/api/video-games", {
+    key: "vibes-video-games",
     lazy: true,
     server: false,
   });
   const { data: readingData } = useFetch<
     GoodreadsBook | { status: number; message: string } | null
   >("/api/goodreads", {
+    key: "vibes-goodreads",
     lazy: true,
     server: false,
   });
   const { data: traktData } = useFetch<TraktWatchedDetail | null>(
     "/api/trakt/history",
     {
+      key: "vibes-trakt-history",
       lazy: true,
       server: false,
     },
@@ -49,7 +54,7 @@ export const useNavbarVibesPreview = () => {
         kind: "music",
         category: t("currentVibes.cards.music.listeningTo"),
         title: `${player.name} · ${player.artist}`,
-        image: player.album?.image || undefined,
+        image: proxiedMediaUrl(player.album?.image || "") || undefined,
         isLive: true,
       };
     }
@@ -63,7 +68,7 @@ export const useNavbarVibesPreview = () => {
         kind: "game",
         category: t("currentVibes.cards.game.currentlyPlaying"),
         title: games.playing.title,
-        image: games.playing.image || undefined,
+        image: proxiedMediaUrl(games.playing.image || "") || undefined,
         isLive: true,
       };
     }
@@ -82,7 +87,7 @@ export const useNavbarVibesPreview = () => {
         title: reading.author
           ? `${reading.title} · ${reading.author}`
           : reading.title,
-        image: reading.image || undefined,
+        image: proxiedMediaUrl(reading.image || "") || undefined,
         isLive: false,
       };
     }
@@ -92,7 +97,7 @@ export const useNavbarVibesPreview = () => {
         kind: "trakt",
         category: t("currentVibes.cards.trakt.lastWatched"),
         title: traktData.value.title,
-        image: traktData.value.image || undefined,
+        image: proxiedMediaUrl(traktData.value.image || "") || undefined,
         isLive: false,
       };
     }
@@ -102,7 +107,7 @@ export const useNavbarVibesPreview = () => {
         kind: "music",
         category: t("currentVibes.cards.music.lastPlayed"),
         title: `${player.name} · ${player.artist}`,
-        image: player.album?.image || undefined,
+        image: proxiedMediaUrl(player.album?.image || "") || undefined,
         isLive: false,
       };
     }
@@ -112,7 +117,7 @@ export const useNavbarVibesPreview = () => {
         kind: "game",
         category: t("currentVibes.cards.game.recentlyCompleted"),
         title: games.last_completed.title,
-        image: games.last_completed.image || undefined,
+        image: proxiedMediaUrl(games.last_completed.image || "") || undefined,
         isLive: false,
       };
     }
